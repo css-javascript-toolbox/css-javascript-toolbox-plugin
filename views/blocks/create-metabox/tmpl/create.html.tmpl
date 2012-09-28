@@ -1,0 +1,33 @@
+<?php
+/**
+* 
+*/
+
+// Disallow direct access.
+defined('ABSPATH') or die("Access denied");
+
+// Display as metabox without using Wordpress Metabox APIs.
+if ($this->getOption('customizeMetabox')) : ?>
+<div id="cjtoolbox-<?php echo $this->block->id; ?>" class="postbox">
+	<div class="handlediv" title="Click to toggle"><br /></div>
+	<h3 class='hndle'>
+		<span><span class="block-name"><?php echo $this->block->name ?></span></span>
+	</h3>
+	<div class="inside">
+<?php endif; ?>
+		<input type="hidden" name="blocks[]" value="<?php echo $this->getBlock()->id ?>" />
+		<input type="hidden" id="cjt-securityToken" value="<?php echo $this->getSecurityToken() ?>" />
+
+		<div class="cjt-create-metabox-metabox-form">
+			<p class="notice"><?php echo cssJSToolbox::getText('Would you like to create a new CJT block for this post?') ?></p>
+			<p><?php echo cssJSToolbox::getText('In order to increase performance while navigating the post pages and for saving database records we\'re not creating CJT code block for any post until you really need to do!') ?></p>
+			<p><?php echo cssJSToolbox::getText('Click') ?> <a id="create-cjt-block" href=""><?php echo cssJSToolbox::getText('Create') ?></a> <?php echo cssJSToolbox::getText('to create CJT code block for current post and utilize from all features found in the CJT management page!') ?></p>
+		</div>
+		<script type="text/javascript">
+			// Initialize metabox.
+			jQuery(jQuery.proxy(CJTBlocksPage.init, CJTBlocksPage));
+		</script>
+<?php if ($this->getOption('customizeMetabox')) : ?>
+	</div>
+</div>
+<?php endif; ?>

@@ -1,0 +1,60 @@
+<?php
+/**
+* 
+*/
+
+/**
+* No direct access.
+*/
+defined('ABSPATH') or die("Access denied");
+?>
+<html xmlns="">
+	<head>
+<?php wp_print_head_scripts() ?>
+<?php wp_print_styles() ?>
+	</head>
+	<body>
+		<div id="cjtoolbox_popup">
+			<form id="templates-lookup" class="cjt-form">
+<?php	if (empty($this->templates)) : ?>
+
+<?php else :
+				// First we need to group the templates by its type.
+				$templatesGrouped = array();
+				foreach ($this->templates as $id => $template) {
+					// [TEMPLATE-TYPE][AUTHOR-NAME][TEMPLATE-ID] = TEMPLATE.
+					$templatesGrouped[$template->type][$template->name][$id] = $template;
+				}
+?>
+				<div id="templates-list">
+<?php 		foreach ($templatesGrouped as $type => $authors) : ?>
+					<h3 id="#templates-type-header-<?php echo $type ?>"><a href="#"><?php echo _e($type, CJTOOLBOX_TEXT_DOMAIN) ?></a></h3>
+					<div id="#templates-type-content-<?php echo $type ?>" class="templates-list">
+						<ul class="authors-list">
+<?php 				foreach ($authors as $author => $templates) : ?>
+								<li>
+									<span class="author-name"><?php _e('User', CJTOOLBOX_TEXT_DOMAIN) ?>: <a class="name" href="#<?php echo "{$author}_{$type}" ?>"><?php echo $author ?></a></span>
+									<ul id="<?php echo "{$author}_{$type}" ?>-author-templates" class="templates">
+<?php 						foreach ($templates as $id => $template) : ?>
+										<li>
+											<div class="title"><?php echo $template->title ?></div>
+											<span class="options">
+												<a href="#"><?php _e('Embedded', CJTOOLBOX_TEXT_DOMAIN) ?></a> | 
+				  							<a href="#"><?php _e('Link', CJTOOLBOX_TEXT_DOMAIN) ?></a> | 
+				  							<a href="#"><?php _e('Info', CJTOOLBOX_TEXT_DOMAIN) ?></a>
+											</span>
+										</li>
+<?php 						endforeach;	?>
+									</ul>
+								</li>
+						</ul>
+<?php 			endforeach;	?>
+					</div>
+<?php 		endforeach; ?>				
+				</div>
+<?php endif; ?>
+			</form>
+		</div>
+<?php wp_print_footer_scripts() ?>
+	</body>
+</html>

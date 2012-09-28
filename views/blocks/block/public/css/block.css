@@ -1,0 +1,207 @@
+#cjtoolbox-admin div.postbox { display:none }
+
+/* Editor langauges list */
+.editor-langs {
+	position: absolute;  
+	z-index: 2;    
+	width: 200px;
+	overflow: hidden;
+	margin-top: -2px;
+	/* Border */
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+	border-right-style: solid;
+	border-right-width: 1px;
+	border-color: inactiveborder;
+	margin-left: 33px;
+}
+.editor-langs select {
+	height: 70px;
+	width: 114px;
+}
+/** Toolbox **/
+.block-toolbox { 
+	height: 30px;
+	position: absolute;
+	right: 30px;
+	top: 0px; 
+}
+.block-toolbox .icons-group {
+	display: inline-block;
+}
+.block-toolbox .icons-group a.cjt-tb-link {
+	width: 24px;
+	height: 24px;
+	display: inline-block;
+	/* margin-top: 3px; */
+	cursor: pointer;
+}
+.block-toolbox .icons-group a.il-60x23 {
+	width: 60px;
+	height: 23px;
+}
+.cjt-toolbox .icons-group .popup-menu.templates-lookup { /* Override default for Templates Lookup*/
+	background-color: #EFEFEF;
+	border: 1px solid white;
+	border-top: none;
+	height: 345px;
+	left: 80px;
+	top: 31px;
+}
+/** Toolbox buttons **/
+
+/* Editor languages classes */
+.block-toolbox a.cjttbl-switch-editor-language{}
+.block-toolbox a.cjttbl-editor-language-css { background: url(../images/toolbox/editor-languages/css.png); }
+.block-toolbox a.cjttbl-editor-language-html { background: url(../images/toolbox/editor-languages/html.png); }
+.block-toolbox a.cjttbl-editor-language-javascript { background: url(../images/toolbox/editor-languages/javascript.png); }
+.block-toolbox a.cjttbl-editor-language-php { background: url(../images/toolbox/editor-languages/php.png); }
+/* Other buttons */
+.block-toolbox a.state-active { background: url(../images/toolbox/active.png); }
+.block-toolbox a.state-inactive { background-image: url(../images/toolbox/inactive.png); }
+.block-toolbox a.cjttbl-save {
+	background: url(../images/toolbox/save.png);
+	background-position: left top !important;
+	text-decoration: none;
+	padding-left: 23px;
+	padding-top: 5px;
+	position: relative;
+	top: -8px;
+	width: 37px !important;
+	height: 18px !important;
+}
+.block-toolbox a.cjttbl-save.cjttbs-loading {
+	top: -2px;
+	background-position: center center;
+}
+.block-toolbox a.cjttbl-save.cjttbs-disabled {background: url(../images/toolbox/save-inactive.png); }
+.block-toolbox a.cjttbl-revisions { background-image: url(../images/toolbox/revisions.png); }
+.block-toolbox a.cjttbl-delete { background-image: url(../images/toolbox/delete.png); }
+.block-toolbox a.location-header { background-image: url(../images/toolbox/header-hook.png); }
+.block-toolbox a.location-footer { background-image: url(../images/toolbox/footer-hook.png); }
+.block-toolbox a.cjttbl-get-shortcode { background-image: url(../images/toolbox/shortcode.png); }
+.block-toolbox a.cjttbl-edit-name { background-image: url(../images/toolbox/edit-name.png); }
+.block-toolbox a.cjttbl-info { background-image: url(../images/toolbox/info.png); }
+.block-toolbox a.cjttbl-templates-lookup { background-image: url(../images/toolbox/el-scripts.png); }
+
+/** Editor Toolbox */
+.cjt-toolbox.editor-toolbox {
+	position: relative;
+	float: right;
+	width: 40px;
+	height: 341px;
+	top: 10px;	
+	margin-left: 10px;
+	border: 1px solid #EFEFEF;
+}
+.cjt-toolbox.editor-toolbox .icons-group a.cjt-tb-link {margin: 6px 0 0 6px;}
+.cjt-toolbox.editor-toolbox a.cjttbl-fullscreen {background-image: url(../images/editor-toolbox/maximise-editor.png);}
+.cjt-toolbox.editor-toolbox a.cjttbl-fullscreen.maximized {background-image: url(../images/editor-toolbox/minimise-editor.png);}
+.cjt-toolbox.editor-toolbox a.cjttbl-font-large {background-image: url(../images/editor-toolbox/font-large.png);}
+.cjt-toolbox.editor-toolbox a.cjttbl-font-small {background-image: url(../images/editor-toolbox/font-small.png);}
+.cjt-toolbox.editor-toolbox a.cjttbl-reset-font {background-image: url(../images/editor-toolbox/font-reset.png);}
+
+/* Edit block name */
+.edit-block-name {
+  position: absolute;
+  height: 30px;
+  top: 0px;
+  display: none;
+}
+.edit-block-name .icons-group {
+	display: inline-block;
+	margin-left: 0px;
+	position: relative;
+	top: 3px;
+}
+.edit-block-name input.block-name {
+  width: 200px;
+  margin-right: 10px;
+  height: 24px;
+  background-color: #F1F1F1;
+  position: relative;
+  top: -6px;
+  margin-left: -3px;
+}
+span.block-name {
+	cursor: pointer;
+}
+.edit-block-name .cancel { background-image: url(../images/edit-block-name/cancel.png); }
+.edit-block-name .save { background-image: url(../images/edit-block-name/save.png); }
+
+.cjcodeblock { margin-right:30px; min-width:750px; }
+
+.cssblock, .jsblock { width:50%; }
+.cssblock { float:left; }
+.jsblock { float:right;  }
+.datablock {padding-top: 14px;} /* IE8 */
+.datablock .code-editor { position: relative; width:auto; height:352px; }
+ a.button-secondary { float:left; }
+.linklist textarea { width:245px; font-size:11px; height:190px; }
+.cjtitle { float:left; width:245px; }
+.cssblock select { width:150px; }
+.jsblock select { width:155px; }
+.cjbutton { width:116px; height:24px; float:left; }
+.cjbutton a { height:24px; width:24px; text-indent:-999em; display:block; float:left; }
+.cjexample { clear:left; float:left; padding:5px 0 0; }
+
+/** Editor Full Screen mode */
+body.fullscreen {overflow: hidden;} /** No scroll-bars */
+body.fullscreen #wpadminbar {display: none;} /** No admin menu */
+.postbox.fullscreen {
+	position: fixed;
+	z-index: 30;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+}
+.postbox.fullscreen .cjcontainer {
+	position: fixed;
+	top: 32px;
+	left: 0px;
+	border: 0;
+	bottom: 0;
+	right: 0;
+	width: 100%;
+	height: 100%;
+}
+.postbox.fullscreen .cjcontainer .cjcodeblock,
+.postbox.fullscreen .cjcontainer .datablock,
+.postbox.fullscreen .cjcontainer .code-editor {
+	height: 100%;
+}
+.postbox.fullscreen .cjcontainer .datablock {
+	padding-top: 0;
+}
+/** Code Auto Completion */
+.postbox div.cac {
+	border-top-right-radius: 10px;
+	border-top-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+	background-color: white;
+	border: 2px solid #169CE7;
+	width: 310px;
+	height: 320px;
+	top: 0;
+	left: 0;
+	z-index: 32;
+	display: none;
+	margin-left: 10px;
+	margin-top: 14px;
+}
+.postbox div.cac select.code-list {
+	height: 96%;
+	width: 98%;
+	margin: 3px 2px;
+	font-size: 14px;
+	font-family: cursive;
+	font-weight: bold;
+	color: #999E21;
+	border: 0;
+}
+.postbox div.cac select.code-list option {}
+.postbox.fullscreen .cjcontainer div.cac {
+	margin: 0;
+}

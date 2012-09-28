@@ -1,0 +1,15 @@
+<?php 
+/**
+* 
+*/
+
+// Disallow direct access.
+defined('ABSPATH') or die('Restricted Access');
+
+// Get block view content.
+$blockView = $this->getBlockView();
+$blockContent = $blockView->getTemplate($blockView->templateName);
+
+// Put the Objects Panel at the begning of the block content.
+echo $this->getTemplate('objects-panel', array('block' => $blockView->getBlock()), 'tmpl/templates');
+echo $blockContent;

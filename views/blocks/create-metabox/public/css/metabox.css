@@ -1,0 +1,8 @@
+.cjt-create-metabox-metabox-form .notice {
+	font-weight: bold;
+}
+.link-loading { 
+	display: inline-block;
+	height: 11px;
+	background : url('../../../../../framework/css/images/loading.gif') center no-repeat; 
+}

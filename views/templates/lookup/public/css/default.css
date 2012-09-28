@@ -1,0 +1,52 @@
+/* Globals */
+body {
+	margin: 0;
+	padding: 0;
+}
+ul {
+	width: 100%;
+	font-size: 11px;
+}
+/* Templates List */
+.templates-list {
+	height: 212px;
+	overflow: auto;
+}
+.templates-list ul.templates {
+	padding-left: 24px;
+	display: none;
+}
+.templates-list ul.templates li {
+	list-style: disc;
+	border-bottom: 1px solid gray;
+	padding-bottom: 1px;
+}
+.templates-list ul.templates li .title {
+	font-weight: bold;
+}
+.templates-list ul li .options {
+	display: inline-block;
+	margin-left: 15px;
+	padding-top: 8px;
+}
+.templates-list ul.templates li a {
+	color: green;
+}
+.templates-list ul.templates li a:hover {
+	font-weight: bold;
+}
+.templates-list ul.templates li a, 
+.templates-list ul.templates li a:hover,
+.templates-list ul.templates li a:visited{
+	text-decoration: none;
+}
+/* Authors */
+.author-name a.name,
+.author-name a.name:hover
+.author-name a.name:visited {
+	font-weight: bold;
+	color: navy;
+}
+.author-name a.name:hover {
+	text-decoration: underline;
+}

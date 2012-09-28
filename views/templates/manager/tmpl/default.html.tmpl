@@ -1,0 +1,45 @@
+<?php
+/**
+* 
+*/
+
+// Disallow direct access.
+defined('ABSPATH') or die("Access denied");
+
+// Import list table class used for displaying templates list.
+$this->importHelper('wp-templates-list-table');
+?>
+<html xmlns="">
+	<head>
+<?php wp_print_head_scripts() ?>
+<?php wp_print_styles() ?>
+	</head>
+	<body>
+		<div id="wpwrap">
+			<div id="wpcontent">
+				<div id="wpbody">
+					<div id="wpbody-content">
+						<div class="wrap">
+							<form id="templates-manager" class="cjt-form">
+<?php
+								$listTable = new CJTTemplatesManagerListTable();
+								// Push templates list into list table.
+								$listTable->items = array(
+									(object) array('name' => 'Dance With Wolves', 'id' => 1),
+									(object) array('name' => 'Medal Of Honor', 'id' => 2),
+									(object) array('name' => 'Red Alert 2', 'id' => 3),
+									(object) array('name' => 'Command 2', 'id' => 4),
+								);
+								// Output search box.
+								$listTable->search_box(__('Search'), 'search-phrase');
+								// Output list table
+								$listTable->display();
+?>
+							</form>
+						</div>					
+					</div>
+				</div>			
+			</div>
+		</div>
+	</body>
+</html>

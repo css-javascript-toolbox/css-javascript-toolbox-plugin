@@ -1,0 +1,74 @@
+<?php
+/**
+* 
+*/
+
+// Disallow direct access.
+defined('ABSPATH') or die("Access denied");
+
+// Allow view to enqueue scripts and styles.
+do_action('admin_print_scripts');
+do_action('admin_print_styles');
+?>
+<html xmlns="">
+	<head>
+<?php wp_print_head_scripts() ?>
+<?php wp_print_styles() ?>
+	</head>
+	<body>
+		<div id="cjtoolbox_popup">
+		  <form id="cjtoolbox_new_block_form" class="cjt-form">
+  			<fieldset>
+  				<ul>
+  					<li>
+  						<label for="cjt-new-block-name"><?php _e('Name', CJTOOLBOX_TEXT_DOMAIN) ?>*</label>
+  						<input type="text" id="cjt-new-block-name" name="name" value="" />
+  					</li>
+  					<li>
+  						<label for="cjt-new-block-state"><?php _e('Active', CJTOOLBOX_TEXT_DOMAIN) ?></label>
+  						<input type="checkbox" id="cjt-new-block-state" name="state" value="active" checked="checked" />
+  					</li>
+  					<li>
+  						<label for="cjt-new-block-location"><?php _e('Hook', CJTOOLBOX_TEXT_DOMAIN) ?></label>
+  						<select name="location" id="cjt-new-block-hook">
+<?php
+							$locations = array(
+  							'header' => __('Header', CJTOOLBOX_TEXT_DOMAIN),
+  							'footer' => __('Footer', CJTOOLBOX_TEXT_DOMAIN),
+							);
+							foreach ($locations as $key => $displayName) :
+?>
+							<option value="<?php echo $key ?>"><?php echo $displayName ?></option>
+<?php
+  						endforeach;
+?>
+							</select>
+  					</li>
+  					<li>
+  						<label for="cjt-new-block-position"><?php _e('Initial location', CJTOOLBOX_TEXT_DOMAIN) ?></label>
+  						<select name="position" id="cjt-new-block-position">
+<?php
+							// Static locations.
+							$positions = array(
+  							'top' => __('First Block', CJTOOLBOX_TEXT_DOMAIN),
+  							'bottom' => __('Last Block', CJTOOLBOX_TEXT_DOMAIN),
+							);
+							// Display locations list.
+							foreach ($positions as $position => $displayName) :
+?>
+							<option value="<?php echo $position ?>"<?php if ($this->position == $position) : ?> selected="selected"<?php endif; ?>><?php echo $displayName ?></option>
+<?php
+  						endforeach;
+?>
+							</select>
+  					</li>
+  					<li class="last">
+  						<input class="cjt-button cancel" type="button" value="<?php _e('Cancel', CJTOOLBOX_TEXT_DOMAIN) ?>" />
+					    <input class="cjt-button save" type="submit" name="submit" value="<?php _e('Create', CJTOOLBOX_TEXT_DOMAIN) ?>" />
+  					</li>
+  				</ul>
+  			</fieldset>
+		  </form>
+		</div>
+	</body>
+</html>

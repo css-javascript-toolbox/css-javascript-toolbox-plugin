@@ -1,0 +1,8 @@
+#settings-tabs {
+	height: 94%;
+}
+input[type="submit"].cjt-submit {
+	margin-right: 2px;
+	padding: 0px 30px;
+	margin-top: 7px;
+}

@@ -1,0 +1,54 @@
+<?php
+/**
+* 
+*/
+
+// Disallow direct access.
+defined('ABSPATH') or die("Access denied");
+?>
+		<div class="cjt-toolbox edit-block-name">
+			<input type="text" class="block-name" value="">
+			<div class="icons-group">
+				<a class="cjt-tb-link cancel" title="<?php _e('Cancel editing') ?>"></a>
+				<a class="cjt-tb-link save" title="<?php _e('Save name') ?>"></a>
+	    </div>
+		</div>
+<?php echo $this->getTemplate('toolbox', array(), 'tmpl/templates') ?>
+		<input type="hidden" name="blocks[]" value="<?php echo $this->block->id ?>" />
+<?php
+		// Hidden fields.
+			$fields = array('name','state','location','scripts');
+			foreach ($fields as $field) :
+?>
+		<input type="hidden" name="cjtoolbox[<?php echo $this->block->id; ?>][<?php echo $field ?>]" value="<?php echo $this->block->$field ?>" />
+<?php endforeach; ?>
+		<div class="cjcontainer">
+			<div class="cjcodeblock">
+<?php 	echo $this->getTemplate('editor-toolbox', array(), 'tmpl/templates'); ?>
+				<div class="datablock">
+					<textarea class="initCode" style="visibility:hidden"><?php echo $this->block->code ;?></textarea>
+<?php 		echo $this->getTemplate('code-auto-complete', array(), 'tmpl/templates'); ?>
+					<div id="editor-<?php echo $this->block->id ?>" class="code-editor">
+						<div class="xx"></div>
+					</div>					
+				</div>
+<?php
+			// Meta field.
+			foreach ((array) $this->block->meta as $module => $values) :
+  			foreach ($values as $metaName => $metaValue) :
+  			$isHidden = strpos($metaName, '_');
+  			if (($isHidden !== FALSE) && ($isHidden == 0)) {
+  				// Fields start with underscore is private to the modules.
+  				continue;
+				}
+				if (is_array($metaValue)) {
+					$metaValue = json_encode($metaValue);
+				}
+?>
+				<input type="hidden" class="meta-<?php echo $this->block->id ?>-<?php echo $module ?>" name="cjtoolbox[<?php echo $this->block->id ?>][meta][<?php echo $module ?>][<?php echo $metaName ?>]" value='<?php echo $metaValue ?>' />
+<?php
+				endforeach;
+			endforeach;
+?>
+			</div>
+		</div>

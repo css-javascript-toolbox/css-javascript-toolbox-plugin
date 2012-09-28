@@ -1,0 +1,95 @@
+<?php
+	// Import Wordpress pages checkbox list helpers.
+	$this->importHelper('wpnavmenuwalker');
+	$this->importHelper('wppageslist');	
+?>
+		<div class="cjpageblock">
+			<div id="tabs-<?php echo $block->id; ?>" class="cjt-pages-tab">
+				<ul>
+					<li><a href="#tabs-<?php echo $block->id; ?>-pages"><?php _e('Pages', CJTOOLBOX_TEXT_DOMAIN) ?></a></li>
+					<li><a href="#tabs-<?php echo $block->id; ?>-posts"><?php _e('Posts', CJTOOLBOX_TEXT_DOMAIN) ?></a></li>
+					<li><a href="#tabs-<?php echo $block->id; ?>-categories"><?php _e('Categories', CJTOOLBOX_TEXT_DOMAIN) ?></a></li>
+					<li><a href="#tabs-<?php echo $block->id; ?>-other"><?php _e('Other', CJTOOLBOX_TEXT_DOMAIN) ?></a></li>
+					<li><a href="#tabs-<?php echo $block->id; ?>-links"><?php _e('URLs', CJTOOLBOX_TEXT_DOMAIN) ?></a></li>
+					<li><a href="#tabs-<?php echo $block->id; ?>-expressions"><?php _e('Expressions', CJTOOLBOX_TEXT_DOMAIN) ?></a></li>
+				</ul>
+				<div id="tabs-<?php echo $block->id; ?>-pages">
+					<ul class="pagelist">
+						<li>
+							<label>
+<?php						echo $this->getPinCheckbox('pinPoint', CJTBlockModel::PINS_PAGES_ALL_PAGES) ?> <?php _e('All Pages', CJTOOLBOX_TEXT_DOMAIN) ?>
+							</label>
+						</li>
+						<li>
+							<label>
+<?php						echo $this->getPinCheckbox('pinPoint', CJTBlockModel::PINS_PAGES_FRONT_PAGE) ?> <?php _e('Front Page', CJTOOLBOX_TEXT_DOMAIN) ?>
+							</label> 
+							<a class="l_ext" target="_blank" href="<?php bloginfo('url');?>"></a>
+						</li>
+							<?php WPPagesListHelper::show_pages_with_checkbox($block->id, $block->pages, 'page', 'pages', $this->pagesPanelRegionMetrics); ?>
+					</ul>
+				</div>
+				<div id="tabs-<?php echo $block->id; ?>-posts">
+					<ul class="pagelist">
+						<li>
+							<label>
+<?php						echo $this->getPinCheckbox('pinPoint', CJTBlockModel::PINS_POSTS_ALL_POSTS) ?> <?php _e('All Posts', CJTOOLBOX_TEXT_DOMAIN) ?>
+							</label>
+						</li>
+						<li>
+							<label>
+<?php						echo $this->getPinCheckbox('pinPoint', CJTBlockModel::PINS_POSTS_BLOG_INDEX) ?> <?php _e('Blog Index', CJTOOLBOX_TEXT_DOMAIN) ?>
+							</label>
+						</li>
+						<li>
+							<label>
+<?php						echo $this->getPinCheckbox('pinPoint', CJTBlockModel::PINS_POSTS_RECENT) ?> <?php _e('Recent Posts', CJTOOLBOX_TEXT_DOMAIN) ?>
+							</label>
+						</li>
+							<?php WPPagesListHelper::show_pages_with_checkbox($block->id, $block->posts, 'post', 'posts', $this->pagesPanelRegionMetrics); ?>
+					</ul>
+				</div>
+				<div id="tabs-<?php echo $block->id; ?>-categories">
+					<ul class="pagelist">
+						<li>
+							<label>
+<?php						echo $this->getPinCheckbox('pinPoint', CJTBlockModel::PINS_CATEGORIES_ALL_CATEGORIES) ?> <?php _e('All Categories', CJTOOLBOX_TEXT_DOMAIN) ?>
+							</label>
+						</li>
+							<?php WPPagesListHelper::show_taxonomy_with_checkbox($block->id, $block->categories, $this->pagesPanelRegionMetrics); ?>
+					</ul>
+				</div>
+				<div id="tabs-<?php echo $block->id; ?>-other">
+					<ul class="pagelist">
+<?php
+							$list = array(
+								CJTBlockModel::PINS_FRONTEND => __('Entire Website', CJTOOLBOX_TEXT_DOMAIN),
+								CJTBlockModel::PINS_BACKEND => __('Website Backend', CJTOOLBOX_TEXT_DOMAIN),
+								CJTBlockModel::PINS_SEARCH => __('Search Pages', CJTOOLBOX_TEXT_DOMAIN),
+								CJTBlockModel::PINS_ARCHIVE => __('All Archives', CJTOOLBOX_TEXT_DOMAIN),
+								CJTBlockModel::PINS_TAG => __('Tag Archives', CJTOOLBOX_TEXT_DOMAIN),
+								CJTBlockModel::PINS_AUTHOR => __('Author Archives', CJTOOLBOX_TEXT_DOMAIN),
+								CJTBlockModel::PINS_ATTACHMENT => __('Attachment Pages', CJTOOLBOX_TEXT_DOMAIN),
+								CJTBlockModel::PINS_404_ERROR => __('404 Error', CJTOOLBOX_TEXT_DOMAIN),
+							);
+							foreach ($list as $value => $text) :
+?>
+						<li>
+							<label>
+<?php						echo $this->getPinCheckbox('pinPoint', $value) ?> <?php echo $text ?>
+							</label>
+						</li>
+<?php					endforeach; ?>
+					</ul>
+				</div>
+				<div id="tabs-<?php echo $block->id; ?>-links" class="linklist">
+					<p><?php _e('Add one URL per line (include http://)', CJTOOLBOX_TEXT_DOMAIN) ?></p>
+					<textarea cols="31" rows="9" name="cjtoolbox[<?php echo $block->id; ?>][links]" id="cjcode-links-<?php echo $block->id; ?>"><?php echo $block->links; ?></textarea>
+				</div>
+				<div id="tabs-<?php echo $block->id; ?>-expressions" class="linklist">
+					<p><?php _e('Add one Expression per line', CJTOOLBOX_TEXT_DOMAIN) ?></p>
+					<textarea cols="31" rows="9" name="cjtoolbox[<?php echo $block->id; ?>][expressions]" id="cjcode-expressions-<?php echo $block->id; ?>"><?php echo $block->expressions; ?></textarea>
+				</div>
+			</div>
+			<div style="clear:both;"></div>
+		</div>

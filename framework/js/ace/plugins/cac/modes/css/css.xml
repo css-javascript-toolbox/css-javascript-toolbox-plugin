@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<AutoComplete xmlns="http://www.css-javascript-toolbox.com/ace-plugins/cac/modes">
+	<keyword name="accelerator"  />
+	<keyword name="xx"  />
+</AutoComplete>
