@@ -6,8 +6,8 @@
 // Disallow direct access.
 defined('ABSPATH') or die("Access denied");
 
-// CJTTable class.
-require_once CJTOOLBOX_INCLUDE_PATH . '/db/mysql/table.inc.php';
+// Import dependencies.
+cssJSToolbox::import('framework:db:mysql:table.inc.php');
 
 /**
 * 

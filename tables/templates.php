@@ -3,10 +3,11 @@
 * @version $ Id; ?FILE_NAME ?DATE ?TIME ?AUTHOR $
 */
 
-/**
-* No direct access.
-*/
-// No Direct Accesss code
+// Disallow direct access.
+defined('ABSPATH') or die("Access denied");
+
+// Import dependencies.
+cssJSToolbox::import('framework:db:mysql:table.inc.php');
 
 /**
 * 
