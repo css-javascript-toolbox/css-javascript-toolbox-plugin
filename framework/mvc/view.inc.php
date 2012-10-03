@@ -13,9 +13,6 @@ defined('ABSPATH') or die("Access denied");
 */
 abstract class CJTView {
 	
-	/** */
-	const JS_LOCALIZATION_VAR_NAME = 'cjtMessages';
-	
 	/**
 	* put your comment there...
 	* 

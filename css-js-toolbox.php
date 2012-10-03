@@ -183,7 +183,7 @@ if (!class_exists('cssJSToolbox')) {
 			'templates-manager' => array(
 				'identifications' => array('controller=templates-manager'),
 				'controller' => 'templates-manager',
-				'model' => 'templates',
+				'model' => 'templates-manager',
 				'view' => 'templates/manager',
 				'dependencies' => array(
 					'controller-ajax',
@@ -213,6 +213,8 @@ if (!class_exists('cssJSToolbox')) {
 						'backups' => 'cjtoolbox_backups',
 						'templates' => 'cjtoolbox_templates',
 						'authors' => 'cjtoolbox_authors',
+						'templateDependencies' => 'cjtoolbox_template_dependencies',
+						'blockTemplates' => 'cjtoolbox_block_templates',
 					),
 				),
 			);

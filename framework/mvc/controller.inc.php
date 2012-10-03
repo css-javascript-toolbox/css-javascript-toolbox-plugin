@@ -105,6 +105,9 @@ abstract class CJTController {
 		require_once $modelFile;
 		// Create model object.
 		$modelClass = self::getClassName($name, 'Model');
+		if (!class_exists($modelClass)) {
+			throw new Exception("Model class {$modelClass} doesn't exists!!!");
+		}
 		$model = new $modelClass($params);
 		return $model;
 	}
@@ -165,7 +168,7 @@ abstract class CJTController {
 	protected function init() {
 		// Create default model.
 		if (isset($this->controllerInfo['model'])) {
-			$this->model = self::getModel($this->controllerInfo['model']);
+			$this->model = CJTModel::create($this->controllerInfo['model']);
 		}
 		// Create default view.
 		if (isset($this->controllerInfo['view'])) {
