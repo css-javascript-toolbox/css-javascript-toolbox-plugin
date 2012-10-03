@@ -35,7 +35,9 @@ class CJTTemplatesManagerController extends CJTAjaxController {
 	protected function displayAction() {
 		// Display the view.
 		$this->httpContentType = 'text/html';
-		$this->response = $this->view->getTemplate('default');
+		ob_start();
+		$this->view->display();
+		$this->response =  ob_get_clean(); 
 	}
 	
 } // End class.

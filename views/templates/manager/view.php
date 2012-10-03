@@ -20,7 +20,7 @@ class CJTTemplatesManagerView extends CJTView {
 	* 
 	* @var mixed
 	*/
-	protected $templates = null;
+	protected $items = null;
 	
 	/**
 	* put your comment there...
@@ -40,9 +40,11 @@ class CJTTemplatesManagerView extends CJTView {
 	* put your comment there...
 	* 
 	*/
-	public function display() {
-		$this->templates = $this->getModel()->get();
-		echo $this->getTemplate('default');
+	public function display($tpl = 'default') {
+		// Query templates list.
+		$this->items = $this->getModel()->getItems();
+		// Display the view.
+		echo $this->getTemplate($tpl);
 	}
 	
 	/**

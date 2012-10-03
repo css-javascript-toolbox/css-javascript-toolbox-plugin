@@ -19,9 +19,8 @@ class CJTTemplatesManagerListTable extends WP_List_Table {
 	* 
 	*/
 	public function __construct() {
-		$args = array(
-		
-		);
+		// Table list arguments.
+		$args = array();
 		parent::__construct($args);
 	}
 	
@@ -41,21 +40,36 @@ class CJTTemplatesManagerListTable extends WP_List_Table {
 	* 
 	*/
 	protected function column_default($item, $name) {
-		return $item->{$name};
+		$value = null;
+		switch ($name) {
+			case 'author':
+				switch ($item->author)	 { // Get hard-coded authors name.
+					case '0000000000000000': // Local Shared.
+						$value = __('Local Shared');
+					break;
+					case '0000000000000001': // Wordpress.
+					   $value = __('Wordpress');
+					break;
+					default;
+						$value = $item->{$name};
+					break;
+				}
+			break;
+			default;
+				$value = $item->{$name};
+			break;
+		}
+		return $value;
 	}
-
+	
 	/**
 	* put your comment there...
 	* 
+	* @param mixed $which
 	*/
-	public function display() {
-		// Set pagination parameters.
-		$this->set_pagination_args(array(
-			'per_page' => 40,
-			'total_items' => count($this->items)
-		));
-		// Display table.
-		parent::display();	
+	function extra_tablenav( $which ) {
+		cssJSToolbox::import('models:fields:states.php');
+		echo CJTStatesField::getInstance('filter_state', $_GET['filter_state'])->getInput();
 	}
 	
 	/**
@@ -65,10 +79,10 @@ class CJTTemplatesManagerListTable extends WP_List_Table {
 	public function get_bulk_actions() {
 		// Bulk ations.
 		$actions = array(
-			'delete' => cssJSToolbox::getText('Delete'),
-			'edit' => cssJSToolbox::getText('Edit'),
-			'disable' => cssJSToolbox::getText('Disable'),
-			'enable' => cssJSToolbox::getText('Enable')
+			'delete' => __('Delete'),
+			'edit' => __('Edit'),
+			'publishing' => __('Publish'),
+			'unpublish' => __('Unpublish')
 		);
 		// Return actions!
 		return $actions;
@@ -86,11 +100,26 @@ class CJTTemplatesManagerListTable extends WP_List_Table {
 	 */
 	public function get_columns() {
 		return array(
-			'name' => 'Name',
-			'id' => 'ID',
+			'name' => __('Name'),
+			'author' => __('Author'),
+			'description' => __('Description'),
+			'state' => __('State'),
+			'version' => __('Version'),
+			'url' => __('URL'),
+			'type' => __('Type'),
+			'guid' => cssJSToolbox::getText('GUID'),
 		);
 	}
 	
+	public function get_sortable_columns() {
+		$sortables = array();
+		$sortables['name'] = 'orderby';
+		$sortables['author'] = 'orderby';
+		$sortables['state'] = 'orderby';
+		$sortables['version'] = 'orderby';
+		$sortables['type'] = 'orderby';
+		return $sortables;
+	}
 	/**
 	 * Prepares the list of items for displaying.
 	 * @uses WP_List_Table::set_pagination_args()
@@ -103,4 +132,4 @@ class CJTTemplatesManagerListTable extends WP_List_Table {
 		
 	}
 	
-}
+} // End class.

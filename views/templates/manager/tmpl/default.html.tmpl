@@ -23,13 +23,13 @@ $this->importHelper('wp-templates-list-table');
 							<form id="templates-manager" class="cjt-form">
 <?php
 								$listTable = new CJTTemplatesManagerListTable();
-								// Push templates list into list table.
-								$listTable->items = array(
-									(object) array('name' => 'Dance With Wolves', 'id' => 1),
-									(object) array('name' => 'Medal Of Honor', 'id' => 2),
-									(object) array('name' => 'Red Alert 2', 'id' => 3),
-									(object) array('name' => 'Command 2', 'id' => 4),
-								);
+								// Push items into table list.
+								$listTable->items = $this->items;
+								// Pagintion.
+								$listTable->set_pagination_args(array(
+									'per_page' => 2, 
+									'total_items' => $this->getModel()->getItemsTotal()
+								));
 								// Output search box.
 								$listTable->search_box(__('Search'), 'search-phrase');
 								// Output list table
