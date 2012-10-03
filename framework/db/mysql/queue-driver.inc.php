@@ -207,6 +207,8 @@ class CJTMYSQLQueueDriver {
 	* @param mixed $query
 	*/
 	public function select($query, $returnType = OBJECT_K) {
+		// Resolve tabel names.
+		$query = str_replace('#__', 'cjtv6_', $query);
 		return $this->wpdb->get_results($query, $returnType);
 	}
 	
