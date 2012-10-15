@@ -189,6 +189,23 @@ if (!class_exists('cssJSToolbox')) {
 					'controller-ajax',
 				),
 			),
+			'template-revision' => array(
+				'identifications' => array('controller=template-revisions'),
+				'controller' => 'template-revisions',
+				'model' => 'template-revisions',
+				'view' => 'templates/revisions',
+				'dependencies' => array(
+					'controller-ajax',
+				),
+			),
+			'template' => array(
+				'identifications' => array('controller=template'),
+				'controller' => 'template',
+				'model' => 'template',
+				'dependencies' => array(
+					'controller-ajax',
+				),
+			),
 		);
 		
 		/**

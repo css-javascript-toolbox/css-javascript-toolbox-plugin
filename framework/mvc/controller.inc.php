@@ -171,8 +171,8 @@ abstract class CJTController {
 			$this->model = CJTModel::create($this->controllerInfo['model']);
 		}
 		// Create default view.
-		if (isset($this->controllerInfo['view'])) {
-			$this->view = self::getView($this->controllerInfo['view']);
+		if ($view = ($_REQUEST['view'] ? $_REQUEST['view'] : $this->controllerInfo['view'] )) {
+			$this->view = self::getView($view);
 			// Push model into view.
 			$this->view->setModel($this->model);
 		}

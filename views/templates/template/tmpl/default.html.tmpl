@@ -1,0 +1,56 @@
+<?php
+/**
+* 
+*/
+
+// Disallow direct access.
+defined('ABSPATH') or die("Access denied");
+
+// Set buttons text.
+if ($this->isNew) {
+	$closeButtonText = cssJSToolbox::getText('Close');
+	$updateButtonText = cssJSToolbox::getText('Save');
+}
+else {
+	$closeButtonText = cssJSToolbox::getText('Cancel');
+	$updateButtonText = cssJSToolbox::getText('Update');	
+}
+// Import dependencies.
+cssJSToolbox::import('models:fields:template-types.php');
+?>
+<html xmlns="">
+	<head>
+<?php wp_print_head_scripts() ?>
+<?php wp_print_styles() ?>
+	</head>
+	<body>
+		<div id="wpwrap">
+			<div id="wpcontent">
+				<div id="wpbody">
+					<div id="wpbody-content">
+						<div class="wrap">
+							<form id="item-form" class="cjt-form" method="post">
+								<fieldset>
+									<ul>
+										<li><label for="name"><?php echo cssJSToolbox::getText('Name') ?><sub>*</sub></label><input type="text" id="name" name="item[name]" value="<?php echo $this->item->name ?>"></li>
+										<li>
+											<label for="type"><?php echo cssJSToolbox::getText('Type') ?><sub>*</sub></label>
+<?php					echo CJTTemplateTypesField::getInstance('item-form', 'item[type]', $this->item->type, 'type')->getInput() ?>
+										</li>
+										<li><label for="description"><?php echo cssJSToolbox::getText('Description') ?><sub>*</sub></label><textarea id="description" name="item[description]"><?php echo $this->item->description ?></textarea></li>
+										<li><label for="keywords" style="vertical-align: top;"><?php echo cssJSToolbox::getText('Keywords') ?><sub>*</sub></label><textarea id="keywords" name="item[keywords]"><?php echo $this->item->keywords ?></textarea></li>
+										<li><label for="url"><?php echo cssJSToolbox::getText('URL') ?></label><input type="text" id="url" name="item[url]" value="<?php echo $this->item->url ?>"></li>
+									</ul>
+								</fieldset>
+								<input type="button" id="close" class="button-secondary" value="<?php echo $closeButtonText ?>">
+								<input type="button" id="update" class="button-secondary" value="<?php echo $updateButtonText ?>">
+								<input type="hidden" name="guid" value="<?php $this->item->guid ?>" />
+							</form>
+						</div>					
+					</div>
+				</div>			
+			</div>
+		</div>
+<?php wp_print_footer_scripts() ?>
+	</body>
+</html>

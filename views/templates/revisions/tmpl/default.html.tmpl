@@ -20,12 +20,12 @@ $this->importHelper('wp-list-table');
 				<div id="wpbody">
 					<div id="wpbody-content">
 						<div class="wrap">
-							<form id="templates-manager" class="cjt-form" method="post">
+							<form id="manage-form" class="cjt-form" method="post">
 								<div class="toolbar">
-									<input type="button" id="create-new-template" class="button-secondary action" value="<?php echo cssJSToolbox::getText('Create Template') ?>">
+									<input type="button" id="revision" class="button-secondary action" value="<?php echo cssJSToolbox::getText('HEAD Revision') ?>">
 								</div>
 <?php
-								$listTable = new CJTTemplatesManagerListTable();
+								$listTable = new CJTTemplateRevisionsListTable();
 								// Push items into table list.
 								$listTable->items = $this->items;
 								// Pagintion.

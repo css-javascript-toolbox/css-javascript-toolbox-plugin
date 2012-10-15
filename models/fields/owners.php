@@ -9,7 +9,7 @@ cssJSToolbox::import('framework:html:list.php');
 /**
 * 
 */
-class CJTAuthorsField extends CJTListField {
+class CJTOwnersField extends CJTListField {
 	
 	/**
 	* put your comment there...
@@ -17,7 +17,7 @@ class CJTAuthorsField extends CJTListField {
 	*/
 	public function __construct($form, $name, $value, $id = null, $classesList = '') {
 		// Initialize parent.
-		parent::__construct($form, $name, $value, $id, $classesList, 'name', 'guid');
+		parent::__construct($form, $name, $value, $id, $classesList, 'user_login', 'ID');
 	}
 	
 	/**
@@ -29,7 +29,7 @@ class CJTAuthorsField extends CJTListField {
 	* @param mixed $classesList
 	*/
 	public static function getInstance($form, $name, $value, $id = null, $classesList = '') {
-		return new CJTAuthorsField($form, $name, $value, $id, $classesList)	;
+		return new CJTOwnersField($form, $name, $value, $id, $classesList)	;
 	}
 	
 	/**
@@ -37,15 +37,10 @@ class CJTAuthorsField extends CJTListField {
 	* 
 	*/
 	protected function prepareItems() {
-		// Query CJT Authors + Wordpress build-in local users.
-		$query = ' SELECT name, attributes, guid FROM #__cjtoolbox_authors
-													UNION
-													SELECT CONCAT("Local (", user_login, ")") name, 2 attributes, id guid from #__users';
-		$dbDriver = new CJTMYSQLQueueDriver($GLOBALS['wpdb']);
 		// Add no selection author!
-		$this->items['']['name'] = '---  ' . cssJSToolbox::getText('Author') . '  ---';
+		$this->items['']['user_login'] = '---  ' . cssJSToolbox::getText('Owner') . '  ---';
 		// Get all exists authors
-		$this->items += $dbDriver->select($query);
+		$this->items += get_users();
 		// Sort items.
 		asort($this->items);
 	}

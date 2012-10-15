@@ -13,7 +13,7 @@ defined('ABSPATH') or die("Access denied");
 * @author ??
 * @version ??
 */
-class CJTTemplatesManagerController extends CJTAjaxController {
+class CJTTemplateController extends CJTAjaxController {
 
 	/**
 	* 
@@ -25,35 +25,17 @@ class CJTTemplatesManagerController extends CJTAjaxController {
 		// Initialize parent!
 		parent::__construct($controllerInfo);
 		// Add actions.
-		$this->registryAction('create');
-		$this->registryAction('delete');
-		$this->registryAction('display');
-		$this->registryAction('publish');
-		$this->registryAction('trash');
+		$this->registryAction('edit');
+		$this->registryAction('update');
 	}
+	
 	
 	/**
 	* put your comment there...
 	* 
 	*/
-	public function createAction() {
-		// Display the requested view.
-		$this->displayAction();
-	}
-	
-	/**
-	* put your comment there...
-	* 
-	*/
-	public function deleteAction() {
-		
-	}
-	
-	/**
-	* Display templates manager form.
-	* 
-	*/
-	protected function displayAction() {
+	public function editAction() {
+		$this->model->inputs['guid'] = $_GET['guid'];
 		// Get view layout!
 		$layout = isset($_REQUEST['layout']) ? $_REQUEST['layout'] : 'default';
 		// Display the view.
@@ -65,18 +47,18 @@ class CJTTemplatesManagerController extends CJTAjaxController {
 	
 	/**
 	* put your comment there...
-	* 
+	* 	
 	*/
-	public function publishAction() {
-		
-	}
-	
-	/**
-	* put your comment there...
-	* 
-	*/
-	public function trashAction() {
-		
+	public function updateAction() {
+		$item = $_REQUEST['item'];
+		if (!is_array($item)) {
+			throw new Exception('Invalid item data');
+		}
+		// Cast item array to object.
+		$item = (object) $item;
+		if ($this->model->update($item)) {
+			$this->response = array('guid' => $item->guid);
+		}
 	}
 	
 } // End class.

@@ -13,7 +13,7 @@ defined('ABSPATH') or die("Access denied");
 * @author ??
 * @version ??
 */
-class CJTTemplatesManagerController extends CJTAjaxController {
+class CJTTemplateRevisionsController extends CJTAjaxController {
 
 	/**
 	* 
@@ -28,17 +28,9 @@ class CJTTemplatesManagerController extends CJTAjaxController {
 		$this->registryAction('create');
 		$this->registryAction('delete');
 		$this->registryAction('display');
+		$this->registryAction('save');
 		$this->registryAction('publish');
 		$this->registryAction('trash');
-	}
-	
-	/**
-	* put your comment there...
-	* 
-	*/
-	public function createAction() {
-		// Display the requested view.
-		$this->displayAction();
 	}
 	
 	/**
@@ -68,6 +60,22 @@ class CJTTemplatesManagerController extends CJTAjaxController {
 	* 
 	*/
 	public function publishAction() {
+		
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function revisionAction() {
+		// Display the requested view.
+		$this->displayAction();
+	}
+	
+	/**
+	* 
+	*/
+	public function saveAction() {
 		
 	}
 	

@@ -1,0 +1,4 @@
+select#type{margin-left: -2px;}
+textarea#description {width: 547; height: 260px;}
+textarea#keywords {width: 347px; height: 52px;}
+input[type="button"]{padding: 2px 24px 2px 24px;}

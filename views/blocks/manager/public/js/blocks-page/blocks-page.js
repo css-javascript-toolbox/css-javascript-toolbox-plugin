@@ -302,7 +302,7 @@ var CJTBlocksPage;
 				'margin-left' : '0px', 
 				'margin-top' : '0px',
 				'width' : '99%',
-				'height' : '95%'
+				'height' : ((window.innerHeight - 55) + 'px')
 			});
 			// Set Iframe style.
 			thickboxForm.find('iframe').css({

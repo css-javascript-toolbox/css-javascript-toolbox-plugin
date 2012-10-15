@@ -8,6 +8,20 @@
 */
 abstract class CJTHTMLField {
 	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $classesList;
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $form;
+	
 	 /**
 	 * put your comment there...
 	 *                                                      
@@ -32,14 +46,28 @@ abstract class CJTHTMLField {
 	/**
 	* put your comment there...
 	* 
+	* @param mixed $form
+	* @param mixed $name
 	* @param mixed $value
-	* @return CJTStatesField
+	* @param mixed $id
+	* @param mixed $classesList
+	* @return CJTHTMLField
 	*/
-	public function __construct($name, $value, $id = null, $classesList = '') {
+	public function __construct($form, $name, $value, $id = null, $classesList = '') {
 		// Initialize object.
+		$this->form = $form;
 		$this->name = $name;
 		$this->value = $value;
 		$this->id = $id ? $id : $this->name;
+		$this->classesList = $classesList;
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function getForm() {
+		return $this->form;	
 	}
 	
 	/**

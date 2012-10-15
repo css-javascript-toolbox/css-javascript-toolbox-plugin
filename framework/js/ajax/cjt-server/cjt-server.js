@@ -24,6 +24,13 @@ var CJTServer;
 	*/
 	CJTServer = {
 		
+		/**
+		* put your comment there...
+		* 
+		* @type String
+		*/
+		actionPrefix : 'cjtoolbox',
+		
 		/*
 		* Wordpress admin Ajax URL.
 		*
@@ -44,8 +51,10 @@ var CJTServer;
 			blocksBackups : 'blocks-backups',
 			templatesLookup : 'templates-lookup',
 			templatesManager : 'templates-manager',
+			templateRevisions : 'template-revisions',
+			template : 'template',
 			settings : 'settings',
-			metabox : 'metabox',
+			metabox : 'metabox'
 		},
 		
 		/*
@@ -125,7 +134,7 @@ var CJTServer;
 			var requestObject = {};
 			var requestTime = new Date();
 			// CJT Wordpress Plugin Ajax hooks prefix.
-			action = 'cjtoolbox_' + action;
+			action = this.actionPrefix + '_' + action;
 			// Action & Controller parameter always in the URL -- not posted.
 			var queryString = 'action=' + action + '&controller=' + CJTServer.controllers[controller];
 			var url = CJTServer.ajaxURL + '?' + queryString;
@@ -290,6 +299,18 @@ var CJTServer;
 				}
 			);
 			return serializedObject;
+		},
+		
+		/**
+		* 
+		*/
+		switchAction : function(newAction, uri) {
+			var actionParameter = 'action=' + (this.actionPrefix + '_' + newAction);
+			var repExp = new RegExp('action\=[^\&]+');
+			if (uri == undefined) {
+				uri = document.location.href;
+			}
+			return uri.replace(repExp, actionParameter);
 		}
 		
 	} // End class.

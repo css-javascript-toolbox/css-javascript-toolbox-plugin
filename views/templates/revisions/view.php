@@ -13,7 +13,7 @@ defined('ABSPATH') or die("Access denied");
 * @author ??
 * @version ??
 */
-class CJTTemplatesManagerView extends CJTView {
+class CJTTemplatesRevisionsView extends CJTView {
 
 	/**
 	* put your comment there...
@@ -55,8 +55,7 @@ class CJTTemplatesManagerView extends CJTView {
 		// Import dependencies scripts!
 		self::useScripts(
 			'jquery', 
-			'thickbox',
-			'views:templates:manager:public:js:{CJT_TEMPLATES-}manager'
+			'views:templates:revisions:public:js:{CJT_Template_Revisions-}manager'
 		);
 	}
 	
@@ -69,9 +68,8 @@ class CJTTemplatesManagerView extends CJTView {
 		self::useStyles(
 			'wp-admin',
 			'colors-fresh',
-			'thickbox',
 			'framework:css:{CJT-}forms',
-			'views:templates:manager:public:css:{CJT-}default'
+			'views:templates:revisions:public:css:{CJT-}default'
 		);
 	}
 	

@@ -16,14 +16,38 @@ class CJTListField extends CJTHTMLField {
 	* 
 	* @var mixed
 	*/
+	protected static $instances = array();
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	protected $items;
 	
 	/**
 	* put your comment there...
 	* 
+	* @var mixed
 	*/
-	public function __construct($name, $value, $id = null, $classesList = '') {
-		parent::__construct($name, $value, $id, $classesList);
+	protected $propText;
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $propValue;
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function __construct($form, $name, $value, $id = null, $classesList = '', $propText = 'text', $propValue = null) {
+		parent::__construct($form, $name, $value, $id, $classesList);
+		// Initialize local vars.
+		$this->propText = $propText;
+		$this->propValue = $propValue;
 		// Prepare items.
 		$this->prepareItems();
 	}
@@ -34,12 +58,26 @@ class CJTListField extends CJTHTMLField {
 	*/
 	public function getInput() {
 		// Build HTML select.
-		$list = "<select id='{$this->id}' name='{$this->name}' class='{$this->classesList}'>";
-		foreach ($this->items as $value => $text) {
+		$list = "<select id='{$this->id}' class='{$this->classesList}'>";
+		foreach ($this->items as $key => $item) {
+			// Standrize the use of object.
+			$item = (object) $item;
+			// Fetch display text.
+			$text = $item->{$this->propText};
+			// No value prop defined then use item KEY.
+			$value = ($this->propValue == null) ? $key : $item->{$this->propValue};
 			$selected = ($value == $this->value) ? ' selected="selected"' : '';
 			$list .= "<option value='{$value}'{$selected}>{$text}</option>"	;
 		}
 		$list .= '</select>';
+		// If this is the first instance to be outputed for the current form output the control field.
+		$fieldKey = "{$this->form}-{$this->name}";
+		if (!in_array($fieldKey, self::$instances)) {
+			// Output control fields.
+			$list .= "<input type='hidden' name='{$this->name}' value='{$this->value}' />";
+			// Mark form as instantiated!
+			self::$instances[] = $fieldKey;
+		}
 		return $list;
 	}
 	
@@ -59,8 +97,8 @@ class CJTListField extends CJTHTMLField {
 	* @param mixed $id
 	* @param mixed $classesList
 	*/
-	public static function getInstance($name, $value, $id = null, $classesList = '') {
-		return new CJTListField($name, $value, $id, $classesList)	;
+	public static function getInstance($form, $name, $value, $id = null, $classesList = '') {
+		return new CJTListField($form, $name, $value, $id, $classesList)	;
 	}
 	
 	/**

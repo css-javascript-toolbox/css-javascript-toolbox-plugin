@@ -1,5 +1,183 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <AutoComplete xmlns="http://www.css-javascript-toolbox.com/ace-plugins/cac/modes">
-	<keyword name="accelerator"  />
-	<keyword name="xx"  />
+	<keyword name="azimuth" description="The CSS azimuth property is an aural property that helps you create surround sound on audio devices.">
+		<values>
+			<keyword name="left-side" description="Same as '270deg'. With 'behind', '270deg'." />		
+			<keyword name="far-left" description="Same as '300deg'. With 'behind', '240deg'." />
+			<keyword name="left" description="Same as '320deg'. With 'behind', '220deg'." />
+			<keyword name="center-left" description="Same as '340deg'. With 'behind', '200deg'." />
+			<keyword name="center" description="Same as '0deg'. With 'behind', '180deg'." />
+			<keyword name="center-right" description="Same as '20deg'. With 'behind', '160deg'." />
+			<keyword name="right" description="Same as '40deg'. With 'behind', '140deg'." />
+			<keyword name="far-right" description="Same as '60deg'. With 'behind', '120deg'." />
+			<keyword name="right-side" description="Same as '90deg'. With 'behind', '90deg'." />
+			<keyword name="leftwards" description="Moves the sound to the left, relative to the current angle - it subtracts 20 degrees." />
+			<keyword name="rightwards" description="Moves the sound to the right, relative to the current angle - it adds 20 degrees." />
+		</values>
+	</keyword>
+	<keyword name="background" description="The CSS background property is a shorthand property for setting the background of an HTML element. This enables you to set all your background properties with one property."></keyword>
+	<keyword name="background-attachment" description="The CSS background-attachment property specifies whether a background image should be fixed or scroll with the containing block.">
+		<values>
+			<keyword name="scroll" />
+			<keyword name="fixed" />
+			<keyword name="inherit" />
+		</values>
+	</keyword>
+	<keyword name="background-color" description="The CSS background-color property is for setting the background color of an element.">
+		<values>
+			<keyword name="&lt;color&gt;" />
+			<keyword name="transparent" />
+			<keyword name="inherit" />		
+		</values>
+	</keyword>
+	<keyword name="background-image" description="The CSS background-image property is used to specify a background image of an element.">
+		<values>
+			<keyword name="&lt;uri&gt;" />
+			<keyword name="none" />
+			<keyword name="inherit" />				
+		</values>
+	</keyword>
+	<keyword name="background-position" description="The CSS background-position property is used to position a background image.">
+		<values>
+			<keyword name="&lt;percentage&gt;" />
+			<keyword name="&lt;length&gt;" />
+			<keyword name="inherit" />
+		</values>
+	</keyword>
+	<keyword name="background-repeat" description="The CSS background-repeat property is used to specify if a background image repeats (tiles) or not, and how it should repeat (hence css "background repeat")">
+		<values>
+			<keyword name="repeat" description="background repeats both horizontally and vertically" />
+			<keyword name="repeat-x" description="background repeats horizontally only" />
+			<keyword name="repeat-y" description="background repeats vertically only" />
+			<keyword name="no-repeat" description="background is not repeated" />
+			<keyword name="none" />
+		</values>
+	</keyword>
+	<keyword name="border" description="The CSS border property is CSS shorthand for setting all styles on the borders of an element."></keyword>
+	<keyword name="border-collapse" desciption="The CSS border-collapse property allows you to collapse a table's border. It can have an effect similar to HTML's cellpadding (except that technically, border-collapse makes the border 'collapse' rather than simply adjust the padding).">
+		<values>
+			<keyword name="collapse" />
+			<keyword name="separate" />
+			<keyword name="inherit" />
+		</values>
+	</keyword>
+	<keyword name="border-color" description="The CSS border-color property allows you to set the border color of a box.&lt;br /&gt;You can also use border-top-color, border-bottom-color, border-left-color, and border-right-color if you only want to specify a border color for some sides (but not all sides) of your box.&lt;br /&gt;Note: You will also need to specify border-style and border-width before your border-color is displayed.">
+		<values>
+			<keyword name="&lt;color&gt;" />
+			<keyword name="transparent" />
+			<keyword name="inherit" />	
+		</values>
+	</keyword>
+	<keyword name="border-spacing"></keyword>
+	<keyword name="border-style"></keyword>
+	<keyword name="border-top"></keyword>
+	<keyword name="border-right"></keyword>
+	<keyword name="border-bottom"></keyword>
+	<keyword name="border-left"></keyword>
+	<keyword name="border-top-color"></keyword>
+	<keyword name="border-right-color"></keyword>
+	<keyword name="border-bottom-color"></keyword>
+	<keyword name="border-left-color"></keyword>
+	<keyword name="border-top-style"></keyword>
+	<keyword name="border-right-style"></keyword>
+	<keyword name="border-bottom-style"></keyword>
+	<keyword name="border-left-style"></keyword>
+	<keyword name="border-top-width"></keyword>
+	<keyword name="border-right-width"></keyword>
+	<keyword name="border-bottom-width"></keyword>
+	<keyword name="border-left-width"></keyword>
+	<keyword name="border-width"></keyword>
+	<keyword name="bottom"></keyword>
+	<keyword name="caption-side"></keyword>
+	<keyword name="clear"></keyword>
+	<keyword name="clip"></keyword>
+	<keyword name="color"></keyword>
+	<keyword name="content"></keyword>
+	<keyword name="counter-increment"></keyword>
+	<keyword name="counter-reset"></keyword>
+	<keyword name="cue"></keyword>
+	<keyword name="cue-after"></keyword>
+	<keyword name="cue-before"></keyword>
+	<keyword name="cursor"></keyword>
+	<keyword name="direction"></keyword>
+	<keyword name="display"></keyword>
+	<keyword name="elevation"></keyword>
+	<keyword name="empty-cells"></keyword>
+	<keyword name="float"></keyword>
+	<keyword name="font"></keyword>
+	<keyword name="font-family"></keyword>
+	<keyword name="font-size"></keyword>
+	<keyword name="font-size-adjust"></keyword>
+	<keyword name="font-stretch"></keyword>
+	<keyword name="font-style"></keyword>
+	<keyword name="font-variant"></keyword>
+	<keyword name="font-weight"></keyword>
+	<keyword name="height"></keyword>
+	<keyword name="left"></keyword>
+	<keyword name="letter-spacing"></keyword>
+	<keyword name="line-height"></keyword>
+	<keyword name="list-style"></keyword>
+	<keyword name="list-style-image"></keyword>
+	<keyword name="list-style-position"></keyword>
+	<keyword name="list-style-type"></keyword>
+	<keyword name="margin"></keyword>
+	<keyword name="margin-top"></keyword>
+	<keyword name="margin-right"></keyword>
+	<keyword name="margin-bottom"></keyword>
+	<keyword name="margin-left"></keyword>
+	<keyword name="marker-offset"></keyword>
+	<keyword name="marks"></keyword>
+	<keyword name="max-height"></keyword>
+	<keyword name="max-width"></keyword>
+	<keyword name="min-height"></keyword>
+	<keyword name="min-width"></keyword>
+	<keyword name="orphans"></keyword>
+	<keyword name="outline"></keyword>
+	<keyword name="outline-color"></keyword>
+	<keyword name="outline-style"></keyword>
+	<keyword name="outline-width"></keyword>
+	<keyword name="overflow"></keyword>
+	<keyword name="padding"></keyword>
+	<keyword name="padding-top"></keyword>
+	<keyword name="padding-right"></keyword>
+	<keyword name="padding-bottom"></keyword>
+	<keyword name="padding-left"></keyword>
+	<keyword name="page"></keyword>
+	<keyword name="page-break-after"></keyword>
+	<keyword name="page-break-before"></keyword>
+	<keyword name="page-break-inside"></keyword>
+	<keyword name="pause"></keyword>
+	<keyword name="pause-after"></keyword>
+	<keyword name="pause-before"></keyword>
+	<keyword name="pitch"></keyword>
+	<keyword name="pitch-range"></keyword>
+	<keyword name="play-during"></keyword>
+	<keyword name="position"></keyword>
+	<keyword name="quotes"></keyword>
+	<keyword name="richness"></keyword>
+	<keyword name="right"></keyword>
+	<keyword name="size"></keyword>
+	<keyword name="speak"></keyword>
+	<keyword name="speak-header"></keyword>
+	<keyword name="speak-numeral"></keyword>
+	<keyword name="speak-punctuation"></keyword>
+	<keyword name="speech-rate"></keyword>
+	<keyword name="stress"></keyword>
+	<keyword name="table-layout"></keyword>
+	<keyword name="text-align"></keyword>
+	<keyword name="text-decoration"></keyword>
+	<keyword name="text-indent"></keyword>
+	<keyword name="text-shadow"></keyword>
+	<keyword name="text-transform"></keyword>
+	<keyword name="top"></keyword>
+	<keyword name="unicode-bidi"></keyword>
+	<keyword name="vertical-align"></keyword>
+	<keyword name="visibility"></keyword>
+	<keyword name="voice-family"></keyword>
+	<keyword name="volume"></keyword>
+	<keyword name="white-space"></keyword>
+	<keyword name="widows"></keyword>
+	<keyword name="width"></keyword>
+	<keyword name="word-spacing"></keyword>
+	<keyword name="z-index"></keyword>
 </AutoComplete>

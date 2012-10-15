@@ -9,7 +9,7 @@ cssJSToolbox::import('framework:html:list.php');
 /**
 * 
 */
-class CJTStatesField extends CJTListField {
+class CJTReleasesField extends CJTListField {
 	
 	/**
 	* put your comment there...
@@ -20,7 +20,7 @@ class CJTStatesField extends CJTListField {
 	* @param mixed $classesList
 	*/
 	public static function getInstance($form, $name, $value, $id = null, $classesList = '') {
-		return new CJTStatesField($form, $name, $value, $id, $classesList)	;
+		return new CJTReleasesField($form, $name, $value, $id, $classesList)	;
 	}
 	
 	/**
@@ -28,9 +28,9 @@ class CJTStatesField extends CJTListField {
 	* 
 	*/
 	protected function prepareItems() {
-		$this->items['']['text'] = '---  ' . cssJSToolbox::getText('State') . '  ---';
-		$this->items['published']['text'] = cssJSToolbox::getText('Published');
-		$this->items['trash']['text'] = cssJSToolbox::getText('Trash');	
+		$this->items['']['text'] = '---  ' . cssJSToolbox::getText('Tag') . '  ---';
+		$this->items['-1']['text'] = cssJSToolbox::getText('Revision');
+		$this->items['1']['text'] = cssJSToolbox::getText('Release');	
 	}
 	
 } // End class.

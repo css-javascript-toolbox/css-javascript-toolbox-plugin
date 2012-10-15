@@ -9,7 +9,7 @@ cssJSToolbox::import('framework:html:list.php');
 /**
 * 
 */
-class CJTTemplatesTypesField extends CJTListField {
+class CJTTemplateTypesField extends CJTListField {
 	
 	/**
 	* put your comment there...
@@ -19,8 +19,8 @@ class CJTTemplatesTypesField extends CJTListField {
 	* @param mixed $id
 	* @param mixed $classesList
 	*/
-	public static function getInstance($name, $value, $id = null, $classesList = '') {
-		return new CJTTemplatesTypesField($name, $value, $id, $classesList)	;
+	public static function getInstance($form, $name, $value, $id = null, $classesList = '') {
+		return new CJTTemplateTypesField($form, $name, $value, $id, $classesList)	;
 	}
 	
 	/**
@@ -28,11 +28,11 @@ class CJTTemplatesTypesField extends CJTListField {
 	* 
 	*/
 	protected function prepareItems() {
-		$this->items[''] = '---  ' . cssJSToolbox::getText('Type') . '  ---';
-		$this->items['javascript'] = cssJSToolbox::getText('Javascript');
-		$this->items['css'] = cssJSToolbox::getText('CSS');	
-		$this->items['html'] = cssJSToolbox::getText('HTML');	
-		$this->items['php'] = cssJSToolbox::getText('PHP');	
+		$this->items['']['text'] = '---  ' . cssJSToolbox::getText('Type') . '  ---';
+		$this->items['javascript']['text'] = cssJSToolbox::getText('Javascript');
+		$this->items['css']['text'] = cssJSToolbox::getText('CSS');	
+		$this->items['html']['text'] = cssJSToolbox::getText('HTML');	
+		$this->items['php']['text'] = cssJSToolbox::getText('PHP');	
 	}
 	
 } // End class.
