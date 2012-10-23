@@ -53,7 +53,7 @@ class CJTBlockPinsTable extends CJTTable {
 			$where = " WHERE `blockId` IN ({$ids})";
 		}
 		$query = "SELECT * FROM {$this->table}{$where};";
-		return $this->dbDriver->select($query);
+		return $this->dbDriver->select($query, OBJECT);
 	}
 	
 	/**

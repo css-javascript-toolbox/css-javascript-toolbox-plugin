@@ -268,11 +268,21 @@ class CJTBlocksCouplingController extends CJTController {
 					'flag' => CJTBlockModel::PINS_POSTS_CUSTOM_POST,
 				);
 				// Include POST PARENT CATRGORIES blocks.				
-				$filters->customPins[] = array(
-					'pin' => 'categories',
-					'pins' => wp_get_post_categories($GLOBALS['post']->ID, array('fields' => 'ids')),
-					'flag' => CJTBlockModel::PINS_CATEGORIES_CUSTOM_CATEGORY,
-				);
+				$parentCategoriesIds = wp_get_post_categories($GLOBALS['post']->ID, array('fields' => 'ids'));
+				/**
+				* Custom-Posts just added "ON THE RUN/FLY"
+				* Need simple fix by confirming that the post is belong to
+				* specific category or not.
+				* Custom posts NOW unlike Posts, it doesn't inherit parent
+				* taxonomis Code Blocks!!
+				*/
+				if (!empty($parentCategoriesIds)) {
+					$filters->customPins[] = array(
+						'pin' => 'categories',
+						'pins' => $parentCategoriesIds,
+						'flag' => CJTBlockModel::PINS_CATEGORIES_CUSTOM_CATEGORY,
+					);
+				}
 				/**
 				* In order for metabox block to get in the output we need
 				* to add metabox order for it.

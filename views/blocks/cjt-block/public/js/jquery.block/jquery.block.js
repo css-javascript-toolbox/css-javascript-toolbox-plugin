@@ -74,7 +74,8 @@
 		var toggler = this.editorToolbox.add('toggle-objects-panel', {callback : this._ontogglepagespanel});
 		// Close it if it were closed.
 		this._ontogglepagespanel({target : toggler.jButton}, this.block.get('pagesPanelToggleState', ''));
-		
+		// Accordion menu for Advanced TAB.
+		this.block.box.find('#advanced-accordion').accordion();
 	} // End class.
 	
 	// Extend CJTBLockPluginBase.

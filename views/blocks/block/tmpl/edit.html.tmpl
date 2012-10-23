@@ -9,8 +9,8 @@ defined('ABSPATH') or die("Access denied");
 		<div class="cjt-toolbox edit-block-name">
 			<input type="text" class="block-name" value="">
 			<div class="icons-group">
-				<a class="cjt-tb-link cancel" title="<?php _e('Cancel editing') ?>"></a>
-				<a class="cjt-tb-link save" title="<?php _e('Save name') ?>"></a>
+				<a class="cjt-tb-link cancel" title="<?php echo cssJSToolbox::getText('Cancel editing') ?>"></a>
+				<a class="cjt-tb-link save" title="<?php echo cssJSToolbox::getText('Save name') ?>"></a>
 	    </div>
 		</div>
 <?php echo $this->getTemplate('toolbox', array(), 'tmpl/templates') ?>

@@ -63,8 +63,11 @@ class CJTBlocksCjtBlockView extends CJTView {
 	public static function enqueueScripts() {
 		// Import related JScripts.
 		CJTBlocksBlockView::enqueueScripts();
-		
-		self::useScripts('jquery-ui-tabs', 'views:blocks:cjt-block:public:js:{CJT_BLOCKS_PAGE_BLOCK-}jquery.block');
+		self::useScripts(
+			'jquery-ui-tabs', 
+			'jquery-ui-accordion', 
+			'views:blocks:cjt-block:public:js:{CJT_BLOCKS_PAGE_BLOCK-}jquery.block'
+		);
 	}
 
 	/**
@@ -74,7 +77,6 @@ class CJTBlocksCjtBlockView extends CJTView {
 	public static function enqueueStyles() {
 		// Import related styles.
 		CJTBlocksBlockView::enqueueStyles();
-		
 		self::useStyles('views:blocks:cjt-block:public:css:{CJT_BLOCKS_PAGE_BLOCK-}block');
 	}
 	
