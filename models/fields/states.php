@@ -29,8 +29,19 @@ class CJTStatesField extends CJTListField {
 	*/
 	protected function prepareItems() {
 		$this->items['']['text'] = '---  ' . cssJSToolbox::getText('State') . '  ---';
-		$this->items['published']['text'] = cssJSToolbox::getText('Published');
-		$this->items['trash']['text'] = cssJSToolbox::getText('Trash');	
+		$this->items += self::getStates();
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	public static function getStates() {
+		$states = array();
+		$states['published']['text'] = cssJSToolbox::getText('Published');
+		$states['draft']['text'] = cssJSToolbox::getText('Draft');
+		$states['trash']['text'] = cssJSToolbox::getText('Trash');	
+		return $states;
 	}
 	
 } // End class.

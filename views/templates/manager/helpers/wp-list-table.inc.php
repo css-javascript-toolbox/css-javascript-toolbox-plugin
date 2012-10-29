@@ -44,24 +44,37 @@ class CJTTemplatesManagerListTable extends WP_List_Table {
 	protected function column_default($item, $name) {
 		$value = null;
 		switch ($name) {
-			case 'lastVersion':
-			case  'revisions':
-			case  'releases':
-				$value = ($item->{$name} === null) ? cssJSToolbox::getText('Not Versioned') : $item->{$name};
+			case 'state':
+			case 'type':
+				$value = cssJSToolbox::getText($item->{$name});
 			break;
 			case 'name':
 				// Display cell value as regular.
 				$value  = $item->{$name};
+				// Show description. Truncate description/display breif desc.
+				$brief = implode(' ', array_shift(array_chunk(explode(' ', $item->description), 20)));
+				$value .= '<br />';
+				$value .= "<div class='description'><span>{$brief}</span>";
+				if (strlen($brief) < strlen($item->description)) {
+					$value .= '.... ';
+				}
+				$value .= '</div>';
 				// Display row actions underneath template name column.
 				$actions = array();
-				$actions['edit'] = "<a href='#{$item->guid}'>" . cssJSToolbox::getText('Edit') . '</a>';
-				$actions['delete'] = "<a href='#{$item->guid}'>" . cssJSToolbox::getText('Delete') . '</a>';
-				$actions['checkout'] = "<a href='#{$item->guid}'>". cssJSToolbox::getText('Check Out') . '</a>';
-				$actions['revisions'] = "<a href='#{$item->guid}'>". cssJSToolbox::getText('Revisions') . '</a>';
+				$actions['info'] = "<a href='#{$item->id}'>" . cssJSToolbox::getText('Info') . '</a>';
+				$actions['edit'] = "<a href='#{$item->id}'>" . cssJSToolbox::getText('Edit') . '</a>';
+				$actions['delete'] = "<a href='#{$item->id}'>" . cssJSToolbox::getText('Delete') . '</a>';
+				// Show only states that the Template s not in!
+				$states = CJTStatesField::getStates();
+				unset($states[$item->state]);
+				foreach ($states as $name => $props) {
+					$actions[$name] = "<a href='#{$item->id}'>{$props['text']}</a>";
+				}
+				// Show actions row underneath template name!!
 				$value .= $this->row_actions($actions, false);
 			break;
 			case '_selection_':
-				echo "<input type='checkbox' name='guid[]' value='{$item->guid}' />";
+				echo "<input type='checkbox' name='id[]' value='{$item->id}' />";
 			break;
 			default;
 				$value = $item->{$name};
@@ -79,8 +92,10 @@ class CJTTemplatesManagerListTable extends WP_List_Table {
 		// Define filters.		
 		$filters = array();
 		$filters[] = 'template-types';
+		$filters[] = 'versions';
+		$filters[] = 'creation-dates';
 		$filters[] = 'authors';
-		$filters[] = 'owners';
+		$filters[] = 'states';
 		// Get the HTML field for each filter antput the result.
 		foreach ($filters as $name) { 
 			// Import field file.
@@ -102,7 +117,10 @@ class CJTTemplatesManagerListTable extends WP_List_Table {
 	public function get_bulk_actions() {
 		// Bulk ations.
 		$actions = array(
-			'delete' => __('Delete'),
+			'delete' => cssJSToolbox::getText('Delete'),
+			'publish' => cssJSToolbox::getText('Publish'),
+			'trash' => cssJSToolbox::getText('Trash'),
+			'draft' => cssJSToolbox::getText('Draft'),
 		);
 		// Return actions!
 		return $actions;
@@ -122,14 +140,13 @@ class CJTTemplatesManagerListTable extends WP_List_Table {
 		return array(
 			'_selection_' => '<input type="checkbox" class="select-all" />',
 			'name' => cssJSToolbox::getText('Name'),
-			'description' => cssJSToolbox::getText('Description'),
-			'lastVersion' => cssJSToolbox::getText('Last Version'),
-			'revisions' => cssJSToolbox::getText('Revisions'),
-			'releases' => cssJSToolbox::getText('Releases'),
 			'type' => cssJSToolbox::getText('Type'),
-			'authorName' => cssJSToolbox::getText('Author'),
-			'ownerName' => cssJSToolbox::getText('Owner'),
-			'guid' => cssJSToolbox::getText('GUID'),
+			'version' => cssJSToolbox::getText('Version'),
+			'author' => cssJSToolbox::getText('Author'),
+			'developmentState' => cssJSToolbox::getText('Release'),
+			'creationDate' => cssJSToolbox::getText('Date Created'),
+			'lastModified' => cssJSToolbox::getText('Last Modified'),
+			'state' => cssJSToolbox::getText('State'),
 		);
 	}
 	
@@ -140,11 +157,13 @@ class CJTTemplatesManagerListTable extends WP_List_Table {
 	public function get_sortable_columns() {
 		$sortables = array();
 		$sortables['name'] = 'name';
-		$sortables['lastVersion'] = 'LastVersion';
-		$sortables['revisions'] = 'revisions';
 		$sortables['type'] = 'type';
-		$sortables['authorName'] = 'authorName';
-		$sortables['ownerName'] = 'ownerName';
+		$sortables['creationDate'] = 'creationDate';
+		$sortables['lastModified'] = 'lastModified';
+		$sortables['state'] = 'state';
+		$sortables['version'] = 'version';
+		$sortables['developmentState'] = 'developmentState';
+		$sortables['author'] = 'author';
 		return $sortables;
 	}
 	

@@ -28,9 +28,12 @@ class CJTReleasesField extends CJTListField {
 	* 
 	*/
 	protected function prepareItems() {
-		$this->items['']['text'] = '---  ' . cssJSToolbox::getText('Tag') . '  ---';
-		$this->items['-1']['text'] = cssJSToolbox::getText('Revision');
-		$this->items['1']['text'] = cssJSToolbox::getText('Release');	
+		$this->items['']['text'] = '---  ' . cssJSToolbox::getText('State') . '  ---';
+		$this->items['revision']['text'] = cssJSToolbox::getText('Revision');
+		$this->items['release']['text'] = cssJSToolbox::getText('Release');	
+		$this->items['beta']['text'] = cssJSToolbox::getText('Beta');	
+		$this->items['alpha']['text'] = cssJSToolbox::getText('Alpha');	
+		$this->items['release-candidate']['text'] = cssJSToolbox::getText('Release Candidate');	
 	}
 	
 } // End class.

@@ -322,7 +322,7 @@ if (!class_exists('cssJSToolbox')) {
 		* @param mixed $text
 		*/
 		public function getText($text) {
-			return __($text, CJTOOLBOX_TEXT_DOMAIN);
+			return __($text);
 		}
 		
 		/**

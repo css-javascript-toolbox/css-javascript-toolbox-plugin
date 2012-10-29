@@ -23,7 +23,7 @@ defined('ABSPATH') or die("Access denied");
 					foreach ($this->revisions as $revision) :
 ?>
 						<li>
-							<span><?php echo $revision->created ?> <?php _e('by') ?> <?php echo $revision->author->display_name ?></span> 
+							<span><?php echo $revision->created ?> <?php echo cssJSToolbox::getText('by') ?> <?php echo $revision->author->display_name ?></span> 
 							<a class="restore-link" href="#<?php echo $revision->id ?>"><?php echo cssJSToolbox::getText('Restore') ?></a>
 						</li>
 <?php

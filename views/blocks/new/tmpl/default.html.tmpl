@@ -21,20 +21,20 @@ do_action('admin_print_styles');
   			<fieldset>
   				<ul>
   					<li>
-  						<label for="cjt-new-block-name"><?php _e('Name', CJTOOLBOX_TEXT_DOMAIN) ?>*</label>
+  						<label for="cjt-new-block-name"><?php echo cssJSToolbox::getText('Name') ?>*</label>
   						<input type="text" id="cjt-new-block-name" name="name" value="" />
   					</li>
   					<li>
-  						<label for="cjt-new-block-state"><?php _e('Active', CJTOOLBOX_TEXT_DOMAIN) ?></label>
+  						<label for="cjt-new-block-state"><?php echo cssJSToolbox::getText('Active') ?></label>
   						<input type="checkbox" id="cjt-new-block-state" name="state" value="active" checked="checked" />
   					</li>
   					<li>
-  						<label for="cjt-new-block-location"><?php _e('Hook', CJTOOLBOX_TEXT_DOMAIN) ?></label>
+  						<label for="cjt-new-block-location"><?php echo cssJSToolbox::getText('Hook') ?></label>
   						<select name="location" id="cjt-new-block-hook">
 <?php
 							$locations = array(
-  							'header' => __('Header', CJTOOLBOX_TEXT_DOMAIN),
-  							'footer' => __('Footer', CJTOOLBOX_TEXT_DOMAIN),
+  							'header' => __('Header'),
+  							'footer' => __('Footer'),
 							);
 							foreach ($locations as $key => $displayName) :
 ?>
@@ -45,13 +45,13 @@ do_action('admin_print_styles');
 							</select>
   					</li>
   					<li>
-  						<label for="cjt-new-block-position"><?php _e('Initial location', CJTOOLBOX_TEXT_DOMAIN) ?></label>
+  						<label for="cjt-new-block-position"><?php echo cssJSToolbox::getText('Initial location') ?></label>
   						<select name="position" id="cjt-new-block-position">
 <?php
 							// Static locations.
 							$positions = array(
-  							'top' => __('First Block', CJTOOLBOX_TEXT_DOMAIN),
-  							'bottom' => __('Last Block', CJTOOLBOX_TEXT_DOMAIN),
+  							'top' => __('First Block'),
+  							'bottom' => __('Last Block'),
 							);
 							// Display locations list.
 							foreach ($positions as $position => $displayName) :
@@ -63,8 +63,8 @@ do_action('admin_print_styles');
 							</select>
   					</li>
   					<li class="last">
-  						<input class="cjt-button cancel" type="button" value="<?php _e('Cancel', CJTOOLBOX_TEXT_DOMAIN) ?>" />
-					    <input class="cjt-button save" type="submit" name="submit" value="<?php _e('Create', CJTOOLBOX_TEXT_DOMAIN) ?>" />
+  						<input class="cjt-button cancel" type="button" value="<?php echo cssJSToolbox::getText('Cancel') ?>" />
+					    <input class="cjt-button save" type="submit" name="submit" value="<?php echo cssJSToolbox::getText('Create') ?>" />
   					</li>
   				</ul>
   			</fieldset>

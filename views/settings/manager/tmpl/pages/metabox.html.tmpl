@@ -9,7 +9,7 @@ defined('ABSPATH') or die("Access denied");
 // HTML Components.
 require CJTOOLBOX_FRAMEWORK . '/html/components/checkbox-list/checkbox-list.class.php';
 // Create checkbox list from registered post types.
-$checkboxList = HTMLCheckboxList::getInstance('post-types', "settings[{$page['name']}][postTypes]", __('Registered Post Types', CJTOOLBOX_TEXT_DOMAIN));
+$checkboxList = HTMLCheckboxList::getInstance('post-types', "settings[{$page['name']}][postTypes]", __('Registered Post Types'));
 $postTypes = get_post_types(array(), 'objects');
 $excludePostTypes = array('attachment', 'revision', 'nav_menu_item');
 foreach ($postTypes as $name => $pTObject) {

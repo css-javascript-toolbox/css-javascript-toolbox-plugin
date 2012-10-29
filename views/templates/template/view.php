@@ -33,7 +33,7 @@ class CJTTemplatesTemplateView extends CJTView {
 	*/
 	public function __construct($parameters) {		
 		parent::__construct($parameters);
-		// Enqueue Styles & Scripts.\
+		// Enqueue Styles & Scripts.
 		$this->enququeScripts();
 		$this->enququeStyles();
 	}
@@ -63,7 +63,21 @@ class CJTTemplatesTemplateView extends CJTView {
 		self::useScripts(
 			'jquery',
 			'jquery-serialize-object',
-			'views:templates:template:public:js:{CJT-}template'
+			'jquery-ui-accordion',
+			'views:templates:template:public:js:{CJT-}template',
+			
+			'framework:js:ace(loadMethod=Tag, lookFor=ace)',
+			
+			'framework:js:ace:{CJT-}pluggable',
+			'framework:js:ace:plugins:{CJT-}cac',
+			'framework:js:ace:plugins:cac:{CJT-}dialog',
+			'framework:js:ace:plugins:cac:parsers:{CJT-}common',
+			'framework:js:ace:plugins:cac:lib:{CJT-}mode',
+			
+			'framework:js:ace:plugins:cac:modes:{CJT-}css',
+			'framework:js:ace:plugins:cac:modes:{CJT-}javascript',
+			'framework:js:ace:plugins:cac:modes:{CJT-}html',
+			'framework:js:ace:plugins:cac:modes:{CJT-}php'
 		);
 	}
 	
@@ -76,6 +90,7 @@ class CJTTemplatesTemplateView extends CJTView {
 		// Use related styles.
 		self::useStyles(
 			'views:templates:template:public:css:{CJT-}default',
+			'framework:css:jquery-ui-1.8.21.custom',
 			'framework:css:{CJT-}forms'
 		);
 	}

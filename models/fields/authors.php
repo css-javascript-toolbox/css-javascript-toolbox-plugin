@@ -17,7 +17,7 @@ class CJTAuthorsField extends CJTListField {
 	*/
 	public function __construct($form, $name, $value, $id = null, $classesList = '') {
 		// Initialize parent.
-		parent::__construct($form, $name, $value, $id, $classesList, 'name', 'guid');
+		parent::__construct($form, $name, $value, $id, $classesList, 'name', 'id');
 	}
 	
 	/**
@@ -38,9 +38,10 @@ class CJTAuthorsField extends CJTListField {
 	*/
 	protected function prepareItems() {
 		// Query CJT Authors + Wordpress build-in local users.
-		$query = ' SELECT name, attributes, guid FROM #__cjtoolbox_authors
-													UNION
-													SELECT CONCAT("Local (", user_login, ")") name, 2 attributes, id guid from #__users';
+		$query = ' SELECT a.id, a.name 
+													FROM #__cjtoolbox_authors a
+													RIGHT JOIN #__cjtoolbox_templates t
+													ON a.id = t.authorId';
 		$dbDriver = new CJTMYSQLQueueDriver($GLOBALS['wpdb']);
 		// Add no selection author!
 		$this->items['']['name'] = '---  ' . cssJSToolbox::getText('Author') . '  ---';

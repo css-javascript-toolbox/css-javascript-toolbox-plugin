@@ -11,13 +11,20 @@
 		/**
 		* put your comment there...
 		* 
+		* @type Number
+		*/
+		templateToEdit : 0,
+		
+		/**
+		* put your comment there...
+		* 
 		*/
 		createNewTemplate : function () {
 			var query = {
 				view : 'templates/template',
-				guid : '',
-				width : 570,
-				height: 500,
+				id : this.templateToEdit,
+				width : 800,
+				height: 600,
 				TB_iframe : true
 			};
 			var uri = parent.CJTBlocksPage.server.getRequestURL('templatesManager', 'create', query);
@@ -79,32 +86,20 @@
 		*/
 		rowActions : function(event) {
 			var action = event.target.parentNode.className;
-			var guid = event.target.href.match(/#(\w+)/)[1];
+			var id = parseInt(event.target.href.match(/#(\w+)$/)[1]);
 			switch (action) {
+				case 'info':
+					
+				break;
 				case 'edit':
-					var query = {
-						view : 'templates/template',
-						guid : guid,
-						width : 570,
-						height: 500,
-						TB_iframe : true
-					};
-					var uri = parent.CJTBlocksPage.server.getRequestURL('template', 'edit', query);
-					tb_show(CJT_TEMPLATESManagerI18N.editTemplate, uri);
+					this.templateToEdit = id;
+					this.createNewTemplate();
 				break;
 				case 'delete':
 				
 				break;
-				case 'revision':
+				case 'changeState':
 				
-				break;
-				case 'revisions': // Show revisions list.
-					var query = {guid: guid};
-					var uri = parent.CJTBlocksPage.server.getRequestURL('templateRevisions', 'display', query);
-					document.location.href = uri;
-				break;
-				default: 
-					alert(CJT_TEMPLATESManagerI18N.actionNotDefined);
 				break;
 			}
 		},
@@ -116,7 +111,7 @@
 		selectRows : function(event) {
 			var newState = $(event.target).prop('checked');			
 			// Check/Uncheck all rows.
-			$('form#templates-manager input[name="guid[]"]').prop('checked', newState);
+			$('form#templates-manager input[name="id[]"]').prop('checked', newState);
 			// Check/Uncheck the other select-all checkbox.
 			$('input:checkbox.select-all').each($.proxy(
 				function(index, item) {

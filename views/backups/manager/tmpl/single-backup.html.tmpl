@@ -13,7 +13,7 @@
 					$rowClass = " {$CSSClasses[$rowClassIndex]}";
 ?>
 					<li id="backup-row-<?php echo $this->currentBackup->id ?>" class="backup-row<?php echo $rowClass ?>">
-						<span class="backup-name"><?php echo $this->currentBackup->name ?></span> <?php _e('By', CJTOOLBOX_TEXT_DOMAIN) ?> <?php echo $this->currentBackup->owner->display_name ?> @ <?php echo $this->currentBackup->created ?> 
+						<span class="backup-name"><?php echo $this->currentBackup->name ?></span> <?php echo cssJSToolbox::getText('By') ?> <?php echo $this->currentBackup->owner->display_name ?> @ <?php echo $this->currentBackup->created ?> 
 						<span class="backup-tasks">
 							<a class="restore" href="#<?php echo $this->currentBackup->id ?>">Restore</a> | <a class="delete" href="#<?php echo $this->currentBackup->id ?>">Delete</a>
 						</span>

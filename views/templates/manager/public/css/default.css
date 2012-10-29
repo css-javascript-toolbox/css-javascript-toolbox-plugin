@@ -2,5 +2,28 @@
 #wpbody-content {padding-bottom: 65px}
 table.wp-list-table tbody tr td input[type="checkbox"] {margin-left: 8px;}
 .filter {margin-top: 2px;}
+table tr th {text-align: center;}
+
 th#_selection_ {width: 20px;}
-th#name{width: 179px;}
+th#name{width: 230px;}
+th#developmentState{width: 136px;}
+th#creationDate{width: 123px;}
+th#lastModified{width: 128px;}
+th#state{width: 62px;}
+th#author{width: 112px;}
+th#id{width: 38px;}
+
+td.name.column-name .description{
+	margin-left: 6px;
+	font-weight: bold;
+	font-size: 11px;
+	font-family: sans-serif;
+	margin-top: 6px;
+}
+
+td.name.column-name .description .read-more{
+	margin-top: 5px;
+	text-align: right;
+	text-decoration: underline;
+	margin-bottom: 18px;
+}

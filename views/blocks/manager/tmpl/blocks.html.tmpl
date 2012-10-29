@@ -8,7 +8,7 @@ defined('ABSPATH') or die("Access denied");
 ?>
 <div id="cjtoolbox-admin" class="wrap">
 	<div id="custom-icon" class="icon32 blocks-icon32"></div>
-	<h2><?php _e('CSS & JavaScript Toolbox', CJTOOLBOX_TEXT_DOMAIN) ?></h2>
+	<h2><?php echo cssJSToolbox::getText('CSS & JavaScript Toolbox') ?></h2>
 	<form id="cjtoolbox-blocks-page-form" method="post">
 		<?php wp_nonce_field('cjtoolbox'); ?>
 		<?php wp_nonce_field('closedpostboxes', 'closedpostboxesnonce', false); ?>
@@ -18,7 +18,7 @@ defined('ABSPATH') or die("Access denied");
 		<div id="poststuff" class="metabox-holder">
 			<div id="post-body">
 <?php if ($this->backupId) : ?>
-				<p id="cjt-info"><?php  _e('You have now restored the code blocks from the current backup. Nothing is saved until you click "Restore" button. To revert back to the previous code blocks and discard this action, simply click the "Cancel Restore" button.', CJTOOLBOX_TEXT_DOMAIN) ?></p>
+				<p id="cjt-info"><?php  echo cssJSToolbox::getText('You have now restored the code blocks from the current backup. Nothing is saved until you click "Restore" button. To revert back to the previous code blocks and discard this action, simply click the "Cancel Restore" button.') ?></p>
 <?php endif; ?>
 <?php 	echo $this->getTemplate('toolbox', array('location' => 'top'));	?>
 <?php		do_meta_boxes($this->pageHook, 'normal', null); ?>
@@ -31,7 +31,7 @@ defined('ABSPATH') or die("Access denied");
 	</form>
 	<div id="cjtoolbox-tips">
 		<ul>
-			<li><span style="font-weight:bold"><?php _e('Warning!', CJTOOLBOX_TEXT_DOMAIN) ?></span>  <?php _e('Please make sure to validate added CSS &amp; JavaScript codes, the plugin doesn\'t do that for you!', CJTOOLBOX_TEXT_DOMAIN) ?></li>
+			<li><span style="font-weight:bold"><?php echo cssJSToolbox::getText('Warning!') ?></span>  <?php echo cssJSToolbox::getText('Please make sure to validate added CSS &amp; JavaScript codes, the plugin doesn\'t do that for you!') ?></li>
 		</ul>
 	</div>
 </div>

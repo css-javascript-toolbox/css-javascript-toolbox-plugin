@@ -1,11 +1,11 @@
 <div id="cjt-screen-help">
-	<?php _e('Help Text Help Text Help Text Help Text Help Text Help Text Help Text Help Text Help Text Help Text ') ?>
+	<?php echo cssJSToolbox::getText('Help Text Help Text Help Text Help Text Help Text Help Text Help Text Help Text Help Text Help Text ') ?>
 	<br />
-	<?php _e('Help Text Help Text Help Text Help Text Help Text Help Text Help Text Help Text Help Text Help Text ') ?>
+	<?php echo cssJSToolbox::getText('Help Text Help Text Help Text Help Text Help Text Help Text Help Text Help Text Help Text Help Text ') ?>
 	<br />
-	<?php _e('Help Text Help Text Help Text Help Text Help Text Help Text Help Text Help Text Help Text Help Text ') ?>
+	<?php echo cssJSToolbox::getText('Help Text Help Text Help Text Help Text Help Text Help Text Help Text Help Text Help Text Help Text ') ?>
 	<br />
-	<?php _e('Help Text Help Text Help Text Help Text Help Text Help Text Help Text Help Text Help Text Help Text ') ?>
+	<?php echo cssJSToolbox::getText('Help Text Help Text Help Text Help Text Help Text Help Text Help Text Help Text Help Text Help Text ') ?>
 	<br />
-	<?php _e('Help Text Help Text Help Text Help Text Help Text Help Text Help Text Help Text Help Text Help Text ') ?>
+	<?php echo cssJSToolbox::getText('Help Text Help Text Help Text Help Text Help Text Help Text Help Text Help Text Help Text Help Text ') ?>
 </div>
