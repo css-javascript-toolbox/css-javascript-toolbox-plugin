@@ -127,7 +127,7 @@ class CJTTemplateModel {
 			->set('templateId', $template->get('id'))
 			->set('revisionNo', $revisionNo)
 			->set('dateCreated', current_time('mysql'))
-			->set('attributes', $lastRevision::FLAG_LAST_REVISION) // Mark as last revision.
+			->set('attributes', CJTTemplateRevisionTable::FLAG_LAST_REVISION) // Mark as last revision.
 			->set('file', "{$templateDir}/{$revisionNo}.{$extension}")
 			->save();
 			// Write revision content into Disk File!
@@ -135,7 +135,7 @@ class CJTTemplateModel {
 			// Remove  FLAG_LAST_REVISION flag from last revision so
 			// our new revision will be the last one!!
 			if ($lastRevision->get('id')) {
-				$flagsOff = $lastRevision->get('attributes') & (~$lastRevision::FLAG_LAST_REVISION);
+				$flagsOff = $lastRevision->get('attributes') & (~CJTTemplateRevisionTable::FLAG_LAST_REVISION);
 				$lastRevision->set('attributes', $flagsOff)->save();
 			}
 		}
