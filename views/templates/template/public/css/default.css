@@ -6,19 +6,16 @@ input[type="button"]{padding: 2px 24px 2px 24px;}
 }
 #item-form textarea#keywords {width: 727px; height: 34px;}
 #item-form #code {
-	width: 722px;
-	height: 300px;
-}
-#item-form #code {
-	
+	margin-top: 15px;
+	width: 746px;
+	height: 348px;
 }
 #item-form textarea#changeLog {
-	width: 520px;
-	height: 47px;
+	height: 247px;
+	width: 523px;
 	margin-left: 2px;
 }
-#item-form #form-accordion {width: 100%; height: 559px;}
-#item-form #form-accordion  .ui-accordion-content {height: 474px; overflow: auto;}
+#item-form #form-tabs .ui-tabs-panel {height: 474px; overflow: auto;}
 #item-form select{margin-left: -2px;}
 #item-form input#email,
 #item-form input#url{
@@ -31,6 +28,7 @@ input[type="button"]{padding: 2px 24px 2px 24px;}
 }
 
 /** Code Auto Completion */
+.ace-wrap {position: relative;}
 div.cac {
 	border-top-right-radius: 10px;
 	border-top-left-radius: 10px;
@@ -39,7 +37,7 @@ div.cac {
 	background-color: white;
 	border: 2px solid #169CE7;
 	width: 310px;
-	height: 320px;
+	height: 200px;
 	top: 0;
 	left: 0;
 	z-index: 32;
@@ -50,7 +48,7 @@ div.cac {
 div.cac select.code-list {
 	height: 96%;
 	width: 98%;
-	margin: 3px 2px;
+	margin: 3px 2px !important;
 	font-size: 14px;
 	font-family: cursive;
 	font-weight: bold;

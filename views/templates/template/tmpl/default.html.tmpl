@@ -20,6 +20,8 @@ else {
 cssJSToolbox::import('models:fields:template-types.php');
 cssJSToolbox::import('models:fields:states.php');
 cssJSToolbox::import('models:fields:releases.php');
+
+$coreFieldsState = $this->isNew ? '' : 'disabled="disabled"';
 ?>
 <html xmlns="">
 	<head>
@@ -33,49 +35,58 @@ cssJSToolbox::import('models:fields:releases.php');
 					<div id="wpbody-content">
 						<div class="wrap">
 							<form id="item-form" class="cjt-form" method="post">
-								<div id="form-accordion">
-									<h3><a href="#"><?php echo cssJSToolbox::getText('Heading') ?></a></h3>
-									<div>
+								<div id="form-tabs">
+									<ul>
+										<li><a href="#main-tab"><?php echo cssJSToolbox::getText('Main') ?></a></li>
+										<li><a href="#description-tab"><?php echo cssJSToolbox::getText('Description') ?></a></li>
+										<li><a href="#version-tab"><?php echo cssJSToolbox::getText('Version') ?></a></li>
+									</ul>
+									<div id="main-tab">
 										<fieldset>
 											<ul>
-												<li><label for="name"><?php echo cssJSToolbox::getText('Name') ?><sub>*</sub></label><input type="text" id="name" name="item[name]" value="<?php echo $this->item->name ?>"></li>
+												<li><label for="name"><?php echo cssJSToolbox::getText('Name') ?><sub>*</sub></label><input type="text" id="name" name="item[template][name]" value="<?php echo $this->item->name ?>" <?php echo $coreFieldsState ?>></li>
 												<li>
 													<label for="type"><?php echo cssJSToolbox::getText('Type') ?><sub>*</sub></label>
-<?php							echo CJTTemplateTypesField::getInstance('item-form', 'item[type]', $this->item->type, 'type')->getInput() ?>
+<?php							echo CJTTemplateTypesField::getInstance('item-form', 'item[template][type]', $this->item->type, 'type', null, $coreFieldsState)->getInput(array('standard' => true)) ?>
 												</li>
 												<li>
 													<label for="state"><?php echo cssJSToolbox::getText('State') ?><sub>*</sub></label>
-<?php							echo CJTStatesField::getInstance('item-form', 'item[state]', $this->item->state, 'state')->getInput() ?>
+<?php							echo CJTStatesField::getInstance('item-form', 'item[template][state]', $this->item->state, 'state')->getInput(array('standard' => true)) ?>
 												</li>
-												<li><label for="description"><?php echo cssJSToolbox::getText('Description') ?><sub>*</sub></label><textarea id="description" name="item[description]"><?php echo $this->item->description ?></textarea></li>
-												<li><label for="license"><?php echo cssJSToolbox::getText('License') ?></label><textarea id="license" name="item[license]"><?php echo $this->item->license ?></textarea></li>
-												<li><label for="keywords" style="vertical-align: top;"><?php echo cssJSToolbox::getText('Keywords') ?></label><textarea id="keywords" name="item[keywords]"><?php echo $this->item->keywords ?></textarea></li>
-												<li><label for="email"><?php echo cssJSToolbox::getText('Email') ?></label><input type="text" id="email" name="item[email]" value="<?php echo $this->item->email ?>"></li>
-												<li><label for="url"><?php echo cssJSToolbox::getText('URL') ?></label><input type="text" id="url" name="item[url]" value="<?php echo $this->item->url ?>"></li>
+												<li>
+													<label for="code"><?php echo cssJSToolbox::getText('Code') ?></label>
+													<div class="ace-wrap">
+														<div class="cac"><select class="code-list" size="2"></select></div>
+														<div  id="code" name="item[revision][code]"><?php echo htmlentities($this->item->code) ?></div>
+													</div>
+												</li>
 											</ul>
 										</fieldset>
 									</div>
-									<h3><a href="#"><?php echo cssJSToolbox::getText('Content') ?></a></h3>
-									<div>
+									<div id="description-tab">
 										<fieldset>
 											<ul>
-												<li><label for="version"><?php echo cssJSToolbox::getText('Version') ?><sub>*</sub></label><input type="text" id="version" name="item[version]" value="<?php echo $this->item->version ?>"></li>
-												<li>
-													<label for="developmentState"><?php echo cssJSToolbox::getText('State') ?><sub>*</sub></label>
-<?php							echo CJTReleasesField::getInstance('item-form', 'item[developmentState]', $this->item->developmentState, 'developmentState')->getInput() ?>
-												</li>
-												<li><label for="changeLog"><?php echo cssJSToolbox::getText('Revision note') ?></label><textarea id="changeLog" name="item[changeLog]"><?php echo $this->item->changeLog ?></textarea></li>
-												<li>
-													<label for="code"><?php echo cssJSToolbox::getText('Code') ?></label>
-													<div class="cac"><select class="code-list" size="2"></select></div>
-													<div  id="code" name="item[code]">XXXX<?php echo $this->item->code ?></div></li>
+												<li><label for="description"><?php echo cssJSToolbox::getText('Description') ?></label><textarea id="description" name="item[template][description]"><?php echo $this->item->description ?></textarea></li>
+												<li><label for="keywords"><?php echo cssJSToolbox::getText('Keywords') ?></label><textarea id="keywords" name="item[template][keywords]"><?php echo $this->item->keywords ?></textarea></li>
 											</ul>
 										</fieldset>	
 									</div>
+									<div id="version-tab">
+										<fieldset>
+											<ul>
+												<li><label for="version"><?php echo cssJSToolbox::getText('Version') ?></label><input type="text" id="version" name="item[revision][version]" value="<?php echo $this->item->version ?>"></li>
+												<li>
+													<label for="developmentState"><?php echo cssJSToolbox::getText('State') ?></label>
+<?php							echo CJTReleasesField::getInstance('item-form', 'item[revision][state]', $this->item->developmentState, 'developmentState')->getInput(array('standard' => true)) ?>
+												</li>
+												<li><label for="changeLog"><?php echo cssJSToolbox::getText('Revision note') ?></label><textarea id="changeLog" name="item[revision][changeLog]"><?php echo $this->item->changeLog ?></textarea></li>
+											</ul>
+										</fieldset>
+									</div>
 								</div>
-								<input type="button" id="close" class="button-secondary" value="<?php echo $closeButtonText ?>">
-								<input type="button" id="update" class="button-secondary" value="<?php echo $updateButtonText ?>">
-								<input type="hidden" name="guid" value="<?php $this->item->guid ?>" />
+								<input type="button" id="cancel" class="button-secondary" value="<?php echo $closeButtonText ?>">
+								<input type="button" id="save" class="button-secondary" value="<?php echo $updateButtonText ?>">
+								<input type="hidden" name="item[template][id]" value="<?php echo $this->item->id ?>" />
 							</form>
 						</div>					
 					</div>

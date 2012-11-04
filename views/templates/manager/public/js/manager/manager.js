@@ -11,24 +11,19 @@
 		/**
 		* put your comment there...
 		* 
-		* @type Number
 		*/
-		templateToEdit : 0,
-		
-		/**
-		* put your comment there...
-		* 
-		*/
-		createNewTemplate : function () {
+		createNewTemplate : function (event, editId) {
+			var editId = (editId === undefined) ? 0 : editId;
+			var operation = editId ? 'edit' : 'create';
 			var query = {
 				view : 'templates/template',
-				id : this.templateToEdit,
+				id : editId,
 				width : 800,
 				height: 600,
 				TB_iframe : true
 			};
-			var uri = parent.CJTBlocksPage.server.getRequestURL('templatesManager', 'create', query);
-			tb_show(CJT_TEMPLATESManagerI18N.createTemplateDialogTitle, uri);
+			var uri = parent.CJTBlocksPage.server.getRequestURL('template', 'edit', query);
+			tb_show(CJT_TEMPLATESManagerI18N[operation + 'TemplateDialogTitle'], uri);
 		},
 		
 		/**
@@ -92,8 +87,7 @@
 					
 				break;
 				case 'edit':
-					this.templateToEdit = id;
-					this.createNewTemplate();
+					this.createNewTemplate(undefined, id);
 				break;
 				case 'delete':
 				

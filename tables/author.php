@@ -13,14 +13,23 @@ defined('ABSPATH') or die("Access denied");
 * @author ??
 * @version ??
 */
-class CJTAuthorsTable {
+class CJTAuthorTable extends CJTxTable {
+	
+	/** **/
+	const FLAG_SYS_AUTHOR = 1;
+	
+	/** **/
+	const FLAG_LOCAL_AUTHOR = 2;
+	
+	/** **/
+	const FLAG_GLOBAL_AUTHOR = 4;
 	
 	/**
 	* put your comment there...
 	* 
 	*/
-	public function __construct() {
-		
+	public function __construct($dbDriver) {
+		parent::__construct($dbDriver, 'authors');
 	}
 	
 } // End class.

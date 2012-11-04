@@ -19,8 +19,6 @@ class CJTTemplatesManagerListTable extends WP_List_Table {
 	* 
 	*/
 	public function __construct() {
-		// Import dependencies.
-		cssJSToolbox::import('tables:authors.php');
 		// Table list arguments.
 		$args = array();
 		parent::__construct($args);
@@ -142,8 +140,8 @@ class CJTTemplatesManagerListTable extends WP_List_Table {
 			'name' => cssJSToolbox::getText('Name'),
 			'type' => cssJSToolbox::getText('Type'),
 			'version' => cssJSToolbox::getText('Version'),
-			'author' => cssJSToolbox::getText('Author'),
 			'developmentState' => cssJSToolbox::getText('Release'),
+			'author' => cssJSToolbox::getText('Author'),
 			'creationDate' => cssJSToolbox::getText('Date Created'),
 			'lastModified' => cssJSToolbox::getText('Last Modified'),
 			'state' => cssJSToolbox::getText('State'),

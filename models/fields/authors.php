@@ -15,9 +15,9 @@ class CJTAuthorsField extends CJTListField {
 	* put your comment there...
 	* 
 	*/
-	public function __construct($form, $name, $value, $id = null, $classesList = '') {
+	public function __construct($form, $name, $value, $id = null, $classesList = '', $moreIntoTag = null) {
 		// Initialize parent.
-		parent::__construct($form, $name, $value, $id, $classesList, 'name', 'id');
+		parent::__construct($form, $name, $value, $id, $classesList, 'name', 'id', $moreIntoTag);
 	}
 	
 	/**
@@ -28,8 +28,8 @@ class CJTAuthorsField extends CJTListField {
 	* @param mixed $id
 	* @param mixed $classesList
 	*/
-	public static function getInstance($form, $name, $value, $id = null, $classesList = '') {
-		return new CJTAuthorsField($form, $name, $value, $id, $classesList)	;
+	public static function getInstance($form, $name, $value, $id = null, $classesList = '', $moreIntoTag = null) {
+		return new CJTAuthorsField($form, $name, $value, $id, $classesList, $moreIntoTag)	;
 	}
 	
 	/**

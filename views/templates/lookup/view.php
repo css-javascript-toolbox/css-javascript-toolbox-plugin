@@ -22,7 +22,7 @@ class CJTTemplatesLookupView extends CJTView {
 	* 
 	* @var mixed
 	*/
-	public $templates = array();
+	public $items;
 	
 	/**
 	* put your comment there...
@@ -42,8 +42,11 @@ class CJTTemplatesLookupView extends CJTView {
 	* put your comment there...
 	* 
 	*/
-	public function display() {
-		echo $this->getTemplate('default');
+	public function display($tpl = null) {
+		// Query templates list.
+		$this->items = $this->getModel()->getItems();
+		// Display the view.
+		echo $this->getTemplate($tpl);
 	}
 	
 	/**
@@ -52,8 +55,10 @@ class CJTTemplatesLookupView extends CJTView {
 	*/
 	protected function enqueueScripts() {
 		// Get JQuery.
-		wp_enqueue_script('jquery-ui-accordion');
-		wp_enqueue_script('cjt-templates-lookup', $this->getURI('js/lookup.js'));
+		self::useScripts(
+			'jquery-ui-accordion',
+			'views:templates:lookup:public:js:{CJT_TEMPLATES-}lookup'
+		);
 	}
 	                                                                                                               
 	/**
@@ -61,10 +66,11 @@ class CJTTemplatesLookupView extends CJTView {
 	* 
 	*/
 	protected function enqueueStyles() {
-		// Get JQuery.
-		wp_enqueue_style('cjt-forms', self::getViewURI('_common-files', 'css/forms.css'));
-		wp_enqueue_style('jquery-ui-smoothness', self::getViewURI('_common-files', 'css/jquery/themes/smoothness/jquery-ui-1.8.21.custom.css'));
-		wp_enqueue_style('cjt-templates-lookup-default', $this->getURI('css/default.css'));
+		self::useStyles(
+			'framework:css:{CJT-}forms',
+			'framework:css:jquery-ui-1.8.21.custom',
+			'views:templates:lookup:public:css:{CJT-}lookup'
+		);
 	}
 	
 } // End class.

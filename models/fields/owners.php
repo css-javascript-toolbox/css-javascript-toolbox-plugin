@@ -15,9 +15,9 @@ class CJTOwnersField extends CJTListField {
 	* put your comment there...
 	* 
 	*/
-	public function __construct($form, $name, $value, $id = null, $classesList = '') {
+	public function __construct($form, $name, $value, $id = null, $classesList = '', $moreIntoTag = null) {
 		// Initialize parent.
-		parent::__construct($form, $name, $value, $id, $classesList, 'user_login', 'ID');
+		parent::__construct($form, $name, $value, $id, $classesList, 'user_login', 'ID', $moreIntoTag);
 	}
 	
 	/**
@@ -28,8 +28,8 @@ class CJTOwnersField extends CJTListField {
 	* @param mixed $id
 	* @param mixed $classesList
 	*/
-	public static function getInstance($form, $name, $value, $id = null, $classesList = '') {
-		return new CJTOwnersField($form, $name, $value, $id, $classesList)	;
+	public static function getInstance($form, $name, $value, $id = null, $classesList = '', $moreIntoTag = null) {
+		return new CJTOwnersField($form, $name, $value, $id, $classesList, $moreIntoTag);
 	}
 	
 	/**

@@ -10,7 +10,7 @@
 	/**
 	* 
 	*/
-	var CJTTemplateForm = {
+	CJTTemplateForm = {
 
 		/**
 		* 
@@ -28,7 +28,7 @@
 		* 		
 		*/
 		close : function() {
-			
+			window.parent.tb_remove();
 		},
 			
 		/**
@@ -38,38 +38,49 @@
 		init : function() {
 			// Initialize vars.
 			this.form = $('form#item-form');
-			// Accordion.
-			this.form.find('#form-accordion').accordion();
+			// for TABS!!
+			this.form.find('#form-tabs').tabs();
+			this.initACEEditor();
+			// Update button.
+			$('#save').click($.proxy(this.save, this));
+			// Close button.
+			$('#cancel').click($.proxy(this.close, this));
+		},
+
+		/**
+		* put your comment there...
+		* 
+		*/
+		initACEEditor : function() {
 			// ACE Editor.
 			this.aceEditor = ace.edit('code');
 			this.aceEditor.setTheme('ace/theme/chrome');
-			this.aceEditor.getSession().setMode('ace/mode/css');
+			this.aceEditor.getSession().setMode('ace/mode/php');
 			this.aceEditor.setShowPrintMargin(false);
 			// Use Code-Auto-Completion plugin with the aceEditor.
 			ace.pluggable.plugins.cac.apply(this.aceEditor, {
 				parser : {modesBaseURI : window.top.CJTBlocksPage.server.ajaxURL.replace('wp-admin/admin-ajax.php', 'wp-content/plugins/css-javascript-toolbox/framework/js/ace/plugins/cac/modes')},
 				dialog : {element : this.form.find('.cac')}}
 			);
-			// Update button.
-			$('#update').click($.proxy(this.update, this));
-			// Close button.
-			$('#close').click($.proxy(this.close, this));
 		},
-
+		
 		/**
 		* put your comment there...
 		* 		
 		*/
-		update : function() {
+		save : function() {
 			var server = window.top.CJTBlocksPage.server;
-			server.send('template', 'update', $('#item-form').serializeObject(), 'post')
+			var data = $('#item-form').serializeObject();
+			data['item[revision][code]'] = this.aceEditor.getSession().getValue();
+			server.send('template', 'save', data, 'post')
 			.success($.proxy(
 				function(response) {
-					if (!response.guid) {
+					if (!response.revision.templateId) {
 						alert('ERROR SAVIN TEMPLATE');
 					}
 					else {
-						
+						window.parent.location.reload();
+						this.close();
 					}
 				}, this)
 			)

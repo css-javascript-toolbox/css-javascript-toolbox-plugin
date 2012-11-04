@@ -16,39 +16,34 @@ defined('ABSPATH') or die("Access denied");
 	<body>
 		<div id="cjtoolbox_popup">
 			<form id="templates-lookup" class="cjt-form">
-<?php	if (empty($this->templates)) : ?>
+<?php	if (empty($this->items)) : ?>
 
-<?php else :
-				// First we need to group the templates by its type.
-				$templatesGrouped = array();
-				foreach ($this->templates as $id => $template) {
-					// [TEMPLATE-TYPE][AUTHOR-NAME][TEMPLATE-ID] = TEMPLATE.
-					$templatesGrouped[$template->type][$template->name][$id] = $template;
-				}
-?>
+<?php else : ?>
 				<div id="templates-list">
-<?php 		foreach ($templatesGrouped as $type => $authors) : ?>
+<?php 		foreach ($this->items as $type => $authors) : ?>
 					<h3 id="#templates-type-header-<?php echo $type ?>"><a href="#"><?php echo cssJSToolbox::getText($type) ?></a></h3>
 					<div id="#templates-type-content-<?php echo $type ?>" class="templates-list">
 						<ul class="authors-list">
-<?php 				foreach ($authors as $author => $templates) : ?>
+<?php 				
+								foreach ($authors as $author => $templates) :
+									$authorIdentifier =sha1("{$type}-{$author}");
+?>
 								<li>
-									<span class="author-name"><?php echo cssJSToolbox::getText('User') ?>: <a class="name" href="#<?php echo "{$author}_{$type}" ?>"><?php echo $author ?></a></span>
-									<ul id="<?php echo "{$author}_{$type}" ?>-author-templates" class="templates">
+									<span class="author-name"><?php echo cssJSToolbox::getText('User') ?>: <a class="name" href="#<?php echo "{$authorIdentifier}" ?>"><?php echo $author ?></a></span>
+									<ul id="<?php echo "{$authorIdentifier}" ?>-author-templates" class="templates">
 <?php 						foreach ($templates as $id => $template) : ?>
 										<li>
-											<div class="title"><?php echo $template->title ?></div>
+											<div class="title" title="<?php echo $template->description ?>"><?php echo $template->name ?></div>
 											<span class="options">
-												<a href="#"><?php echo cssJSToolbox::getText('Embedded') ?></a> | 
-				  							<a href="#"><?php echo cssJSToolbox::getText('Link') ?></a> | 
-				  							<a href="#"><?php echo cssJSToolbox::getText('Info') ?></a>
+												<a href="#embedded"><?php echo cssJSToolbox::getText('Embedded') ?></a> | 
+				  							<a href="#link"><?php echo cssJSToolbox::getText('Link') ?></a>
 											</span>
 										</li>
 <?php 						endforeach;	?>
 									</ul>
 								</li>
-						</ul>
 <?php 			endforeach;	?>
+							</ul>
 					</div>
 <?php 		endforeach; ?>				
 				</div>

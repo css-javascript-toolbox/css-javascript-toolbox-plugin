@@ -9,7 +9,7 @@ ul {
 }
 /* Templates List */
 .templates-list {
-	height: 212px;
+	height: 234px;
 	overflow: auto;
 }
 .templates-list ul.templates {

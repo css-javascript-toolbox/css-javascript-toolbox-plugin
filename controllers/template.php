@@ -26,7 +26,7 @@ class CJTTemplateController extends CJTAjaxController {
 		parent::__construct($controllerInfo);
 		// Add actions.
 		$this->registryAction('edit');
-		$this->registryAction('update');
+		$this->registryAction('save');
 	}
 	
 	
@@ -35,7 +35,7 @@ class CJTTemplateController extends CJTAjaxController {
 	* 
 	*/
 	public function editAction() {
-		$this->model->inputs['guid'] = $_GET['guid'];
+		$this->model->inputs['id'] = (int) $_REQUEST['id'];
 		// Get view layout!
 		$layout = isset($_REQUEST['layout']) ? $_REQUEST['layout'] : 'default';
 		// Display the view.
@@ -49,15 +49,10 @@ class CJTTemplateController extends CJTAjaxController {
 	* put your comment there...
 	* 	
 	*/
-	public function updateAction() {
-		$item = $_REQUEST['item'];
-		if (!is_array($item)) {
-			throw new Exception('Invalid item data');
-		}
-		// Cast item array to object.
-		$item = (object) $item;
-		if ($this->model->update($item)) {
-			$this->response = array('guid' => $item->guid);
+	public function saveAction() {
+		$this->model->inputs['item'] = $_REQUEST['item'];
+		if ($revision = $this->model->save()) {
+			$this->response = array('revision' => $revision);
 		}
 	}
 	

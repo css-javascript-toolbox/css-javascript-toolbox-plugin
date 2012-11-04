@@ -12,7 +12,7 @@ defined('ABSPATH') or die('Access denied');
 class CJTTemplatesManagerModel {
 	
 	/** */
-	const FLAG_LAST_REVISION = 0x80000000;
+	const FLAG_LAST_REVISION = 0x01;
 	
 	/**
 	* put your comment there...
@@ -24,27 +24,29 @@ class CJTTemplatesManagerModel {
 	* put your comment there...
 	* 
 	*/
-	public function getItems() {
+	public function getItems($unlimitedResult = false) {
 		//print_r($_GET);
 		// Build query.
 		$select = 'SELECT t.id, 
 																					t.name, 
 																					t.type, 
 																					t.description, 
-																					t.creationDate, 
-																					r.dateCreated lastModified,
+																					t.creationDate,
 																					t.state, 
 																					a.name author,
+																					r.dateCreated lastModified,
 																					r.version,
 																					r.state developmentState';
 		$queryBase = $this->getItemsQuery();
 		// Paging.
-		$itemsPerPage = $this->getItemsPerPage();
-		// Get page no#.
-		$page = !isset($_GET['paged']) ? 1 : $_GET['paged'];
-		// Calculate start offset.
-		$start = ($page - 1) * $itemsPerPage;
-		$limit = " LIMIT {$start},{$itemsPerPage}";
+		if (!$unlimitedResult) {
+			$itemsPerPage = $this->getItemsPerPage();
+			// Get page no#.
+			$page = !isset($_GET['paged']) ? 1 : $_GET['paged'];
+			// Calculate start offset.
+			$start = ($page - 1) * $itemsPerPage;
+			$limit = " LIMIT {$start},{$itemsPerPage}";	
+		}
 		// Order.
 		if (isset($_GET['orderby'])) {
 			$orderBy = " ORDER BY {$_GET['orderby']} {$_GET['order']}";
@@ -52,8 +54,7 @@ class CJTTemplatesManagerModel {
 		// final query.
     $query = "{$select}{$queryBase['from']}{$queryBase['where']}{$queryBase['groupBy']}{$orderBy}{$limit}";
 		// Execute our query using MYSQL queue driver.
-		$dbDriver = new CJTMYSQLQueueDriver($GLOBALS['wpdb']);
-		$result = $dbDriver->select($query);
+		$result = cssJSToolbox::getInstance()->getDBDriver()->select($query);
 		return $result;
 	}
 	
@@ -69,7 +70,7 @@ class CJTTemplatesManagerModel {
 	* put your comment there...
 	* 
 	*/
-	protected function getItemsQuery() {
+	public function getItemsQuery() {
 		// From clause.
 		$query['from'] = ' FROM #__cjtoolbox_templates t
 													LEFT JOIN #__cjtoolbox_template_revisions r ON t.id = r.templateId

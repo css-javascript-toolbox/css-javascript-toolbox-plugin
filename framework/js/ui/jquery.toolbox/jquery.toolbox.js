@@ -296,7 +296,8 @@ var CJTToolBoxNS = new (function ($) {
 		this.showPopup = function() {
 			// Call onPopup event. If false is returned don't display the list.
 			if (this.params._type.onPopup !== undefined) {
-				if (!this.params._type.onPopup(this.targetElement)) {
+				var openPopup = this.params._type.onPopup.apply(this.toolbox.params.context, [this.targetElement]);
+				if (!openPopup) {
 					return false;
 				}
 			}

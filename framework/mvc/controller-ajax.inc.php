@@ -111,6 +111,20 @@ abstract class CJTAjaxController extends CJTController {
 		}
 		die();
 	}
+
+	/**
+	* Display templates manager form.
+	* 
+	*/
+	protected function displayAction() {
+		// Get view layout!
+		$layout = isset($_REQUEST['layout']) ? $_REQUEST['layout'] : 'default';
+		// Display the view.
+		$this->httpContentType = 'text/html';
+		ob_start();
+		$this->view->display($layout);
+		$this->response =  ob_get_clean(); 
+	}
 	
 	/**
 	* put your comment there...

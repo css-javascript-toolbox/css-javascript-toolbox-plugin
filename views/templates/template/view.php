@@ -45,7 +45,7 @@ class CJTTemplatesTemplateView extends CJTView {
 	*/
 	public function display($tpl = null) {
 		// Is it a new template or just editing exists one?
-		$this->isNew = $_REQUEST['guid'] == '';
+		$this->isNew = empty($_REQUEST['id']);
 		// If editing exists on read it from database.
 		if (!$this->isNew) {
 			$this->item = $this->getModel()->getItem();
@@ -63,7 +63,7 @@ class CJTTemplatesTemplateView extends CJTView {
 		self::useScripts(
 			'jquery',
 			'jquery-serialize-object',
-			'jquery-ui-accordion',
+			'jquery-ui-tabs',
 			'views:templates:template:public:js:{CJT-}template',
 			
 			'framework:js:ace(loadMethod=Tag, lookFor=ace)',

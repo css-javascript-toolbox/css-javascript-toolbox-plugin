@@ -111,6 +111,13 @@ if (!class_exists('cssJSToolbox')) {
 		private static $controller = null;
 		
 		/**
+		* put your comment there...
+		* 
+		* @var mixed
+		*/
+		private $dbDriver;
+		
+		/**
 		* Controllers mapping.
 		* 
 		* @var array
@@ -175,7 +182,8 @@ if (!class_exists('cssJSToolbox')) {
 			'templates-lookup' => array(
 				'identifications' => array('controller=templates-lookup'),
 				'controller' => 'templates-lookup',
-				'model' => 'templates',
+				'model' => 'templates-lookup',
+				'view' => 'templates/lookup',
 				'dependencies' => array(
 					'controller-ajax',
 				),
@@ -185,15 +193,6 @@ if (!class_exists('cssJSToolbox')) {
 				'controller' => 'templates-manager',
 				'model' => 'templates-manager',
 				'view' => 'templates/manager',
-				'dependencies' => array(
-					'controller-ajax',
-				),
-			),
-			'template-revision' => array(
-				'identifications' => array('controller=template-revisions'),
-				'controller' => 'template-revisions',
-				'model' => 'template-revisions',
-				'view' => 'templates/revisions',
 				'dependencies' => array(
 					'controller-ajax',
 				),
@@ -230,10 +229,17 @@ if (!class_exists('cssJSToolbox')) {
 						'backups' => 'cjtoolbox_backups',
 						'templates' => 'cjtoolbox_templates',
 						'authors' => 'cjtoolbox_authors',
-						'templateDependencies' => 'cjtoolbox_template_dependencies',
 						'blockTemplates' => 'cjtoolbox_block_templates',
 					),
 				),
+				'templates' => (object) array(
+					'types' => array(
+						'javascript' => (object) array('extension' => 'js'),
+						'css' => (object) array('extension' => 'css'),
+						'php' => (object) array('extension' => 'php'),
+						'html' => (object) array('extension' => 'html'),
+					)
+				)
 			);
 			// Start this plugin once all other plugins are fully loaded.
 			add_action('plugins_loaded', array(&self::$instance, 'init'));
@@ -277,6 +283,9 @@ if (!class_exists('cssJSToolbox')) {
 						// Import MCV framwork
 						if (!$controllerFound) {
 							$controllerFound = true;
+							// Initialize vars only one time!!
+							self::import('framework:db:mysql:queue-driver.inc.php');
+							$this->dbDriver = new CJTMYSQLQueueDriver($GLOBALS['wpdb']);
 							// Single check is better than 4! Don't import files if already imported.
 							require_once CJTOOLBOX_INCLUDE_PATH . '/exceptions.inc.php';
 							require_once CJTOOLBOX_MVC_FRAMEWOK . '/view.inc.php';
@@ -302,6 +311,14 @@ if (!class_exists('cssJSToolbox')) {
 				}
 			}
 			return $controllerFound;
+		}
+		
+		/**
+		* put your comment there...
+		* 
+		*/
+		public function getDBDriver() {
+			return $this->dbDriver;	
 		}
 		
 		/**

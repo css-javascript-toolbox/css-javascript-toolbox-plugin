@@ -19,8 +19,8 @@ class CJTTemplateTypesField extends CJTListField {
 	* @param mixed $id
 	* @param mixed $classesList
 	*/
-	public static function getInstance($form, $name, $value, $id = null, $classesList = '') {
-		return new CJTTemplateTypesField($form, $name, $value, $id, $classesList)	;
+	public static function getInstance($form, $name, $value, $id = null, $classesList = '', $moreIntoTag = null) {
+		return new CJTTemplateTypesField($form, $name, $value, $id, $classesList, 'text', null, $moreIntoTag)	;
 	}
 	
 	/**

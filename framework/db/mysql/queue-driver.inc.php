@@ -37,6 +37,7 @@ class CJTMYSQLQueueDriver {
 	* @param mixed $query
 	*/
 	protected function addQueue($query) {
+		$query = str_replace('#__', "{$this->wpdb->prefix}", $query);
 		$key = md5($query);
 		$this->queue[$key] = $query;
 	}
@@ -96,12 +97,20 @@ class CJTMYSQLQueueDriver {
 	*/
 	public function getColumns($table) {
 		$columns = array();
-		$this->wpdb->query("SELECT * FROM {$table} WHERE 1!=1;");
+		$this->select("SELECT * FROM {$table} WHERE 1!=1;");
 		// Use field name as element key.
 		foreach ($this->wpdb->col_info as $index => $column) {
 			$columns[$column->name] = $column;
 		}
 		return $columns;
+	}
+
+	/**
+	* put your comment there...
+	* 	
+	*/
+	public function getInsertId () {
+		return $this->wpdb->insert_id;		
 	}
 	
 	/**
@@ -207,8 +216,7 @@ class CJTMYSQLQueueDriver {
 	* @param mixed $query
 	*/
 	public function select($query, $returnType = OBJECT_K) {
-		// Resolve tabel names.
-		$query = str_replace('#__', 'cjtv6_', $query);
+		$query = str_replace('#__', "{$this->wpdb->prefix}", $query);
 		return $this->wpdb->get_results($query, $returnType);
 	}
 	

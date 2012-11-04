@@ -25,7 +25,6 @@ class CJTTemplatesManagerController extends CJTAjaxController {
 		// Initialize parent!
 		parent::__construct($controllerInfo);
 		// Add actions.
-		$this->registryAction('create');
 		$this->registryAction('delete');
 		$this->registryAction('display');
 		$this->registryAction('publish');
@@ -36,31 +35,8 @@ class CJTTemplatesManagerController extends CJTAjaxController {
 	* put your comment there...
 	* 
 	*/
-	public function createAction() {
-		// Display the requested view.
-		$this->displayAction();
-	}
-	
-	/**
-	* put your comment there...
-	* 
-	*/
 	public function deleteAction() {
 		
-	}
-	
-	/**
-	* Display templates manager form.
-	* 
-	*/
-	protected function displayAction() {
-		// Get view layout!
-		$layout = isset($_REQUEST['layout']) ? $_REQUEST['layout'] : 'default';
-		// Display the view.
-		$this->httpContentType = 'text/html';
-		ob_start();
-		$this->view->display($layout);
-		$this->response =  ob_get_clean(); 
 	}
 	
 	/**

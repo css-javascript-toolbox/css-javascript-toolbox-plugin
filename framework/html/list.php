@@ -30,6 +30,13 @@ class CJTListField extends CJTHTMLField {
 	* 
 	* @var mixed
 	*/
+	protected $moreIntoTag;
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	protected $propText;
 	
 	/**
@@ -43,11 +50,12 @@ class CJTListField extends CJTHTMLField {
 	* put your comment there...
 	* 
 	*/
-	public function __construct($form, $name, $value, $id = null, $classesList = '', $propText = 'text', $propValue = null) {
+	public function __construct($form, $name, $value, $id = null, $classesList = '', $propText = 'text', $propValue = null, $moreIntoTag = null) {
 		parent::__construct($form, $name, $value, $id, $classesList);
 		// Initialize local vars.
 		$this->propText = $propText;
 		$this->propValue = $propValue;
+		$this->moreIntoTag = $moreIntoTag;
 		// Prepare items.
 		$this->prepareItems();
 	}
@@ -56,9 +64,10 @@ class CJTListField extends CJTHTMLField {
 	* put your comment there...
 	* 
 	*/
-	public function getInput() {
+	public function getInput($options = array()) {
 		// Build HTML select.
-		$list = "<select id='{$this->id}' class='{$this->classesList}'>";
+		$listName = ($options['standard'] == true)  ? "name='{$this->name}'" : '';
+		$list = "<select id='{$this->id}' {$listName} class='{$this->classesList}' {$this->moreIntoTag}>";
 		foreach ($this->items as $key => $item) {
 			// Standrize the use of object.
 			$item = (object) $item;
@@ -72,7 +81,7 @@ class CJTListField extends CJTHTMLField {
 		$list .= '</select>';
 		// If this is the first instance to be outputed for the current form output the control field.
 		$fieldKey = "{$this->form}-{$this->name}";
-		if (!in_array($fieldKey, self::$instances)) {
+		if (!$options['standard'] && !in_array($fieldKey, self::$instances)) {
 			// Output control fields.
 			$list .= "<input type='hidden' name='{$this->name}' value='{$this->value}' />";
 			// Mark form as instantiated!

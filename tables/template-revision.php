@@ -6,9 +6,6 @@
 // Disallow direct access.
 defined('ABSPATH') or die("Access denied");
 
-// Import dependencies.
-cssJSToolbox::import('framework:db:mysql:table.inc.php');
-
 /**
 * 
 * DESCRIPTION
@@ -16,14 +13,17 @@ cssJSToolbox::import('framework:db:mysql:table.inc.php');
 * @author ??
 * @version ??
 */
-class CJTBlockTemplatesTable extends CJTTable {
+class CJTTemplateRevisionTable extends CJTxTable {
+	
+	/** */
+	const FLAG_LAST_REVISION = 0x01;
 	
 	/**
 	* put your comment there...
 	* 
 	*/
 	public function __construct($dbDriver) {
-		parent::__construct($dbDriver, cssJSToolbox::$config->database->tables->blockTemplates);
+		parent::__construct($dbDriver, 'template_revisions');
 	}
 	
 } // End class.

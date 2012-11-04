@@ -271,7 +271,7 @@
 			/** @TODO This doesnt work on IE browsers */
 			if (targetElement.prop('src') == window.location.href) {
 				// Set frame Source to templates lookup view URL.
-				var templatesLookupViewURL = CJTBlocksPage.server.getRequestURL('templatesLookup', 'list');
+				var templatesLookupViewURL = CJTBlocksPage.server.getRequestURL('templatesLookup', 'display');
 				targetElement.prop('src', templatesLookupViewURL);
 				// Pass block object to the form when loaded.
 				CJTToolBox.forms.templatesLookupForm = {
