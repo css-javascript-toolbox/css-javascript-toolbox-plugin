@@ -265,7 +265,7 @@
 		/**
 		* 
 		*/
-		this._onlookuptemplates = function(targetElement) {
+		this._onlookuptemplates = function(targetElement, tbButton) {
 			// This method will fired only once when the 
 			// Templates popup button is hovered for the first time.
 			/** @TODO This doesnt work on IE browsers */
@@ -275,7 +275,7 @@
 				targetElement.prop('src', templatesLookupViewURL);
 				// Pass block object to the form when loaded.
 				CJTToolBox.forms.templatesLookupForm = {
-					inputs : {block : this.block}
+					inputs : {block : this.block, button : tbButton}
 				};
 			}
 			else {

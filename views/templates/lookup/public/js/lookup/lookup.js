@@ -19,6 +19,30 @@
 	* @type Object
 	*/
 	templatesLookupFormNS.form = {
+
+	/**
+	* put your comment there...
+	* 		
+	* @param event
+	*/
+		_ontemplateaction : function(event) {
+			// Get author name from the clicked link.
+			var actionInfo = event.target.href.match(/#(\w+)\((\d+)\)/);
+			var block = templatesLookupFormNS.inputs.block;
+			var popupButton = templatesLookupFormNS.inputs.button;
+			var request = {templateId : actionInfo[2], blockId : block.get('id')};
+			window.parent.CJTBlocksPage.server.send('templatesLookup', actionInfo[1], request)
+			.success(
+				function(trro) { // Template Revision Response Object
+					// Insert template at cursor.
+					block.aceEditor.getSession().replace(block.aceEditor.getSelectionRange(), trro.code);
+					// Close the Popup after completing!
+					popupButton.close();
+					// Set focus to ace editor.
+					block.aceEditor.focus();
+				}
+			)
+		},
 		
 		/**
 		* put your comment there...
@@ -26,9 +50,9 @@
 		*/
 		_ontoggletemplates : function(event) {
 			// Get author name from the clicked link.
-			var authorName = event.target.href.match(/#(\w+)/)[1];
+			var authorIdentified = event.target.href.match(/#(\w+)/)[1];
 			// Get list id.
-			var templatesListId = '#' + authorName + '-author-templates';
+			var templatesListId = '#' + authorIdentified + '-author-templates';
 			// Toggle the list.
 			$(templatesListId).toggle();
 		},
@@ -42,6 +66,8 @@
 			$('#templates-list').accordion()
 			// Make author templates list toggle-able.
 			.find('.author-name .name').click($.proxy(this._ontoggletemplates, this));
+			// Actions!!
+			$('.templates .template-action').click($.proxy(this._ontemplateaction, this));
 			// Apply other elements when the form is loaded.
 			this.refresh();
 		},

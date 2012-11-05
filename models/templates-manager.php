@@ -36,7 +36,8 @@ class CJTTemplatesManagerModel {
 																					a.name author,
 																					r.dateCreated lastModified,
 																					r.version,
-																					r.state developmentState';
+																					r.state developmentState,
+																					bt.blockId linked';
 		$queryBase = $this->getItemsQuery();
 		// Paging.
 		if (!$unlimitedResult) {
@@ -74,7 +75,8 @@ class CJTTemplatesManagerModel {
 		// From clause.
 		$query['from'] = ' FROM #__cjtoolbox_templates t
 													LEFT JOIN #__cjtoolbox_template_revisions r ON t.id = r.templateId
-													LEFT JOIN #__cjtoolbox_authors a ON t.authorId = a.id';
+													LEFT JOIN #__cjtoolbox_authors a ON t.authorId = a.id
+													LEFT JOIN #__cjtoolbox_block_templates bt ON t.id = bt.templateId';
 		// Always get only the last revision.
 		$where[] = '(r.attributes & ' . self::FLAG_LAST_REVISION . ')';
 		// Build where clause based on the given filters!

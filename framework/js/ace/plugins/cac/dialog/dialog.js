@@ -151,8 +151,6 @@
 		this.close = function() {
 			// Unbind Event/Command listeneres.
 			this.internal.bind('off');
-			// TODO: clear code list.
-			
 			// Hide dialog.
 			this.dialog.hide();
 		}

@@ -264,10 +264,7 @@ var CJTToolBoxNS = new (function ($) {
 			var isOverElement = this.targetElement.find('*').andSelf().is(event.relatedTarget);
 			// Is mouse is not over button or target element hide element and unbind events.
 			if (!isOverButton && !isOverElement) {
-				this.jButton.unbind('mouseout.CJTButtonTouchMouseOut');
-				this.targetElement
-					.unbind('mouseout.CJTButtonTouchMouseOut')
-					.hide('fast');
+				this.close();
 			}
 		}
 		
@@ -289,6 +286,15 @@ var CJTToolBoxNS = new (function ($) {
 			// Prepare popup elements.
 			this.targetElement = this.toolbox.jToolbox.find(params._type.targetElement);
 		}
+
+		/**
+		* put your comment there...
+		* 		
+		*/
+		this.close = function() {
+			this.jButton.unbind('mouseout.CJTButtonTouchMouseOut');
+			this.targetElement.unbind('mouseout.CJTButtonTouchMouseOut').hide('fast');
+		}
 		
 		/**
 		* 
@@ -296,7 +302,7 @@ var CJTToolBoxNS = new (function ($) {
 		this.showPopup = function() {
 			// Call onPopup event. If false is returned don't display the list.
 			if (this.params._type.onPopup !== undefined) {
-				var openPopup = this.params._type.onPopup.apply(this.toolbox.params.context, [this.targetElement]);
+				var openPopup = this.params._type.onPopup.apply(this.toolbox.params.context, [this.targetElement, this]);
 				if (!openPopup) {
 					return false;
 				}

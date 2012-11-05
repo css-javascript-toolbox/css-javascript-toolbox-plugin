@@ -35,8 +35,12 @@ defined('ABSPATH') or die("Access denied");
 										<li>
 											<div class="title" title="<?php echo $template->description ?>"><?php echo $template->name ?></div>
 											<span class="options">
-												<a href="#embedded"><?php echo cssJSToolbox::getText('Embedded') ?></a> | 
-				  							<a href="#link"><?php echo cssJSToolbox::getText('Link') ?></a>
+												<a href="#embedded(<?php echo $id ?>)" class="template-action"><?php echo cssJSToolbox::getText('Embedded') ?></a> | 
+<?php if ($template->linked) : ?>
+				  							<a href="#unlink(<?php echo $id ?>)" class="template-action"><?php echo cssJSToolbox::getText('Unlink') ?></a>
+<?php else : ?>
+                        <a href="#link(<?php echo $id ?>)" class="template-action"><?php echo cssJSToolbox::getText('Link') ?></a>
+<?php endif; ?>
 											</span>
 										</li>
 <?php 						endforeach;	?>

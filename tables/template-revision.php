@@ -26,4 +26,18 @@ class CJTTemplateRevisionTable extends CJTxTable {
 		parent::__construct($dbDriver, 'template_revisions');
 	}
 	
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $templateId
+	*/
+	public function fetchLastRevision($templateId) {
+		$attributes = self::FLAG_LAST_REVISION;
+		$query = "SELECT *
+													FROM #__cjtoolbox_template_revisions
+													WHERE templateId = {$templateId} AND (attributes & {$attributes})";
+		$this->load($query);
+		return $this;
+	}
+	
 } // End class.

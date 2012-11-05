@@ -6,9 +6,6 @@
 // Disallow direct access.
 defined('ABSPATH') or die("Access denied");
 
-// Import dependencies.
-cssJSToolbox::import('framework:db:mysql:table.inc.php');
-
 /**
 * 
 * DESCRIPTION
@@ -16,14 +13,16 @@ cssJSToolbox::import('framework:db:mysql:table.inc.php');
 * @author ??
 * @version ??
 */
-class CJTTemplateDependenciesTable extends CJTTable {
+class CJTBlockTemplateTable extends CJTxTable {
 	
 	/**
 	* put your comment there...
 	* 
+	* @param mixed $dbDriver
+	* @return CJTTemplatesTable
 	*/
 	public function __construct($dbDriver) {
-		parent::__construct($dbDriver, cssJSToolbox::$config->database->tables->templateDependencies);
+		parent::__construct($dbDriver, 'block_templates');
 	}
 	
 } // End class.
