@@ -29,6 +29,20 @@ class CJTTemplatesLookupController extends CJTAjaxController {
 		$this->registryAction('display');
 		$this->registryAction('embedded');
 		$this->registryAction('link');
+		$this->registryAction('unlink');
+		$this->registryAction('unlinkAll');
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $tpl
+	*/
+	protected function displayAction($tpl = null) {
+		// Prepare inputs
+		$this->model->inputs['blockId'] = $_REQUEST['blockId'];
+		// Display view!
+		parent::displayAction()	;
 	}
 	
 	/**
@@ -40,15 +54,7 @@ class CJTTemplatesLookupController extends CJTAjaxController {
 		$this->model->inputs['templateId'] = $_REQUEST['templateId'];
 		$this->model->inputs['blockId'] = $_REQUEST['blockId'];
 		// Get embedded template code!
-		if ($revision = $this->model->embedded($code)) {
-			$this->response['templateId'] = $revision->get('templateId');
-			$this->response['revisionId'] = $revision->get('id');
-			$this->response['code'] = $code;
-		}
-		else {
-			$this->httpContentType = 'text/html';
-			$this->response = cssJSToolbox::getText('Error Embedding Template!!!');
-		}
+		$this->response['code'] = $this->model->embedded();
 	}
 
 /**
@@ -56,7 +62,51 @@ class CJTTemplatesLookupController extends CJTAjaxController {
 * 	
 */
 	protected function linkAction() {
-		
+		// Read inputs.
+		$this->model->inputs['templateId'] = $_REQUEST['templateId'];
+		$this->model->inputs['blockId'] = $_REQUEST['blockId'];		
+		// Link template!
+		$this->model->link();
+		// Response with new state!
+		$this->response['newState']  = array(
+			'action' => 'unlink',
+			'text' => cssJSToolbox::getText('Unlink'),
+			'className' => 'template-action unlink-template'
+		);
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	protected function unlinkAction() {
+		// Read inputs.
+		$this->model->inputs['templateId'] = $_REQUEST['templateId'];
+		$this->model->inputs['blockId'] = $_REQUEST['blockId'];		
+		// Link template!
+		$this->model->unlink();
+		// Response with new state!
+		$this->response['newState']  = array(
+			'action' => 'link',
+			'text' => cssJSToolbox::getText('Link'),
+			'className' => 'template-action link-template'
+		);
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	protected function unlinkAllAction() {
+		// Read inputs!
+		$this->model->inputs['blockId'] = $_REQUEST['blockId'];
+		$this->model->unlinkAll();
+		// Response with new state!
+		$this->response['newState']  = array(
+			'action' => 'link',
+			'text' => cssJSToolbox::getText('Link'),
+			'className' => 'template-action link-template'
+		);
 	}
 	
 } // End class.

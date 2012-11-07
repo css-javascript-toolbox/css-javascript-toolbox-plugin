@@ -37,6 +37,13 @@ class CJTBlocksCouplingController extends CJTController {
 	protected $filters = null;
 	
 	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onActionIds = array();
+	
+	/**
 	* Initialize controller object.
 	* 
 	* @see CJTController for more details
@@ -96,7 +103,7 @@ class CJTBlocksCouplingController extends CJTController {
 				$block = $blocks[$blockId];
 				/**
 				* Process Links & Expressions blocks.
-				* For better performace check only check those with links and expressions flags.
+				* For better performace check only those with links and expressions flags.
 				*/
 				if ($block->blocksGroup & CJTBlockModel::PINS_LINK_EXPRESSION) {
 					/**
@@ -135,8 +142,11 @@ class CJTBlocksCouplingController extends CJTController {
 				$blockScripts = explode(',', $block->linkedScripts);
 				$scripts = array_merge($this->blocks['scripts'][$block->location], $blockScripts);
 				$this->blocks['scripts'][$block->location] = $scripts;
+				// Store all used Ids in the CORRECT ORDER.
+				$this->onActionIds[] = $blockId;
 			}
 		}
+		$this->templates = $this->model->getLinkedTemplates($this->onActionIds);
 		// Return true if there is at least 1 block return within the set.
 		return true;
 	}
@@ -185,6 +195,9 @@ class CJTBlocksCouplingController extends CJTController {
 			// Add the script and style files to header/footer
 			add_action("{$actionsPrefix}_head", array(&$this, 'outputBlocks'));
 		  add_action("{$actionsPrefix}_footer", array(&$this, 'outputBlocks'));
+		  // Links templates & styloes!
+		  add_action("{$actionsPrefix}_print_scripts", array(&$this, 'linkTemplates'));
+		  add_action("{$actionsPrefix}_print_styles", array(&$this, 'linkTemplates'));
 		}
 		// Make sure this is executed only once.
 		// Sometimes wp hook run on backend and sometimes its not.
@@ -192,6 +205,37 @@ class CJTBlocksCouplingController extends CJTController {
 		// Simply remove all hooks to ensure its run only one time.
 		remove_action('wp', array(&$this, 'initCoupling'));
 		remove_action('admin_init', array(&$this, 'initCoupling'));
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function linkTemplates() {
+		// Initialize vars!
+	 $types['scripts'] = 'javascript';
+	 $types['styles'] = 'css';
+	 // Make sure action is executed only once!
+	$currentFilter = current_filter();
+	 remove_action($currentFilter, array(&$this, __FUNCTION__));
+	 // Derived template Type from Wordpress filter.
+	 $filterFor = array_pop(explode('_', $currentFilter));
+	 $type = $types[$filterFor];
+	 // Following vars are referenced based on the current type.
+	 $templates = isset($this->templates[$type]) ? $this->templates[$type] : array();
+	 /**
+	 * @var WP_Dependencies
+	 */
+	 $queue = $GLOBALS["wp_{$filterFor}"];
+	 // Add templates to the queye.
+	 foreach ($templates as $template)  {
+	 	 // If already registered don't use the file.
+	 	 // this is because user might revisioned Wordpress build-script/style
+	 	 // and we won't use this in version 6!!
+	 	 $file = isset($queue->registered[$template->queueName]) ? null : $template->file;
+	 	 // Always make sure the template is queued.
+	 	 $queue->enqueue($template->queueName, $file);
+	 }
 	}
 	
 	/**
@@ -206,6 +250,8 @@ class CJTBlocksCouplingController extends CJTController {
 		);
 		// Derived location name from wordpress filter name.
 		$currentFilter = current_filter();
+		// Make sure action is executed only once!
+		 remove_action($currentFilter, array(&$this, __FUNCTION__));
 		// This hook is used across both ends, front and back ends.
 		// Remove application prefix (wp_ or admin_).
 		// Remining is head or footer.

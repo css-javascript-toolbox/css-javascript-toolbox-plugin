@@ -3,6 +3,9 @@
 * 
 */
 
+// Import dependencies
+cssJSToolbox::import('framework:db:mysql:xtable.inc.php');
+
 /**
 * 
 */
@@ -18,22 +21,18 @@ class CJTTemplatesLookupModel {
 	/**
 	* put your comment there...
 	* 
-	* @param mixed $code
 	*/
-	public function embedded(& $code) {
-		// Read inputs, initialzie vars!
-		$templateId = $this->inputs['templateId'];
-		// Read template revision.
-		cssJSToolbox::import('framework:db:mysql:xtable.inc.php');
+	public function embedded() {
+		// Read template revision.		
 		$revision = CJTxTable::getInstance('template-revision')
-													->fetchLastRevision($templateId);
+													->fetchLastRevision($this->inputs['templateId']);
 		// Revision could not be queried!!
 		if (!$revision->get('id')) {
 			throw new Exception('Revision could not be found!!');
 		}
 		// Read revision code.
 		$code = file_get_contents(ABSPATH . "/{$revision->get('file')}");
-		return $revision;
+		return $code;
 	}
 	
 	/**
@@ -45,9 +44,19 @@ class CJTTemplatesLookupModel {
 		foreach (cssJSToolbox::$config->templates->types as $typeId => $object) {
 			$arrangedItems[$typeId] = array();
 		}
-		$tManager = CJTModel::create('templates-manager');
-		// Quey all templates with the last revision!
-		$items = $tManager->getItems(true);
+		$query = "SELECT 		t.id, t.type, t.name, t.description,
+																							a.name author,
+																							bt.blockId linked
+																							FROM 			cjtv6_cjtoolbox_templates t
+																							LEFT JOIN 	cjtv6_cjtoolbox_authors a
+																								ON t.authorId = a.id
+																							LEFT JOIN	
+																							(SELECT * 
+																							FROM cjtv6_cjtoolbox_block_templates 
+																							WHERE blockId = {$this->inputs['blockId']}
+																							) bt
+																								ON t.id = bt.templateId";
+		$items = cssJSToolbox::getInstance()->getDBDriver()->select($query);
 		// First we need to group the templates by its type.
 		$templatesGrouped = array();
 		foreach ($items as $id => $template) {
@@ -55,6 +64,44 @@ class CJTTemplatesLookupModel {
 			$arrangedItems[$template->type][$template->author][$id] = $template;
 		}
 		return $arrangedItems;
+	}
+
+	/**
+	* put your comment there...
+	* 
+	*/		
+	public function link() {
+		// Add db record!
+		$map = CJTxTable::getInstance('block-template')
+		->setData($this->inputs) // Load with data
+		->save();
+		// There will be an id when successed!
+		return $map->get('id');
+	}
+	
+	/**
+	* put your comment there...
+	* 	
+	*/
+	public function unlink() {
+		// Delete record!
+		$map = CJTxTable::getInstance('block-template')
+		->setData($this->inputs) // Load with data
+		->delete(array_keys($this->inputs)); // Delete using compound key!
+		// Fields will be cleared when deleted!
+		return $map->getKey();
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function unlinkAll() {
+		$query = "DELETE FROM #__cjtoolbox_block_templates 
+													WHERE blockId = {$this->inputs['blockId']}";
+		cssJSToolbox::getInstance()->getDBDriver()
+			->delete($query)
+			->processQueue();
 	}
 	
 } // End class.

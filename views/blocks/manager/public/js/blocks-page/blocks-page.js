@@ -2,7 +2,7 @@
 *
 */
 var CJTToolBox = {
-	forms : {}
+	forms : {templatesLookupForm : []}
 }; // Application name spaces structure.
 
 /*

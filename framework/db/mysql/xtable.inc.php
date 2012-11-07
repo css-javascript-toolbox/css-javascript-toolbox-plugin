@@ -58,9 +58,18 @@ abstract class CJTxTable {
 	/**
 	* DELETE!
 	* 
+	* THIS METHOD SUPPORT COMPOUND KEYS!
+	* 
 	*/
-	public function delete() {
-		
+	public function delete($key = null) {
+		// building DELETE query!
+		$query['from']  = "DELETE FROM {$this->table()}";
+		$query['where'] = 'WHERE ' . implode(' AND ', $this->prepareQueryParameters($this->getKey($key)));
+		$query = "{$query['from']} {$query['where']}";
+		// Delete record.
+		$this->dbDriver->delete($query)->processQueue();
+		// Chaining!
+		return $this;
 	}
 	
 	/**
@@ -85,6 +94,7 @@ abstract class CJTxTable {
 	* 
 	* @param mixed $object
 	* @param mixed $dbDriver
+	* @return CJTxTable
 	*/
 	public static function getInstance($type, $dbDriver = null, $query = null) {
 		$dbDriver = !$dbDriver ? cssJSToolbox::getInstance()->getDBDriver() : $dbDriver;
@@ -101,6 +111,27 @@ abstract class CJTxTable {
 	}
 	
 	/**
+	* put your comment there...
+	* 
+	* @param mixed $tableKey
+	*/
+	public function getKey($tableKey = null) {
+		if (!$tableKey) {
+			$tableKey = $this->getTableKey();
+		}
+		$key = array_intersect_key(((array) $this->item), array_flip($tableKey));
+		return $key;
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function getTableKey() {
+		return $this->key;	
+	}
+	
+	/**
 	* Load record into table!
 	* 	
 	* @param mixed 
@@ -111,8 +142,7 @@ abstract class CJTxTable {
 			$query['select'] = 'SELECT *';
 			$query['from'] = "FROM {$this->table()}";
 			// Where clause.
-			$keys = array_intersect_key($item, array_flip($this->key));
-			$query['where'] = 'WHERE ' . implode(' AND ', $this->prepareQueryParameters($keys));
+			$query['where'] = 'WHERE ' . implode(' AND ', $this->prepareQueryParameters($this->getKey()));
 			// Read DB  record!
 			$query = "{$query['select']} {$query['from']} {$query['where']}";
 		}
@@ -151,6 +181,8 @@ abstract class CJTxTable {
 	/**
 	* UPDATE/INSERT
 	* 
+	* THIS METHOD STILL DOESNT SUPPORT COMPOUND KEYS!!
+	* 
 	*/
 	public function save() {
 		$keyFieldName = $this->key[0];
@@ -160,9 +192,8 @@ abstract class CJTxTable {
 		$fieldsList = array_diff_key($item, array_flip($this->key));
 		$fieldsList = implode(',', $this->prepareQueryParameters($fieldsList));
 		if ($id) { // Update
-			// Get only key fields.
-			$keys = array_intersect_key($item, array_flip($this->key));
-			$condition = implode(' AND ', $this->prepareQueryParameters($keys));
+			// Where clause.
+			$condition = implode(' AND ', $this->prepareQueryParameters($this->getKey()));
 			$query = "UPDATE {$this->table()} SET {$fieldsList} WHERE {$condition}";
 			$this->dbDriver->update($query);
 			$this->dbDriver->processQueue();

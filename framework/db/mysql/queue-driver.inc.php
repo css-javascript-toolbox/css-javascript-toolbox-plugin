@@ -40,6 +40,7 @@ class CJTMYSQLQueueDriver {
 		$query = str_replace('#__', "{$this->wpdb->prefix}", $query);
 		$key = md5($query);
 		$this->queue[$key] = $query;
+		return $this;
 	}
 	
 	/**

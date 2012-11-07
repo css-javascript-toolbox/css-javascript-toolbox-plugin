@@ -17,6 +17,13 @@ class CJTTemplatesManagerModel {
 	/**
 	* put your comment there...
 	* 
+	* @var mixed
+	*/
+	public $inputs;
+	
+	/**
+	* put your comment there...
+	* 
 	*/
 	public function __construct() {}
 	
@@ -24,8 +31,7 @@ class CJTTemplatesManagerModel {
 	* put your comment there...
 	* 
 	*/
-	public function getItems($unlimitedResult = false) {
-		//print_r($_GET);
+	public function getItems() {
 		// Build query.
 		$select = 'SELECT t.id, 
 																					t.name, 
@@ -36,21 +42,18 @@ class CJTTemplatesManagerModel {
 																					a.name author,
 																					r.dateCreated lastModified,
 																					r.version,
-																					r.state developmentState,
-																					bt.blockId linked';
+																					r.state developmentState';
 		$queryBase = $this->getItemsQuery();
 		// Paging.
-		if (!$unlimitedResult) {
-			$itemsPerPage = $this->getItemsPerPage();
-			// Get page no#.
-			$page = !isset($_GET['paged']) ? 1 : $_GET['paged'];
-			// Calculate start offset.
-			$start = ($page - 1) * $itemsPerPage;
-			$limit = " LIMIT {$start},{$itemsPerPage}";	
-		}
+		$itemsPerPage = $this->getItemsPerPage();
+		// Get page no#.
+		$page = !isset($this->inputs['paged']) ? 1 : $this->inputs['paged'];
+		// Calculate start offset.
+		$start = ($page - 1) * $itemsPerPage;
+		$limit = " LIMIT {$start},{$itemsPerPage}";	
 		// Order.
-		if (isset($_GET['orderby'])) {
-			$orderBy = " ORDER BY {$_GET['orderby']} {$_GET['order']}";
+		if (isset($this->inputs['orderby'])) {
+			$orderBy = " ORDER BY {$this->inputs['orderby']} {$this->inputs['order']}";
 		}
 		// final query.
     $query = "{$select}{$queryBase['from']}{$queryBase['where']}{$queryBase['groupBy']}{$orderBy}{$limit}";
@@ -75,8 +78,7 @@ class CJTTemplatesManagerModel {
 		// From clause.
 		$query['from'] = ' FROM #__cjtoolbox_templates t
 													LEFT JOIN #__cjtoolbox_template_revisions r ON t.id = r.templateId
-													LEFT JOIN #__cjtoolbox_authors a ON t.authorId = a.id
-													LEFT JOIN #__cjtoolbox_block_templates bt ON t.id = bt.templateId';
+													LEFT JOIN #__cjtoolbox_authors a ON t.authorId = a.id';
 		// Always get only the last revision.
 		$where[] = '(r.attributes & ' . self::FLAG_LAST_REVISION . ')';
 		// Build where clause based on the given filters!
@@ -90,8 +92,12 @@ class CJTTemplatesManagerModel {
 		foreach ($filters as $name => $field) {
 			$filterName = "filter_{$name}";
 			// Add filter only if there is a value specified.
-			if (!empty($_REQUEST[$filterName])) {
-				$where[] = "{$field['table']}.{$field['name']} = '{$_REQUEST[$filterName]}' ";
+			if (!empty($this->inputs[$filterName])) {
+				$value = $this->inputs[$filterName];
+				if (!is_numeric($value)) {
+					$value = "'{$value}'";
+				}
+				$where[] = "{$field['table']}.{$field['name']} = {$value} ";
 			}
 		}
 		$query['where'] = ' WHERE ' .  implode(' AND ', $where);	

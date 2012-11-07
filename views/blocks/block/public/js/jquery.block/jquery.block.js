@@ -270,16 +270,17 @@
 			// Templates popup button is hovered for the first time.
 			/** @TODO This doesnt work on IE browsers */
 			if (targetElement.prop('src') == window.location.href) {
-				// Set frame Source to templates lookup view URL.
-				var templatesLookupViewURL = CJTBlocksPage.server.getRequestURL('templatesLookup', 'display');
-				targetElement.prop('src', templatesLookupViewURL);
+				var request = {blockId : this.block.get('id')};
 				// Pass block object to the form when loaded.
-				CJTToolBox.forms.templatesLookupForm = {
+				CJTToolBox.forms.templatesLookupForm[request.blockId] = {
 					inputs : {block : this.block, button : tbButton}
 				};
+				// Set frame Source to templates lookup view URL.
+				var templatesLookupViewURL = CJTBlocksPage.server.getRequestURL('templatesLookup', 'display', request);
+				targetElement.prop('src', templatesLookupViewURL);
 			}
 			else {
-				CJTToolBox.forms.templatesLookupForm.form.refresh();
+				CJTToolBox.forms.templatesLookupForm[this.block.get('id')].form.refresh();
 			}
 			/** @TODO Tell Block toolbox to deatach/unbind popup callback */
 			return true; // Tell CJTToolBox to Show Popup menu as normal.

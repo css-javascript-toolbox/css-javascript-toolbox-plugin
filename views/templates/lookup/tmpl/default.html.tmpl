@@ -26,20 +26,20 @@ defined('ABSPATH') or die("Access denied");
 						<ul class="authors-list">
 <?php 				
 								foreach ($authors as $author => $templates) :
-									$authorIdentifier =sha1("{$type}-{$author}");
+									$authorIdentifier ="{$type}_" . str_replace(array(' ', '-', '_'), '', $author);
 ?>
 								<li>
 									<span class="author-name"><?php echo cssJSToolbox::getText('User') ?>: <a class="name" href="#<?php echo "{$authorIdentifier}" ?>"><?php echo $author ?></a></span>
 									<ul id="<?php echo "{$authorIdentifier}" ?>-author-templates" class="templates">
 <?php 						foreach ($templates as $id => $template) : ?>
-										<li>
+										<li class="template-item">
 											<div class="title" title="<?php echo $template->description ?>"><?php echo $template->name ?></div>
 											<span class="options">
 												<a href="#embedded(<?php echo $id ?>)" class="template-action"><?php echo cssJSToolbox::getText('Embedded') ?></a> | 
 <?php if ($template->linked) : ?>
-				  							<a href="#unlink(<?php echo $id ?>)" class="template-action"><?php echo cssJSToolbox::getText('Unlink') ?></a>
+				  							<a href="#unlink(<?php echo $id ?>)" class="template-action unlink-template"><?php echo cssJSToolbox::getText('Unlink') ?></a>
 <?php else : ?>
-                        <a href="#link(<?php echo $id ?>)" class="template-action"><?php echo cssJSToolbox::getText('Link') ?></a>
+                        <a href="#link(<?php echo $id ?>)" class="template-action link-template"><?php echo cssJSToolbox::getText('Link') ?></a>
 <?php endif; ?>
 											</span>
 										</li>
@@ -53,6 +53,17 @@ defined('ABSPATH') or die("Access denied");
 				</div>
 <?php endif; ?>
 			</form>
+		</div>
+		<div class="sweep">
+			<span class="actions">
+				 <a href="#unlink-all"><?php echo cssJSToolbox::getText('Unlink All') ?></a>
+			</span>
+			<span class="filters-title"><?php echo cssJSToolbox::getText('Show') ?>: </span> 
+			<span class="filters">
+				<a href="#linked"><?php echo cssJSToolbox::getText('Linked') ?></a> | 
+				<a href="#unlinked"><?php echo cssJSToolbox::getText('Unlinked') ?></a> | 
+				<a href="#all" class="active-filter"><?php echo cssJSToolbox::getText('All') ?></a>
+			</span>
 		</div>
 <?php wp_print_footer_scripts() ?>
 	</body>

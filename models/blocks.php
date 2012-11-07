@@ -204,31 +204,6 @@ class CJTBlocksModel {
 	/**
 	* put your comment there...
 	* 
-	* @param mixed $linksExpressionFlag
-	* @param mixed $pinPoint
-	* @param mixed $customPins
-	*/
-	public function getPinsBlocks($linksExpressionFlag, $pinPoint, $customPins) {
-		// Import required libraries for CJTPinsBlockSQLView.
-		require_once CJTOOLBOX_TABLES_PATH . '/pins-blocks-view.php';
-		// Initialize new CJTPinsBlockSQLView view object.
-		$dbDriver = new CJTMYSQLQueueDriver($GLOBALS['wpdb']);
-		$view = new CJTPinsBlockSQLView($dbDriver);
-		// Apply filter to view.
-		$view->filters($pinPoint, $customPins);
-		// retreiving blocks data associated with current request.
-		$blocks = $view->exec();
-		// Get links & expressions Blocks.
-		// NOTE: We need only blocks not presented in $blocks var -- exclude their id.
-		$view->filters($linksExpressionFlag, array(), 'active', array_keys($blocks));
-		// We'll process all blocks inside single loop.
-		$blocks = $blocks + $view->exec();
-		return $blocks;
-	}
-	
-	/**
-	* put your comment there...
-	* 
 	*/
 	public function save() {
 		$this->dbDriver->processQueue();

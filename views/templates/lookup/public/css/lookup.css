@@ -29,6 +29,10 @@ ul {
 	margin-left: 15px;
 	padding-top: 8px;
 }
+.templates-list ul li .options .unlink-template {
+	color: black;
+	font-style: italic;
+}
 .templates-list ul.templates li a {
 	color: green;
 }
@@ -40,6 +44,12 @@ ul {
 .templates-list ul.templates li a:visited{
 	text-decoration: none;
 }
+.filters .active-filter {
+	font-weight: bold;
+	text-decoration: line-through;
+}
+.sweep { font-size: 12px;}
+.sweep .filters-title{margin-left: 85px;}
 /* Authors */
 .author-name a.name,
 .author-name a.name:hover

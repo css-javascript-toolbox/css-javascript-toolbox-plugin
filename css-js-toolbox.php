@@ -126,7 +126,7 @@ if (!class_exists('cssJSToolbox')) {
 			'blocks-coupling' => array(
 				'identifications' => array('.*'),
 				'controller' => 'blocks-coupling',
-				'model' => 'blocks',
+				'model' => 'coupling',
 			),
 			'blocks' => array(
 				'identifications' => array('page=cjtoolbox'),

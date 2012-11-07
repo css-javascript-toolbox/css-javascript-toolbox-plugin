@@ -35,7 +35,17 @@ class CJTTemplatesManagerController extends CJTAjaxController {
 	* put your comment there...
 	* 
 	*/
-	public function deleteAction() {
+	protected function displayAction() {
+		$this->model->inputs = $_REQUEST;
+		// Display view.
+		parent::displayAction();	
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	protected function deleteAction() {
 		
 	}
 	
@@ -43,7 +53,7 @@ class CJTTemplatesManagerController extends CJTAjaxController {
 	* put your comment there...
 	* 
 	*/
-	public function publishAction() {
+	protected function publishAction() {
 		
 	}
 	
@@ -51,7 +61,7 @@ class CJTTemplatesManagerController extends CJTAjaxController {
 	* put your comment there...
 	* 
 	*/
-	public function trashAction() {
+	protected function trashAction() {
 		
 	}
 	
