@@ -114,7 +114,7 @@ class CJTBlocksCouplingController extends CJTController {
 								/**
 								* @var WP_Dependencies
 								*/
-								$queue = $GLOBALS["wp_{$typeName}"];
+								$queue = $this->model->getQueueObject($typeName);
 								if (!in_array($template->queueName, $queue->done)) {
 									if (!$queue->registered[$template->queueName]) {
 										$queue->add($template->queueName, "/{$template->file}", null, $template->version, 1);
@@ -301,16 +301,10 @@ class CJTBlocksCouplingController extends CJTController {
 	 $type = CJTCouplingModel::$templateTypes[$filterFor];
 	 // Following vars are referenced based on the current type.
 	 $templates = isset($this->templates[$type]) ? $this->templates[$type] : array();
-	 // Make sure Queue Object is ready/instantiated!
-	 $globalQueueObjectName = "wp_{$filterFor}";
-	 if (!isset($GLOBALS[$globalQueueObjectName])) {
-	 	 $queueClass = 'WP_' . ucfirst($filterFor);
-		 $GLOBALS[$globalQueueObjectName] = new $queueClass();
-	 }
 	 /**
 	 * @var WP_Dependencies
 	 */
-	 $queue = $GLOBALS[$globalQueueObjectName];
+	 $queue = $this->model->getQueueObject($filterFor);
 	 // Add templates to the queye.
 	 foreach ($templates as $template)  {
 	 	 // Registery only if not yet registered.

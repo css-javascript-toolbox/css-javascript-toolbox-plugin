@@ -73,4 +73,19 @@ class CJTCouplingModel {
 		return $templates;
 	}
 	
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $type
+	*/
+	public function getQueueObject($type) {
+		 // Make sure Queue Object is ready/instantiated!
+		 $globalQueueObjectName = "wp_{$type}";
+		 if (!isset($GLOBALS[$globalQueueObjectName])) {
+	 		 $queueClass = 'WP_' . ucfirst($type);
+			 $GLOBALS[$globalQueueObjectName] = new $queueClass();
+		 }
+		 return $GLOBALS[$globalQueueObjectName];
+	}
+	
 } //  End class.

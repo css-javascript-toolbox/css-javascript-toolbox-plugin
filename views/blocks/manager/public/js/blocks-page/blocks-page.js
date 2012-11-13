@@ -374,7 +374,7 @@ var CJTBlocksPage;
 			var multiOperationServer = CJTBlocksPage.server.multiOperation;
 			var data = {
 				deletedBlocks : CJTBlocksPage.deletedBlocks,
-				calculatePinPoint : true
+				calculatePinPoint : 1
 			};
 			// Save block data.
 			multiOperationServer.trigger('save').send('post', data).success(
