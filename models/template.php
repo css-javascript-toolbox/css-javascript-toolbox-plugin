@@ -90,7 +90,7 @@ class CJTTemplateModel {
 		// Make sure directory created even if updating templats.
 		// This case is needed when revisioned built-in templates (e.g jquery)!!
 		if (!file_exists(ABSPATH . "/{$templateDir}")) {
-			mkdir(ABSPATH . "/{$templateDir}", 755);
+			mkdir(ABSPATH . "/{$templateDir}", 0755);
 		}
 		// Save template.
 		if (!$template->save()->get('id')) {

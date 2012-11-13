@@ -16,16 +16,23 @@ class CJTTemplateStatesField extends CJTListField {
 	* 
 	*/
 	protected function prepareItems() {
-		CJTxTable::import('author');
-		$internalAuthorsFlag = CJTAuthorTable::FLAG_SYS_AUTHOR;
-		// Query all template state exluding Internal authors.
-		$query = "SELECT DISTINCT(state) `text` 
-												FROM #__cjtoolbox_templates t
-												LEFT JOIN #__cjtoolbox_authors a
-												ON  t.authorId = a.id
-												WHERE (a.attributes & {$internalAuthorsFlag}) = 0
-												ORDER BY `text`";
-		$this->items = cssJSToolbox::getInstance()->getDBDriver()->select($query);
+		if ($this->options['result'] == 'fullList') {
+			$this->items['published']['text'] = 'Published';
+			$this->items['draft']['text'] = 'Draft';
+			$this->items['trash']['text'] = 'Trash';
+		}
+		else {
+			CJTxTable::import('author');
+			$internalAuthorsFlag = CJTAuthorTable::FLAG_SYS_AUTHOR;
+			// Query all template state exluding Internal authors.
+			$query = "SELECT DISTINCT(state) `text` 
+													FROM #__cjtoolbox_templates t
+													LEFT JOIN #__cjtoolbox_authors a
+													ON  t.authorId = a.id
+													WHERE (a.attributes & {$internalAuthorsFlag}) = 0
+													ORDER BY `text`";
+			$this->items = cssJSToolbox::getInstance()->getDBDriver()->select($query);			
+		}
 	}
 	
 } // End class.
