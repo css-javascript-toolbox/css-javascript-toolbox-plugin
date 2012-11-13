@@ -8,6 +8,7 @@ defined('ABSPATH') or die("Access denied");
 
 // Import WP_List_Table class.
 require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
+cssJSToolbox::import('tables:template.php');
 
 /**
 * 
@@ -59,14 +60,14 @@ class CJTTemplatesManagerListTable extends WP_List_Table {
 				$value .= '</div>';
 				// Display row actions underneath template name column.
 				$actions = array();
-				$actions['info'] = "<a href='#{$item->id}'>" . cssJSToolbox::getText('Info') . '</a>';
-				$actions['edit'] = "<a href='#{$item->id}'>" . cssJSToolbox::getText('Edit') . '</a>';
-				$actions['delete'] = "<a href='#{$item->id}'>" . cssJSToolbox::getText('Delete') . '</a>';
+				$actions['info'] = "<a href='#info({$item->id})'>" . cssJSToolbox::getText('Info') . '</a>';
+				$actions['edit'] = "<a href='#edit({$item->id})'>" . cssJSToolbox::getText('Edit') . '</a>';
+				$actions['delete'] = "<a href='#delete({$item->id})'>" . cssJSToolbox::getText('Delete') . '</a>';
 				// Show only states that the Template s not in!
-				$states = CJTStatesField::getStates();
+				$states = CJTTemplateTable::$states;
 				unset($states[$item->state]);
-				foreach ($states as $name => $props) {
-					$actions[$name] = "<a href='#{$item->id}'>{$props['text']}</a>";
+				foreach ($states as $name => $text) {
+					$actions[$name] = "<a href='#changeState({$item->id})'>{$text}</a>";
 				}
 				// Show actions row underneath template name!!
 				$value .= $this->row_actions($actions, false);
@@ -87,24 +88,33 @@ class CJTTemplatesManagerListTable extends WP_List_Table {
 	* @param mixed $which
 	*/
 	function extra_tablenav($which) {
+		// Import dependencies.
+		cssJSToolbox::import('framework:html:list.php');
 		// Define filters.		
 		$filters = array();
-		$filters[] = 'template-types';
-		$filters[] = 'versions';
-		$filters[] = 'creation-dates';
-		$filters[] = 'authors';
-		$filters[] = 'states';
+		$filters['authors'] = 'Author';
+		$filters['creation-dates'] = 'Date Created';
+		$filters['development-states'] = 'Release';
+		$filters['last-modified-dates'] = 'Last Modified';
+		$filters['states'] = 'State';
+		$filters['types'] = 'Type';
+		$filters['versions'] = 'Version';
 		// Get the HTML field for each filter antput the result.
-		foreach ($filters as $name) { 
-			// Import field file.
-			cssJSToolbox::import("models:fields:{$name}.php");
-			// Get field class name.
-			$name = str_replace('-', '', ucfirst($name));
-			$fieldClass = "CJT{$name}Field";
+		foreach ($filters as $name => $text) { 
 			// Output field markup.
 			$fieldName = "filter_{$name}";
 			$classes = "filter filter_{$name}";
-			echo call_user_func(array($fieldClass, 'getInstance'), 'templates-manager', $fieldName, $_REQUEST[$fieldName], null, $classes)->getInput();
+			echo CJTListField::getInstance("template-{$name}", 
+					'templates-manager', 
+					$fieldName, 
+					$_REQUEST[$fieldName], 
+					null, 
+					$classes,
+					null,
+					null,
+					null,
+					('< ' . cssJSToolbox::getText($text) . ' >')
+				)->getInput();
 		}
 	}
 	

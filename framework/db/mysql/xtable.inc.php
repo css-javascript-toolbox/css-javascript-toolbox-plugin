@@ -99,9 +99,9 @@ abstract class CJTxTable {
 	public static function getInstance($type, $dbDriver = null, $query = null) {
 		$dbDriver = !$dbDriver ? cssJSToolbox::getInstance()->getDBDriver() : $dbDriver;
 		// Import table file.
-		cssJSToolbox::import("tables:{$type}.php");
+		self::import($type);
 		// Get class name.
-		$type = str_replace(' ', '', ucfirst(str_replace(array('-', '_'), ' ', $type)));
+		$type = str_replace(' ', '', ucwords(str_replace(array('-', '_'), ' ', $type)));
 		$className = "CJT{$type}Table";
 		$table = new $className($dbDriver);
 		if ($query) {
@@ -129,6 +129,16 @@ abstract class CJTxTable {
 	*/
 	public function getTableKey() {
 		return $this->key;	
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	* @param mixed
+	*/
+	public static function import($type) {
+		cssJSToolbox::import("tables:{$type}.php");
+		return self;
 	}
 	
 	/**

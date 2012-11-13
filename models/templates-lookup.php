@@ -47,7 +47,7 @@ class CJTTemplatesLookupModel {
 		$query = "SELECT 		t.id, t.type, t.name, t.description,
 																							a.name author,
 																							bt.blockId linked
-																							FROM 			cjtv6_cjtoolbox_templates t
+																							FROM 	cjtv6_cjtoolbox_templates t
 																							LEFT JOIN 	cjtv6_cjtoolbox_authors a
 																								ON t.authorId = a.id
 																							LEFT JOIN	
@@ -55,7 +55,8 @@ class CJTTemplatesLookupModel {
 																							FROM cjtv6_cjtoolbox_block_templates 
 																							WHERE blockId = {$this->inputs['blockId']}
 																							) bt
-																								ON t.id = bt.templateId";
+																								ON t.id = bt.templateId
+																							WHERE t.state = 'published'";
 		$items = cssJSToolbox::getInstance()->getDBDriver()->select($query);
 		// First we need to group the templates by its type.
 		$templatesGrouped = array();

@@ -324,7 +324,7 @@ if (!class_exists('cssJSToolbox')) {
 		/**
 		* Get CJT Plugin object.
 		* 
-		* @return cssJSToolbox.
+		* @return cssJSToolbox
 		*/
 		public static function getInstance() {
 			if (!self::$instance) {

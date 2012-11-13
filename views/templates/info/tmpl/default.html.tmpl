@@ -1,0 +1,20 @@
+<div class="block-info">
+	<ul>
+		<li><span class="title"><?php cssJSToolbox::getText('Info') ?></span>
+			<ul>
+				<li><span style="font-weight:bold"><?php echo cssJSToolbox::getText('ID') ?>:</span> #<?php echo $this->item->id ?></li>
+				<li><span style="font-weight:bold"><?php echo cssJSToolbox::getText('Name') ?>:</span> <?php echo $this->item->name ?></li>
+				<li><span style="font-weight:bold"><?php echo cssJSToolbox::getText('Type') ?>:</span> <?php echo $this->item->type ?></li>
+		    <li><span style="font-weight:bold"><?php echo cssJSToolbox::getText('Creation Date') ?>:</span> <?php echo $this->item->creationDate ?></li>
+		    <li><span style="font-weight:bold"><?php echo cssJSToolbox::getText('Last Modified') ?>:</span> <?php echo $this->item->lastModified ?></li>		    
+			</ul>
+		</li>
+		<li><span class="title"><?php cssJSToolbox::getText('About') ?></span>
+		  <ul>
+		    <li><span style="font-weight:bold"><?php echo cssJSToolbox::getText('Description') ?>:</span> <?php echo $this->item->description ?></li>
+		    <li><span style="font-weight:bold"><?php echo cssJSToolbox::getText('Version') ?>:</span> <?php echo $this->item->version ?></li>
+		    <li><span style="font-weight:bold"><?php echo cssJSToolbox::getText('Author') ?>:</span> <?php echo $this->item->author ?></li>
+		  </ul>
+		</li>
+	</ul>
+</div>

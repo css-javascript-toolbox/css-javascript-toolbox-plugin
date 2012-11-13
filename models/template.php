@@ -63,8 +63,9 @@ class CJTTemplateModel {
 		// Load template data is exists (load), change values (setData).
 		$template = CJTxTable::getInstance('template')->set('id', $this->inputs['item']['template']['id'])
 																																																			->load()
-																																																			->setData($this->inputs['item']['template']);
-		$templateDirName = strtolower(preg_replace('/\W+/', '-', $template->get('name')));
+																																																			->setData($this->inputs['item']['template'])
+																																																			->setQueueName();
+		$templateDirName = $template->get('queueName');
 		$templateDir = self::TEMPLATES_DIR . "/{$templateDirName}";
 		if (!$template->get('id')) { // Add new Template
 			// Search for author for the current local Wordpress user. 

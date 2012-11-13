@@ -1,6 +1,6 @@
 <?php
 /**
-* 
+* @deprecated
 */
 
 /**
@@ -13,6 +13,7 @@ require_once CJTOOLBOX_FRAMEWORK . '/db/mysql/table.inc.php';
 
 /**
 * 
+* @deprecated Use CJTBlockTable instead!
 */
 class CJTBlocksTable extends CJTTable {
 	

@@ -12,24 +12,6 @@
 		* put your comment there...
 		* 
 		*/
-		createNewTemplate : function (event, editId) {
-			var editId = (editId === undefined) ? 0 : editId;
-			var operation = editId ? 'edit' : 'create';
-			var query = {
-				view : 'templates/template',
-				id : editId,
-				width : 800,
-				height: 600,
-				TB_iframe : true
-			};
-			var uri = parent.CJTBlocksPage.server.getRequestURL('template', 'edit', query);
-			tb_show(CJT_TEMPLATESManagerI18N[operation + 'TemplateDialogTitle'], uri);
-		},
-		
-		/**
-		* put your comment there...
-		* 
-		*/
 		bulkAction : function(event) {
 			// Get bulk action list element.
 			var actionListName = event.target.id.replace('do', '');
@@ -46,10 +28,37 @@
 		* put your comment there...
 		* 
 		*/
+		createNewTemplate : function (templateId) {
+			var templateId = (templateId === undefined) ? 0 : templateId;
+			var operation = templateId ? 'edit' : 'create';
+			var query = {
+				view : 'templates/template',
+				id : templateId,
+				width : 800,
+				height: 600,
+				TB_iframe : true
+			};
+			var uri = parent.CJTBlocksPage.server.getRequestURL('template', 'edit', query);
+			tb_show(CJT_TEMPLATESManagerI18N[operation + 'TemplateDialogTitle'], uri);
+		},
+
+		/**
+		* put your comment there...
+		* 		
+		* @param ids
+		*/
+		deleteTemplates : function(ids) {
+			
+		},
+		
+		/**
+		* put your comment there...
+		* 
+		*/
 		filter : function(event) {
 			var filterElement = event.target;
 			// Get form input field for the filter field.
-			var inputFieldName = filterElement.className.match(/filter_\w+$/)[0];
+			var inputFieldName = filterElement.id;
 			var inputField = $('form#templates-manager input:hidden[name="' + inputFieldName + '"]');
 			// Set the value for the form field to the filter field.
 			inputField.val(filterElement.value);
@@ -63,7 +72,10 @@
 		*/
 		init : function() {
 			// Create new Template.
-			$('#create-new-template').click($.proxy(this.createNewTemplate, this));
+			$('#create-new-template').click($.proxy(function() {
+					this.createNewTemplate();
+				}, this)
+			);
 			// Single row actions.
 			$('.row-actions span a').click($.proxy(this.rowActions, this));
 			// Bulk actions.
@@ -80,20 +92,34 @@
 		* @param event
 		*/
 		rowActions : function(event) {
-			var action = event.target.parentNode.className;
-			var id = parseInt(event.target.href.match(/#(\w+)$/)[1]);
+			var actionInfo = event.target.href.match(/#(\w+)\((\d+)\)/);
+			var params = event.target.parentNode.className; // Parent Class name has new state for changeState action!
+			var action = actionInfo[1];
+			var templateId = actionInfo[2];
 			switch (action) {
 				case 'info':
-					
+					var query = {
+						view : 'templates/info',
+						id : templateId,
+						width : 528,
+						height: 314
+					};
+					var uri = parent.CJTBlocksPage.server.getRequestURL('template', 'info', query);
+					tb_show(CJT_TEMPLATESManagerI18N.InfoFormTitle, uri);
 				break;
 				case 'edit':
-					this.createNewTemplate(undefined, id);
+					this.createNewTemplate(templateId);
 				break;
 				case 'delete':
-				
-				break;
 				case 'changeState':
-				
+					// Change state and 
+					var query = {ids : [templateId], params: params};
+					parent.CJTBlocksPage.server.send('templatesManager', action, query)
+					.success($.proxy(function() {
+						// Refresh the list!
+						window.location.reload();
+						}, this)
+					);
 				break;
 			}
 		},

@@ -30,6 +30,13 @@ class CJTListField extends CJTHTMLField {
 	* 
 	* @var mixed
 	*/
+	protected $mandatory;
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	protected $moreIntoTag;
 	
 	/**
@@ -37,27 +44,31 @@ class CJTListField extends CJTHTMLField {
 	* 
 	* @var mixed
 	*/
-	protected $propText;
+	protected $propText = 'text';
 	
 	/**
 	* put your comment there...
 	* 
 	* @var mixed
 	*/
-	protected $propValue;
+	protected $propValue = null;
 	
 	/**
 	* put your comment there...
 	* 
 	*/
-	public function __construct($form, $name, $value, $id = null, $classesList = '', $propText = 'text', $propValue = null, $moreIntoTag = null) {
+	public function __construct($form, $name, $value, $id = null, $classesList = '', $propText = null, $propValue = null, $moreIntoTag = null, $optional = null) {
 		parent::__construct($form, $name, $value, $id, $classesList);
 		// Initialize local vars.
-		$this->propText = $propText;
+		$this->propText = $propText ? $propText : 'text';
 		$this->propValue = $propValue;
 		$this->moreIntoTag = $moreIntoTag;
 		// Prepare items.
 		$this->prepareItems();
+		if ($optional) {
+			$this->items = array('' => (object) array($this->propText => htmlentities($optional), '__params__' => (object) array('className' => 'optional')))
+																	+ $this->items;
+		}
 	}
 	
 	/**
@@ -76,7 +87,13 @@ class CJTListField extends CJTHTMLField {
 			// No value prop defined then use item KEY.
 			$value = ($this->propValue == null) ? $key : $item->{$this->propValue};
 			$selected = ($value == $this->value) ? ' selected="selected"' : '';
-			$list .= "<option value='{$value}'{$selected}>{$text}</option>"	;
+			if (isset($item->__params__->className)) {
+				$class = "class='{$item->__params__->className}'";
+			}
+			else {
+				$class = '';
+			}
+			$list .= "<option {$class} value='{$value}'{$selected}>{$text}</option>"	;
 		}
 		$list .= '</select>';
 		// If this is the first instance to be outputed for the current form output the control field.
@@ -93,21 +110,32 @@ class CJTListField extends CJTHTMLField {
 	/**
 	* put your comment there...
 	* 
+	* @param mixed $type
+	* @param mixed $form
+	* @param mixed $name
+	* @param mixed $value
+	* @param mixed $id
+	* @param mixed $classesList
+	* @param mixed $propText
+	* @param mixed $propValue
+	* @param mixed $moreIntoTag
 	*/
-	public function &getItems() {
-		return $this->items;	
+	public static function getInstance($type, $form, $name, $value, $id = null, $classesList = '', $propText = 'text', $propValue = null, $moreIntoTag = null, $optional = null) {
+		/* * @ todo Code to importing file and instantiating class should be in CJTHTMLField class not here!! */
+		// Import field file.
+		cssJSToolbox::import("models:fields:{$type}.php");
+		// Create an instance.
+		$type = str_replace(' ', '', ucwords(str_replace(array('-', '_'), ' ', $type)));
+		$className = "CJT{$type}Field";
+		return new $className($form, $name, $value, $id, $classesList, $propText, $propValue, $moreIntoTag, $optional);
 	}
 	
 	/**
 	* put your comment there...
 	* 
-	* @param mixed $name
-	* @param mixed $value
-	* @param mixed $id
-	* @param mixed $classesList
 	*/
-	public static function getInstance($form, $name, $value, $id = null, $classesList = '') {
-		return new CJTListField($form, $name, $value, $id, $classesList)	;
+	public function &getItems() {
+		return $this->items;	
 	}
 	
 	/**

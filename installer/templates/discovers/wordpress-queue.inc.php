@@ -40,13 +40,15 @@ class TemplatesWordpressQueueDiscovering {
 		$type = $types[$typeName];
 		$extension = cssJSToolbox::$config->templates->types[$typeName]->extension;
 		foreach ($type->registered as  $handle =>$wpTemplate) {
+			$displayName = ucfirst(str_replace(array('-', '_'), ' ', $handle));
 			// Use only templates defined with the internal file systems!!
 			// development file (.dev).js has priority over .js file.
 			$devFile = str_replace(".{$extension}", ".dev.{$extension}", $wpTemplate->src);
 			if ((is_file(ABSPATH . '/' . ($file = $devFile))) || (is_file(ABSPATH . '/' . ($file = $wpTemplate->src)))) {
 				// Add queue object as CJT template!
 				$template = CJTxTable::getInstance('template')
-				->set('name', $handle)
+				->set('name',  $displayName)
+				->set('queueName', $handle)
 				->set('type', $typeName)
 				->set('creationDate', current_time('mysql'))
 				->set('ownerId', get_current_user_id())

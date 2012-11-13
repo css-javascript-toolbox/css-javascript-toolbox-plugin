@@ -44,6 +44,13 @@ class CJTBlocksCouplingController extends CJTController {
 	protected $onActionIds = array();
 	
 	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $templates = array();
+	
+	/**
 	* Initialize controller object.
 	* 
 	* @see CJTController for more details
@@ -58,8 +65,73 @@ class CJTBlocksCouplingController extends CJTController {
 		// Initialize controller.
 		add_action('admin_init', array(&$this, 'initCoupling'));
 		add_action('wp', array(&$this, 'initCoupling'));
+		// Add Shortcode callbacks.
+		add_shortcode('cjtoolbox', array(&$this, 'shortcode'));
 		// Initialize controller.
 		parent::__construct($controllerInfo);
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $attributes
+	*/
+	public function shortcode($attributes) {
+		// Initialize vars.
+		$replacement = '';
+		// Default Class.
+		if (!$attributes['class']) {
+			$class =	'block';
+		}
+		switch ($class) {
+			case 'block':
+				// Get is the default "operation"!
+				if (!$attributes['op']) {
+					$attributes['op'] = 'get';
+				}
+				switch ($attributes['op']) {
+					case 'get': 
+						// Import dependecies.
+						cssJSToolbox::import('framework:db:mysql:xtable.inc.php');
+						// Output block if 'force="true" or only if it wasn't already in the header/footer!
+						if ((($attributes['force'] == "true") || !in_array($attributes['id'], $this->onActionIds))) {
+							// Get block code.
+							$block = CJTxTable::getInstance('block')
+																						->set('id', $attributes['id'])
+																						->load();
+							// Only ACTIVE blocks!
+							if ($block->get('state') != 'active') {
+								return;
+							}
+							$replacement = $block->get('code');
+							// Get linked templates.
+							$templates = $this->model->getLinkedTemplates($attributes['id']);
+							$reverseTypes = array_flip(CJTCouplingModel::$templateTypes);
+							// Enqueue all in footer.
+							foreach ($templates as $template) {
+								// Get Template type name.
+								$typeName = $reverseTypes[$template->type];
+								/**
+								* @var WP_Dependencies
+								*/
+								$queue = $GLOBALS["wp_{$typeName}"];
+								if (!in_array($template->queueName, $queue->done)) {
+									if (!$queue->registered[$template->queueName]) {
+										$queue->add($template->queueName, "/{$template->file}", null, $template->version, 1);
+									}
+									// Enqueue template!
+									$queue->enqueue($template->queueName);
+								}
+							}
+						}
+					break;
+				}
+			break;
+			default:
+				$replacement = cssJSToolbox::getText('Shortcode Type is not supported!! Only (block) type is currently available!!!');
+			break;
+		}
+		return $replacement;
 	}
 	
 	/**
@@ -91,7 +163,6 @@ class CJTBlocksCouplingController extends CJTController {
 		}
 		// Import related libraries.
 		cssJSToolbox::import('framework:php:evaluator:evaluator.inc.php');
-		
 		/**
 		* Iterator over all blocks by using they order.
 		* For each block get code and scripts.
@@ -136,8 +207,14 @@ class CJTBlocksCouplingController extends CJTController {
 					}
 				}
 				// For every location store blocks code into single string
-				/** @todo Evaluate PHP code/ ALlow PHP code to be executed! */
-				$this->blocks['code'][$block->location] .= CJTPHPCodeEvaluator::getInstance($block->code)->exec()->getOutput();
+				/** @todo  Use method other data:// wrapper, its only available in Hight version of PHP (5.3 or so!) */
+				$evaludatedCode = CJTPHPCodeEvaluator::getInstance($block->code)->exec()->getOutput();
+				/** @todo Include Debuging info only if we're in debuging mode! */
+				if (1) {
+					
+					$evaludatedCode = "\n<!-- Block ({$blockId}) START-->\n{$evaludatedCode}\n<!-- Block ({$blockId}) END -->\n";
+				}
+				$this->blocks['code'][$block->location] .= $evaludatedCode;
 				// For every location store blocks scripts into single array.
 				$blockScripts = explode(',', $block->linkedScripts);
 				$scripts = array_merge($this->blocks['scripts'][$block->location], $blockScripts);
@@ -146,7 +223,11 @@ class CJTBlocksCouplingController extends CJTController {
 				$this->onActionIds[] = $blockId;
 			}
 		}
-		$this->templates = $this->model->getLinkedTemplates($this->onActionIds);
+		$templates = $this->model->getLinkedTemplates($this->onActionIds);
+		// Classisfy as we process Scripts and Styles separatly (different hooks!).
+		foreach ($templates as $id => $template) {
+			$this->templates[$template->type][$id] = $template;
+		}
 		// Return true if there is at least 1 block return within the set.
 		return true;
 	}
@@ -193,11 +274,11 @@ class CJTBlocksCouplingController extends CJTController {
 		if ($this->getCached() || $this->getBlocks()) {
 			$actionsPrefix = is_admin() ? 'admin'	: 'wp';
 			// Add the script and style files to header/footer
-			add_action("{$actionsPrefix}_head", array(&$this, 'outputBlocks'));
-		  add_action("{$actionsPrefix}_footer", array(&$this, 'outputBlocks'));
+			add_action("{$actionsPrefix}_head", array(&$this, 'outputBlocks'), 30);
+		  add_action("{$actionsPrefix}_footer", array(&$this, 'outputBlocks'), 30);
 		  // Links templates & styloes!
-		  add_action("{$actionsPrefix}_print_scripts", array(&$this, 'linkTemplates'));
-		  add_action("{$actionsPrefix}_print_styles", array(&$this, 'linkTemplates'));
+		  add_action("{$actionsPrefix}_enqueue_scripts", array(&$this, 'linkTemplates'), 30);
+		  add_action("{$actionsPrefix}_print_styles", array(&$this, 'linkTemplates'), 30);
 		}
 		// Make sure this is executed only once.
 		// Sometimes wp hook run on backend and sometimes its not.
@@ -212,29 +293,32 @@ class CJTBlocksCouplingController extends CJTController {
 	* 
 	*/
 	public function linkTemplates() {
-		// Initialize vars!
-	 $types['scripts'] = 'javascript';
-	 $types['styles'] = 'css';
 	 // Make sure action is executed only once!
 	$currentFilter = current_filter();
-	 remove_action($currentFilter, array(&$this, __FUNCTION__));
+	 remove_action($currentFilter, array(&$this, 'linkTemplates'), 30);
 	 // Derived template Type from Wordpress filter.
 	 $filterFor = array_pop(explode('_', $currentFilter));
-	 $type = $types[$filterFor];
+	 $type = CJTCouplingModel::$templateTypes[$filterFor];
 	 // Following vars are referenced based on the current type.
 	 $templates = isset($this->templates[$type]) ? $this->templates[$type] : array();
+	 // Make sure Queue Object is ready/instantiated!
+	 $globalQueueObjectName = "wp_{$filterFor}";
+	 if (!isset($GLOBALS[$globalQueueObjectName])) {
+	 	 $queueClass = 'WP_' . ucfirst($filterFor);
+		 $GLOBALS[$globalQueueObjectName] = new $queueClass();
+	 }
 	 /**
 	 * @var WP_Dependencies
 	 */
-	 $queue = $GLOBALS["wp_{$filterFor}"];
+	 $queue = $GLOBALS[$globalQueueObjectName];
 	 // Add templates to the queye.
 	 foreach ($templates as $template)  {
-	 	 // If already registered don't use the file.
-	 	 // this is because user might revisioned Wordpress build-script/style
-	 	 // and we won't use this in version 6!!
-	 	 $file = isset($queue->registered[$template->queueName]) ? null : $template->file;
+	 	 // Registery only if not yet registered.
+	 	 if (!isset($queue->registered[$template->queueName])) {
+	 	 	 $queue->add($template->queueName, "/{$template->file}", null, $template->version);
+	 	 }
 	 	 // Always make sure the template is queued.
-	 	 $queue->enqueue($template->queueName, $file);
+	 	 $queue->enqueue($template->queueName);
 	 }
 	}
 	
@@ -244,14 +328,11 @@ class CJTBlocksCouplingController extends CJTController {
 	*/
 	public function outputBlocks() {
 		// Map "wp hook location" to "block hook location".
-		$locationsMap = array(
-			'head' => 'header',
-			'footer' => 'footer',
-		);
+		$locationsMap = array('head' => 'header', 'footer' => 'footer');
 		// Derived location name from wordpress filter name.
 		$currentFilter = current_filter();
 		// Make sure action is executed only once!
-		 remove_action($currentFilter, array(&$this, __FUNCTION__));
+		 remove_action($currentFilter, array(&$this, 'outputBlocks'), 30);
 		// This hook is used across both ends, front and back ends.
 		// Remove application prefix (wp_ or admin_).
 		// Remining is head or footer.

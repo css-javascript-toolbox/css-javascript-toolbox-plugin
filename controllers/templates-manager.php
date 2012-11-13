@@ -52,16 +52,8 @@ class CJTTemplatesManagerController extends CJTAjaxController {
 	/**
 	* put your comment there...
 	* 
-	*/
-	protected function publishAction() {
-		
-	}
-	
-	/**
-	* put your comment there...
-	* 
-	*/
-	protected function trashAction() {
+	*/	
+	protected function changeStateAction() {
 		
 	}
 	

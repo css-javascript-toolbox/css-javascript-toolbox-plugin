@@ -10,6 +10,11 @@ cssJSToolbox::import('tables:blocks.php');
 class CJTCouplingModel {
 
 	/**
+	* 	
+	*/
+	public static $templateTypes = array('scripts' => 'javascript', 'styles' => 'css');
+	
+	/**
 	* put your comment there...
 	* 
 	*/
@@ -48,7 +53,24 @@ class CJTCouplingModel {
 	* @param mixed $blocks
 	*/
 	public function getLinkedTemplates($blocks) {
-		return array('scripts' => array((object) array('queueName' => 'jquery')));
+		// Accept single id too!
+		$blocks = (array) $blocks;
+		// Import dependencies!
+		cssJSToolbox::import('framework:db:mysql:xtable.inc.php', 'tables:template-revision.php');
+		// Initialize vars.		
+		$templates = array();		
+		$query['select'] = 'SELECT t.id, t.type, t.queueName, r.version, r.file, bt.blockId';
+		$query['from'] = 'FROM #__cjtoolbox_block_templates bt LEFT JOIN #__cjtoolbox_templates t
+																				ON bt.templateId = t.id
+																				LEFT JOIN #__cjtoolbox_template_revisions r
+																				ON bt.templateId = r.templateId';
+		// Where clause.
+		$query['where']['blocks'] = implode(',', $blocks);
+		$query['where']['attributes'] = CJTTemplateRevisionTable::FLAG_LAST_REVISION;
+		$query['where'] = "WHERE bt.blockId IN ({$query['where']['blocks']}) AND (r.attributes & {$query['where']['attributes']})";
+		$query = "{$query['select']} {$query['from']} {$query['where']}";
+		$templates = cssJSToolbox::getInstance()->getDBDriver()->select($query);
+		return $templates;
 	}
 	
 } //  End class.

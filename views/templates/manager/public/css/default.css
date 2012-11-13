@@ -27,3 +27,5 @@ td.name.column-name .description .read-more{
 	text-decoration: underline;
 	margin-bottom: 18px;
 }
+
+select option.optional {color: #AAAAAA;}

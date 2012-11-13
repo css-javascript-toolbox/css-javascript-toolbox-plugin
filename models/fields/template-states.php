@@ -9,7 +9,7 @@ cssJSToolbox::import('framework:html:list.php', 'framework:db:mysql:xtable.inc.p
 /**
 * 
 */
-class CJTTemplateTypesField extends CJTListField {
+class CJTTemplateStatesField extends CJTListField {
 	
 	/**
 	* put your comment there...
@@ -18,9 +18,9 @@ class CJTTemplateTypesField extends CJTListField {
 	protected function prepareItems() {
 		CJTxTable::import('author');
 		$internalAuthorsFlag = CJTAuthorTable::FLAG_SYS_AUTHOR;
-		// Query all types  ezcluding internal authors!
-		$query = "SELECT DISTINCT(type) `text` 
-												FROM #__cjtoolbox_templates  t
+		// Query all template state exluding Internal authors.
+		$query = "SELECT DISTINCT(state) `text` 
+												FROM #__cjtoolbox_templates t
 												LEFT JOIN #__cjtoolbox_authors a
 												ON  t.authorId = a.id
 												WHERE (a.attributes & {$internalAuthorsFlag}) = 0

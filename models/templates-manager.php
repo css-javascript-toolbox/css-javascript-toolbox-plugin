@@ -11,21 +11,12 @@ defined('ABSPATH') or die('Access denied');
 */
 class CJTTemplatesManagerModel {
 	
-	/** */
-	const FLAG_LAST_REVISION = 0x01;
-	
 	/**
 	* put your comment there...
 	* 
 	* @var mixed
 	*/
 	public $inputs;
-	
-	/**
-	* put your comment there...
-	* 
-	*/
-	public function __construct() {}
 	
 	/**
 	* put your comment there...
@@ -75,19 +66,27 @@ class CJTTemplatesManagerModel {
 	* 
 	*/
 	public function getItemsQuery() {
+		// Import dependencies.
+		cssJSToolbox::import('framework:db:mysql:xtable.inc.php');
+		CJTxTable::import('template-revision');
+		CJTxTable::import('author');
 		// From clause.
 		$query['from'] = ' FROM #__cjtoolbox_templates t
 													LEFT JOIN #__cjtoolbox_template_revisions r ON t.id = r.templateId
 													LEFT JOIN #__cjtoolbox_authors a ON t.authorId = a.id';
 		// Always get only the last revision.
-		$where[] = '(r.attributes & ' . self::FLAG_LAST_REVISION . ')';
+		$where[] = '(r.attributes & ' . CJTTemplateRevisionTable::FLAG_LAST_REVISION . ')';
+		// For version 6 don't display Internal/System (e.g Wordpress, ) Authors templates
+		$where[] = '((a.attributes & ' . CJTAuthorTable::FLAG_SYS_AUTHOR . ') = 0)';
 		// Build where clause based on the given filters!
 		$filters = array(
-			'Templatetypes' => array('table' => 't', 'name' =>'type'), 
-			'Authors' => array('table' => 't', 'name' => 'authorId'),
-			'Versions' => array('table' => 'r', 'name' => 'version'),
-			'Creationdates' => array('table' => 't', 'name' => 'creationDate'),
-			'States' => array('table' => 't', 'name' => 'state'),
+			'types' => array('table' => 't', 'name' =>'type'), 
+			'authors' => array('table' => 't', 'name' => 'authorId'),
+			'version' => array('table' => 'r', 'name' => 'version'),
+			'creation-dates' => array( 'name' => 'DATE(creationDate)'),
+			'last-modified-dates' => array('name' => 'DATE(dateCreated)'),
+			'states' => array('table' => 't', 'name' => 'state'),
+			'development-state' => array('table' => 'r', 'name' => 'state'),
 		);
 		foreach ($filters as $name => $field) {
 			$filterName = "filter_{$name}";
@@ -97,7 +96,10 @@ class CJTTemplatesManagerModel {
 				if (!is_numeric($value)) {
 					$value = "'{$value}'";
 				}
-				$where[] = "{$field['table']}.{$field['name']} = {$value} ";
+				if ($field['table']) {
+					$field['table'] .= '.';
+				}
+				$where[] = "{$field['table']}{$field['name']} = {$value} ";
 			}
 		}
 		$query['where'] = ' WHERE ' .  implode(' AND ', $where);	

@@ -17,9 +17,7 @@ else {
 }
 
 // Import dependencies.
-cssJSToolbox::import('models:fields:template-types.php');
-cssJSToolbox::import('models:fields:states.php');
-cssJSToolbox::import('models:fields:releases.php');
+cssJSToolbox::import('framework:html:list.php');
 
 $coreFieldsState = $this->isNew ? '' : 'disabled="disabled"';
 ?>
@@ -47,11 +45,11 @@ $coreFieldsState = $this->isNew ? '' : 'disabled="disabled"';
 												<li><label for="name"><?php echo cssJSToolbox::getText('Name') ?><sub>*</sub></label><input type="text" id="name" name="item[template][name]" value="<?php echo $this->item->name ?>" <?php echo $coreFieldsState ?>></li>
 												<li>
 													<label for="type"><?php echo cssJSToolbox::getText('Type') ?><sub>*</sub></label>
-<?php							echo CJTTemplateTypesField::getInstance('item-form', 'item[template][type]', $this->item->type, 'type', null, $coreFieldsState)->getInput(array('standard' => true)) ?>
+<?php							echo CJTListField::getInstance('template-types', 'item-form', 'item[template][type]', $this->item->type, 'type', null, null, null, $coreFieldsState, cssJSToolbox::getText('< Select Type >'))->getInput(array('standard' => true)) ?>
 												</li>
 												<li>
 													<label for="state"><?php echo cssJSToolbox::getText('State') ?><sub>*</sub></label>
-<?php							echo CJTStatesField::getInstance('item-form', 'item[template][state]', $this->item->state, 'state')->getInput(array('standard' => true)) ?>
+<?php							echo CJTListField::getInstance('template-states', 'item-form', 'item[template][state]', $this->item->state, 'state', null, null, null, null, cssJSToolbox::getText('< Select State >'))->getInput(array('standard' => true)) ?>
 												</li>
 												<li>
 													<label for="code"><?php echo cssJSToolbox::getText('Code') ?></label>
@@ -77,7 +75,7 @@ $coreFieldsState = $this->isNew ? '' : 'disabled="disabled"';
 												<li><label for="version"><?php echo cssJSToolbox::getText('Version') ?></label><input type="text" id="version" name="item[revision][version]" value="<?php echo $this->item->version ?>"></li>
 												<li>
 													<label for="developmentState"><?php echo cssJSToolbox::getText('State') ?></label>
-<?php							echo CJTReleasesField::getInstance('item-form', 'item[revision][state]', $this->item->developmentState, 'developmentState')->getInput(array('standard' => true)) ?>
+<?php							echo CJTListField::getInstance('template-development-states', 'item-form', 'item[revision][state]', $this->item->developmentState, 'developmentState', null, null, null, null, cssJSToolbox::getText('< Select State >'))->getInput(array('standard' => true)) ?>
 												</li>
 												<li><label for="changeLog"><?php echo cssJSToolbox::getText('Revision note') ?></label><textarea id="changeLog" name="item[revision][changeLog]"><?php echo $this->item->changeLog ?></textarea></li>
 											</ul>
