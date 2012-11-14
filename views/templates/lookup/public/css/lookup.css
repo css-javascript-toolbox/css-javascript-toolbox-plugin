@@ -4,7 +4,8 @@ a {color: #B06D38;text-decoration: none;}
 ul {width: 100%;}
 ul li {margin-bottom: 0;}
 /* Templates List */
-.templates-list {height: 234px;overflow: auto;border-bottom: 1px solid #CCC;}
+#templates-list {border-bottom: 1px solid #CCC;}
+.templates-list {height: 234px;overflow: auto;}
 .templates-list ul.templates {padding-left: 24px;display: none; width: 255px;}
 .templates-list ul.templates li {padding-bottom: 1px;}
 .templates-list ul.templates li .title {font-weight: bold;}
