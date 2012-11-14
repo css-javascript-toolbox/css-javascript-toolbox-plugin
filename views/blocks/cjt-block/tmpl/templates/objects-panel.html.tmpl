@@ -22,9 +22,9 @@
 						</li>
 						<li>
 							<label>
-<?php						echo $this->getPinCheckbox('pinPoint', CJTBlockModel::PINS_PAGES_FRONT_PAGE) ?> <?php echo cssJSToolbox::getText('Front Page') ?>
+<?php						echo $this->getPinCheckbox('pinPoint', CJTBlockModel::PINS_PAGES_FRONT_PAGE) ?>
 							</label> 
-							<a class="l_ext" target="_blank" href="<?php bloginfo('url');?>"></a>
+							<span><a href="<?php bloginfo('url') ?>" target="_blank"><?php echo cssJSToolbox::getText('Front Page') ?></a></span>
 						</li>
 							<?php WPPagesListHelper::show_pages_with_checkbox($block->id, $block->pages, 'page', 'pages', $this->pagesPanelRegionMetrics); ?>
 					</ul>

@@ -83,8 +83,9 @@ class cj_Walker_Nav_Menu_Checklist extends Walker_Nav_Menu  {
 			$output .= in_array($item->object_id, $this->selected) ? 'checked="checked"' : '';
 		}
 		$output .= " /> ";
-		$output .= '</label> <a class="l_ext" target="_blank" href="'. $permalink .'"></a>';
-		$output .= "<span title='{$label}'>{$label}</span>";
+		// <a class="l_ext" target="_blank" href="'. $permalink .'"></a>
+		$output .= '</label>';
+		$output .= "<span title='{$label}'><a class='extr-link' href='{$permalink}' target='_blank'>{$label}</a></span>";
 	}
 	
 	/**
