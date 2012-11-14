@@ -22,6 +22,45 @@ class CJTTemplatesManagerModel {
 	* put your comment there...
 	* 
 	*/
+	public function changeState() {
+		$ids = implode(',', $this->inputs['ids']);
+		// initialize vars.
+		cssJSToolbox::getInstance()->getDBDriver()
+																->update("UPDATE #__cjtoolbox_templates 
+																											SET `state` = '{$this->inputs['state']}'
+																											WHERE id IN ({$ids})")
+																->processQueue();
+		return $this;	
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function delete() {
+		// initialize vars.
+		$dbDriver = cssJSToolbox::getInstance()->getDBDriver();
+		$ids = implode(',', $this->inputs['ids']);
+		// Delete only templates in "trash" state!
+		$ids = $dbDriver->select("SELECT id 
+																														FROM #__cjtoolbox_templates 
+																														WHERE ID IN ({$ids}) AND `state` = 'trash'");
+		$ids = array_keys($ids);
+		// Permenantly delete all templates data from
+		// templates table and all refernced tables.
+		$dbDriver->startTransaction()
+													->delete("DELETE FROM #__cjtoolbox_block_templates WHERE templateId IN ({$ids})")
+													->delete("DELETE FROM #__cjtoolbox_template_revisions WHERE templateId IN ({$ids})")
+													->delete("DELETE FROM #__cjtoolbox_templates WHERE id IN ({$ids})")
+													->commit()
+													->processQueue();
+		return $this;
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
 	public function getItems() {
 		// Build query.
 		$select = 'SELECT t.id, 

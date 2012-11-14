@@ -509,6 +509,9 @@ var CJTBlocksPage;
 		*
 		*/
 		deleteBlocks : function(blocks) {
+			if (!confirm(CJTBlocksPageI18N.confrmDeleteBlocks)) {
+				return;
+			}
 			// Delete block.
 			$.each(blocks,
 				function(index, block) {

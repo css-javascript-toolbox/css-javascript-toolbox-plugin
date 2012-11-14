@@ -65,8 +65,15 @@ class cj_Walker_Nav_Menu_Checklist extends Walker_Nav_Menu  {
 		$possible_object_id =  $item->object_id;
 		$indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
 		$output .= $indent . '<li>';
+		// Get display text!
 		$label = empty( $item->label ) ? esc_html( $item->title ) : esc_html( $item->label );
-		$output .= '<label title="' . $label . '" >';
+		// Get permalink
+		if($this->type == 'categories') {
+			$permalink = get_category_link($item->object_id);
+		} else {
+			$permalink = get_permalink($item->object_id);
+		}
+		$output .= '<label >';
 		$output .= '<input type="checkbox" ';
 		if ( ! empty( $item->_add_to_top ) ) {
 			$output .= ' add-to-top';
@@ -75,16 +82,9 @@ class cj_Walker_Nav_Menu_Checklist extends Walker_Nav_Menu  {
 		if(is_array($this->selected)) {
 			$output .= in_array($item->object_id, $this->selected) ? 'checked="checked"' : '';
 		}
-		$output .= '/> ';
-		$output .= $this->wrapText($label);
-		$permalink = '';
-		if($this->type == 'categories') {
-			$permalink = get_category_link($item->object_id);
-		} else {
-			$permalink = get_permalink($item->object_id);
-		}
+		$output .= " /> ";
 		$output .= '</label> <a class="l_ext" target="_blank" href="'. $permalink .'"></a>';
-
+		$output .= "<span title='{$label}'>{$label}</span>";
 	}
 	
 	/**

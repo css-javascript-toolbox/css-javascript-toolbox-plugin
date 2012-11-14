@@ -59,7 +59,7 @@ class CJTMYSQLQueueDriver {
 	*/	
 	public function commit() {
 		$this->addQueue('COMMIT;');
-  	return;
+  	return $this;
 	}
 	
 	/**
@@ -190,6 +190,8 @@ class CJTMYSQLQueueDriver {
 		}
 		// Clear queue.
 		$this->clear();
+		// Chain.
+		return $this;
 	}
 	
 	/**
@@ -200,7 +202,7 @@ class CJTMYSQLQueueDriver {
 	*/	
 	public function rollback() {
 		$this->addQueue('ROLLBACK;');
-		return;
+		return $this;
 	}
 	
 	/**
@@ -229,7 +231,7 @@ class CJTMYSQLQueueDriver {
 	*/	
 	public function startTransaction() {
 		$this->addQueue('BEGIN WORK;');
-    return;
+    return $this;
 	}
 	
 	/**

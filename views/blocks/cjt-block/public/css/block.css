@@ -6,6 +6,8 @@
 /*  Pages Panel */
 .cjpageblock { width:300px; height: 100%; position:absolute; right:12px; }  
 .pagelist { padding:10px; height: 251px; overflow:auto; background:#fff; border:1px solid #ccc; }
+/* Wrap long text */
+.pagelist>li>span {width: 203px;overflow: hidden; display: inline-block; height: 19px;vertical-align: middle;}
 .pagelist li { line-height:19px; word-wrap:break-word; margin:0; padding:0; }
 .pagelist li .sub-list {font-weight: bold; font-size: 13px;text-decoration: underline;}
 .pagelist li .list-error {font-size: 12px;text-align: center;margin-top: 41px;text-decoration: underline;}

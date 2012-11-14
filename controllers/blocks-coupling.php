@@ -74,69 +74,6 @@ class CJTBlocksCouplingController extends CJTController {
 	/**
 	* put your comment there...
 	* 
-	* @param mixed $attributes
-	*/
-	public function shortcode($attributes) {
-		// Initialize vars.
-		$replacement = '';
-		// Default Class.
-		if (!$attributes['class']) {
-			$class =	'block';
-		}
-		switch ($class) {
-			case 'block':
-				// Get is the default "operation"!
-				if (!$attributes['op']) {
-					$attributes['op'] = 'get';
-				}
-				switch ($attributes['op']) {
-					case 'get': 
-						// Import dependecies.
-						cssJSToolbox::import('framework:db:mysql:xtable.inc.php');
-						// Output block if 'force="true" or only if it wasn't already in the header/footer!
-						if ((($attributes['force'] == "true") || !in_array($attributes['id'], $this->onActionIds))) {
-							// Get block code.
-							$block = CJTxTable::getInstance('block')
-																						->set('id', $attributes['id'])
-																						->load();
-							// Only ACTIVE blocks!
-							if ($block->get('state') != 'active') {
-								return;
-							}
-							$replacement = $block->get('code');
-							// Get linked templates.
-							$templates = $this->model->getLinkedTemplates($attributes['id']);
-							$reverseTypes = array_flip(CJTCouplingModel::$templateTypes);
-							// Enqueue all in footer.
-							foreach ($templates as $template) {
-								// Get Template type name.
-								$typeName = $reverseTypes[$template->type];
-								/**
-								* @var WP_Dependencies
-								*/
-								$queue = $this->model->getQueueObject($typeName);
-								if (!in_array($template->queueName, $queue->done)) {
-									if (!$queue->registered[$template->queueName]) {
-										$queue->add($template->queueName, "/{$template->file}", null, $template->version, 1);
-									}
-									// Enqueue template!
-									$queue->enqueue($template->queueName);
-								}
-							}
-						}
-					break;
-				}
-			break;
-			default:
-				$replacement = cssJSToolbox::getText('Shortcode Type is not supported!! Only (block) type is currently available!!!');
-			break;
-		}
-		return $replacement;
-	}
-	
-	/**
-	* put your comment there...
-	* 
 	*/
 	public function getBlocks() {
 		// Set request view filters used for querying database.
@@ -293,27 +230,25 @@ class CJTBlocksCouplingController extends CJTController {
 	* 
 	*/
 	public function linkTemplates() {
-	 // Make sure action is executed only once!
-	$currentFilter = current_filter();
-	 remove_action($currentFilter, array(&$this, 'linkTemplates'), 30);
-	 // Derived template Type from Wordpress filter.
-	 $filterFor = array_pop(explode('_', $currentFilter));
-	 $type = CJTCouplingModel::$templateTypes[$filterFor];
-	 // Following vars are referenced based on the current type.
-	 $templates = isset($this->templates[$type]) ? $this->templates[$type] : array();
-	 /**
-	 * @var WP_Dependencies
-	 */
-	 $queue = $this->model->getQueueObject($filterFor);
-	 // Add templates to the queye.
-	 foreach ($templates as $template)  {
-	 	 // Registery only if not yet registered.
-	 	 if (!isset($queue->registered[$template->queueName])) {
-	 	 	 $queue->add($template->queueName, "/{$template->file}", null, $template->version);
-	 	 }
-	 	 // Always make sure the template is queued.
-	 	 $queue->enqueue($template->queueName);
-	 }
+		$currentFilter = current_filter();
+		// Derived template Type from Wordpress filter.
+		$filterFor = array_pop(explode('_', $currentFilter));
+		$type = CJTCouplingModel::$templateTypes[$filterFor];
+		// Following vars are referenced based on the current type.
+		$templates = isset($this->templates[$type]) ? $this->templates[$type] : array();
+		/**
+		* @var WP_Dependencies
+		*/
+		$queue = $this->model->getQueueObject($filterFor);
+		// Add templates to the queye.
+		foreach ($templates as $template)  {
+		 // Registery only if not yet registered.
+		 if (!isset($queue->registered[$template->queueName])) {
+			 $queue->add($template->queueName, "/{$template->file}", null, $template->version);
+		 }
+		 // Always make sure the template is queued.
+		 $queue->enqueue($template->queueName);
+		}
 	}
 	
 	/**
@@ -321,12 +256,10 @@ class CJTBlocksCouplingController extends CJTController {
 	* 
 	*/
 	public function outputBlocks() {
-		// Map "wp hook location" to "block hook location".
-		$locationsMap = array('head' => 'header', 'footer' => 'footer');
 		// Derived location name from wordpress filter name.
 		$currentFilter = current_filter();
-		// Make sure action is executed only once!
-		 remove_action($currentFilter, array(&$this, 'outputBlocks'), 30);
+		// Map "wp hook location" to "block hook location".
+		$locationsMap = array('head' => 'header', 'footer' => 'footer');
 		// This hook is used across both ends, front and back ends.
 		// Remove application prefix (wp_ or admin_).
 		// Remining is head or footer.
@@ -452,6 +385,69 @@ class CJTBlocksCouplingController extends CJTController {
 			}
 		}
 		$this->filters = $filters;
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $attributes
+	*/
+	public function shortcode($attributes) {
+		// Initialize vars.
+		$replacement = '';
+		// Default Class.
+		if (!$attributes['class']) {
+			$class =	'block';
+		}
+		switch ($class) {
+			case 'block':
+				// Get is the default "operation"!
+				if (!$attributes['op']) {
+					$attributes['op'] = 'get';
+				}
+				switch ($attributes['op']) {
+					case 'get': 
+						// Import dependecies.
+						cssJSToolbox::import('framework:db:mysql:xtable.inc.php');
+						// Output block if 'force="true" or only if it wasn't already in the header/footer!
+						if ((($attributes['force'] == "true") || !in_array($attributes['id'], $this->onActionIds))) {
+							// Get block code.
+							$block = CJTxTable::getInstance('block')
+																						->set('id', $attributes['id'])
+																						->load();
+							// Only ACTIVE blocks!
+							if ($block->get('state') != 'active') {
+								return;
+							}
+							$replacement = $block->get('code');
+							// Get linked templates.
+							$templates = $this->model->getLinkedTemplates($attributes['id']);
+							$reverseTypes = array_flip(CJTCouplingModel::$templateTypes);
+							// Enqueue all in footer.
+							foreach ($templates as $template) {
+								// Get Template type name.
+								$typeName = $reverseTypes[$template->type];
+								/**
+								* @var WP_Dependencies
+								*/
+								$queue = $this->model->getQueueObject($typeName);
+								if (!in_array($template->queueName, $queue->done)) {
+									if (!$queue->registered[$template->queueName]) {
+										$queue->add($template->queueName, "/{$template->file}", null, $template->version, 1);
+									}
+									// Enqueue template!
+									$queue->enqueue($template->queueName);
+								}
+							}
+						}
+					break;
+				}
+			break;
+			default:
+				$replacement = cssJSToolbox::getText('Shortcode Type is not supported!! Only (block) type is currently available!!!');
+			break;
+		}
+		return $replacement;
 	}
 	
 } // End class.

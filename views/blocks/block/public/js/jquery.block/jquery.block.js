@@ -98,6 +98,18 @@
 		}
 		
 		/**
+		* 
+		*/
+		this._onclearblock  = function() {
+			var aceEditor = this.block.aceEditor;
+			//Directly clear using setValue('') won't save the history!
+			// Select all text.
+			aceEditor.selectAll();
+			// Replace content with empty string!
+			aceEditor.getSession().replace(aceEditor.getSelectionRange(), '');
+		}
+		
+		/**
 		*
 		*
 		*/
@@ -284,6 +296,17 @@
 			}
 			/** @TODO Tell Block toolbox to deatach/unbind popup callback */
 			return true; // Tell CJTToolBox to Show Popup menu as normal.
+		}
+		
+		/**
+		* Don't show popup menus if Block is minimized!
+		*/
+		this._onpopupmenu = function(targetElement, button) {
+			var show = true;
+			if (this.block.box.hasClass('closed')) {
+				show = false;
+			}
+			return show;
 		}
 		
 		/**
@@ -540,9 +563,10 @@
 				handlers : {
 					'templates-lookup' : {
 						type : 'Popup',
+						callback : this._onlookuptemplates,
 						params : {
 							_type : {
-								onPopup : this._onlookuptemplates,
+								onPopup : this._onpopupmenu,
 								targetElement : '.templates-lookup',
 								setTargetPosition : false
 							}
@@ -553,14 +577,7 @@
 						params : {
 							// Parameters for PopupList type button.
 							_type : {
-								onPopup : function() {
-									// When Block is closed don't show editor language list.
-									var show = true;
-									if (model.box.hasClass('closed')) {
-										show = false;
-									}
-									return show;
-								},
+								onPopup : this._onpopupmenu,
 								targetElement : '.editor-langs',
 								setTargetPosition : false
 							}
@@ -587,7 +604,8 @@
 					'fullscreen' : {callback : this._onfullscreen},
 					'font-large' : {callback : this._onfontsize, params : {direction: 1}},
 					'font-small' : {callback : this._onfontsize, params : {direction: -1}},
-					'reset-font' : {callback : this._onfontsize, params : {reset : true}}
+					'reset-font' : {callback : this._onfontsize, params : {reset : true}},
+					'clear-block' : {callback : this._onclearblock}
 				}
 			}).get(0).CJTToolBox;
 			// Select previously choosed editor language.

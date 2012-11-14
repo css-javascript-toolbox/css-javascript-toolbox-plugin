@@ -53,8 +53,8 @@
 .cjt-toolbox-blocks a.cjttbl-state-tools { background: url(../images/toolbox/activate-all.png) no-repeat; }
 .cjt-toolbox-blocks a.cjttbl-location-tools { background: url(../images/toolbox/header-all.png) no-repeat; }
 .cjt-toolbox-blocks a.cjttbl-admin-tools { background: url(../images/toolbox/admin-tools.png) no-repeat; }
-.cjt-toolbox-blocks a.cjttbl-templates-manager { background-color: red; }
-.cjt-toolbox-blocks a.cjttbl-global-settings { background-color: green; }
+.cjt-toolbox-blocks a.cjttbl-templates-manager { background: url(../images/toolbox/templates-manager.png) no-repeat; }
+.cjt-toolbox-blocks a.cjttbl-global-settings { background: url(../images/toolbox/settings.png) no-repeat;  }
 .cjt-toolbox-blocks a.cjttbl-save-changes { background: url(../images/toolbox/save-changes.png) no-repeat; }
 .cjt-toolbox-blocks a.cjttbl-save-changes.cjttbs-disabled {background: url(../images/toolbox/save-changes-inactive.png) no-repeat;}
 .cjt-toolbox-blocks a.cjttbl-add-block { background: url(../images/toolbox/add-new.png)  no-repeat; }

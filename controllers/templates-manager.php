@@ -25,10 +25,9 @@ class CJTTemplatesManagerController extends CJTAjaxController {
 		// Initialize parent!
 		parent::__construct($controllerInfo);
 		// Add actions.
-		$this->registryAction('delete');
 		$this->registryAction('display');
-		$this->registryAction('publish');
-		$this->registryAction('trash');
+		$this->registryAction('delete');
+		$this->registryAction('changeState');
 	}
 	
 	/**
@@ -46,7 +45,10 @@ class CJTTemplatesManagerController extends CJTAjaxController {
 	* 
 	*/
 	protected function deleteAction() {
-		
+		$this->model->inputs['ids'] = $_GET['ids'];
+		$this->model->delete();
+		// Response with changed ids.
+		$this->response['changes'] = $this->model->inputs['ids'];		
 	}
 	
 	/**
@@ -54,7 +56,11 @@ class CJTTemplatesManagerController extends CJTAjaxController {
 	* 
 	*/	
 	protected function changeStateAction() {
-		
+		$this->model->inputs['ids'] = $_GET['ids'];
+		$this->model->inputs['state'] = $_GET['params'];
+		$this->model->changeState();
+		// Response with changed ids.
+		$this->response['changes'] = $this->model->inputs['ids'];
 	}
 	
 } // End class.

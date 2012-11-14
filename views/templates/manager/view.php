@@ -54,7 +54,8 @@ class CJTTemplatesManagerView extends CJTView {
 	protected function enqueueScripts() {
 		// Import dependencies scripts!
 		self::useScripts(
-			'jquery', 
+			'jquery',
+			'jquery-serialize-object', 
 			'thickbox',
 			'views:templates:manager:public:js:{CJT_TEMPLATES-}manager'
 		);

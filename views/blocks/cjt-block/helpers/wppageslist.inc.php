@@ -67,7 +67,7 @@ abstract class WPPagesListHelper {
 			return;
 		}
 		$db_fields = false;
-		if (is_post_type_hierarchical($post_type_name)) {
+		if (is_post_type_hierarchical($postType)) {
 			$db_fields = array( 'parent' => 'post_parent', 'id' => 'ID' );
 		}
 		$walker = new cj_Walker_Nav_Menu_Checklist($db_fields, $blockId, $name, $selectedPages, $regionMetrics);

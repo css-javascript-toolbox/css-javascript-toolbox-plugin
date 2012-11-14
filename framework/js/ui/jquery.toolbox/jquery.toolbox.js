@@ -233,6 +233,9 @@ var CJTToolBoxNS = new (function ($) {
 		*/                               
 		this._onmouseenter = function() {
 			var cbMouseOut = null;
+			// Clear time out in case the mouse is out and entered again.
+			// By mean don't close dialog if the mouse is out and quickly back again!
+			clearTimeout(this.popupTimer);
 			// Process only if target element is not visible yet.
 			// This condition prevent Shaking!
 			if (this.targetElement.css('display') == 'none') {
@@ -258,14 +261,18 @@ var CJTToolBoxNS = new (function ($) {
 			// It has no effect if the popup is already opened.
 			// But it has effect if the Popup is not opened yet.
 			clearTimeout(this.popupTimer);
-			// Is the mouse still over button?
-			var isOverButton = (event.relatedTarget === this.jButton.get(0));
-			// Is mouse still over target element of any of its childs/descendants.
-			var isOverElement = this.targetElement.find('*').andSelf().is(event.relatedTarget);
-			// Is mouse is not over button or target element hide element and unbind events.
-			if (!isOverButton && !isOverElement) {
-				this.close();
-			}
+			// Don't close the dialg once get out but give it a break!
+			this.popupTimer = setTimeout($.proxy(function() {
+					// Is the mouse still over button?
+					var isOverButton = (event.relatedTarget === this.jButton.get(0));
+					// Is mouse still over target element of any of its childs/descendants.
+					var isOverElement = this.targetElement.find('*').andSelf().is(event.relatedTarget);
+					// Is mouse is not over button or target element hide element and unbind events.
+					if (!isOverButton && !isOverElement) {
+						this.close();
+					}
+				}, this)
+			, 400);
 		}
 		
 		/**
@@ -284,7 +291,10 @@ var CJTToolBoxNS = new (function ($) {
 				.mouseenter($.proxy(this._onmouseenter, this))
 				.click(function() {return false;}); // Behave inactive.
 			// Prepare popup elements.
-			this.targetElement = this.toolbox.jToolbox.find(params._type.targetElement);
+			this.targetElement = this.toolbox.jToolbox.find(params._type.targetElement)
+			// Be intelegant and don't close for just if the mouse got out
+			// Please give User a break!!
+			.mouseenter($.proxy(this._onmouseenter, this));
 		}
 
 		/**
@@ -300,12 +310,17 @@ var CJTToolBoxNS = new (function ($) {
 		* 
 		*/
 		this.showPopup = function() {
+			var cbParams = [this.targetElement, this];
 			// Call onPopup event. If false is returned don't display the list.
 			if (this.params._type.onPopup !== undefined) {
-				var openPopup = this.params._type.onPopup.apply(this.toolbox.params.context, [this.targetElement, this]);
+				var openPopup = this.params._type.onPopup.apply(this.toolbox.params.context, cbParams);
 				if (!openPopup) {
 					return false;
 				}
+			}
+			// Callback before displaying menu.
+			if ($.isFunction(this.callback)) {
+				this.fireCallback(cbParams);	
 			}
 			// Display target element below button link if desired.
 			if (this.params._type.setTargetPosition) {

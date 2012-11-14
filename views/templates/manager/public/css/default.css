@@ -29,3 +29,6 @@ td.name.column-name .description .read-more{
 }
 
 select option.optional {color: #AAAAAA;}
+.template-info span.label{font-weight: bold;}
+.template-info .content.large {height: 60px; background-color: #EFEFEF; margin: 0 0 0 3px;overflow: auto}
+.template-info .id{text-align: center;background-color: navajoWhite;}

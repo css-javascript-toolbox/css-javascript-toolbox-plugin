@@ -18,7 +18,7 @@ foreach ($postTypes as $name => $pTObject) {
 		// Get checked value from saved settings
 		$checked = in_array($name, $settings->postTypes);
 		// Add checkbox for every type.
-		$checkboxList->add($pTObject->labels->singular_name, $name, $checked, '[]');
+		$checkboxList->add($pTObject->labels->name, $name, $checked, '[]');
 	}
 }
 echo $checkboxList;

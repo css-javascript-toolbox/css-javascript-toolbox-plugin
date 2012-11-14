@@ -33,6 +33,12 @@ class CJTTemplatesInfoView extends CJTView {
 	public  function display($tpl = null) {
 		// Get item.
 		$this->item = $this->model->getItem();
+		// For all items that has no value show "Not Available"
+		foreach ((array)$this->item as $prop => $value) {
+			if (!$this->item->{$prop}) {
+				$this->item->{$prop} = cssJSToolbox::getText('N/A');
+			}
+		}
 		echo $this->getTemplate($tpl);
 	}
 	

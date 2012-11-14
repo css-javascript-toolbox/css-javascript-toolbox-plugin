@@ -68,7 +68,6 @@ class CJTTemplatesLookupView extends CJTView {
 	protected function enqueueStyles() {
 		self::useStyles(
 			'framework:css:{CJT-}forms',
-			'framework:css:jquery-ui-1.8.21.custom',
 			'views:templates:lookup:public:css:{CJT-}lookup'
 		);
 	}

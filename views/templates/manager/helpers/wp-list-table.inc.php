@@ -62,7 +62,10 @@ class CJTTemplatesManagerListTable extends WP_List_Table {
 				$actions = array();
 				$actions['info'] = "<a href='#info({$item->id})'>" . cssJSToolbox::getText('Info') . '</a>';
 				$actions['edit'] = "<a href='#edit({$item->id})'>" . cssJSToolbox::getText('Edit') . '</a>';
-				$actions['delete'] = "<a href='#delete({$item->id})'>" . cssJSToolbox::getText('Delete') . '</a>';
+				// Allow Deletion Only if state = trash!
+				if ($item->state == 'trash') {
+					$actions['delete'] = "<a href='#delete({$item->id})'>" . cssJSToolbox::getText('Delete') . '</a>';	
+				}
 				// Show only states that the Template s not in!
 				$states = CJTTemplateTable::$states;
 				unset($states[$item->state]);
@@ -126,9 +129,9 @@ class CJTTemplatesManagerListTable extends WP_List_Table {
 		// Bulk ations.
 		$actions = array(
 			'delete' => cssJSToolbox::getText('Delete'),
-			'publish' => cssJSToolbox::getText('Publish'),
-			'trash' => cssJSToolbox::getText('Trash'),
-			'draft' => cssJSToolbox::getText('Draft'),
+			'changeState::published' => cssJSToolbox::getText('Publish'),
+			'changeState::trash' => cssJSToolbox::getText('Trash'),
+			'changeState::draft' => cssJSToolbox::getText('Draft'),
 		);
 		// Return actions!
 		return $actions;
