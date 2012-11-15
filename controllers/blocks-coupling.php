@@ -411,6 +411,10 @@ class CJTBlocksCouplingController extends CJTController {
 						cssJSToolbox::import('framework:db:mysql:xtable.inc.php');
 						// Output block if 'force="true" or only if it wasn't already in the header/footer!
 						if ((($attributes['force'] == "true") || !in_array($attributes['id'], $this->onActionIds))) {
+							// Id is being used!
+							if ($attributes['force'] != 'true') {
+								$this->onActionIds[] = (int) $attributes['id'];
+							}
 							// Get block code.
 							$block = CJTxTable::getInstance('block')
 																						->set('id', $attributes['id'])

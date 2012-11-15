@@ -14,6 +14,23 @@
 	* @param args
 	*/
 	CJTBlockPlugin = function(node, args) {			
+		
+		/**
+		* 
+		*/
+		this._onselectchilds = function(event) {
+			// Initialize vars.
+			var overlay = $(event.target);
+			var checkbox = overlay.parent().find('.select-childs');
+			var state = checkbox.prop('checked') ? '' : 'checked';
+			// Revert checkbox state.
+			checkbox.prop('checked', state);
+			// Clone state to parent checkbox.
+			checkbox.parent().find('label>input:checkbox').prop('checked', state).trigger('change');
+			//Clone state to all child checkboxes
+			checkbox.parent().find('.children input:checkbox').prop('checked', state).trigger('change');
+		}
+		
 		/**
 		*
 		*
@@ -67,7 +84,7 @@
 		// Initialize parent class.
 		this.initCJTPluginBase(node, args);
 		// Activate objects panel!
-		this.block.box.find('.cjt-pages-tab').tabs();	
+		var pagesPanel = this.block.box.find('.cjt-pages-tab').tabs();	
 		// Add toolbox button.
 		var tbIconsGroup = this.block.box.find('.editor-toolbox .icons-group')
 		tbIconsGroup.children().first().after('<a href="#" class="cjt-tb-link cjttbl-toggle-objects-panel"></a>')
@@ -76,6 +93,8 @@
 		this._ontogglepagespanel({target : toggler.jButton}, this.block.get('pagesPanelToggleState', ''));
 		// Accordion menu for Advanced TAB.
 		this.block.box.find('#advanced-accordion').accordion();
+		// Put select-childs checkboxes in action!
+		pagesPanel.find('.select-childs-checkbox-overlay').click($.proxy(this._onselectchilds, this));
 	} // End class.
 	
 	// Extend CJTBLockPluginBase.

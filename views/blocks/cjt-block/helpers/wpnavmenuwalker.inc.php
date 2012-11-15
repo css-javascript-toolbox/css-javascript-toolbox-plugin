@@ -20,14 +20,13 @@ class cj_Walker_Nav_Menu_Checklist extends Walker_Nav_Menu  {
 	* @param mixed $selected
 	* @return cj_Walker_Nav_Menu_Checklist
 	*/
-	function __construct( $fields = false, $boxid = 0, $type = 'page', $selected = array(), $regionMetrics = array() ) {
+	function __construct( $fields = false, $boxid = 0, $type = 'page', $selected = array()) {
 		if ( $fields ) {
 			$this->db_fields = $fields;
 		}
 		$this->boxid = $boxid;
 		$this->selected = $selected;
 		$this->type = $type;
-		$this->regionMetrics = $regionMetrics;
 	}
 
 	/**
@@ -82,24 +81,26 @@ class cj_Walker_Nav_Menu_Checklist extends Walker_Nav_Menu  {
 		if(is_array($this->selected)) {
 			$output .= in_array($item->object_id, $this->selected) ? 'checked="checked"' : '';
 		}
-		$output .= " /> ";
-		// <a class="l_ext" target="_blank" href="'. $permalink .'"></a>
+		$output .= ' />';
+		if ($this->type == 'categories') {
+			$args = array(
+				'parent' => $item->term_id,
+				'hide_empty' => false,
+				'fields' => 'ids'
+			);
+				//print_r($item);
+			$childs = get_categories($args);
+		}
+		else {
+			$args = array(
+				'post_parent' => $item->ID,
+				'post_type' => $item->post_type
+			);
+			$childs = get_posts($args);
+		}
 		$output .= '</label>';
+		$output .= !empty($childs) ? '<a class="select-childs-checkbox-overlay"></a><input type="checkbox" class="select-childs" /> ' : ' ';
 		$output .= "<span title='{$label}'><a class='extr-link' href='{$permalink}' target='_blank'>{$label}</a></span>";
 	}
-	
-	/**
-	* put your comment there...
-	* 
-	*/
-	function wrapText($text, $excludes = 0) {
-		$fontSize = $this->regionMetrics['fontSize'];
-		$textHolderWidth = $this->regionMetrics['holderWidth'];
-		$charactersCount = round($textHolderWidth / $fontSize);
-		if ($charactersCount < strlen($text)) {
-			$text = substr($text, 0, ($charactersCount - $excludes)) . '...';
-		}
-		return $text;
-	}
-	
+
 } // End class.

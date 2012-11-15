@@ -8,13 +8,25 @@
 .pagelist { padding:10px; height: 251px; overflow:auto; background:#fff; border:1px solid #ccc; }
 /* Wrap long text */
 .pagelist a{color: black; text-decoration: none;}
-.pagelist a:hover{color: #B06D38;}
+.select-childs-checkbox-overlay {
+	background-color: red;
+	position: absolute;
+	width: 11px;
+	height: 11px;
+	opacity: 0.3;
+	margin-top: 5px;
+	margin-left: 2px;
+	filter: alpha(opacity = 30);
+}
+.select-childs-checkbox-overlay:hover {background-color: #1F9DA8;}
+.select-childs {margin-bottom: 0;}
+.pagelist a:hover{color: #B06D38; font-weight: bold;}
 .pagelist>li>span {width: 203px;overflow: hidden; display: inline-block; height: 19px;vertical-align: middle;}
 .pagelist li { line-height:19px; word-wrap:break-word; margin:0; padding:0; }
 .pagelist li .sub-list {font-weight: bold; font-size: 13px;text-decoration: underline;}
 .pagelist li .list-error {font-size: 12px;text-align: center;margin-top: 41px;text-decoration: underline;}
 .pagelist li .list-error .message{font-weight: bold;}
-.pagelist ul { margin-left:18px; }
+.pagelist ul { margin-left:15px; }
 a.l_ext { position: relative; top: 3px; background:url(../images/pages-panel/external_link.png) no-repeat; width:18px; height:13px; display:inline-block; }
 /** Fullscreen mode */
 .postbox.fullscreen .cjpageblock {z-index: 31;}

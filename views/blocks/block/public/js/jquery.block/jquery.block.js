@@ -107,6 +107,7 @@
 			aceEditor.selectAll();
 			// Replace content with empty string!
 			aceEditor.getSession().replace(aceEditor.getSelectionRange(), '');
+			aceEditor.focus();
 		}
 		
 		/**
