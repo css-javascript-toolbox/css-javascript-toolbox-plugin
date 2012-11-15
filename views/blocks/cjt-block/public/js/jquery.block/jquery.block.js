@@ -29,6 +29,8 @@
 			checkbox.parent().find('label>input:checkbox').prop('checked', state).trigger('change');
 			//Clone state to all child checkboxes
 			checkbox.parent().find('.children input:checkbox').prop('checked', state).trigger('change');
+			// For link to behave inactive.
+			return false;
 		}
 		
 		/**

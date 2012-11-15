@@ -99,7 +99,7 @@ class cj_Walker_Nav_Menu_Checklist extends Walker_Nav_Menu  {
 			$childs = get_posts($args);
 		}
 		$output .= '</label>';
-		$output .= !empty($childs) ? '<a class="select-childs-checkbox-overlay"></a><input type="checkbox" class="select-childs" /> ' : ' ';
+		$output .= !empty($childs) ? '<a href="#" class="select-childs-checkbox-overlay"></a><input type="checkbox" class="select-childs" /> ' : ' ';
 		$output .= "<span title='{$label}'><a class='extr-link' href='{$permalink}' target='_blank'>{$label}</a></span>";
 	}
 
