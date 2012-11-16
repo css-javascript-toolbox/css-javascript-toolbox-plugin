@@ -52,6 +52,8 @@ class CJTMetaboxModel {
 	* @param mixed $blockId
 	*/
 	public function create(& $pin = null) {
+		// Import dependecnes.
+		cssJSToolbox::import('tables:block-pins.php');
 		// Change metabox status to be created.
 		$this->setState(self::STATE_CREATED);
 		// Add post pin to pins table.

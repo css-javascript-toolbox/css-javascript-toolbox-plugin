@@ -2,9 +2,8 @@
 * 
 */
 
-
 var CJTToolBox = {
-	forms : {}
+	forms : {templatesLookupForm : []}
 }; // Application name spaces structure.
 
 /**
@@ -51,6 +50,12 @@ var CJTBlocksPage;
 		metaboxBlockToolbox : null,
 		
 		/**
+		* put your comment there...
+		* 
+		*/
+		server : null,
+		
+		/**
 		* Reference to original Thickbox tb_position function.
 		* 
 		* 
@@ -69,8 +74,8 @@ var CJTBlocksPage;
 		_onbeforeunload : function() {
 			var msg = '';
 			// If autosave detect no changes on the post content check if CJT block has changed.
-			if (!(msg = CJTBlocksPage.wpAutoSave.wpHandler())) {
-				if (CJTBlocksPage.isContentChanged)  {
+			if (!(msg = this.wpAutoSave.wpHandler())) {
+				if (this.isContentChanged)  {
 					 msg = CJTMetaboxI18N.notifySaveChanges;
 				}
 			}
@@ -117,37 +122,38 @@ var CJTBlocksPage;
 			this.metaboxBlockToolbox.enable(false);
 			block.get(0).CJTBlock.enable(false);
 			// Delete block.
-			CJTBlocksPage.server.send('metabox', 'delete', requestData)
+			this.server.send('metabox', 'delete', requestData)
 			.success($.proxy(
 				function(createMetaboxView) {
 					// Get metabox object just before the CJTBlocksPage take place.
 					// If the CJTBlocksPage take place then we wont be able to get metabox object.
-					var metabox = CJTBlocksPage.blocks.getBlock(CJTBlocksPage.blocks.getExistsIds()[0]);
+					var metabox = this.blocks.getBlock(this.blocks.getExistsIds()[0]);
 					// Load CSS files required for metabox-block to work.
 					(new StylesLoader(createMetaboxView.references.styles)).load();
-					{
-						// Set tb_position to thickbox original so that metabox CJTBlocksPage can get it.
-						var mediaHandlerTBPosition = window.tb_position;
-						window.tb_position = this.tb_position;
-					}
+					// Set tb_position to thickbox original so that metabox CJTBlocksPage can get it.
+					var mediaHandlerTBPosition = window.tb_position;
+					window.tb_position = this.tb_position;
 					// Load Javascript files required for metabox-block to work.
 					// After all metabox scripts are loaded place the view.
 					(new ScriptsLoader(createMetaboxView.references.scripts)).loadAll().done($.proxy(
 						function() {
 							// Localize loaded scripts
 							(new CJTWPScriptLocalizer(createMetaboxView.references.scripts)).localize();
-								{ // Make the new poxtbox toggle-able!
-									// Dont apply toggler twice for the extsis metaboxes.
-									var metaboxes = $('#normal-sortables .postbox').removeClass('postbox');
-									// Replace post metabox with the recevied metabox content.
-									metabox.replaceWith(createMetaboxView.view);
-									// Apply toggler on the new metabox.
-									postboxes.add_postbox_toggles(pagenow);
-									// Reset things back so the other metaboxes has the correct CSS class.
-									metaboxes.addClass('postbox');									
+								// Make the new poxtbox toggle-able!
+								// Dont apply toggler twice for the exiss metaboxes.
+								var metaboxes = $('#normal-sortables .postbox').removeClass('postbox');
+								// Replace post metabox with the recevied metabox content.
+								metabox.replaceWith(createMetaboxView.view);
+								// Apply toggler on the new metabox.
+								postboxes.add_postbox_toggles(pagenow);
+								// Reset things back so the other metaboxes has the correct CSS class.
+								metaboxes.addClass('postbox');
+								// Reset tb_position to the one created by media-handler script.
+								window.tb_position = mediaHandlerTBPosition;
+								// Reset wordpress Autosave handler.
+								if (this.wpAutoSave.wpHandler != undefined) {
+									window.onbeforeunload	= this.wpAutoSave.wpHandler;
 								}
-							// Reset tb_position to the one created by media-handler script.
-							window.tb_position = mediaHandlerTBPosition;
 						}, this)
 					)
 					.fail($.proxy(
@@ -171,11 +177,11 @@ var CJTBlocksPage;
 			// Wordpress event detected! Or the autosave file has been processed!
 			if (window.onbeforeunload != undefined) {
 				// No more check!
-				clearInterval(CJTBlocksPage.wpAutoSave.timer);
+				clearInterval(this.wpAutoSave.timer);
 				// Get reference from Wordpress unlaod event handler.
-				CJTBlocksPage.wpAutoSave.wpHandler = window.onbeforeunload;
+				this.wpAutoSave.wpHandler = window.onbeforeunload;
 				// Take the control
-				window.onbeforeunload = CJTBlocksPage._onbeforeunload;
+				window.onbeforeunload = $.proxy(this._onbeforeunload, this);
 			}
 		},
 		
@@ -199,7 +205,7 @@ var CJTBlocksPage;
 			this.metaboxBlockToolbox.buttons['info'].callback = $.proxy(this._onshowthickbox, {event : '_ongetinfo'});
 			this.metaboxBlockToolbox.buttons['revisions'].callback = $.proxy(this._onshowthickbox, {event : '_ondisplayrevisions'});
 			// Notify saving changes.
-			this.wpAutoSave.timer = window.setInterval(this.detectWordpressAutoSaveAlertEvent, 100);
+			this.wpAutoSave.timer = window.setInterval($.proxy(this.detectWordpressAutoSaveAlertEvent, this), 100);
 		}
 		
 	};

@@ -63,33 +63,31 @@ var CJTBlocksPage;
 						this.createLink.CJTLoading();
 						// Load CSS files required for metabox-block to work.
 						(new StylesLoader(blockView.references.styles)).load();
-						{
-							// Set tb_position to thickbox original so that metabox CJTBlocksPage can get it.
-							var mediaHandlerTBPosition = window.tb_position;
-							window.tb_position = this.tb_position;
-						}
+						// Set tb_position to thickbox original so that metabox CJTBlocksPage can get it.
+						var mediaHandlerTBPosition = window.tb_position;
+						window.tb_position = this.tb_position;
 						// Load Javascript files required for metabox-block to work.
 						// After all metabox scripts are loaded display the view.
 						(new ScriptsLoader(blockView.references.scripts)).loadAll().done($.proxy(
 							function() {
 								// Localize loaded scripts
 								(new CJTWPScriptLocalizer(blockView.references.scripts)).localize();
-								{ // Make the new poxtbox toggle-able!
-									// Dont apply toggler twice for the extsis metaboxes.
-									var metaboxes = $('#normal-sortables .postbox').removeClass('postbox');
-									// Replace post metabox with the recevied metabox content.
-									metabox.replaceWith(blockView.view);
-									// Apply toggler on the new metabox.
-									postboxes.add_postbox_toggles(pagenow);
-									// Reset things back so the other metaboxes has the correct CSS class.
-									metaboxes.addClass('postbox');									
-								}
+								 // Make the new poxtbox toggle-able!
+								// Dont apply toggler twice for the extsis metaboxes.
+								var metaboxes = $('#normal-sortables .postbox').removeClass('postbox');
+								// Replace post metabox with the recevied metabox content.
+								metabox.replaceWith(blockView.view);
+								// Apply toggler on the new metabox.
+								postboxes.add_postbox_toggles(pagenow);
+								// Reset things back so the other metaboxes has the correct CSS class.
+								metaboxes.addClass('postbox');
 								// Reset tb_position to the one created by media-handler script.
 								window.tb_position = mediaHandlerTBPosition;
 							}, this)
 						)
 						.fail( // Could not load script file!
 							function(method, script) {
+								console.log('Its really Rejected!!');
 								// Try to load the script up to 3 times.
 								if (script.retries < 3) {
 									this[method](script);

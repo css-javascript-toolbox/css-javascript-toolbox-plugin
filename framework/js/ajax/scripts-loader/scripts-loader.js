@@ -16,12 +16,7 @@ var ScriptsLoader;
 		/**
 		* 
 		*/
-		callback : null,
-		
-		/**
-		* 
-		*/
-		this.failures = [];
+		this.callback = $.Deferred();
 		
 		/**
 		* 
@@ -31,26 +26,12 @@ var ScriptsLoader;
 		/**
 		* 
 		*/
-		this.queue = [];
-		
-		/**
-		* 
-		*/
-		this._fail = function(script, method) {
-			// Add script into failure list.
-			this.failures.push(script);
-			// Notify failure.
-			this.callback.rejectWith(this, [method, script]);
-		}
-		
-		/**
-		* 
-		*/
 		this._loaded = function(script) {
 			// Add script into loaded list.
 			this.loaded.push(script);
 			// Wait until all scripts is loaded.
 			if (this.loaded.length == scripts.length) {
+				console.log('All is done');
 				// Notify success.
 				this.callback.resolveWith(this);
 			}
@@ -60,23 +41,7 @@ var ScriptsLoader;
 		* 
 		*/
 		this.loadAll = function() {
-			// Use deferred object for notifing caller.
-			this.callback = $.Deferred();
-			// Load all scripts.
-			$.each(scripts, 
-				$.proxy(function(index, script) {
-					// Get load method name to use for loading script file.
-					var loadingMethod = 'load';
-					if (script.cjt.loadMethod != undefined) {
-						loadingMethod += script.cjt.loadMethod;
-					}
-					// How many times we tried to load the same script.
-					script.retries = (script.retries == undefined) ? 0 : (script.retries + 1);
-					this[loadingMethod](script);
-					// Push script object into the queue.
-					this.queue.push(script);
-				}, this)
-			);
+			this.loadNext();
 			return this.callback;
 		}
 		
@@ -85,22 +50,48 @@ var ScriptsLoader;
 		*/
 		this.load = function(script) {
 			// Load script using Ajax!
-			$.getScript(script.src).done($.proxy(
-				function() {
-					this._loaded(script);
-				}, this)
-			)
-			.fail($.proxy( // The state is failure if only one file faild to load.
-				function() {
-					this._fail(script, 'load');
-				}, this)
-			);			
+			return $.getScript(script.src);
+		}
+		
+		/**
+		* 
+		*/
+		this.loadNext = function() {
+			// If there is more script to load.
+			if (scripts.length) {
+				// Current Script!
+				var script = scripts.shift();
+				// Get load method name to use for loading script file.
+				var loadingMethod = 'load';
+				if (script.cjt.loadMethod != undefined) {
+					loadingMethod += script.cjt.loadMethod;
+				}
+				this[loadingMethod](script).done($.proxy(
+					function() {
+						// Push script object into the queue.
+						this.loaded.push(script);
+						// Load next script!
+						this.loadNext();
+					}, this)
+				)
+				.fail($.proxy(
+					function() {
+						// Report failure!
+						this.callback.rejectWith(this, [loadingMethod, script]);
+					}, this)
+				)
+			}
+			else {
+				// All scripts has been loaded!!
+				this.callback.resolveWith(this);
+			}
 		}
 		
 		/**
 		* 
 		*/
 		this.loadTag = function(script) {
+			var deferred = $.Deferred();
 			// Create script tag.
 			var scriptTag = document.createElement('script');
 			// Set script properties.
@@ -118,18 +109,20 @@ var ScriptsLoader;
 					if (window[script.cjt.lookFor] != undefined) {
 						// No more check for this script.
 						clearInterval(checker);
-						// Notify that script is loaded.
-						this._loaded(script);
+						// Report success!
+						deferred.resolve();
 					}
 					else if (secondsElapsed == timeout) {
 						// No more check for this script.
 						clearInterval(checker);
 						// Notify that script load is failure.
-						this._fail(script, 'loadTag');
+						deferred.reject();
 					}
 					secondsElapsed += interval;
 				}, this)
 			, interval);
+			// Promising!
+			return deferred;
 		}
 		
 	} // End class.
