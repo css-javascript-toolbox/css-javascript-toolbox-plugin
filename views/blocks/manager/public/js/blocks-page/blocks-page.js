@@ -716,6 +716,8 @@ var CJTBlocksPage;
 			CJTServer.impersonateWPAR('blocksPage');
 			postboxes.manual_save_order(CJTBlocksPage.wpPageName);
 			CJTServer.resetWordpressAjaxURL();
+			// Sync blocks order.
+			CJTBlocksPage.syncBlocksOrder(true);
 		},
 		
 		/*
