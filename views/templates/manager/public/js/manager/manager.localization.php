@@ -11,4 +11,5 @@
 */
 return array(
 	'createTemplateDialogTitle' => cssJSToolbox::getText('New Template'),
+	'editTemplateDialogTitle' => cssJSToolbox::getText('Edit Template'),
 );

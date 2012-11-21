@@ -84,18 +84,6 @@ var CJTBlocksPage;
 								// Reset tb_position to the one created by media-handler script.
 								window.tb_position = mediaHandlerTBPosition;
 							}, this)
-						)
-						.fail( // Could not load script file!
-							function(method, script) {
-								console.log('Its really Rejected!!');
-								// Try to load the script up to 3 times.
-								if (script.retries < 3) {
-									this[method](script);
-								}
-								else {
-									alert(CJTMetaboxI18N.failedToLoadScriptFile + script.src);
-								}
-							}
 						);
 					}, this)
 				)

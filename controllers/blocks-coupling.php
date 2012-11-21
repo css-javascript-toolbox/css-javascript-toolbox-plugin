@@ -57,8 +57,7 @@ class CJTBlocksCouplingController extends CJTController {
 	* @return void
 	*/
 	public function __construct($controllerInfo) {
-		// Import related libraries.
-		cssJSToolbox::import('framework:mvc:model.inc.php');
+		// Import related libraries
 		CJTModel::import('block');
 		// Not default action needed.
 		$this->defaultAction = null;
@@ -122,7 +121,7 @@ class CJTBlocksCouplingController extends CJTController {
 					*/
 					/// Check if there is a matched link.
 					if ($matchedLink = ($block->blocksGroup & CJTBlockModel::PINS_LINKS)) {
-						$links = explode("\n", $block->links);
+						$links = explode("\n", trim($block->links));
 						$matchedLink = in_array($linksRequestURL, $links);
 					}
 					/// Check if there is a matched expression.
@@ -130,8 +129,12 @@ class CJTBlocksCouplingController extends CJTController {
 						$expressions = explode("\n", $block->expressions);
 						foreach ($expressions as $expression) {
 							/// @TODO: Matches may be used later to evaulate variables inside code block.
-							if($matchedExpression = preg_match("/{$expression}/", $expressionsRequestURL)) {
+							if($matchedExpression = @preg_match("/{$expression}/", $expressionsRequestURL)) {
 							  break;
+							}
+							else if ($matchedExpression === false) { // Error
+								$message .= "<div style='background-color:red;font-size:20px;'>There are expression error in '{$block->name}' Block!! Expr=({$expression})</div>";
+								echo($message);
 							}
 						}
 					}
@@ -145,13 +148,12 @@ class CJTBlocksCouplingController extends CJTController {
 				}
 				// For every location store blocks code into single string
 				/** @todo  Use method other data:// wrapper, its only available in Hight version of PHP (5.3 or so!) */
-				$evaludatedCode = CJTPHPCodeEvaluator::getInstance($block->code)->exec()->getOutput();
+				$evaluatedCode = CJTPHPCodeEvaluator::getInstance($block->code)->exec()->getOutput();
 				/** @todo Include Debuging info only if we're in debuging mode! */
 				if (1) {
-					
-					$evaludatedCode = "\n<!-- Block ({$blockId}) START-->\n{$evaludatedCode}\n<!-- Block ({$blockId}) END -->\n";
+					$evaluatedCode = "\n<!-- Block ({$blockId}) START-->\n{$evaluatedCode}\n<!-- Block ({$blockId}) END -->\n";
 				}
-				$this->blocks['code'][$block->location] .= $evaludatedCode;
+				$this->blocks['code'][$block->location] .= $evaluatedCode;
 				// For every location store blocks scripts into single array.
 				$blockScripts = explode(',', $block->linkedScripts);
 				$scripts = array_merge($this->blocks['scripts'][$block->location], $blockScripts);
@@ -160,7 +162,7 @@ class CJTBlocksCouplingController extends CJTController {
 				$this->onActionIds[] = $blockId;
 			}
 		}
-		$templates = $this->model->getLinkedTemplates($this->onActionIds);
+		$templates = $this->onActionIds ? $this->model->getLinkedTemplates($this->onActionIds) : array();
 		// Classisfy as we process Scripts and Styles separatly (different hooks!).
 		foreach ($templates as $id => $template) {
 			$this->templates[$template->type][$id] = $template;

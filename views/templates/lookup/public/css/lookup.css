@@ -1,29 +1,28 @@
 /* Globals */
-body {margin: 0;padding: 0; font-size: 11px;font-family: monospace}
-a {color: #B06D38;text-decoration: none;}
+body {margin: 0;padding: 0; font-size: 12px;font-family: sans-serif}
+
+a {color: #a5581b;text-decoration: none;}
+a:hover {color: #652200;}
+
 ul {width: 100%;}
 ul li {margin-bottom: 0;}
+
 /* Templates List */
-#templates-list {border-bottom: 1px solid #CCC;}
+#templates-list {border-bottom: 1px solid #cccccc;}
 .templates-list {height: 234px;overflow: auto;}
 .templates-list ul.templates {padding-left: 24px;display: none; width: 255px;}
 .templates-list ul.templates li {padding-bottom: 1px;}
 .templates-list ul.templates li .title {font-weight: bold;}
-.templates-list ul li .options {display: inline-block;margin-left: 15px;padding-top: 1px;}
-.templates-list ul li .options .unlink-template {color: black;font-style: italic;}
-.templates-list ul.templates li a {color: green;}
-.templates-list ul.templates li a:hover {font-weight: bold;}
-.templates-list ul.templates li a, 
-.templates-list ul.templates li a:hover,
-.templates-list ul.templates li a:visited{text-decoration: none;}
-.filters .active-filter {font-weight: bold;font-size: 16px;}
-.sweep {margin-left: 6px}
+.templates-list ul li .options {display: inline-block; margin-left: 15px; padding-top: 1px;}
+.templates-list ul li .options .unlink-template {font-style: italic;}
+.filters .active-filter {font-size: 16px;}
+.sweep .actions {float: right; text-decoration: underline; margin-top: 1px;}
+.sweep {margin-top: -8px;}
+
 /* Authors */
 .author-name a.name,
 .author-name a.name:hover
-.author-name a.name:visited {font-weight: bold;color: navy;}
-.author-name a.name:hover {text-decoration: underline;}
-
+.author-name a.name:visited {font-weight: bold;}
 .ui-accordion-header {
 	background-color: #F8F8F8;
 	height: 26px;

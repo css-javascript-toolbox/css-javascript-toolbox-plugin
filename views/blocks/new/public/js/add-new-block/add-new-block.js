@@ -70,6 +70,10 @@
 					// Close window.
 					window.parent.tb_remove();
 				}
+			).error($.proxy(
+				function(jqXHR, status) {
+					alert(jqXHR.statusText);
+				}, this)
 			);
 		},
 	

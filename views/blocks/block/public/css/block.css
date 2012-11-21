@@ -1,5 +1,22 @@
 #cjtoolbox-admin div.postbox { display:none }
 
+.postbox{
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-radius: 6px; 
+	border-color: #cccccc;
+}
+/* Use 6px radius instead of 3px */
+.postbox .hndle {
+	-moz-border-top-left-radius: 6px;
+	-moz-border-top-right-radius: 6px;
+	-webkit-border-top-left-radius: 6px;
+	-webkit-border-top-right-radius: 6px;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+	border-bottom-color: #cccccc;
+}
+#poststuff h3, .metabox-holder h3 {padding: 8px 10px;}
 /* Editor langauges list */
 .editor-langs {
 	position: absolute;  
@@ -29,6 +46,9 @@
 .block-toolbox .icons-group {
 	display: inline-block;
 }
+/* Push all icons by 1 pixel down  Put not  the info icon */
+.block-toolbox .icons-group.big-bar .cjt-tb-link{position: relative; top:1px}
+.block-toolbox .icons-group.big-bar .cjttbl-info{position: static;}
 .block-toolbox .icons-group a.cjt-tb-link {
 	width: 24px;
 	height: 24px;
@@ -44,7 +64,7 @@
 	background-color: #EFEFEF;
 	border: 1px solid #bbb;
 	width: 346px;
-	height: 394px;
+	height: 357px;
 	left: 80px;
 	top: 31px;
 	margin-top: 2px;
@@ -68,7 +88,7 @@
 	padding-left: 23px;
 	padding-top: 5px;
 	position: relative;
-	top: -8px;
+	top: -9px;
 	width: 37px !important;
 	height: 18px !important;
 }
@@ -84,7 +104,7 @@
 .block-toolbox a.cjttbl-get-shortcode { background-image: url(../images/toolbox/shortcode.png); }
 .block-toolbox a.cjttbl-edit-name { background-image: url(../images/toolbox/edit-name.png); }
 .block-toolbox a.cjttbl-info { background-image: url(../images/toolbox/info.png); }
-.block-toolbox a.cjttbl-templates-lookup { background-image: url(../images/toolbox/el-scripts.png); }
+.block-toolbox a.cjttbl-templates-lookup { background-image: url(../images/toolbox/templates-lookup.png); }
 
 /** Editor Toolbox */
 .cjt-toolbox.editor-toolbox {

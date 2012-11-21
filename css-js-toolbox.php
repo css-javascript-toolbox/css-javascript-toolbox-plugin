@@ -124,9 +124,10 @@ if (!class_exists('cssJSToolbox')) {
 		*/
 		public static $controllers = array(
 			'blocks-coupling' => array(
-				'identifications' => array('.*'),
+				'identifications' => array('admin-ajax.php'),
 				'controller' => 'blocks-coupling',
 				'model' => 'coupling',
+				'polarity' => 0 // Work if preg_match return 0 instead of 1. Controller work  only if the request is not AJAX!
 			),
 			'blocks' => array(
 				'identifications' => array('page=cjtoolbox'),
@@ -274,12 +275,13 @@ if (!class_exists('cssJSToolbox')) {
 			// Identify request controller.
 			foreach ($controllers as &$controller) {
 				$identificatons = $controller['identifications'];
+				$polarity = isset($controller['polarity']) ? $controller['polarity'] : 1;
 				// Check REQUEST_URL against controllers regular expressions.
 				foreach ($identificatons as $identification) {
 					$identity = array();
 					// Its possible to identifing multiple controllers in the same time.
 					// create them all, no break statment.
-					if (preg_match("/{$identification}/", $request, $identity) ) {
+					if (preg_match("/{$identification}/", $request, $identity)  === $polarity) {
 						// Import MCV framwork
 						if (!$controllerFound) {
 							$controllerFound = true;
@@ -288,6 +290,7 @@ if (!class_exists('cssJSToolbox')) {
 							$this->dbDriver = new CJTMYSQLQueueDriver($GLOBALS['wpdb']);
 							// Single check is better than 4! Don't import files if already imported.
 							require_once CJTOOLBOX_INCLUDE_PATH . '/exceptions.inc.php';
+							require_once CJTOOLBOX_MVC_FRAMEWOK . '/model.inc.php';
 							require_once CJTOOLBOX_MVC_FRAMEWOK . '/view.inc.php';
 							require_once CJTOOLBOX_MVC_FRAMEWOK . '/controller.inc.php';
 						}
@@ -339,7 +342,7 @@ if (!class_exists('cssJSToolbox')) {
 		* @param mixed $text
 		*/
 		public function getText($text) {
-			return __($text);
+			return __($text, CJTOOLBOX_TEXT_DOMAIN);
 		}
 		
 		/**

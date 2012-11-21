@@ -420,15 +420,31 @@ var CJTBlocksPage;
 			var blocks = CJTBlocksPage.blocks.getBlocks();
 			switch (params.state) {
 				case false:
+					// Close postboxes.
 					blocks.addClass('closed');
 				break;
 				case true:
+					// Open postboxes.
 					blocks.removeClass('closed');
+					// Notify postbox opened.
+					blocks.each(function() {this.CJTBlock._onpostboxopened();});					
 				break;
 			}
 			// Reset save state method.
 			// Note: Its just a reset but not saving, save should happend with save all changes button.
 			postboxes.save_state = saveStateMethod;
+		},
+		
+		/**
+		* put your comment there...
+		* 
+		*/
+		_onupdateorder : function() {
+			var hash = CJTBlocksPage.syncBlocksOrder();
+			var newHash = CJTBlocksPage.getOrdersHash();
+			var isChanged = (hash != newHash);
+			// Notify changes!
+			CJTBlocksPage.blockContentChanged(0, isChanged);
 		},
 		
 		/**
@@ -509,7 +525,7 @@ var CJTBlocksPage;
 		*
 		*/
 		deleteBlocks : function(blocks) {
-			if (!confirm(CJTBlocksPageI18N.confrmDeleteBlocks)) {
+			if (!confirm(CJTBlocksPageI18N.confirmDeleteBlocks)) {
 				return;
 			}
 			// Delete block.
@@ -531,7 +547,16 @@ var CJTBlocksPage;
 				CJTBlocksPage.blocks.hasBlocks(false);
 			}
 		},
-
+		
+		/**
+		* 
+		*/
+		getOrdersHash : function() {
+			var orders = CJTBlocksPage.blocksContainer.sortable('toArray')
+			var hash = hex_md5(orders.join('-'));
+			return hash;
+		},
+		
 		/*
 		*
 		*
@@ -607,6 +632,10 @@ var CJTBlocksPage;
 			CJTBlocksPage.blocksForm.find('#post-body').css('display', 'block');
 			//// Setup postboxes ////
 			postboxes.add_postbox_toggles('cjtoolbox');
+			// Cache Blocks Order hash!
+			CJTBlocksPage.syncBlocksOrder(true);
+			// Detect order change.
+			CJTBlocksPage.blocksContainer.sortable('option', {update: CJTBlocksPage._onupdateorder});				
 			// Stop auto save order, orders should be saved only with "Save All Changes" button.
 			// Move it to another method that allow us to save order later manually.
 			postboxes.manual_save_order = postboxes.save_order;
@@ -697,6 +726,22 @@ var CJTBlocksPage;
 		switchState : function(state) {
 			// For now only toolboxes need to switch state.
 			CJTBlocksPage.toolboxes.switchState(state);
+		},
+		
+		/**
+		* Get or sync/set blocks order hash!
+		* 
+		* @return string MD5 Hash for the last saved blocks order.
+		*/
+		syncBlocksOrder : function(update) {
+			// Get current hash value.
+			var container = CJTBlocksPage.blocksContainer;
+			var hash = container.get(0).__cjt_orders_hash;
+			// Update order hash if requested!
+			if (update) {
+				container.get(0).__cjt_orders_hash = CJTBlocksPage.getOrdersHash();
+			}
+			return hash;
 		}
 		
 	} // End class.

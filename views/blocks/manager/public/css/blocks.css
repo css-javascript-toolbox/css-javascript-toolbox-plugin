@@ -5,7 +5,7 @@
 #post-body{ display: none; min-width:1020px; }
 /* Give extra space for the last Block Code-Auto-Completion dialog */
 #wpbody-content {margin-bottom: 129px; overflow: visible !important;}
-
+.postbox {}
 #cjt-noblocks-intro{padding-left: 14px; font-size: 12px; font-weight: bold;}
 #wpcontent { min-width:1040px; }
 #cjtoolbox_form { clear:both; }
@@ -31,10 +31,13 @@
 	border: solid #ccc; 
 	border-width: 1px; 
 	padding: 4px 4px 4px 0px;
-	-moz-border-radius: 6px; -webkit-border-radius: 6px; border-radius: 6px; 
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-radius: 6px; 
 	clear: both;
 	visibility: hidden;
 }
+.cjt-toolbox-blocks .cjt-tb-link.cjttbl-admin-tools {position: relative; top:1px}
 .cjt-toolbox-blocks .icons-group.left-bar {
 	margin-left: 5px;
 }
@@ -46,7 +49,8 @@
 	background-position: left top !important;
 	text-decoration: none;
 	padding-left: 23px;
-	padding-top: 4px;
+	padding-top: 3px;
+	margin-top: 2px;
 	position: relative;
 }
 /* Links */
