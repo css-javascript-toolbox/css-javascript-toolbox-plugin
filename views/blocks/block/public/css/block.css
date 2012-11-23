@@ -5,6 +5,7 @@
 	-webkit-border-radius: 6px;
 	border-radius: 6px; 
 	border-color: #cccccc;
+	min-width:700px;
 }
 /* Use 6px radius instead of 3px */
 .postbox .hndle {
@@ -152,11 +153,8 @@ span.block-name {
 .edit-block-name .cancel { background-image: url(../images/edit-block-name/cancel.png); }
 .edit-block-name .save { background-image: url(../images/edit-block-name/save.png); }
 
-.cjcodeblock { margin-right:30px; min-width:750px; }
-
-.cssblock, .jsblock { width:50%; }
-.cssblock { float:left; }
-.jsblock { float:right;  }
+.cjcodeblock { margin-right:30px; /* min-width:750px;*/ }
+.cjcontainer {min-width:700px; min-height: 360px;}
 .datablock {padding-top: 14px;} /* IE8 */
 .datablock .code-editor { position: relative; width:auto; height:352px; }
  a.button-secondary { float:left; }
@@ -179,24 +177,16 @@ body.fullscreen #wpadminbar {display: none;} /** No admin menu */
 	width: 100%;
 	height: 100%;
 }
-.postbox.fullscreen .cjcontainer {
-	position: fixed;
-	top: 32px;
-	left: 0px;
-	border: 0;
-	bottom: 0;
-	right: 0;
-	width: 100%;
-	height: 100%;
-}
+.postbox.fullscreen .inside {padding: 0 !important;margin: 0 !important;}
+.postbox.fullscreen .inside,
+.postbox.fullscreen .cjcontainer,
 .postbox.fullscreen .cjcontainer .cjcodeblock,
 .postbox.fullscreen .cjcontainer .datablock,
-.postbox.fullscreen .cjcontainer .code-editor {
-	height: 100%;
-}
-.postbox.fullscreen .cjcontainer .datablock {
-	padding-top: 0;
-}
+.postbox.fullscreen .cjcontainer .code-editor {height: 100%;}
+.postbox.fullscreen .cjcontainer .datablock {padding-top: 0;}
+/* Lookup form */
+.postbox.fullscreen .cjt-toolbox .icons-group .popup-menu.templates-lookup ,
+.popup-menu {z-index: 32 !important;}
 /** Code Auto Completion */
 .postbox div.cac {
 	border-top-right-radius: 10px;

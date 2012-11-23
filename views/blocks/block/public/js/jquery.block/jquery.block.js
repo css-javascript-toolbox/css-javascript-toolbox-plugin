@@ -61,6 +61,11 @@
 		/**
 		* 
 		*/
+		this.defaultDocks;
+		
+		/**
+		* 
+		*/
 		this.editorToolbox;
 		
 		/**
@@ -71,12 +76,17 @@
 		this.elements;
 		
 		/**
+		* 
+		*/
+		this.extraDocks = [];
+		
+		/**
 		* Block features and options.
 		*
 		* @var object
 		*/			
 		this.features;
-
+		
 		/**
 		* 
 		*
@@ -245,11 +255,37 @@
 		* 
 		*/
 		this._onfullscreen  = function() {
+			// Initialize vars!
 			var block = this.block;
+			var elementsToDock = $.merge($.merge([], this.extraDocks), this.defaultDocks);
 			// Document body.
 			$('body').toggleClass('fullscreen').hasClass('fullscreen');
-			// Block box.
-			block.box.toggleClass('fullscreen');
+			// Enter/Exit Full Screen mode!
+			if (block.box.toggleClass('fullscreen').hasClass('fullscreen')) {
+				// Defined resize handler.
+				var resizer = $.proxy(
+					function() {
+						$.each(elementsToDock, $.proxy(
+							function(index, item) {
+								// Dock all defined elements!
+								this.dock(item.element, item.pixels);
+							}, this)
+						);
+					}, this);
+					// Bind to handler.
+				$(window).bind('resize.cjtfullscreen', resizer);
+				// Call it.
+				resizer();
+			}
+			else {
+				// Reset to normal height.
+				$.each(elementsToDock, $.proxy(
+					function(index, item) {
+						$(item.element).css('height', '');
+					}, this)
+				);
+				$(window).unbind('resize.cjtfullscreen');
+			}
 			// Refresh/Redraw editor.
 			block.aceEditor.resize();
 			// Toggle Toolbox fullscreen button icon.
@@ -279,21 +315,29 @@
 		* 
 		*/
 		this._onlookuptemplates = function(targetElement, tbButton) {
+			// Initialize.
+			var frameHeight = parseInt(targetElement.css('height'));
+			var blockId = this.block.get('id');
+			if (!CJTToolBox.forms.templatesLookupForm[blockId]) {
+				CJTToolBox.forms.templatesLookupForm[blockId] = {};
+			}
+			var lookupForm = CJTToolBox.forms.templatesLookupForm[blockId];
 			// This method will fired only once when the 
 			// Templates popup button is hovered for the first time.
-			/** @TODO This doesnt work on IE browsers */
-			if (targetElement.prop('src') == window.location.href) {
-				var request = {blockId : this.block.get('id')};
+			if (!targetElement.get(0).__cjt_loaded) {
+				var request = {blockId : blockId};
 				// Pass block object to the form when loaded.
-				CJTToolBox.forms.templatesLookupForm[request.blockId] = {
-					inputs : {block : this.block, button : tbButton}
-				};
+				 lookupForm.inputs = {block : this.block, button : tbButton, height : frameHeight};
 				// Set frame Source to templates lookup view URL.
 				var templatesLookupViewURL = CJTBlocksPage.server.getRequestURL('templatesLookup', 'display', request);
 				targetElement.prop('src', templatesLookupViewURL);
+				// Mark loaded.
+				targetElement.get(0).__cjt_loaded = true;
 			}
 			else {
-				CJTToolBox.forms.templatesLookupForm[this.block.get('id')].form.refresh();
+				// Pass frame height when refreshed.
+				lookupForm.inputs.height = frameHeight;
+				lookupForm.form.refresh();
 			}
 			/** @TODO Tell Block toolbox to deatach/unbind popup callback */
 			return true; // Tell CJTToolBox to Show Popup menu as normal.
@@ -306,6 +350,12 @@
 			var show = true;
 			if (this.block.box.hasClass('closed')) {
 				show = false;
+			}
+			else {
+				// Some Popup forms need to be re-sized if fullscree is On!
+				if (button.params.fitToScreen == true) {
+					this.dock(targetElement, 25);
+				}
 			}
 			return show;
 		}
@@ -472,6 +522,19 @@
 		}
 		
 		/**
+		* 
+		*/
+		this.dock = function(elements, pixelsToRemove) {
+			// Initialize.
+			var alwaysRemove = 33;
+			pixelsToRemove = (pixelsToRemove != undefined) ? (pixelsToRemove + alwaysRemove) : alwaysRemove;
+			// There're always 33 pixels need to be removed from the Code area
+			var fixedHeight = this.block.box.height() - pixelsToRemove;
+			var heightInPixels = fixedHeight + 'px';
+			$(elements).css('height', heightInPixels);	
+		}
+		
+		/**
 		*
 		*
 		*
@@ -510,6 +573,8 @@
 			// Initialize object properties!
 			this.block = new CJTBlock(node)
 			this.features = $.extend(defaultOptions, args);
+			// Default to DOCK!!
+			this.defaultDocks = [{element : this.block.aceEditor.container}];
 			// Load commonly used elements.
 			this.elements = {};
 			$.each(autoLoadElements, $.proxy(
@@ -566,6 +631,7 @@
 						type : 'Popup',
 						callback : this._onlookuptemplates,
 						params : {
+								fitToScreen : true, /* Custom to be used inside this._onpopupmenu() method */
 							_type : {
 								onPopup : this._onpopupmenu,
 								targetElement : '.templates-lookup',

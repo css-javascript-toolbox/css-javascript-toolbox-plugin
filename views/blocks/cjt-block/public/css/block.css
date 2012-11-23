@@ -34,7 +34,7 @@ a.l_ext { position: relative; top: 3px; background:url(../images/pages-panel/ext
 /**
 * Advanced TAB Accordion menu.
 */
-#advanced-accordion {height: 285px;margin-top: 6px;}
+#advanced-accordion {margin-top: 6px;}
 #advanced-accordion textarea {height: 201px;width: 282px;margin-top: 4px;overflow: auto;white-space: nowrap;text-decoration: underline;}
 #advanced-accordion .ui-accordion-header {cursor: pointer;}
 #advanced-accordion .ui-accordion-content {height: 208px;}

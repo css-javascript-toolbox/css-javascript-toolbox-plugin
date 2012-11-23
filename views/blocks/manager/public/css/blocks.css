@@ -2,12 +2,11 @@
 /* Wordpress Page */
 .wrap { position: relative; }
 .blocks-icon32 { background: transparent url('../images/CSS_JS_Toolbox_Icon.png') no-repeat; }
-#post-body{ display: none; min-width:1020px; }
+#post-body{ display: none; min-width:700px; }
 /* Give extra space for the last Block Code-Auto-Completion dialog */
 #wpbody-content {margin-bottom: 129px; overflow: visible !important;}
 .postbox {}
 #cjt-noblocks-intro{padding-left: 14px; font-size: 12px; font-weight: bold;}
-#wpcontent { min-width:1040px; }
 #cjtoolbox_form { clear:both; }
 #cjt-info {
   background-color: #EFE;

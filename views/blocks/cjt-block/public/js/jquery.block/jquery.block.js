@@ -97,6 +97,13 @@
 		this.block.box.find('#advanced-accordion').accordion();
 		// Put select-childs checkboxes in action!
 		pagesPanel.find('.select-childs-checkbox-overlay').click($.proxy(this._onselectchilds, this));
+		// More to Dock with Fullscreen mode!
+		this.extraDocks = [
+			{element : pagesPanel.find('.ui-tabs-panel'), pixels : 89},
+			{element : pagesPanel.find('.ui-tabs-panel .pagelist'), pixels : 132},
+			{element : pagesPanel.find('#advanced-accordion .ui-accordion-content'), pixels : 169},
+			{element : pagesPanel.find('#advanced-accordion .ui-accordion-content textarea'), pixels : 177}
+		];
 	} // End class.
 	
 	// Extend CJTBLockPluginBase.

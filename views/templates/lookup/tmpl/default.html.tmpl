@@ -53,19 +53,19 @@ defined('ABSPATH') or die("Access denied");
 				</div>
 <?php endif; ?>
 			</form>
-		</div>
-		<div class="sweep">
-			<span class="wrap">
-				<span class="filters-title"><?php echo cssJSToolbox::getText('Show') ?>: </span> 
-				<span class="filters">
-					<a href="#linked"><?php echo cssJSToolbox::getText('Linked') ?></a> | 
-					<a href="#unlinked"><?php echo cssJSToolbox::getText('Unlinked') ?></a> | 
-					<a href="#all" class="active-filter"><?php echo cssJSToolbox::getText('All') ?></a>
-				</span>
-			</span>
-			<span class="actions">
-				 <a href="#unlink-all"><?php echo cssJSToolbox::getText('Unlink All') ?></a>
-			</span>
+			<div class="sweep">
+						<span class="wrap">
+							<span class="filters-title"><?php echo cssJSToolbox::getText('Show') ?>: </span> 
+							<span class="filters">
+								<a href="#linked"><?php echo cssJSToolbox::getText('Linked') ?></a> | 
+								<a href="#unlinked"><?php echo cssJSToolbox::getText('Unlinked') ?></a> | 
+								<a href="#all" class="active-filter"><?php echo cssJSToolbox::getText('All') ?></a>
+							</span>
+						</span>
+						<span class="actions">
+							 <a href="#unlink-all"><?php echo cssJSToolbox::getText('Unlink All') ?></a>
+						</span>
+					</div>
 		</div>
 <?php wp_print_footer_scripts() ?>
 	</body>
