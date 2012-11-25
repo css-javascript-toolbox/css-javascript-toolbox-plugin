@@ -30,6 +30,12 @@
 	CJTNewBlock = {
 	
 		/**
+		* put your comment there...
+		* 
+		*/
+		errors : null,
+		
+		/**
 		* New Block form element.
 		*
 		* @var jqObject
@@ -58,22 +64,23 @@
 		*/
 		_onsave : function(event) {
 			event.preventDefault();
-			// Append form data to it.
-			var formParams = CJTBlocksPage.server.serializeObject(CJTNewBlock.form);
-			// Request parameters.
-			var requestParams = $.extend({ids : CJTBlocksPage.blocks.getExistsIds(), viewName : 'cjt-block'}, formParams);
-			// Create block at the server.
-			CJTBlocksPage.server.send('blocksPage', 'create_block', requestParams, 'get').success(
-				function(response) {
-					// Add new block to blocks page.
-					newAddedBlock = CJTBlocksPage.addBlock(formParams.position, response.view)
-					// Close window.
-					window.parent.tb_remove();
-				}
-			).error($.proxy(
-				function(jqXHR, status) {
-					alert(jqXHR.statusText);
-				}, this)
+			this.isValid().done($.proxy(
+			  function() {
+					// Append form data to it.
+					var formParams = this.form.serializeObject();
+					// Request parameters.
+					var requestParams = $.extend({ids : CJTBlocksPage.blocks.getExistsIds(), viewName : 'cjt-block'}, formParams);
+					// Create block at the server.
+					CJTBlocksPage.server.send('blocksPage', 'create_block', requestParams, 'get')
+					.success($.proxy(
+						function(response) {
+							// Add new block to blocks page.
+							newAddedBlock = CJTBlocksPage.addBlock(formParams.position, response.view)
+							// Close window.
+							window.parent.tb_remove();
+						}, this)
+					);	
+			  }, this)
 			);
 		},
 	
@@ -83,20 +90,50 @@
 		* return void
 		*/
 		init : function()	{
-		  CJTNewBlock.form = $('form#cjtoolbox_new_block_form');
+		  this.form = $('form#cjtoolbox_new_block_form');
+		  this.errors = new CJTSimpleErrorDialog(this.form)
+		  .add('name', /.+/, CJTAddNewBlockI18N.invalidName);
 			// Actions handled by this object.
-			var events = {
-				'.save' : CJTNewBlock._onsave,
-				'.cancel' : CJTNewBlock._oncancel,
-			};
-			$.each(events, function(selector, handler) {
-				CJTNewBlock.form.find(selector).click(handler);
-			});
+			var events = {'.save' : this._onsave, '.cancel' : this._oncancel,};
+			$.each(events, $.proxy(
+				function(selector, handler) {
+					this.form.find(selector).click($.proxy(handler, this));
+				}, this)
+			);
 		},
+		
+		/**
+		* Is the form data is valid for submission!
+		* 
+		* @returns boolean
+		*/
+		isValid : function() {
+			// Client side validation
+			if (!this.errors.validate().hasError()) {
+				// Server validation!
+				var request = {
+					returns : ['id'],
+					filter : {field : 'name', value : this.form.prop('name').value}
+				};
+				CJTBlocksPage.server.send('block', 'get', request)
+				.success($.proxy(
+					function(response) {
+						if (response.id == undefined) {
+							var error = {
+									name : this.errors.fetchFieldInfo('name').text,
+									message:  CJTAddNewBlockI18N.nameIsAlreadyInUse};
+							this.errors.errors.push(error);
+						}
+					}, this)
+				);
+			}
+			// Show dialog if required + resolve or reject promising.
+			return this.errors.show('width=380&height=170', $.Deferred());
+		}
 		
 	} // End class.
 	
 	// Bind when documet ready.
-	$(CJTNewBlock.init);
+	$($.proxy(CJTNewBlock.init, CJTNewBlock));
 	
 })(jQuery);

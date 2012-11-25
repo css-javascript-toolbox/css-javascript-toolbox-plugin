@@ -66,7 +66,7 @@ class CJTBlocksCjtBlockView extends CJTView {
 		self::useScripts(
 			'jquery-ui-tabs', 
 			'jquery-ui-accordion', 
-			'views:blocks:cjt-block:public:js:{CJT_BLOCKS_PAGE_BLOCK-}jquery.block'
+			'views:blocks:cjt-block:public:js:{CJT_CJT_BLOCK-}jquery.block'
 		);
 	}
 

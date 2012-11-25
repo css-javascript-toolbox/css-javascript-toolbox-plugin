@@ -5,17 +5,6 @@
 
 // Disallow direct access.
 defined('ABSPATH') or die("Access denied");
-
-// Extend block view editor toolbox buttons.
-$this->blockView->setOption(
-	'editorToolboxExtension', (object) array(
-		'mode' => 'inheritance',
-		'toolboxFile' => $this->getPath('tmpl/templates/editor-toolbox.html.tmpl'),
-		'map' => array(
-			'preview' => array('reference' => 'fullscreen', 'method' => 'after'),
-		),
-	)
-);
 		
 // Display as metabox without using Wordpress Metabox APIs.
 if ($this->getOption('customizeMetabox')) : ?>

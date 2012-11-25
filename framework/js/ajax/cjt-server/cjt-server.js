@@ -24,13 +24,6 @@ var CJTServer;
 	*/
 	CJTServer = {
 		
-		/**
-		* put your comment there...
-		* 
-		* @type String
-		*/
-		actionPrefix : 'cjtoolbox',
-		
 		/*
 		* Wordpress admin Ajax URL.
 		*
@@ -75,6 +68,13 @@ var CJTServer;
 		*/
 		queue : {},
 
+				/**
+		* put your comment there...
+		* 
+		* @type String
+		*/
+		pageId : 'cjtoolbox',
+		
 		/*
 		* Destroy queue object.
 		*
@@ -134,7 +134,7 @@ var CJTServer;
 			var requestObject = {};
 			var requestTime = new Date();
 			// CJT Wordpress Plugin Ajax hooks prefix.
-			action = this.actionPrefix + '_' + action;
+			action = this.pageId + '_' + action;
 			// Action & Controller parameter always in the URL -- not posted.
 			var queryString = 'action=' + action + '&controller=' + CJTServer.controllers[controller];
 			var url = CJTServer.ajaxURL + '?' + queryString;
@@ -143,6 +143,7 @@ var CJTServer;
 				security : CJTServer.securityToken,
 				requestTime : requestTime,
 				requestId : requestTime.getTime()
+				//page : this.pageId // Always send page Id with the request.
 			};
 			// Combine user data with request parameters data.
 			data = $.extend(requestToken, data);
@@ -274,38 +275,12 @@ var CJTServer;
 			promising = $[requestMethod](request.url, request.data, null, returnType);
 			return promising;
 		},
-	
-		/**
-		* Serialize form into object.
-		*
-		* Sometime when forms needed to be serialized into something
-		* accessible like object/array its likely to use jQuery.serializeArray.
-		* jQuery.serializeArray has one problem: It returns each property as following.
-		* [0 : {name : NAME, value : VALUE}]
-		* 
-		* @TODO Remove this method and use Wordpress jquery-serialize-object Plugin instead.
-		* The purpose of this method is to remove the index wrapper and return
-		* { name : NAME, value : VALUE }
-		*
-		* @param HTMLFormElement/Jquery object.
-		* return object
-		*/		
-		serializeObject : function(form) {
-			var jquerySerializedArray = form.serializeArray();
-			var serializedObject = {};
-			$(jquerySerializedArray).each(
-				function(index, item) {
-					serializedObject[item.name] = item.value;
-				}
-			);
-			return serializedObject;
-		},
 		
 		/**
 		* 
 		*/
 		switchAction : function(newAction, uri) {
-			var actionParameter = 'action=' + (this.actionPrefix + '_' + newAction);
+			var actionParameter = 'action=' + (this.pageId + '_' + newAction);
 			var repExp = new RegExp('action\=[^\&]+');
 			if (uri == undefined) {
 				uri = document.location.href;

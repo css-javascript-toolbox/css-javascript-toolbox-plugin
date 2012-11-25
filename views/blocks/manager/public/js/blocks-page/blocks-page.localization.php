@@ -16,5 +16,7 @@ return array(
   'confirmRestoreBlocks' => cssJSToolbox::getText('Restoring blocks backup will result in losing all the current blocks.')."\n\n".cssJSToolbox::getText('Are you sure, you\'d like to continue?'),
 	'unableToRestoreBackup' => cssJSToolbox::getText('Backup could not be restored'),
 	'manageTemplatesFormTitle' => cssJSToolbox::getText('Templates Manager'),
-	'confirmDeleteBlocks' => cssJSToolbox::getText('Delete blocks?')
+	'commonDeleteMessage' => cssJSToolbox::getText('You\'re about to delete %d code block(s).'),
+	'confirmDeleteAll' => cssJSToolbox::getText('Are you sure you want to delete all code blocks?'),
+	'confirmDeleteEmpty' => cssJSToolbox::getText('Are you sure you want to delete all the empty code blocks?')
 );

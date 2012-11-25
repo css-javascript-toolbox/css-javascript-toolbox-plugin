@@ -11,5 +11,12 @@
 */
 return array(
 	'blockRevisionsDialogTitle' => cssJSToolbox::getText('Block revisions'),
-	'blockInfoTitle' => cssJSToolbox::getText('CJT-Block Info')
+	'blockInfoTitle' => cssJSToolbox::getText('CJT-Block Info'),
+	'confirmDelete' => cssJSToolbox::getText('Are you sure you want to delete this (%s) code block?'),
+	'state_activeTitle' => cssJSToolbox::getText('Deactivate (turn off) code block'),
+	'state_inactiveTitle' => cssJSToolbox::getText('Activate (turn on) code block'),
+	'location_headerTitle' => cssJSToolbox::getText('Set output location hook to footer'),
+	'location_footerTitle' => cssJSToolbox::getText('Set output location hook to header'),
+	'screenmode_fullscreenTitle' => cssJSToolbox::getText('Revert code editor to default mode'),
+	'screenmode_Title' => cssJSToolbox::getText('Switch code editor to fullscreen mode'),
 );

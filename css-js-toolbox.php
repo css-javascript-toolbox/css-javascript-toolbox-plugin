@@ -93,7 +93,7 @@ if (!class_exists('cssJSToolbox')) {
 	* @version 0.3
 	*/
 	class cssJSToolbox {
-
+    
 		/**
 		* put your comment there...
 		* 

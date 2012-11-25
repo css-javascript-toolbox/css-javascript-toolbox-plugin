@@ -155,17 +155,7 @@ var CJTBlocksPage;
 									window.onbeforeunload	= this.wpAutoSave.wpHandler;
 								}
 						}, this)
-					)
-					.fail($.proxy(
-						function() {
-							// Error loading any script file goes here!!!
-						}, this)
 					);
-				}, this)
-			)
-			.error($.proxy(
-				function() {
-					// Error requesting server code goes here!!!
 				}, this)
 			);
 		},

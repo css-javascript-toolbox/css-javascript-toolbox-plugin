@@ -35,8 +35,8 @@ abstract class CJTModel {
 	* 
 	* @param mixed $model
 	*/
-	public static function create($model, $params = array()) {
-		return CJTController::getModel($model, $params);
+	public static function create($model, $params = array(), $file = null) {
+		return CJTController::getModel($model, $params, $file);
 	}
 	
 	/**

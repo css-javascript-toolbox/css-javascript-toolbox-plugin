@@ -6,6 +6,9 @@
 // No direct access allowed.
 defined('ABSPATH') or die("Access denied");
 
+// Import dependencies.
+cssJSToolbox::import('tables:blocks.php');
+
 /**
 * 
 */

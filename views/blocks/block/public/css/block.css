@@ -1,14 +1,19 @@
-#cjtoolbox-admin div.postbox { display:none }
+/* 
+	cjt-block is just a new added class so don't confuse about it
+	sometimes we need to use it instead of postbox class
+	like affecting only block box while running as Metabox inside edit post page!
+*/
+.cjt-block {min-width: 750px;}
 
-.postbox{
+#cjtoolbox-admin div.postbox {
+	display:none 
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
 	border-radius: 6px; 
 	border-color: #cccccc;
-	min-width:700px;
 }
 /* Use 6px radius instead of 3px */
-.postbox .hndle {
+#cjtoolbox-admin .postbox .hndle {
 	-moz-border-top-left-radius: 6px;
 	-moz-border-top-right-radius: 6px;
 	-webkit-border-top-left-radius: 6px;
@@ -17,7 +22,7 @@
 	border-top-right-radius: 6px;
 	border-bottom-color: #cccccc;
 }
-#poststuff h3, .metabox-holder h3 {padding: 8px 10px;}
+#cjtoolbox-admin #poststuff h3, .metabox-holder h3 {padding: 8px 10px;}
 /* Editor langauges list */
 .editor-langs {
 	position: absolute;  
@@ -153,9 +158,9 @@ span.block-name {
 .edit-block-name .cancel { background-image: url(../images/edit-block-name/cancel.png); }
 .edit-block-name .save { background-image: url(../images/edit-block-name/save.png); }
 
-.cjcodeblock { margin-right:30px; /* min-width:750px;*/ }
-.cjcontainer {min-width:700px; min-height: 360px;}
-.datablock {padding-top: 14px;} /* IE8 */
+.cjcodeblock { margin-right:30px; }
+.cjcontainer {min-width:700px;}
+.datablock {padding-top: 14px;}
 .datablock .code-editor { position: relative; width:auto; height:352px; }
  a.button-secondary { float:left; }
 .linklist textarea { width:245px; font-size:11px; height:190px; }

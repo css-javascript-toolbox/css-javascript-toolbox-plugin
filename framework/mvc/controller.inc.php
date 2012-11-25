@@ -97,11 +97,14 @@ abstract class CJTController {
 	* 
 	* @deprecated No longer used.
 	*/
-	public static function getModel($name, $params = array()) {
+	public static function getModel($name, $params = array(), $file = null) {
 		$model = null;
 		$pathToModels = CJTOOLBOX_MODELS_PATH;
+		if (!$file) {
+			$file = $name;
+		}
 		// Import model file.
-		$modelFile = "{$pathToModels}/{$name}.php";
+		$modelFile = "{$pathToModels}/{$file}.php";
 		require_once $modelFile;
 		// Create model object.
 		$modelClass = self::getClassName($name, 'Model');
@@ -168,7 +171,7 @@ abstract class CJTController {
 	protected function init() {
 		// Create default model.
 		if (isset($this->controllerInfo['model'])) {
-			$this->model = CJTModel::create($this->controllerInfo['model']);
+			$this->model = CJTModel::create($this->controllerInfo['model'], array(), $this->controllerInfo['model_file']);
 		}
 		// Create default view.
 		if ($view = ($_REQUEST['view'] ? $_REQUEST['view'] : $this->controllerInfo['view'] )) {

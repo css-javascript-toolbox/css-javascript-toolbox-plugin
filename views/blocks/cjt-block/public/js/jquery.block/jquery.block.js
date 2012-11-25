@@ -77,6 +77,8 @@
 					}
 				);
 			}
+			// Set title based on the new STATE!
+			toggler.attr('title', CJT_CJT_BLOCKJqueryBlockI18N['assigmentPanel_' + newState + 'Title']);
 			// Save state.
 			block.set('pagesPanelToggleState', newState);
 			// For link to behave inactive.

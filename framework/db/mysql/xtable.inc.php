@@ -147,12 +147,18 @@ abstract class CJTxTable {
 	* @param mixed 
 	*/
 	public function load($query = null) {
+		$key = null;
+		// Query might be an array of keys!
+		if (is_array($query)) {
+			$key = $query;
+			$query = null;
+		}
 		if (!$query) {
 			$item = (array) $this->item;
 			$query['select'] = 'SELECT *';
 			$query['from'] = "FROM {$this->table()}";
 			// Where clause.
-			$query['where'] = 'WHERE ' . implode(' AND ', $this->prepareQueryParameters($this->getKey()));
+			$query['where'] = 'WHERE ' . implode(' AND ', $this->prepareQueryParameters($this->getKey($key)));
 			// Read DB  record!
 			$query = "{$query['select']} {$query['from']} {$query['where']}";
 		}

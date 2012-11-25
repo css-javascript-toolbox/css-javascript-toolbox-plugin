@@ -26,6 +26,13 @@ class CJTBlocksBlockView extends CJTView {
 	* 
 	* @var mixed
 	*/
+	protected $localization;
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	protected $params = array();
 	
 	/**
@@ -46,6 +53,8 @@ class CJTBlocksBlockView extends CJTView {
 		add_action('admin_print_scripts', array(__CLASS__, 'enqueueScripts'));
 		// Cast params to object
 		$this->params = (object) $this->params;
+		// Load localization text.
+		$this->localization = require($this->getPath('public/js/jquery.block/jquery.block.localization.php'));
 	}
 	
 	/**

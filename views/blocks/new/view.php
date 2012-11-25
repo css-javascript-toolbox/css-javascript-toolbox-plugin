@@ -55,6 +55,9 @@ class CJTBlocksNewView extends CJTView {
 		// Use related scripts.
 		self::useScripts(
 			'jquery',
+			'thickbox',
+			'jquery-serialize-object',
+			'framework:js:misc:{CJT-}simple-error-dialog',
 			'views:blocks:new:public:js:{CJT-}add-new-block'
 		);
 	}
@@ -67,6 +70,8 @@ class CJTBlocksNewView extends CJTView {
 	public static function enququeStyles() {
 		// Use related styles.
 		self::useStyles(
+			'thickbox',
+			'framework:css:{CJT-}error-dialog',
 			'framework:css:{CJT-}forms'
 		);
 	}

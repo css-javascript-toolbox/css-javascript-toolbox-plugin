@@ -247,8 +247,17 @@ var CJTBlocksPage;
 		*
 		*/
 		_ondeleteall : function() {
-			/** @TODO confirm delete. */
-			CJTBlocksPage.deleteBlocks(CJTBlocksPage.blocks.getBlocks());
+			// Confimation message!
+			var blocksCount = CJTBlocksPage.blocks.getBlocks().length;
+			var confirmMessage = CJTBlocksPageI18N.commonDeleteMessage.replace('%d', blocksCount)
+																								+ "\n\n"
+																								+ CJTBlocksPage.blocks.toArray('name').join("\n")
+																								+ "\n\n"
+																								+ CJTBlocksPageI18N.confirmDeleteAll;
+			// Confirm deletion.
+			if (confirm(confirmMessage)) {
+				CJTBlocksPage.deleteBlocks(CJTBlocksPage.blocks.getBlocks());
+			}
 		},
 		
 		/**
@@ -258,7 +267,7 @@ var CJTBlocksPage;
 		*
 		*/
 		_ondeleteempty : function() {
-		  /// @TODO confirm delete.
+			// initialize blocks.
 		  var blocks = CJTBlocksPage.blocks.getBlocks();
 		  var emptyBlocks = [];
 		  // For every block check if there is code content.
@@ -270,8 +279,15 @@ var CJTBlocksPage;
 		  		}
 		  	}
 		  );
-		  // If all the blocks are deleted call _ondeleteall handler.
-		  CJTBlocksPage.deleteBlocks(emptyBlocks);
+			// Confimation message!
+			var confirmMessage = CJTBlocksPageI18N.commonDeleteMessage.replace('%d', emptyBlocks.length)
+																								+ "\n\n"
+																								+ CJTBlocksPage.blocks.toArray('name', emptyBlocks).join("\n")
+																								+ "\n\n"
+																								+ CJTBlocksPageI18N.confirmDeleteEmpty;
+		  if (confirm(confirmMessage)) {
+				CJTBlocksPage.deleteBlocks(emptyBlocks);				
+		  }
 		},
 		
 		/**
@@ -413,9 +429,6 @@ var CJTBlocksPage;
 		*
 		*/
 		_ontoggle : function(event, params) {
-			// Stop postbox from updating postbox states.
-			var saveStateMethod = postboxes.save_state;
-			postboxes.save_state = function() {};
 			// Show or Hide blocks.
 			var blocks = CJTBlocksPage.blocks.getBlocks();
 			switch (params.state) {
@@ -430,9 +443,8 @@ var CJTBlocksPage;
 					blocks.each(function() {this.CJTBlock._onpostboxopened();});					
 				break;
 			}
-			// Reset save state method.
-			// Note: Its just a reset but not saving, save should happend with save all changes button.
-			postboxes.save_state = saveStateMethod;
+			// Save (batch) state.
+			postboxes.save_state('cjtoolbox');
 		},
 		
 		/**
@@ -499,8 +511,6 @@ var CJTBlocksPage;
 			// Refresh toggling.
 			postboxes.add_postbox_toggles('cjtoolbox');
 			currentBlocks.removeClass('applying-postbox-to-new-block').addClass('postbox');
-			// Refresh sort order/save new block order.
-			CJTBlocksPage.saveBlocksOrder();
 			// Put new block into focus.
 			newAddedBlock.get(0).CJTBlock.focus();
 			return newAddedBlock;
@@ -525,9 +535,6 @@ var CJTBlocksPage;
 		*
 		*/
 		deleteBlocks : function(blocks) {
-			if (!confirm(CJTBlocksPageI18N.confirmDeleteBlocks)) {
-				return;
-			}
 			// Delete block.
 			$.each(blocks,
 				function(index, block) {

@@ -12,7 +12,9 @@ var ScriptsLoader;
 	* 
 	*/
 	ScriptsLoader = function(scripts) {
-		
+		 // Clone scripts array.
+		 scripts = $.merge([], scripts);
+		 
 		/**
 		* 
 		*/

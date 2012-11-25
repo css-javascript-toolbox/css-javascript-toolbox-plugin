@@ -86,11 +86,6 @@ var CJTBlocksPage;
 							}, this)
 						);
 					}, this)
-				)
-				.error(  // Could not Create Metabox block!
-					function() {
-						
-					}
 				);
 			}
 			// For link to behave inactive.
@@ -111,5 +106,4 @@ var CJTBlocksPage;
 		}
 		
 	};
-	
 })(jQuery);

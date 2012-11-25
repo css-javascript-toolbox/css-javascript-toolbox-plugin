@@ -163,8 +163,15 @@
 		* Save all Changes should be called in order to save deleted blocks.
 		*/
 		this._ondelete = function() {
-			/// @TODO confirm delete.
-		  CJTBlocksPage.deleteBlocks(this.block.box);
+			// Conformation message.
+			var confirmMessage = CJTJqueryBlockI18N.confirmDelete;
+			// Show Block name!
+			confirmMessage = confirmMessage.replace('%s', this.block.get('name'));
+			// Confirm deletion!
+			if (confirm(confirmMessage)) {
+				// Delete block.
+			  CJTBlocksPage.deleteBlocks(this.block.box);
+			}
 		}
 		
 		/**
@@ -254,14 +261,16 @@
 		/**
 		* 
 		*/
-		this._onfullscreen  = function() {
+		this._onfullscreen  = function(event) {
 			// Initialize vars!
 			var block = this.block;
 			var elementsToDock = $.merge($.merge([], this.extraDocks), this.defaultDocks);
+			var newMode = '';
 			// Document body.
 			$('body').toggleClass('fullscreen').hasClass('fullscreen');
 			// Enter/Exit Full Screen mode!
 			if (block.box.toggleClass('fullscreen').hasClass('fullscreen')) {
+				newMode = 'fullscreen';
 				// Defined resize handler.
 				var resizer = $.proxy(
 					function() {
@@ -286,6 +295,8 @@
 				);
 				$(window).unbind('resize.cjtfullscreen');
 			}
+			// Screen mode title.
+			$(event.target).attr('title', CJTJqueryBlockI18N['screenmode_' + newMode + 'Title']);
 			// Refresh/Redraw editor.
 			block.aceEditor.resize();
 			// Toggle Toolbox fullscreen button icon.
@@ -407,7 +418,6 @@
 			.error($.proxy(
 				function() {
 					saveButton.loading(false);
-					alert('Could not save block data!!!!');
 				}, this)
 			).complete($.proxy(
 				function() {
@@ -488,16 +498,14 @@
 				function(rState) {
 					var oldCSSClass = params.flag + '-' + oldValue;
 					var newCSSClass = params.flag + '-' + rState.value;
-					target.removeClass(oldCSSClass).addClass(newCSSClass);
+					target.removeClass(oldCSSClass).addClass(newCSSClass)
+					// Switch title based on current FLAG and the new VALUE.
+					.attr('title', CJTJqueryBlockI18N[params.flag + '_' + rState.value + 'Title']);
 				}, this)
 			);
 			// Update on server.
 			this.block.sync(params.flag)
-			.error($.proxy(
-				function() {
-					alert('Could not save block ' + params.flag + ' state!!!!');
-				}, this)
-			).complete($.proxy(
+			.complete($.proxy(
 				function() {
 					flagButton.loading(false);
 				}, this)
@@ -685,7 +693,7 @@
 			// Display block. 
 			// !important: Blocks come from server response doesn't need this but the newly added blocks does.
 			// need sometime to be ready for display.
-			model.box.css({display : 'block'});
+			model.box.css({display : 'block'}).addClass('cjt-block');
 		}
 		
 		/**

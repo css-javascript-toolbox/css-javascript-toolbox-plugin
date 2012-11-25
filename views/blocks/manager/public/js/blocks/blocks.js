@@ -109,6 +109,23 @@ var CJTBlocks;
 			return ((hasBlocks == 'true') ? true : false);
 		}
 		
+		/**
+		* 
+		*/
+		this.toArray = function(prop, blocks) {
+			// Initialize vars!
+			var list = [];
+			if (blocks == undefined) {
+				blocks = this.getBlocks();
+			}
+			// Get property value for all blocks!
+			$.each(blocks, function() {
+					list.push(this.CJTBlock.block.get(prop));
+				}
+			);
+			return list;
+		}
+		
 	} // End class.
 	
 })(jQuery);

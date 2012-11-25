@@ -47,7 +47,9 @@
 		// Add toolbox button.
 		var tbIconsGroup = this.block.box.find('.editor-toolbox .icons-group')
 		tbIconsGroup.children().first().after('<a href="#" class="cjt-tb-link cjttbl-preview"></a>');
-		this.editorToolbox.add('preview', {callback : this._onpreviewchanges});
+		this.editorToolbox.add('preview', {callback : this._onpreviewchanges})
+		// Set Title.
+		.jButton.attr('title', CJT_METABOX_BLOCKJqueryBlockI18N.previewLinkTitle);
 		// Register COMMAND-KEYS.
 		this.registerMetaboxCommands();
 			
