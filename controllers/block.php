@@ -3,6 +3,12 @@
 * 
 */
 
+// Disallow direct access.
+defined('ABSPATH') or die("Access denied");
+
+// import dependencies.
+cssJSToolbox::import('framework:mvc:controller-ajax.inc.php');
+
 /**
 * This class should replace any other controllers that
 * has methods for interacting with a single Block (e.g block-ajax!)
@@ -11,31 +17,36 @@
 * in the future!
 */
 class CJTBlockController extends CJTAjaxController {
+
+	/**
+	* put your comment there...
+	* 	
+	* @var mixed
+	*/
+	protected $controllerInfo = array('model' => 'block', 'model_file' => 'xblock');
 	
 	/**
 	* put your comment there...
 	* 
-	* @param mixed $info
-	* @return CJTBlockController
 	*/
-	public function __construct($info) {
-		parent::__construct($info);
+	public function __construct() {
+		parent::__construct();
 		// Actions!
-		$this->registryAction('get');
+		$this->registryAction('getBlockBy');
 	}
 	
 	/**
 	* Query single block based on the provided criteria!
 	* 
 	*/
-	public function getAction() {
+	public function getBlockByAction() {
 		// Initialize.
 		$returns = array_flip($_GET['returns']);
 		// Set inputs.
 		$inputs =& $this->model->inputs;
 		$inputs['filter'] = $_GET['filter'];
 		// Query Block.
-		$this->response = array_intersect_key($this->model->get(), $returns);
+		$this->response = array_intersect_key((array) $this->model->getBlockBy(), $returns);
 	}
 	
 } //  End class.

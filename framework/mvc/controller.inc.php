@@ -48,10 +48,17 @@ abstract class CJTController {
 	* put your comment there...
 	* 
 	*/
-	public function __construct($controllerInfo) {
-		$this->controllerInfo = $controllerInfo;
-		/// Create view & Model.
-		$this->init();
+	public function __construct() {
+		// Create default model.
+		if (isset($this->controllerInfo['model'])) {
+			$this->model = CJTModel::create($this->controllerInfo['model'], array(), $this->controllerInfo['model_file']);
+		}
+		// Create default view.
+		if ($view = ($_REQUEST['view'] ? $_REQUEST['view'] : $this->controllerInfo['view'] )) {
+			$this->view = self::getView($view);
+			// Push model into view.
+			$this->view->setModel($this->model);
+		}
 	}
 	
 	/**
@@ -71,17 +78,17 @@ abstract class CJTController {
 	* put your comment there...
 	* 
 	* @param mixed $name
+	* @deprecated Use CJTController::getInstance()!
 	*/
 	public static function create($name) {
-		$controllerInfo = cssJSToolbox::$controllers[$name];
 		// Import controller file.
 		$pathToControllers = CJTOOLBOX_CONTROLLERS_PATH;
-		$controllerFile = "{$pathToControllers}/{$controllerInfo['controller']}.php";
+		$controllerFile = "{$pathToControllers}/{$name}.php";
 		require $controllerFile;
 		// Get controller class name.
 		$class = self::getClassName($name, 'Controller');
 		// Instantiate controller class.
-		return new $class($controllerInfo);
+		return new $class();
 	}
 	
 	/**
@@ -90,6 +97,15 @@ abstract class CJTController {
 	*/
 	public function createSecurityToken() {
 		return wp_create_nonce(self::NONCE_ACTION);
+	}
+
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $name
+	*/
+	public static function getInstance($name) {
+		return self::create($name);
 	}
 	
 	/**
@@ -163,22 +179,6 @@ abstract class CJTController {
 			'viewFile' => "{$pathToViews}/{$path}/view.php",
 		);
 		return $viewInfo;
-	}
-	/**
-	* put your comment there...
-	* 
-	*/
-	protected function init() {
-		// Create default model.
-		if (isset($this->controllerInfo['model'])) {
-			$this->model = CJTModel::create($this->controllerInfo['model'], array(), $this->controllerInfo['model_file']);
-		}
-		// Create default view.
-		if ($view = ($_REQUEST['view'] ? $_REQUEST['view'] : $this->controllerInfo['view'] )) {
-			$this->view = self::getView($view);
-			// Push model into view.
-			$this->view->setModel($this->model);
-		}
 	}
 	
 } // End class.

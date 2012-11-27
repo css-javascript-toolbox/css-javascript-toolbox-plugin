@@ -17,24 +17,34 @@ var CJTSimpleErrorDialog;
 	CJTSimpleErrorDialog = function(form) {
 		
 		/**
+		* put your comment there...
 		* 
 		*/
-		this.errors;
+		var inlineElement;
+		
+		/**
+		* put your comment there...
+		* 
+		* @type String
+		*/
+		var onset = '';
+		
+		/**
+		* 
+		*/
+		this.errors = [];
 		
 		/**
 		* 
 		*/
 		this.fields = {};
-		
-		/**
-		* 
-		*/
-		this.inlineElement;
 				
 		/**
 		* 
 		*/
 		this.add = function(name, expression, message) {
+			// Set fieldset name.
+			name = onset + name;
 			this.fields[name] = {
 					name: name,
 					expression: expression,
@@ -63,12 +73,12 @@ var CJTSimpleErrorDialog;
 					throw 'Field name doesn\'t exists';
 				}
 				// Fetch field by name!
-				field = this.fields[field][element];
+				field = form.prop(field);
 			}
 			// Make sure its jQuery object!
 			field = $(field);
 			//Fetch info.
-			info.text =  form.find('label[for=' + field.prop('id') + ']').text(); 
+			info.text =  form.find('label[for=' + field.prop('id') + ']').text().replace('*', ''); 
 			return info;
 		}
 		
@@ -80,6 +90,14 @@ var CJTSimpleErrorDialog;
 		}
 		
 		/**
+		* 
+		*/
+		this.onSet = function(name) {
+			onset = name;
+			return this;
+		}
+		
+		/**
 		* put your comment there...
 		* 
 		* @param tab_name
@@ -87,33 +105,27 @@ var CJTSimpleErrorDialog;
 		* @returns {Boolean}
 		*/
 		this.show = function(tbParams, promising) {
-			// Dont show unless we've error!
-			if (this.hasError()) {
-				promising.reject();
-				// Thick box URI.
-				var thickBoxParameters = '?TB_inline&_TB-PARAMS_&inlineId=' + this.inlineElement.prop('id');
-				// Add tbParams if defined!
-				if (tbParams != undefined) {
-					thickBoxParameters = thickBoxParameters.replace('_TB-PARAMS_', tbParams);
-				}
-				// Remove all child elements inside the Error inline element.
-				this.inlineElement.empty();
-				// Add error list element.
-				var errsList = $('<ul class="cjt-error-list"></ul>').appendTo(this.inlineElement);
-				// Build Unordered list of all errors.
-				$.each(this.errors, $.proxy(
-					function(index, error) {
-						var message = (error.name ? (error.name + ': ') : '') + error.message;
-						errsList.append('<li>' + message + '</li>');
-					}, this)
-				);
-				// Display Thickbox dialog.
-				tb_show(CJTSimpleErrorDialogI18N.dialogTitle, thickBoxParameters);
+			// Thick box URI.
+			var thickBoxParameters = '?TB_inline&_TB-PARAMS_&inlineId=' + inlineElement.prop('id');
+			// Add tbParams if defined!
+			if (tbParams != undefined) {
+				thickBoxParameters = thickBoxParameters.replace('_TB-PARAMS_', tbParams);
 			}
-			else {
-				promising.resolve();
-			}
-			return promising;
+			// Remove all child elements inside the Error inline element.
+			inlineElement.empty();
+			// Add error list element.
+			var errsList = $('<ul class="cjt-error-list"></ul>').appendTo(inlineElement);
+			// Build Unordered list of all errors.
+			$.each(this.errors, $.proxy(
+				function(index, error) {
+					var name = '<span class="name">' + error.name + '</span>';
+					var message = '<span class="msg">' + error.message + '</span>';
+					errsList.append('<li>' + name + ' ====> ' + message + '</li>');
+				}, this)
+			);
+			// Display Thickbox dialog.
+			tb_show(CJTSimpleErrorDialogI18N.dialogTitle, thickBoxParameters);
+			return this;
 		}
 
 		/**
@@ -149,12 +161,12 @@ var CJTSimpleErrorDialog;
 		}
 		
 		// If there is no form id use current time as unique Id.
-		if (!(this.inlineElement = $(form).prop('id'))) {
-			this.inlineElement = (new Date()).getTime();
+		if (!(inlineElement = $(form).prop('id'))) {
+			inlineElement = (new Date()).getTime();
 		}
 		// Prefix Dialog Id!
-		this.inlineElement =  'CJTSimpleErrorDialog__' + this.inlineElement;
-		$('<div id="' + this.inlineElement + '" class="cjt-error-dialog"></div>').appendTo('body');
-		this.inlineElement = $('#' + this.inlineElement);
+		inlineElement =  'CJTSimpleErrorDialog__' + inlineElement;
+		$('<div id="' + inlineElement + '" class="cjt-error-dialog"></div>').appendTo('body');
+		inlineElement = $('#' + inlineElement);
 	} // End class.
 })(jQuery);

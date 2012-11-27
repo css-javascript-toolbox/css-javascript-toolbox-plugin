@@ -67,11 +67,11 @@
 			this.isValid().done($.proxy(
 			  function() {
 					// Append form data to it.
-					var formParams = this.form.serializeObject();
+					var formData = this.form.serializeObject();
 					// Request parameters.
-					var requestParams = $.extend({ids : CJTBlocksPage.blocks.getExistsIds(), viewName : 'cjt-block'}, formParams);
+					var requestParams = $.extend({ids : CJTBlocksPage.blocks.getExistsIds(), viewName : 'cjt-block'}, formData);
 					// Create block at the server.
-					CJTBlocksPage.server.send('blocksPage', 'create_block', requestParams, 'get')
+					CJTBlocksPage.server.send('blocksPage', 'create_block', formData, 'get')
 					.success($.proxy(
 						function(response) {
 							// Add new block to blocks page.
@@ -81,6 +81,10 @@
 						}, this)
 					);	
 			  }, this)
+			).fail($.proxy(
+				function() {
+					this.errors.show('width=380&height=170');
+				}, this)
 			);
 		},
 	
@@ -92,7 +96,7 @@
 		init : function()	{
 		  this.form = $('form#cjtoolbox_new_block_form');
 		  this.errors = new CJTSimpleErrorDialog(this.form)
-		  .add('name', /.+/, CJTAddNewBlockI18N.invalidName);
+		  .add('name', /^[\w\d\-\_\x20]+$/, CJTAddNewBlockI18N.invalidName);
 			// Actions handled by this object.
 			var events = {'.save' : this._onsave, '.cancel' : this._oncancel,};
 			$.each(events, $.proxy(
@@ -108,27 +112,38 @@
 		* @returns boolean
 		*/
 		isValid : function() {
+			var promising = $.Deferred();
 			// Client side validation
 			if (!this.errors.validate().hasError()) {
-				// Server validation!
+				// Make sure that the Block name is not taked by antoher Block!
 				var request = {
 					returns : ['id'],
 					filter : {field : 'name', value : this.form.prop('name').value}
 				};
-				CJTBlocksPage.server.send('block', 'get', request)
+				CJTBlocksPage.server.send('block', 'getBlockBy', request)
 				.success($.proxy(
 					function(response) {
-						if (response.id == undefined) {
+						// FAIL -- Name is being used by antoher Block!!!
+						if (response.id) {
 							var error = {
 									name : this.errors.fetchFieldInfo('name').text,
-									message:  CJTAddNewBlockI18N.nameIsAlreadyInUse};
+									message:  CJTAddNewBlockI18N.AlreadyInUse
+							};
 							this.errors.errors.push(error);
+							promising.reject();
+						}
+						else {
+							// Successed -- Name is not taken yet!
+							promising.resolve();
 						}
 					}, this)
 				);
 			}
-			// Show dialog if required + resolve or reject promising.
-			return this.errors.show('width=380&height=170', $.Deferred());
+			else {
+				// Client side validatiom faild!
+				promising.reject();
+			}
+			return promising;
 		}
 		
 	} // End class.

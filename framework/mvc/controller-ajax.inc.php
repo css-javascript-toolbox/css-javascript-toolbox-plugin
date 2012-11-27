@@ -30,7 +30,7 @@ abstract class CJTAjaxController extends CJTController {
 	* 
 	* @var mixed
 	*/
-	protected $httpCode = '200 OK';
+	public $httpCode = '200 OK';
 	
 	/**
 	* put your comment there...
@@ -127,6 +127,29 @@ abstract class CJTAjaxController extends CJTController {
 	}
 	
 	/**
+	* Redirect the request to another controller.
+	* 
+	* Why this method is created anyway is to allow
+	* deprecating old controllers and start to create new one
+	* a quiet manner!
+	* 
+	* The idea is to create the  new controller,  adding new Action there
+	* and redirect the call throught current deprecated controller.
+	* 
+	* @param mixed $controller
+	*/
+	protected function redirect($controller) {
+		// Initialize vars.
+		$currentFilter= current_filter();
+		// Remove current Action!
+		remove_action($currentFilter, array(&$this, '_doAction'));
+		// Destroy all references to our controller and activate the target CTR!
+		CJTPlugin::$controller = CJTController::getInstance($controller);;
+		// Fire the action manually.
+		do_action($currentFilter);
+	}
+	
+	/**
 	* put your comment there...
 	* 
 	* @param mixed $action
@@ -135,7 +158,8 @@ abstract class CJTAjaxController extends CJTController {
 	*/
 	protected function registryAction($action, $priority = 10, $paramsCount = 1, $prefix = self::ACTION_PREFIX) {
 		$action = "{$prefix}{$action}";
-		return add_action($action, array(&$this, '_doAction'), $priority, $paramsCount);
+		add_action($action, array(&$this, '_doAction'), $priority, $paramsCount);
+		return $this;
 	}
 	
 } // End class.

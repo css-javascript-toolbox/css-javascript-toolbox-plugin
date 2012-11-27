@@ -3,8 +3,11 @@
 * 
 */
 
-// No direct access allowed.
+// Disallow direct access.
 defined('ABSPATH') or die("Access denied");
+
+// import dependencies.
+cssJSToolbox::import('framework:mvc:controller-ajax.inc.php');
 
 /**
 * 
@@ -14,9 +17,16 @@ class CJTSettingsController extends CJTAjaxController {
 	/**
 	* put your comment there...
 	* 
+	* @var mixed
 	*/
-	public function __construct($info) {
-		parent::__construct($info);
+	protected $controllerInfo = array('model' => 'settings');
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function __construct() {
+		parent::__construct();
 		// Actions.
 		$this->registryAction('manageForm');
 		$this->registryAction('save');

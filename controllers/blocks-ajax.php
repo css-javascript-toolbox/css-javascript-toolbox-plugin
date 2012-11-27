@@ -3,6 +3,12 @@
 * @version $ Id; blocks-ajax.php 21-03-2012 03:22:10 Ahmed Said $
 */
 
+// Disallow direct access.
+defined('ABSPATH') or die("Access denied");
+
+// import dependencies.
+cssJSToolbox::import('framework:mvc:controller-ajax.inc.php');
+
 /**
 * Serve blocks page Ajax requests.
 * 
@@ -10,10 +16,18 @@
 * for a specific/single block. You can find single block
 * actions in block-ajax.php file.
 * 
+* @deprecated DONT ADD MORE ACTIONS  HERE!
 * @author Ahmed Said
 * @version 6
 */
 class CJTBlocksAjaxController extends CJTAjaxController {
+
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $controllerInfo = array('model' => 'blocks');
 	
 	/**
 	* Initialize controller object.
@@ -21,8 +35,8 @@ class CJTBlocksAjaxController extends CJTAjaxController {
 	* @see CJTController for more details
 	* @return void
 	*/
-	public function __construct($controllerInfo) {
-		parent::__construct($controllerInfo);
+	public function __construct() {
+		parent::__construct();
 		// Supported actions.
 		add_action('wp_ajax_cjtoolbox_create_block', array(&$this, '_doAction'));
 		add_action('wp_ajax_cjtoolbox_get_view', array(&$this, '_doAction'));

@@ -3,10 +3,11 @@
 * @version $ Id; ?FILE_NAME ?DATE ?TIME ?AUTHOR $
 */
 
-/**
-* No direct access.
-*/
-// No Direct Accesss code
+// Disallow direct access.
+defined('ABSPATH') or die("Access denied");
+
+// import dependencies.
+cssJSToolbox::import('framework:mvc:controller-ajax.inc.php');
 
 /**
 * 
@@ -18,13 +19,20 @@
 class CJTTemplatesLookupController extends CJTAjaxController {
 
 	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $controllerInfo = array('model' => 'templates-lookup', 'view' => 'templates/lookup');
+	
+	/**
 	* 
 	* Initialize new object.
 	* 
 	* @return void
 	*/
-	public function __construct($controllerInfo) {
-		parent::__construct($controllerInfo);
+	public function __construct() {
+		parent::__construct();
 		// Registry controller actions.
 		$this->registryAction('display');
 		$this->registryAction('embedded');

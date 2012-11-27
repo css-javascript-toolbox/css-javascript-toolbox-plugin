@@ -3,18 +3,27 @@
 * @version $ Id; block-ajax.php 21-03-2012 03:22:10 Ahmed Said $
 */
 
-/**
-* No direct access.
-*/
+// Disallow direct access.
 defined('ABSPATH') or die("Access denied");
+
+// import dependencies.
+cssJSToolbox::import('framework:mvc:controller-ajax.inc.php');
 
 /**
 * Server single block OR block specific actions.
 * 
 * @author Ahmed Said
 * @version 6
+* @deprecated DONT ADD MORE ACTIONS. USE CJTBlockController and other controllers instead!
 */
 class CJTBlockAjaxController extends CJTAjaxController {
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $controllerInfo = array('model' => 'blocks');
 	
 	/**
 	* Initialize controller object.
@@ -22,13 +31,25 @@ class CJTBlockAjaxController extends CJTAjaxController {
 	* @see CJTController for more details
 	* @return void
 	*/
-	public function __construct($controllerInfo) {
-		parent::__construct($controllerInfo);
+	public function __construct() {
+		parent::__construct();
 		// Supported actions.
 		add_action('wp_ajax_cjtoolbox_get_info_view', array(&$this, '_doAction'));
 		add_action('wp_ajax_cjtoolbox_set_property', array(&$this, '_doAction'));
 		add_action('wp_ajax_cjtoolbox_get_revision', array(&$this, '_doAction'));
 		add_action('wp_ajax_cjtoolbox_get_revisions', array(&$this, '_doAction'));
+		// Redirects
+		$this->registryAction('getBlockBy');
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	* @deprecated this is just a redirect to the CJTBlockContoller::getAction().
+	*/
+	protected function getBlockByAction() {
+		// Pass to CJTBlockController!
+		$this->redirect('block');
 	}
 	
 	/**

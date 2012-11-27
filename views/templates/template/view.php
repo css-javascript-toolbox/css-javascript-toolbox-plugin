@@ -62,22 +62,21 @@ class CJTTemplatesTemplateView extends CJTView {
 		// Use related scripts.
 		self::useScripts(
 			'jquery',
+			'thickbox',
 			'jquery-serialize-object',
 			'jquery-ui-tabs',
-			'views:templates:template:public:js:{CJT-}template',
-			
+			'framework:js:misc:{CJT-}simple-error-dialog',
 			'framework:js:ace(loadMethod=Tag, lookFor=ace)',
-			
 			'framework:js:ace:{CJT-}pluggable',
 			'framework:js:ace:plugins:{CJT-}cac',
 			'framework:js:ace:plugins:cac:{CJT-}dialog',
 			'framework:js:ace:plugins:cac:parsers:{CJT-}common',
 			'framework:js:ace:plugins:cac:lib:{CJT-}mode',
-			
 			'framework:js:ace:plugins:cac:modes:{CJT-}css',
 			'framework:js:ace:plugins:cac:modes:{CJT-}javascript',
 			'framework:js:ace:plugins:cac:modes:{CJT-}html',
-			'framework:js:ace:plugins:cac:modes:{CJT-}php'
+			'framework:js:ace:plugins:cac:modes:{CJT-}php',
+			'views:templates:template:public:js:{CJT-}template'
 		);
 	}
 	
@@ -89,9 +88,11 @@ class CJTTemplatesTemplateView extends CJTView {
 	public static function enququeStyles() {
 		// Use related styles.
 		self::useStyles(
-			'views:templates:template:public:css:{CJT-}default',
+			'thickbox',
 			'framework:css:jquery-ui-1.8.21.custom',
-			'framework:css:{CJT-}forms'
+			'framework:css:{CJT-}forms',
+			'framework:css:{CJT-}error-dialog',
+			'views:templates:template:public:css:{CJT-}default'
 		);
 	}
 	

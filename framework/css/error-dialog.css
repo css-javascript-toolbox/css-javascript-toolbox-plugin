@@ -1,2 +1,5 @@
 .cjt-error-dialog {display:none}
 .cjt-error-list {color: red; list-style: none;}
+.cjt-error-list li {margin-bottom: 2px;}
+.cjt-error-list li .name {font-weight: bold; color: black;}
+.cjt-error-list li .msg {font-style: italic;}

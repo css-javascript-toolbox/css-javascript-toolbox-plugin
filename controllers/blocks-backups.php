@@ -3,6 +3,12 @@
 * @version $ Id; blocks-backups.php 21-03-2012 03:22:10 Ahmed Said $
 */
 
+// Disallow direct access.
+defined('ABSPATH') or die("Access denied");
+
+// import dependencies.
+cssJSToolbox::import('framework:mvc:controller-ajax.inc.php');
+
 /**
 *
 * 
@@ -10,6 +16,13 @@
 * @version 6
 */
 class CJTBlocksBackupsController extends CJTAjaxController {
+
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $controllerInfo = array('model' => 'blocks-backups');
 	
 	/**
 	* Initialize controller object.
@@ -17,8 +30,8 @@ class CJTBlocksBackupsController extends CJTAjaxController {
 	* @see CJTController for more details
 	* @return void
 	*/
-	public function __construct($controllerInfo) {
-		parent::__construct($controllerInfo);
+	public function __construct() {
+		parent::__construct();
 		// Supported actions.
 		add_action('wp_ajax_cjtoolbox_create', array(&$this, '_doAction'));
 		add_action('wp_ajax_cjtoolbox_delete', array(&$this, '_doAction'));

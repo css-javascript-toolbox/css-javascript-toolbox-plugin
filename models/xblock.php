@@ -4,6 +4,10 @@
 */
 
 /**
+* This file is a future replacement for block.php file.
+* 
+* The controller @block.php file is deprecated and all the feature actions
+* for a single block should be defined here!
 * 
 */
 class CJTBlockModel {
@@ -16,18 +20,10 @@ class CJTBlockModel {
 	public $inputs;
 	
 	/**
-	* put your comment there...
-	* 
-	*/
-	public function __construct()	 {
-		
-	}
-	
-	/**
 	* Query Block based on the passed paramaters.
 	* 
 	*/
-	public function get() {
+	public function getBlockBy() {
 		// import dependencies.
 		cssJSToolbox::import('framework:db:mysql:xtable.inc.php');
 		return CJTxTable::getInstance('block')

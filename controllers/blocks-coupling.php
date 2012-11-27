@@ -3,7 +3,7 @@
 * @version $ Id; blocks-coupling.php 21-03-2012 03:22:10 Ahmed Said $
 */
 		
-// Disallow direct access!
+// Disallow direct access.
 defined('ABSPATH') or die("Access denied");
 
 /**
@@ -18,6 +18,13 @@ defined('ABSPATH') or die("Access denied");
 * @version 6
 */
 class CJTBlocksCouplingController extends CJTController {
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $controllerInfo = array('model' => 'coupling');
 	
 	/**
 	* put your comment there...
@@ -56,7 +63,7 @@ class CJTBlocksCouplingController extends CJTController {
 	* @see CJTController for more details
 	* @return void
 	*/
-	public function __construct($controllerInfo) {
+	public function __construct() {
 		// Import related libraries
 		CJTModel::import('block');
 		// Not default action needed.
@@ -67,7 +74,7 @@ class CJTBlocksCouplingController extends CJTController {
 		// Add Shortcode callbacks.
 		add_shortcode('cjtoolbox', array(&$this, 'shortcode'));
 		// Initialize controller.
-		parent::__construct($controllerInfo);
+		parent::__construct();
 	}
 	
 	/**

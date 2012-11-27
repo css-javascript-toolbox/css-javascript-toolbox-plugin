@@ -3,9 +3,7 @@
 * @version $ Id; blocks.php 21-03-2012 03:22:10 Ahmed Said $
 */
 
-/**
-* No direct access.
-*/
+// Disallow direct access.
 defined('ABSPATH') or die("Access denied");
 
 /**
@@ -17,6 +15,13 @@ defined('ABSPATH') or die("Access denied");
 class CJTBlocksController extends CJTController {
 	
 	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $controllerInfo = array('model' => 'blocks', 'view' => 'blocks/manager');
+	
+	/**
 	* Wordpress page id used to identify the page
 	* and for associated meta data and some Wordpress options
 	* to it.
@@ -24,16 +29,6 @@ class CJTBlocksController extends CJTController {
 	* @var string
 	*/
 	private $pageHookName = null;
-	
-	/**
-	* Initialize controller object.
-	* 
-	* @see CJTController for more details.
-	* @return void
-	*/
-	public function __construct($controllerInfo) {
-		parent::__construct($controllerInfo);
-	}
 	
 	/**
 	* Display blocks page content.

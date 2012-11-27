@@ -127,7 +127,8 @@ class CJTBlocksBlockView extends CJTView {
 	* 
 	*/
 	public function getMetaboxName() {
-		return "<span class='block-name'>{$this->block->name}</span>";
+		$tip = cssJSToolbox::getText('Click to update Block name');
+		return "<span class='block-name' title='{$tip}'>{$this->block->name}</span>";
 	}
 	
 	/**

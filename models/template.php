@@ -51,6 +51,19 @@ class CJTTemplateModel {
 	}
 	
 	/**
+	* Query Block based on the passed paramaters.
+	* 
+	*/
+	public function getTemplateBy() {
+		// import dependencies.
+		cssJSToolbox::import('framework:db:mysql:xtable.inc.php');
+		return CJTxTable::getInstance('template')
+		->set($this->inputs['filter']['field'], $this->inputs['filter']['value'])
+		->load(array($this->inputs['filter']['field']))
+		->getData();
+	}
+	
+	/**
 	* put your comment there...
 	* 
 	*/

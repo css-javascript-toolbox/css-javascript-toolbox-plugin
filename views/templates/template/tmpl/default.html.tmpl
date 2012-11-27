@@ -42,7 +42,7 @@ $coreFieldsState = $this->isNew ? '' : 'disabled="disabled"';
 									<div id="main-tab">
 										<fieldset>
 											<ul>
-												<li><label for="name"><?php echo cssJSToolbox::getText('Name') ?><sub>*</sub></label><input type="text" id="name" name="item[template][name]" value="<?php echo $this->item->name ?>" <?php echo $coreFieldsState ?>></li>
+												<li><label for="name"><?php echo cssJSToolbox::getText('Name') ?><sub>*</sub></label><input type="text" maxlength="80" id="name" name="item[template][name]" value="<?php echo $this->item->name ?>" <?php echo $coreFieldsState ?>></li>
 												<li>
 													<label for="type"><?php echo cssJSToolbox::getText('Type') ?><sub>*</sub></label>
 <?php							echo CJTListField::getInstance('template-types', 'item-form', 'item[template][type]', $this->item->type, 'type', null, null, null, $coreFieldsState, cssJSToolbox::getText('< Select Type >'))->getInput(array('standard' => true, 'result' => 'fullList')) ?>
@@ -65,14 +65,14 @@ $coreFieldsState = $this->isNew ? '' : 'disabled="disabled"';
 										<fieldset>
 											<ul>
 												<li><label for="description"><?php echo cssJSToolbox::getText('Description') ?></label><textarea id="description" name="item[template][description]"><?php echo $this->item->description ?></textarea></li>
-												<li><label for="keywords"><?php echo cssJSToolbox::getText('Keywords') ?></label><textarea id="keywords" name="item[template][keywords]"><?php echo $this->item->keywords ?></textarea></li>
+												<li><label for="keywords"><?php echo cssJSToolbox::getText('Keywords') ?></label><textarea id="keywords" cols="60" rows="5" name="item[template][keywords]"><?php echo $this->item->keywords ?></textarea></li>
 											</ul>
 										</fieldset>	
 									</div>
 									<div id="version-tab">
 										<fieldset>
 											<ul>
-												<li><label for="version"><?php echo cssJSToolbox::getText('Version') ?></label><input type="text" id="version" name="item[revision][version]" value="<?php echo $this->item->version ?>"></li>
+												<li><label for="version"><?php echo cssJSToolbox::getText('Version') ?></label><input type="text" maxlength="15" id="version" name="item[revision][version]" value="<?php echo $this->item->version ?>"></li>
 												<li>
 													<label for="developmentState"><?php echo cssJSToolbox::getText('State') ?></label>
 <?php							echo CJTListField::getInstance('template-development-states', 'item-form', 'item[revision][state]', $this->item->developmentState, 'developmentState', null, null, null, null, cssJSToolbox::getText('< Select State >'))->getInput(array('standard' => true, 'result' => 'fullList')) ?>

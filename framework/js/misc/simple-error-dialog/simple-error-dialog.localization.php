@@ -10,5 +10,5 @@
 * Localization text for backups script.
 */
 return array(
-	'dialogTitle' => cssJSToolbox::getText('Form Submission Error!'),
+	'dialogTitle' => cssJSToolbox::getText('Submission Error!'),
 );

@@ -6,6 +6,9 @@
 // Disallow direct access.
 defined('ABSPATH') or die("Access denied");
 
+// import dependencies.
+cssJSToolbox::import('framework:mvc:controller-ajax.inc.php');
+
 /**
 * Controll Block metabox actions.
 * 
@@ -21,15 +24,10 @@ class CJTMetaboxController extends CJTAjaxController {
 	* 
 	* @return void
 	*/
-	public function __construct($info) {
-		parent::__construct($info);
-		// If post Id is not supplied get it from $_GET request
-		// Ajax request always comes with post Id within the $_GET request.
-		// The other case when the post edit page is loaded the post Id will be provided 
-		// by cssJSToolbox::dispatchController method inside identity parameter!
-		$postId = $info['identity'][1] ? $info['identity'][1] : $_GET['post'];
+	public function __construct() {
+		parent::__construct();
 		// Instantiate model object.
-		$this->model = self::getModel('metabox', array($postId));
+		$this->model = self::getModel('metabox', array($_GET['post']));
 		// Make sure that current post type is selected by user.
 		if ($this->model->doPost()) {
 			// Action to be fired in the normal admin request.

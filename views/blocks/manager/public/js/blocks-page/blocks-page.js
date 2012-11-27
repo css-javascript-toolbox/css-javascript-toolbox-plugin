@@ -510,6 +510,8 @@ var CJTBlocksPage;
 			}
 			// Refresh toggling.
 			postboxes.add_postbox_toggles('cjtoolbox');
+			// Notify order changing.
+			CJTBlocksPage._onupdateorder();
 			currentBlocks.removeClass('applying-postbox-to-new-block').addClass('postbox');
 			// Put new block into focus.
 			newAddedBlock.get(0).CJTBlock.focus();

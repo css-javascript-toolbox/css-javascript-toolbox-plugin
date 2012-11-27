@@ -40,7 +40,7 @@ var CJTServer;
 		*/
 		controllers : {
 			block : 'block-ajax',
-			blocksPage : 'blocks-page-ajax',
+			blocksPage : 'blocks-ajax',
 			blocksBackups : 'blocks-backups',
 			templatesLookup : 'templates-lookup',
 			templatesManager : 'templates-manager',
@@ -124,6 +124,7 @@ var CJTServer;
 		* 		- @security string Wordpress nonce.
 		* 		- @requestTime string Request time.
 		* 		- @requestId string Request unique number.
+		* 		- @Page string cjtoolbox to identify the request to be handler by CJTPlugin.
 		*
 		* @param string Controller map name.
 		* @param string Action name.
@@ -142,8 +143,8 @@ var CJTServer;
 			var requestToken = {
 				security : CJTServer.securityToken,
 				requestTime : requestTime,
-				requestId : requestTime.getTime()
-				//page : this.pageId // Always send page Id with the request.
+				requestId : requestTime.getTime(),
+				page : this.pageId // Always send page Id with the request.
 			};
 			// Combine user data with request parameters data.
 			data = $.extend(requestToken, data);
