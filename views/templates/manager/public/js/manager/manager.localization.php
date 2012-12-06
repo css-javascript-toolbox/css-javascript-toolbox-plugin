@@ -10,6 +10,7 @@
 * Localization text for backups script.
 */
 return array(
-	'createTemplateDialogTitle' => cssJSToolbox::getText('New Template'),
+	'createTemplateDialogTitle' => cssJSToolbox::getText('Create New Template'),
 	'editTemplateDialogTitle' => cssJSToolbox::getText('Edit Template'),
+	'confirmDeleteTemplates' => cssJSToolbox::getText('Are you sure you want to delete all the selected templates?')
 );

@@ -42,17 +42,17 @@ $coreFieldsState = $this->isNew ? '' : 'disabled="disabled"';
 									<div id="main-tab">
 										<fieldset>
 											<ul>
-												<li><label for="name"><?php echo cssJSToolbox::getText('Name') ?><sub>*</sub></label><input type="text" maxlength="80" id="name" name="item[template][name]" value="<?php echo $this->item->name ?>" <?php echo $coreFieldsState ?>></li>
+												<li><label for="name" title="<?php echo cssJSToolbox::getText('Name or title of template  (must be unique and cannot be left blank)') ?>"><?php echo cssJSToolbox::getText('Name') ?><sub>*</sub></label><input type="text" maxlength="80" id="name" name="item[template][name]" value="<?php echo $this->item->name ?>" <?php echo $coreFieldsState ?>></li>
 												<li>
-													<label for="type"><?php echo cssJSToolbox::getText('Type') ?><sub>*</sub></label>
+													<label for="type" title="<?php echo cssJSToolbox::getText('Set the code language to: CSS, JavaScript, HTML, or PHP  (selection must be made)') ?>"><?php echo cssJSToolbox::getText('Language') ?><sub>*</sub></label>
 <?php							echo CJTListField::getInstance('template-types', 'item-form', 'item[template][type]', $this->item->type, 'type', null, null, null, $coreFieldsState, cssJSToolbox::getText('< Select Type >'))->getInput(array('standard' => true, 'result' => 'fullList')) ?>
 												</li>
 												<li>
-													<label for="state"><?php echo cssJSToolbox::getText('State') ?><sub>*</sub></label>
+													<label for="state" title="<?php echo  cssJSToolbox::getText('Set the template state to: Published, Draft, or Trash  (selection must be made)') ?>"><?php echo cssJSToolbox::getText('Template State') ?><sub>*</sub></label>
 <?php							echo CJTListField::getInstance('template-states', 'item-form', 'item[template][state]', $this->item->state, 'state', null, null, null, null, cssJSToolbox::getText('< Select State >'))->getInput(array('standard' => true, 'result' => 'fullList')) ?>
 												</li>
 												<li>
-													<label for="code"><?php echo cssJSToolbox::getText('Code') ?></label>
+													<label for="code" title="<?php echo cssJSToolbox::getText('Enter code for the template in the large text ﬁeld and click Save when done') ?>"><?php echo cssJSToolbox::getText('Code') ?></label>
 													<div class="ace-wrap">
 														<div class="cac"><select class="code-list" size="2"></select></div>
 														<div  id="code" name="item[revision][code]"><?php echo htmlentities($this->item->code) ?></div>
@@ -64,20 +64,20 @@ $coreFieldsState = $this->isNew ? '' : 'disabled="disabled"';
 									<div id="description-tab">
 										<fieldset>
 											<ul>
-												<li><label for="description"><?php echo cssJSToolbox::getText('Description') ?></label><textarea id="description" name="item[template][description]"><?php echo $this->item->description ?></textarea></li>
-												<li><label for="keywords"><?php echo cssJSToolbox::getText('Keywords') ?></label><textarea id="keywords" cols="60" rows="5" name="item[template][keywords]"><?php echo $this->item->keywords ?></textarea></li>
+												<li><label for="description" title="<?php echo cssJSToolbox::getText('Enter a descriptive write-up for the template describing what it is, and how it works, etc ') ?>"><?php echo cssJSToolbox::getText('Description') ?></label><textarea id="description" name="item[template][description]"><?php echo $this->item->description ?></textarea></li>
+												<li><label for="keywords" title="<?php echo cssJSToolbox::getText('Enter strong keywords for the template - each being separated by a comma') ?>"><?php echo cssJSToolbox::getText('Keywords') ?></label><textarea id="keywords" cols="60" rows="5" name="item[template][keywords]"><?php echo $this->item->keywords ?></textarea></li>
 											</ul>
 										</fieldset>	
 									</div>
 									<div id="version-tab">
 										<fieldset>
 											<ul>
-												<li><label for="version"><?php echo cssJSToolbox::getText('Version') ?></label><input type="text" maxlength="15" id="version" name="item[revision][version]" value="<?php echo $this->item->version ?>"></li>
+												<li><label for="version" title="<?php echo cssJSToolbox::getText('Enter the speciﬁc version for the template  (e.g. 1.0)') ?>"><?php echo cssJSToolbox::getText('Version') ?></label><input type="text" maxlength="15" id="version" name="item[revision][version]" value="<?php echo $this->item->version ?>"></li>
 												<li>
-													<label for="developmentState"><?php echo cssJSToolbox::getText('State') ?></label>
+													<label for="developmentState" title="<?php echo cssJSToolbox::getText('Set the release state to: Release, Beta, Alpha, Release Candidate, or Revision') ?>"><?php echo cssJSToolbox::getText('State') ?></label>
 <?php							echo CJTListField::getInstance('template-development-states', 'item-form', 'item[revision][state]', $this->item->developmentState, 'developmentState', null, null, null, null, cssJSToolbox::getText('< Select State >'))->getInput(array('standard' => true, 'result' => 'fullList')) ?>
 												</li>
-												<li><label for="changeLog"><?php echo cssJSToolbox::getText('Revision note') ?></label><textarea id="changeLog" name="item[revision][changeLog]"><?php echo $this->item->changeLog ?></textarea></li>
+												<li><label for="changeLog" title="<?php echo cssJSToolbox::getText('Add any notes such as stability issues, bug ﬁxes, or anything that can be useful for future development') ?>"><?php echo cssJSToolbox::getText('Revision note') ?></label><textarea id="changeLog" name="item[revision][changeLog]"><?php echo $this->item->changeLog ?></textarea></li>
 											</ul>
 										</fieldset>
 									</div>

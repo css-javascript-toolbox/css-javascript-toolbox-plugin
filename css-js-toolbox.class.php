@@ -15,15 +15,6 @@ define('CJTOOLBOX_PROFILE_PRODUCTION', 'production');
 /** Set development state */
 define('CJTOOLBOX_ACTIVE_PROFILE', CJTOOLBOX_PROFILE_DEVELOPMENT);
 
-/** CJT Absoulte path */
-define('CJTOOLBOX_PATH', dirname(__FILE__));
-
-/** Dont use!! @deprecated */
-define('CJTOOLBOX_INCLUDE_PATH', CJTOOLBOX_PATH . '/framework'); 
-
-/** Frmaework path */
-define('CJTOOLBOX_FRAMEWORK', CJTOOLBOX_INCLUDE_PATH); // Alias to include pa
-
 /** MVC library framework */
 define('CJTOOLBOX_MVC_FRAMEWOK', CJTOOLBOX_INCLUDE_PATH . '/mvc');
 

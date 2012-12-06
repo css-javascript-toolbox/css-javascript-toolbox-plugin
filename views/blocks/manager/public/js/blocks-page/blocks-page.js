@@ -79,7 +79,7 @@ var CJTBlocksPage;
 		*
 		*
 		*/
-		wpPageName : 'cjtoolbox',
+		pageId : 'cjtoolbox',
 		
 		/**
 		*
@@ -312,21 +312,20 @@ var CJTBlocksPage;
 			var thickboxForm = $('#TB_window');
 			// Style thickbox.
 			thickboxForm.css({
-				'position' : 'absolute', 
+				'position' : 'fixed', 
 				'left' : '0px',
 				'top' : '4px', 
-				'margin-left' : '0px', 
-				'margin-top' : '0px',
+				'margin-left' : '5px',
+				'margin-top': '0px',
 				'width' : '99%',
-				'height' : ((window.innerHeight - 55) + 'px')
+				'height' : ((window.innerHeight - 40) + 'px'),
+				'z-index' : 1000000
 			});
 			// Set Iframe style.
 			thickboxForm.find('iframe').css({
 				width : '100%',
-				height : '100%',
+				height : '100%'
 			});
-			// Put Thickbox form inside wpbody element.
-			$('#wpbody').prepend(thickboxForm);
 		},
 		
 		/**
@@ -402,7 +401,7 @@ var CJTBlocksPage;
 					// Save blocks order.
 					CJTBlocksPage.saveBlocksOrder();
 					// Save closed postboxes.
-					postboxes.save_state(CJTBlocksPage.wpPageName);
+					postboxes.save_state(CJTBlocksPage.pageId);
 				}
 			)
 		},
@@ -452,9 +451,10 @@ var CJTBlocksPage;
 		* 
 		*/
 		_onupdateorder : function() {
-			var hash = CJTBlocksPage.syncBlocksOrder();
-			var newHash = CJTBlocksPage.getOrdersHash();
-			var isChanged = (hash != newHash);
+			var container = CJTBlocksPage.blocksContainer;
+			var orders = container.data('cjtOrders');
+			var newOrders = container.sortable('toArray');
+			var isChanged = (orders.join('') != newOrders.join(''));
 			// Notify changes!
 			CJTBlocksPage.blockContentChanged(0, isChanged);
 		},
@@ -484,6 +484,7 @@ var CJTBlocksPage;
 		*
 		*/
 		addBlock : function(position, content) {
+			var sortable = CJTBlocksPage.blocksContainer;
 			// New Block positions to jQuery methods mapping.
 			var positions = {top : 'prepend', bottom : 'append'};
 			var positionMethod = positions[position];
@@ -495,11 +496,17 @@ var CJTBlocksPage;
 			var currentBlocks = CJTBlocksPage.blocks.getBlocks();
 			currentBlocks.removeClass('postbox').addClass('applying-postbox-to-new-block');
 			// Add block to the selected position.
-			CJTBlocksPage.blocksContainer[positionMethod](content);
+			sortable[positionMethod](content);
 			// Note: Only new block will be returned because its the only one with .postbox class.
 			var newAddedBlock = CJTBlocksPage.blocks.getBlocks().eq(0);
 			// Add block element.
-			newAddedBlock.CJTBlock({});
+			var blockId =newAddedBlock.CJTBlock({}).get(0).CJTBlock.block.get('id');
+			// SET ORDER: Add the new block as first or last Block without saving the unsave orders! //
+			// JUST USE THE CURRENT HASHED (SAVED ON SERVER) + ADDING THE NEW BLOCK!
+			var newBlockOrderName = CJTBlocksPage.blocks.getSortableName(blockId);
+			var order = $.merge([], sortable.data('cjtOrders'));
+			(position == 'top') ? order.unshift(newBlockOrderName) : order.push(newBlockOrderName);
+			CJTBlocksPage.saveCustomOrder(order);
 			// If this is the first block hide the intro and show normal sortable.
 			if (!CJTBlocksPage.blocks.hasBlocks()) {
 				// Remove intro text.
@@ -510,8 +517,6 @@ var CJTBlocksPage;
 			}
 			// Refresh toggling.
 			postboxes.add_postbox_toggles('cjtoolbox');
-			// Notify order changing.
-			CJTBlocksPage._onupdateorder();
 			currentBlocks.removeClass('applying-postbox-to-new-block').addClass('postbox');
 			// Put new block into focus.
 			newAddedBlock.get(0).CJTBlock.focus();
@@ -555,15 +560,6 @@ var CJTBlocksPage;
 				// Mark as has no blocks.
 				CJTBlocksPage.blocks.hasBlocks(false);
 			}
-		},
-		
-		/**
-		* 
-		*/
-		getOrdersHash : function() {
-			var orders = CJTBlocksPage.blocksContainer.sortable('toArray')
-			var hash = hex_md5(orders.join('-'));
-			return hash;
 		},
 		
 		/*
@@ -641,8 +637,8 @@ var CJTBlocksPage;
 			CJTBlocksPage.blocksForm.find('#post-body').css('display', 'block');
 			//// Setup postboxes ////
 			postboxes.add_postbox_toggles('cjtoolbox');
-			// Cache Blocks Order hash!
-			CJTBlocksPage.syncBlocksOrder(true);
+			// Cache blocks order to detect order change!
+			CJTBlocksPage.blocksContainer.data('cjtOrders', CJTBlocksPage.blocksContainer.sortable('toArray'));
 			// Detect order change.
 			CJTBlocksPage.blocksContainer.sortable('option', {update: CJTBlocksPage._onupdateorder});				
 			// Stop auto save order, orders should be saved only with "Save All Changes" button.
@@ -712,6 +708,26 @@ var CJTBlocksPage;
 		},
 		
 		/**
+		* 
+		*/
+		saveCustomOrder : function(order) {
+			// Override jquery sortable plugin!!
+			// We  need to handle toArray method when called by postboxes.save_order method!
+			 var originalSortable = $.fn.sortable;
+			 $.fn.sortable = function(method) {
+				 if (method != 'toArray') {
+					 throw 'Dummy CJT::jquery.sortable Plugin: only toArray method is supported!';
+				 }
+				 // Return the passed order instead of the real order!
+				 return order;
+			 }
+			 // Save order.
+			 CJTBlocksPage.saveBlocksOrder();
+			 // Reset original sortable!
+			 $.fn.sortable = originalSortable;
+		},
+		
+		/**
 		*
 		*
 		*
@@ -723,10 +739,10 @@ var CJTBlocksPage;
 			// We need it loaded to update order in one common place.
 			// This method may be removed in later versions!!
 			CJTServer.impersonateWPAR('blocksPage');
-			postboxes.manual_save_order(CJTBlocksPage.wpPageName);
+			postboxes.manual_save_order(CJTBlocksPage.pageId);
 			CJTServer.resetWordpressAjaxURL();
-			// Sync blocks order.
-			CJTBlocksPage.syncBlocksOrder(true);
+			// Cache new order.
+			CJTBlocksPage.blocksContainer.data('cjtOrders', CJTBlocksPage.blocksContainer.sortable('toArray'));
 		},
 		
 		/*
@@ -737,22 +753,6 @@ var CJTBlocksPage;
 		switchState : function(state) {
 			// For now only toolboxes need to switch state.
 			CJTBlocksPage.toolboxes.switchState(state);
-		},
-		
-		/**
-		* Get or sync/set blocks order hash!
-		* 
-		* @return string MD5 Hash for the last saved blocks order.
-		*/
-		syncBlocksOrder : function(update) {
-			// Get current hash value.
-			var container = CJTBlocksPage.blocksContainer;
-			var hash = container.get(0).__cjt_orders_hash;
-			// Update order hash if requested!
-			if (update) {
-				container.get(0).__cjt_orders_hash = CJTBlocksPage.getOrdersHash();
-			}
-			return hash;
 		}
 		
 	} // End class.

@@ -47,8 +47,8 @@
 		  this.errors = new CJTSimpleErrorDialog(this.form)
 		  .onSet('item[template]') // Avoid writing set/array/group name multipe times!
 		  	.add('[name]', /^[\w\d\-\_\x20]+$/, CJTTemplateI18N.invalidName)
-		  	.add('[type]', /^.+$/, CJTTemplateI18N.cannotBeNull)
-		  	.add('[state]', /^.+$/, CJTTemplateI18N.cannotBeNull)
+		  	.add('[type]', /^.+$/, CJTTemplateI18N.languageIsNotSelected)
+		  	.add('[state]', /^.+$/, CJTTemplateI18N.stateIsNotSelected)
 		  .onSet('');
 			// for TABS!!
 			this.form.find('#form-tabs').tabs();

@@ -1,5 +1,5 @@
 /* Globals */
-body {margin: 0;padding: 0; font-size: 12px;font-family: sans-serif; overflow: hidden;}
+body {margin: 0;padding: 0; font-size: 12px;font-family: Helvetica; overflow: hidden;}
 
 a {color: #a5581b;text-decoration: none;}
 a:hover {color: #652200;}
@@ -13,10 +13,10 @@ form#templates-lookup {height: 100%;}
 /* Templates List */
 #templates-list {border-bottom: 1px solid #cccccc;height: 100%;}
 .templates-list {overflow: auto;}
-.templates-list ul.templates {padding-left: 24px;display: none; width: 255px;}
+.templates-list ul.templates {padding-left: 33px; display: none; width: 255px; margin-top: 3px;}
 .templates-list ul.templates li {padding-bottom: 1px;}
-.templates-list ul.templates li .title {font-weight: bold;}
-.templates-list ul li .options {display: inline-block; margin-left: 15px; padding-top: 1px;}
+.templates-list ul.templates li .title {font-weight: bold; margin-bottom: 3px;}
+.templates-list ul li .options {display: inline-block; margin-left: 33px; padding-top: 1px;}
 .templates-list ul li .options .unlink-template {font-style: italic;}
 .filters .active-filter {font-size: 16px;}
 .sweep .actions {float: right; text-decoration: underline; margin-top: 1px;}
@@ -29,6 +29,7 @@ form#templates-lookup {height: 100%;}
 .ui-accordion-header {
 	background-color: #F8F8F8;
 	height: 26px;
+	font-weight: bold;
 	font-size: 18px;
 	padding: 4px 0 0 11px;
 	border-left: 1px solid #CCC;

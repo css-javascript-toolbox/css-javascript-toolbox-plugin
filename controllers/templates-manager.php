@@ -45,6 +45,10 @@ class CJTTemplatesManagerController extends CJTAjaxController {
 	* 
 	*/
 	protected function displayAction() {
+		// Set default filters.
+		if (!$_REQUEST['filter_states']) {
+			$_REQUEST['filter_states'] = 'published';
+		}
 		$this->model->inputs = $_REQUEST;
 		// Display view.
 		parent::displayAction();	

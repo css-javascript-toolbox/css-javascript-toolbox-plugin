@@ -94,6 +94,12 @@ var CJTBlocks;
 			return ids;
 		}
 		
+		/**
+		* 
+		*/
+		this.getSortableName = function(id) {
+			return 'cjtoolbox-' + id;
+		}
 		/*
 		*
 		*

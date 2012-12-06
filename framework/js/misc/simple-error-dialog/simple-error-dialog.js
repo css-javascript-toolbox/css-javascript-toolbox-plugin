@@ -104,7 +104,7 @@ var CJTSimpleErrorDialog;
 		* 
 		* @returns {Boolean}
 		*/
-		this.show = function(tbParams, promising) {
+		this.show = function(tbParams, showName) {
 			// Thick box URI.
 			var thickBoxParameters = '?TB_inline&_TB-PARAMS_&inlineId=' + inlineElement.prop('id');
 			// Add tbParams if defined!
@@ -112,15 +112,19 @@ var CJTSimpleErrorDialog;
 				thickBoxParameters = thickBoxParameters.replace('_TB-PARAMS_', tbParams);
 			}
 			// Remove all child elements inside the Error inline element.
-			inlineElement.empty();
+			inlineElement.find('ul').remove();
 			// Add error list element.
 			var errsList = $('<ul class="cjt-error-list"></ul>').appendTo(inlineElement);
 			// Build Unordered list of all errors.
 			$.each(this.errors, $.proxy(
 				function(index, error) {
-					var name = '<span class="name">' + error.name + '</span>';
+					var name = '';
+					if (showName && error.bname) {
+						name = '<span class="name">' + error.name + '</span>: ';
+					}
 					var message = '<span class="msg">' + error.message + '</span>';
-					errsList.append('<li>' + name + ' ====> ' + message + '</li>');
+					// Note: name mighy be empty!
+					errsList.append('<li>' + name + message + '</li>');
 				}, this)
 			);
 			// Display Thickbox dialog.
@@ -166,7 +170,7 @@ var CJTSimpleErrorDialog;
 		}
 		// Prefix Dialog Id!
 		inlineElement =  'CJTSimpleErrorDialog__' + inlineElement;
-		$('<div id="' + inlineElement + '" class="cjt-error-dialog"></div>').appendTo('body');
+		$('<div id="' + inlineElement + '" class="cjt-error-dialog"><div class="cjt-error-dialog-icon"></div></div>').appendTo('body');
 		inlineElement = $('#' + inlineElement);
 	} // End class.
 })(jQuery);

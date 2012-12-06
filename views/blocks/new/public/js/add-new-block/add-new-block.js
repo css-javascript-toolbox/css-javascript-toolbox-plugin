@@ -71,11 +71,11 @@
 					// Request parameters.
 					var requestParams = $.extend({ids : CJTBlocksPage.blocks.getExistsIds(), viewName : 'cjt-block'}, formData);
 					// Create block at the server.
-					CJTBlocksPage.server.send('blocksPage', 'create_block', formData, 'get')
+					CJTBlocksPage.server.send('blocksPage', 'create_block', requestParams, 'get')
 					.success($.proxy(
 						function(response) {
 							// Add new block to blocks page.
-							newAddedBlock = CJTBlocksPage.addBlock(formParams.position, response.view)
+							newAddedBlock = CJTBlocksPage.addBlock(formData.position, response.view)
 							// Close window.
 							window.parent.tb_remove();
 						}, this)

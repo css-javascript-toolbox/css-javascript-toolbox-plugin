@@ -10,7 +10,6 @@
 * Localization text for backups script.
 */
 return array(
-	'invalidName' => cssJSToolbox::getText('Cannot be null! Please choose appropriate name!') .
-																			cssJSToolbox::getText('Only A-Z, 0-9, -, _ and space characters are allowed.'),
-	'AlreadyInUse' => cssJSToolbox::getText('Already in use!! Please choose another!')
+	'invalidName' => cssJSToolbox::getText(sprintf('The %s name cannot be left blank.  Please choose a unique name using characters: A-Z, 0-9, -, _ and space characters only', cssJSToolbox::getText('block'))),
+	'AlreadyInUse' => cssJSToolbox::getText(sprintf('Sorry, but the %s name you entered is already in use. Please choose another name!', cssJSToolbox::getText('code block'))),
 );

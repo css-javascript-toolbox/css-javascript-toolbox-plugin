@@ -26,18 +26,6 @@ class CJTTemplatesManagerListTable extends WP_List_Table {
 	}
 	
 	/**
-	 * Checks the current user's permissions
-	 * @uses wp_die()
-	 *
-	 * @since 3.1.0
-	 * @access public
-	 * @abstract
-	 */
-	public function ajax_user_can() {
-		
-	}
-	
-	/**
 	* 
 	*/
 	protected function column_default($item, $name) {
@@ -95,13 +83,13 @@ class CJTTemplatesManagerListTable extends WP_List_Table {
 		cssJSToolbox::import('framework:html:list.php');
 		// Define filters.		
 		$filters = array();
+		$filters['states'] = 'State';
+		$filters['types'] = 'Type';
 		$filters['authors'] = 'Author';
+		$filters['versions'] = 'Version';
 		$filters['creation-dates'] = 'Date Created';
 		$filters['development-states'] = 'Release';
 		$filters['last-modified-dates'] = 'Last Modified';
-		$filters['states'] = 'State';
-		$filters['types'] = 'Type';
-		$filters['versions'] = 'Version';
 		// Get the HTML field for each filter antput the result.
 		foreach ($filters as $name => $text) { 
 			// Output field markup.
@@ -116,7 +104,7 @@ class CJTTemplatesManagerListTable extends WP_List_Table {
 					null,
 					null,
 					null,
-					('< ' . cssJSToolbox::getText($text) . ' >')
+					cssJSToolbox::getText($text)
 				)->getInput();
 		}
 	}
@@ -176,18 +164,6 @@ class CJTTemplatesManagerListTable extends WP_List_Table {
 		$sortables['developmentState'] = 'developmentState';
 		$sortables['author'] = 'author';
 		return $sortables;
-	}
-	
-	/**
-	 * Prepares the list of items for displaying.
-	 * @uses WP_List_Table::set_pagination_args()
-	 *
-	 * @since 3.1.0
-	 * @access public
-	 * @abstract
-	 */
-	public function prepare_items() {
-		
 	}
 	
 } // End class.

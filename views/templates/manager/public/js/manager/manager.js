@@ -103,7 +103,7 @@
 				view : 'templates/template',
 				id : templateId,
 				width : 800,
-				height: 600,
+				height: 571,
 				TB_iframe : true
 			};
 			var uri = parent.CJTBlocksPage.server.getRequestURL('template', 'edit', query);
