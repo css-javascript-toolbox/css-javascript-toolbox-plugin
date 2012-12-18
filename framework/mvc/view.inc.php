@@ -215,7 +215,8 @@ abstract class CJTView extends CJTHookableClass {
 			$className = __CLASS__;
 		}
 		// Accept variable number of args of script list.
-		$scripts = self::trigger("{$className}.usescripts", (is_array($scripts) ? $scripts : array_slice(func_get_args(), 1)));
+		$allPassedArgs = func_get_args();
+		$scripts = self::trigger("{$className}.usescripts", (is_array($scripts) ? $scripts : array_slice($allPassedArgs, 1)));
 		$stack =& $GLOBALS['wp_scripts']->registered;
 		if (!$scripts) {
 			throw new Exception('CJTView::useScripts method must has at least on script parameter passed!');
@@ -278,7 +279,8 @@ abstract class CJTView extends CJTHookableClass {
 			$className = __CLASS__;
 		}
 		// Accept variable number of args of script list.
-		$styles = self::trigger("{$className}.usestyles", (is_array($styles) ? $styles : array_slice(func_get_args(), 1)));
+		$allPassedArgs = func_get_args();
+		$styles = self::trigger("{$className}.usestyles", (is_array($styles) ? $styles : array_slice($allPassedArgs, 1)));
 		if (!$styles) {
 			throw new Exception('CJTView::useStyles method must has at least on script parameter passed!');
 		}
