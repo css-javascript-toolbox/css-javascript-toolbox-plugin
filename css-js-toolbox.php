@@ -132,7 +132,9 @@ class CJTPlugin extends CJTHookableClass {
 		// Blocks Manager page! The only Wordpress menu item we've.
 		// All the other forms/grids (e.g templates-manager, etc...) is liked through this pages.
 		add_menu_page($menuTitle, $menuTitle, 10, 'cjtoolbox', array(&$this->controller, '_doAction'));
-		add_submenu_page('cjtoolbox', null, __('Extensions'), 10, 'cjtoolbox-tools', array(&$this->controller, 'extensionsList'));
+		add_submenu_page('cjtoolbox', null, __('Extensions'), 10, null);
+		// Hack the menu to point to Plugins page!
+		$GLOBALS['submenu']['cjtoolbox'][1][2] = admin_url('plugins.php?s=CJTE');
 	}
 	
 	/**
