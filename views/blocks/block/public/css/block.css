@@ -192,34 +192,3 @@ body.fullscreen #wpadminbar {display: none;} /** No admin menu */
 /* Lookup form */
 .postbox.fullscreen .cjt-toolbox .icons-group .popup-menu.templates-lookup ,
 .popup-menu {z-index: 32 !important;}
-/** Code Auto Completion */
-.postbox div.cac {
-	border-top-right-radius: 10px;
-	border-top-left-radius: 10px;
-	border-bottom-right-radius: 10px;
-	border-bottom-left-radius: 10px;
-	background-color: white;
-	border: 2px solid #169CE7;
-	width: 310px;
-	height: 320px;
-	top: 0;
-	left: 0;
-	z-index: 32;
-	display: none;
-	margin-left: 10px;
-	margin-top: 14px;
-}
-.postbox div.cac select.code-list {
-	height: 96%;
-	width: 98%;
-	margin: 3px 2px;
-	font-size: 14px;
-	font-family: cursive;
-	font-weight: bold;
-	color: #999E21;
-	border: 0;
-}
-.postbox div.cac select.code-list option {}
-.postbox.fullscreen .cjcontainer div.cac {
-	margin: 0;
-}

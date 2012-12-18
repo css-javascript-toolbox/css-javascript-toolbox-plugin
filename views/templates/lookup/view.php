@@ -55,7 +55,7 @@ class CJTTemplatesLookupView extends CJTView {
 	*/
 	protected function enqueueScripts() {
 		// Get JQuery.
-		self::useScripts(
+		self::useScripts(__CLASS__,
 			'jquery-ui-accordion',
 			'views:templates:lookup:public:js:{CJT_TEMPLATES-}lookup'
 		);
@@ -66,10 +66,13 @@ class CJTTemplatesLookupView extends CJTView {
 	* 
 	*/
 	protected function enqueueStyles() {
-		self::useStyles(
+		self::useStyles(__CLASS__,
 			'framework:css:{CJT-}forms',
 			'views:templates:lookup:public:css:{CJT-}lookup'
 		);
 	}
 	
 } // End class.
+
+// Hookable!!
+CJTTemplatesLookupView::define('CJTTemplatesLookupView');

@@ -53,7 +53,7 @@ class CJTTemplatesManagerView extends CJTView {
 	*/
 	protected function enqueueScripts() {
 		// Import dependencies scripts!
-		self::useScripts(
+		self::useScripts(__CLASS__,
 			'jquery',
 			'jquery-serialize-object', 
 			'thickbox',
@@ -67,7 +67,7 @@ class CJTTemplatesManagerView extends CJTView {
 	*/
 	protected function enqueueStyles() {
 		// Import dependencies styles!
-		self::useStyles(
+		self::useStyles(__CLASS__,
 			'wp-admin',
 			'colors-fresh',
 			'thickbox',
@@ -77,3 +77,6 @@ class CJTTemplatesManagerView extends CJTView {
 	}
 	
 } // End class.
+
+// Hookable!!
+CJTTemplatesManagerView::define('CJTTemplatesManagerView');

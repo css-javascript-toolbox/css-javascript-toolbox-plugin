@@ -30,9 +30,9 @@ abstract class CJTWordpressHookObserver extends CJTObserver {
 	* @param mixed $priority
 	* @return CJTWordpressHookObserver
 	*/
-	public function __construct($name = null, $priority = self::PRIORITY) {
+	public function __construct($name = null, $filter = null, $priority = self::PRIORITY) {
 		// Initialize parent!
-		parent::__construct($name);
+		parent::__construct($name, $filter);
 		// Initialize vars!
 		$this->priority = $priority;	
 	}
@@ -44,9 +44,9 @@ abstract class CJTWordpressHookObserver extends CJTObserver {
 	* @param mixed $callback
 	* @return CJTObserver
 	*/
-	protected function init($subject, $callback) {
+	protected function init($subject, $callback, $param) {
 		// Initialize parent!
-		$return = parent::init($subject, $callback);
+		$return = parent::init($subject, $callback, $param);
 		// Cache callback key!
 		$this->key = self::getObserverKey($this->subject->getHookName(), $this->callback, $this->priority);
 		return $return;

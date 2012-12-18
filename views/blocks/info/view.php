@@ -39,3 +39,6 @@ class CJTBlocksInfoView extends CJTView {
 	}
 	
 } // End class
+
+// Hookable!!
+CJTBlocksInfoView::define('CJTBlocksInfoView');

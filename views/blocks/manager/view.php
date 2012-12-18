@@ -19,6 +19,13 @@ class CJTBlocksManagerView extends CJTView {
 	* 
 	* @var mixed
 	*/
+	public $backupId;
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	public $blocks = array();
 	
 	/**
@@ -27,6 +34,27 @@ class CJTBlocksManagerView extends CJTView {
 	* @var mixed
 	*/
 	public $hasBlocks = false;
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	public $order;
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	public $pageHook;
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	public $securityToken;
 	
 	/**
 	* put your comment there...
@@ -116,7 +144,7 @@ class CJTBlocksManagerView extends CJTView {
 	  // Enquque single block scripts.
 	  CJTBlocksCjtBlockView::enqueueScripts();
 	  // Use blocks page scripts.
-		self::useScripts(
+		self::useScripts(__CLASS__,
 			'views:blocks:manager:public:js:{CJT-}blocks',
 			'views:blocks:manager:public:js:{CJT-}blocks-page',
 			'views:blocks:manager:public:js:{CJT-}ajax-multioperation'
@@ -132,10 +160,13 @@ class CJTBlocksManagerView extends CJTView {
 	  // Enquque single block styles.
 	  CJTBlocksCjtBlockView::enqueueStyles();
 	  // Use blocks page styles.
-		self::useStyles(
+		self::useStyles(__CLASS__,
 			'framework:css:{CJT-}toolbox',
 			'views:blocks:manager:public:css:{CJT-}blocks'
 		);
 	}
 	
 } // End class.
+
+// Hookable!!
+CJTBlocksManagerView::define('CJTBlocksManagerView');

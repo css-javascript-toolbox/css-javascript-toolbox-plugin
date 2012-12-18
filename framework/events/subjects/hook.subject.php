@@ -24,6 +24,28 @@ abstract class CJTEEWordpressHook extends CJTEESubject {
 	/**
 	* put your comment there...
 	* 
+	* @var mixed
+	*/
+	protected $instanceId;
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected static $instances = 0;
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function __construct() {
+		$this->instanceId = ++self::$instances;	
+	}
+	
+	/**
+	* put your comment there...
+	* 
 	* @param mixed $params
 	* @return mixed
 	*/
@@ -40,15 +62,24 @@ abstract class CJTEEWordpressHook extends CJTEESubject {
 	/**
 	* put your comment there...
 	* 
+	*/
+	public function getInstanceHookName() {
+		return "{$this->hookName}-{$this->instanceId}";
+	}
+	
+	/**
+	* put your comment there...
+	* 
 	* @param mixed $defintion
 	* @param mixed $includes
 	*/
-	protected function init($defintion, $includes) {
+	protected function init($name, $target, $defintion, $includes) {
 		// Initialize parent!
-		$return = parent::init($defintion, $includes);
-		$this->hookName = strtolower("{$this->definition['serverClass']}_{$this->definition['name']}");
+		$return = parent::init($name, $target, $defintion, $includes);
+		$this->hookName = strtolower("{$this->definition['targetClass']}_{$name}");
 		// Register Wordpress Filter,
-		add_action($this->hookName, array(&$this, 'trigger'), 10, count($this->getDefinition('parameters')));
+		add_action($this->getHookName(), array(&$this, 'trigger'), 10, count($this->getDefinition('parameters')));
+		add_action($this->getInstanceHookName(), array(&$this, 'trigger'), 10, count($this->getDefinition('parameters')));
 		return $return;
 	}
 	
@@ -59,9 +90,7 @@ abstract class CJTEEWordpressHook extends CJTEESubject {
 	*/
 	public function prepareHookParameters($params) {
 		// Add tag as the first parameter!
-		array_unshift($params, $this->hookName);
-		// Add subject reference as the last one!
-		array_push($params, $this);
+		array_unshift($params, $this->getInstanceHookName());
 		// Return!
 		return $params;
 	}

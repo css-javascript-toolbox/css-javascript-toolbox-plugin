@@ -46,7 +46,7 @@ class CJTBlocksRevisionsView extends CJTView {
 	*/
 	public function enququeScripts() {
 		// Use related scripts.
-		self::useScripts(
+		self::useScripts(__CLASS__,
 			'jquery',
 			'views:blocks:revisions:public:js:{CJT-}revisions'
 		);
@@ -59,7 +59,7 @@ class CJTBlocksRevisionsView extends CJTView {
 	*/
 	public function enququeStyles() {
 		// Use related styles.
-		self::useStyles(
+		self::useStyles(__CLASS__,
 			'framework:css:forms'
 		);
 	}
@@ -74,3 +74,6 @@ class CJTBlocksRevisionsView extends CJTView {
 	}
 	
 } // End class.
+
+// Hookable!!
+CJTBlocksRevisionsView::define('CJTBlocksRevisionsView');

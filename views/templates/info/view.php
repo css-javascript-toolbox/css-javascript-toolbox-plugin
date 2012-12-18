@@ -44,4 +44,5 @@ class CJTTemplatesInfoView extends CJTView {
 	
 } // End class.
 
-
+// Hookable!!
+CJTTemplatesInfoView::define('CJTTemplatesInfoView');

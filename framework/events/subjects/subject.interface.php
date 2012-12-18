@@ -26,7 +26,13 @@ interface CJTEEISubject {
 	* 
 	* @param mixed $observer
 	*/
-	public static function getInstance($definition, $includes);
+	public static function getInstance($name, $target, $definition, $includes);
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function getTarget();
 	
 	/**
 	* put your comment there...

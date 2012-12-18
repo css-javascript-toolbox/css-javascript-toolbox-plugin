@@ -63,7 +63,7 @@ class CJTBlocksMetaBoxView extends CJTView {
 		// Regular block scripts.
 		CJTBlocksBlockView::enqueueScripts();
 		// Use related scripts.
-		self::useScripts(
+		self::useScripts(__CLASS__,
 			'views:blocks:metabox:public:js:{CJT-}metabox',
 			'views:blocks:manager:public:js:{CJT-}blocks',
 			'views:blocks:metabox:public:js:{CJT_METABOX_BLOCK-}jquery.block',
@@ -93,7 +93,7 @@ class CJTBlocksMetaBoxView extends CJTView {
 		// Regular block styles.
 		CJTBlocksBlockView::enqueueStyles();  
 		// Import related styles.
-		self::useStyles(
+		self::useStyles(__CLASS__,
 			'framework:css:{CJT-}toolbox',
 			'views:blocks:metabox:public:css:{CJT-}metabox'
 		);
@@ -179,3 +179,6 @@ class CJTBlocksMetaBoxView extends CJTView {
 	}
 	
 } // End class.
+
+// Hookable!!
+CJTBlocksMetaBoxView::define('CJTBlocksMetaBoxView');

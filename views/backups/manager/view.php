@@ -67,7 +67,7 @@ class CJTBackupsManagerView extends CJTView {
 	*/
 	public static function enququeScripts() {
 		// Import all required Javascript with localization.
-		self::useScripts(
+		self::useScripts(__CLASS__,
 			'jquery', 
 			'framework:js:ui:{CJT-}jquery.link-progress', 
 			'views:backups:manager:public:js:{CJT-}backups'
@@ -80,10 +80,13 @@ class CJTBackupsManagerView extends CJTView {
 	* @return void
 	*/
 	public static function enququeStyles() {
-		self::useStyles(
+		self::useStyles(__CLASS__,
 			'framework:css:{CJT-}forms', 
 			'views:backups:manager:public:css:{CJT-}backups'
 			);
 	}
 	
 } // End class.
+
+// Hookable!!
+CJTBackupsManagerView::define('CJTBackupsManagerView');

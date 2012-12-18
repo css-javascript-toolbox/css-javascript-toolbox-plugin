@@ -58,9 +58,9 @@ class CJTTemplatesTemplateView extends CJTView {
 	* 
 	* @return void
 	*/
-	public static function enququeScripts() {
+	public function enququeScripts() {
 		// Use related scripts.
-		self::useScripts(
+		self::useScripts(__CLASS__, 
 			'jquery',
 			'thickbox',
 			'jquery-serialize-object',
@@ -68,14 +68,6 @@ class CJTTemplatesTemplateView extends CJTView {
 			'framework:js:misc:{CJT-}simple-error-dialog',
 			'framework:js:ace(loadMethod=Tag, lookFor=ace)',
 			'framework:js:ace:{CJT-}pluggable',
-			'framework:js:ace:plugins:{CJT-}cac',
-			'framework:js:ace:plugins:cac:{CJT-}dialog',
-			'framework:js:ace:plugins:cac:parsers:{CJT-}common',
-			'framework:js:ace:plugins:cac:lib:{CJT-}mode',
-			'framework:js:ace:plugins:cac:modes:{CJT-}css',
-			'framework:js:ace:plugins:cac:modes:{CJT-}javascript',
-			'framework:js:ace:plugins:cac:modes:{CJT-}html',
-			'framework:js:ace:plugins:cac:modes:{CJT-}php',
 			'views:templates:template:public:js:{CJT-}template'
 		);
 	}
@@ -85,9 +77,9 @@ class CJTTemplatesTemplateView extends CJTView {
 	* 
 	* @return void
 	*/
-	public static function enququeStyles() {
+	public function enququeStyles() {
 		// Use related styles.
-		self::useStyles(
+		self::useStyles(__CLASS__,
 			'thickbox',
 			'framework:css:jquery-ui-1.8.21.custom',
 			'framework:css:{CJT-}forms',
@@ -97,3 +89,6 @@ class CJTTemplatesTemplateView extends CJTView {
 	}
 	
 } // End class.
+
+// Hookable!!
+CJTTemplatesTemplateView::define('CJTTemplatesTemplateView');

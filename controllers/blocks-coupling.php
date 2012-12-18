@@ -48,7 +48,7 @@ class CJTBlocksCouplingController extends CJTController {
 	* 
 	* @var mixed
 	*/
-	protected $onActionIds = array();
+	private $onActionIds = array();
 	
 	/**
 	* put your comment there...

@@ -28,15 +28,23 @@ class CJTEEWordpressHookFilter extends CJTEEWordpressHook {
 	/**
 	* put your comment there...
 	* 
+	* @param mixed $params
+	*/
+	protected function initResultArray($params) {
+		parent::initResultArray($params);
+		// If not filters attached then return passed value!
+		$this->result['return'] = $params[0];
+	}
+	
+	/**
+	* put your comment there...
+	* 
 	*/
 	protected function prepareResultParameters() {
 		// Initialize.
 		$params =& $this->result['params'];
-		// Get first element key
-		reset($params);
-		$key = key($params);
 		// Set the first parameter to the returned value!
-		$params[$key] = $this->result['return'];
+		$params[0] = $this->result['return'];
 	}
 	
 } // End class.

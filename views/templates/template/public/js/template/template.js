@@ -57,11 +57,6 @@
 			this.aceEditor.setTheme('ace/theme/chrome');
 			this.aceEditor.getSession().setMode('ace/mode/php');
 			this.aceEditor.setShowPrintMargin(false);
-			// Use Code-Auto-Completion plugin with the aceEditor.
-			ace.pluggable.plugins.cac.apply(this.aceEditor, {
-				parser : {modesBaseURI : window.top.CJTBlocksPage.server.ajaxURL.replace('wp-admin/admin-ajax.php', 'wp-content/plugins/css-javascript-toolbox/framework/js/ace/plugins/cac/modes')},
-				dialog : {element : this.form.find('.cac')}}
-			);
 			// Update button.
 			$('#save').click($.proxy(this.save, this));
 			// Close button.

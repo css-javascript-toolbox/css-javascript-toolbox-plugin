@@ -58,7 +58,7 @@ class CJTBlocksCreateMetaBoxView extends CJTView {
 	*/
 	public static function enqueueScripts() {
 		// Use related scripts.
-		self::useScripts(
+		self::useScripts(__CLASS__,
 			'views:blocks:create-metabox:public:js:{CJT-}metabox',
 			'views:blocks:manager:public:js:{CJT-}blocks',
 			'framework:js:ajax:{CJT-}cjt-server',
@@ -87,7 +87,7 @@ class CJTBlocksCreateMetaBoxView extends CJTView {
 	*/
 	public static function enqueueStyles() {
 		// Use related styles.
-		self::useStyles(
+		self::useStyles(__CLASS__,
 			'views:blocks:create-metabox:public:css:{CJT-}metabox'
 		);
 	}
@@ -170,3 +170,6 @@ class CJTBlocksCreateMetaBoxView extends CJTView {
 	}
 	
 } // End class.
+
+// Hookable!!
+CJTBlocksCreateMetaBoxView::define('CJTBlocksCreateMetaBoxView');

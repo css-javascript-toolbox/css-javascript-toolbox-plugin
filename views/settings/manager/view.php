@@ -45,7 +45,7 @@ class CJTSettingsManagerView extends CJTView {
 	*/
 	protected function enqueueScripts() {
 		// Use related scripts.
-		self::useScripts(
+		self::useScripts(__CLASS__,
 			'jquery-ui-tabs',
 			'jquery-serialize-object',
 			'thickbox',
@@ -59,7 +59,7 @@ class CJTSettingsManagerView extends CJTView {
 	*/
 	protected function enqueueStyles() {
 		// Use related styles.
-		self::useStyles(
+		self::useStyles(__CLASS__,
 			'framework:css:{CJT-}forms',
 			'framework:css:jquery-ui-1.8.21.custom',
 			'views:settings:manager:public:css:{CJT-}default'
@@ -77,3 +77,6 @@ class CJTSettingsManagerView extends CJTView {
 	}
 	
 } // End class.
+
+// Hookable!!
+CJTSettingsManagerView::define('CJTSettingsManagerView');

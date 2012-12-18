@@ -53,7 +53,7 @@ class CJTBlocksNewView extends CJTView {
 	*/
 	public static function enququeScripts() {
 		// Use related scripts.
-		self::useScripts(
+		self::useScripts(__CLASS__,
 			'jquery',
 			'thickbox',
 			'jquery-serialize-object',
@@ -69,7 +69,7 @@ class CJTBlocksNewView extends CJTView {
 	*/
 	public static function enququeStyles() {
 		// Use related styles.
-		self::useStyles(
+		self::useStyles(__CLASS__,
 			'thickbox',
 			'framework:css:{CJT-}error-dialog',
 			'framework:css:{CJT-}forms'
@@ -77,3 +77,6 @@ class CJTBlocksNewView extends CJTView {
 	}
 	
 } // End class.
+
+// Hookable!!
+CJTBlocksNewView::define('CJTBlocksNewView');

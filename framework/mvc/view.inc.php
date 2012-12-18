@@ -11,7 +11,7 @@ defined('ABSPATH') or die("Access denied");
 /**
 * CJT view base class.
 */
-abstract class CJTView {
+abstract class CJTView extends CJTHookableClass {
 	
 	/**
 	* put your comment there...
@@ -19,6 +19,51 @@ abstract class CJTView {
 	* @var mixed
 	*/
 	protected $model = null;
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $oncreated = array(
+		'hookType' => CJTWordpressEvents::HOOK_ACTION,
+		'parameters' => array('info'),
+	);
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onimporttemplate = array(
+		'parameters' => array('file'),
+	);
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onloadtemplate = array(
+		'parameters' => array('content', 'file'),
+	);
+
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected static $onusescripts = array(
+		'parameters' => array('scripts'),
+	);
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected static $onusestyles = array(
+		'parameters' => array('styles'),
+	);
 	
 	/**
 	* put your comment there...
@@ -39,7 +84,12 @@ abstract class CJTView {
 	* 
 	*/
 	public function __construct($info) {
+		// Initialize vars!
 		$this->viewInfo = $info;
+		// Initialize events engine!
+		parent::__construct();
+		// Fire created event!
+		$this->oncreated($info);
 	}
 	
 	/**
@@ -80,8 +130,8 @@ abstract class CJTView {
 		extract($params);
 		// Templates collected under the view/tmpl directory.
 		$templateFile = $this->getPath("{$dir}/{$name}{$extension}");
-		require $templateFile;
-		$template = ob_get_clean();
+		require $this->onimporttemplate($templateFile);
+		$template = $this->onloadtemplate(ob_get_clean(), $name);
 		return $template;
 	}
 	
@@ -158,10 +208,14 @@ abstract class CJTView {
 	* put your comment there...
 	* 
 	*/
-	protected static function useScripts() {
+	protected static function useScripts($className, $scripts = null) {
 		wp_enqueue_script('Just Load Default Scripts, this works great!!!!');
+		// Use current class name is $className is not provided!
+		if (!$className) {
+			$className = __CLASS__;
+		}
 		// Accept variable number of args of script list.
-		$scripts = func_get_args();
+		$scripts = self::trigger("{$className}.usescripts", (is_array($scripts) ? $scripts : array_slice(func_get_args(), 1)));
 		$stack =& $GLOBALS['wp_scripts']->registered;
 		if (!$scripts) {
 			throw new Exception('CJTView::useScripts method must has at least on script parameter passed!');
@@ -217,10 +271,14 @@ abstract class CJTView {
 	* put your comment there...
 	* 
 	*/
-	public static function useStyles() {
+	public static function useStyles($className, $styles = null) {
 		wp_enqueue_style('Just Load Default Styles, this works great!!!!');
+		// Use current class name is $className is not provided!
+		if (!$className) {
+			$className = __CLASS__;
+		}
 		// Accept variable number of args of script list.
-		$styles = func_get_args();
+		$styles = self::trigger("{$className}.usestyles", (is_array($styles) ? $styles : array_slice(func_get_args(), 1)));
 		if (!$styles) {
 			throw new Exception('CJTView::useStyles method must has at least on script parameter passed!');
 		}
@@ -251,3 +309,6 @@ abstract class CJTView {
 	}
 	
 } // End class.
+
+// Initialize CJTView Event!
+CJTView::define('CJTView', array('hookType' => CJTWordpressEvents::HOOK_FILTER));

@@ -624,11 +624,6 @@
 			model.aceEditor.setTheme('ace/theme/chrome');
 			model.aceEditor.getSession().setValue(initCode.val());
 			model.aceEditor.setShowPrintMargin(false);
-			// Use Code-Auto-Completion plugin with the aceEditor.
-			ace.pluggable.plugins.cac.apply(model.aceEditor, {
-				parser : {modesBaseURI : CJTBlocksPage.server.ajaxURL.replace('wp-admin/admin-ajax.php', 'wp-content/plugins/css-javascript-toolbox/framework/js/ace/plugins/cac/modes')},
-				dialog : {element : model.box.find('.cac')}}
-			);
 			// Remove textarea with code transfered from server.
 			initCode.remove();
 			// Activate toolbox.

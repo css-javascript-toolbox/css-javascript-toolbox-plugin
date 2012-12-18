@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: CSS & JavaScript Toolbox
-Plugin URI: http://wipeoutmedia.com/wordpress-plugins/css-javascript-toolbox
+Plugin URI: http://css-javascript-toolbox.com
 Description: WordPress plugin to easily add custom CSS and JavaScript to individual pages
-Version: V6
+Version: 6
 Author: Wipeout Media 
-Author URI: http://wipeoutmedia.com/wordpress-plugins/css-javascript-toolbox
+Author URI: http://css-javascript-toolbox.com
 
 Copyright (c) 2011, Wipeout Media.
 This program is free software; you can redistribute it and/or
@@ -45,10 +45,17 @@ define('CJTOOLBOX_INCLUDE_PATH', CJTOOLBOX_PATH . '/framework');
 define('CJTOOLBOX_FRAMEWORK', CJTOOLBOX_INCLUDE_PATH); // Alias to include pa
 
 // Import dependencies
-require_once CJTOOLBOX_FRAMEWORK . '/types/attributes.class.php';
 require_once CJTOOLBOX_FRAMEWORK . '/php/includes.class.php';
-require_once CJTOOLBOX_FRAMEWORK . '/events/events-engine.class.php';
-require_once CJTOOLBOX_FRAMEWORK . '/events/wordpress/events-engine.class.php';
+require_once CJTOOLBOX_FRAMEWORK . '/events/definition.class.php';
+require_once CJTOOLBOX_FRAMEWORK . '/events/events.class.php';
+require_once CJTOOLBOX_FRAMEWORK . '/events/wordpress.class.php';
+require_once CJTOOLBOX_FRAMEWORK . '/events/hookable.interface.php';
+require_once CJTOOLBOX_FRAMEWORK . '/events/hookable.class.php';
+
+// Initialize events system!
+CJTWordpressEvents::__init(array('hookType' => CJTWordpressEvents::HOOK_ACTION));
+CJTWordpressEvents::$paths['subjects']['core'] = CJTOOLBOX_FRAMEWORK . '/events/subjects';
+CJTWordpressEvents::$paths['observers']['core'] = CJTOOLBOX_FRAMEWORK . '/events/observers';
 
 /**
 * CJT main controller -- represent Wordpress Plugin interface.
@@ -57,7 +64,7 @@ require_once CJTOOLBOX_FRAMEWORK . '/events/wordpress/events-engine.class.php';
 * @author Ahmed Said
 * @version 6
 */
-class CJTPlugin extends CJTWPEE {
+class CJTPlugin extends CJTHookableClass {
 	
 	/**
 	* Target controller object.
@@ -100,36 +107,13 @@ class CJTPlugin extends CJTWPEE {
 	protected $onprocessrequestcheck = array(
 		'parameters' => array('itsAjaxRequest', 'itsCJTRequest')
 	);
-	
+		
 	/**
 	* put your comment there...
 	* 
 	*/
 	protected function __construct() {
-		// Configure CJT Events Engine!
-		parent::$paths['subjects']['core'] = CJTOOLBOX_FRAMEWORK . '/events/subjects';
-		parent::$paths['observers']['core'] = CJTOOLBOX_FRAMEWORK . '/events/observers';
 		parent::__construct();
-		// Configure bootstrap point!
-		add_action('plugins_loaded', array($this, 'bootstrap'));
-	}
-	
-	/**
-	* put your comment there...
-	* 
-	*/
-	public function addMenuPages() {
-		$menuTitle = __('CSS & JavaScript Toolbox', CJTOOLBOX_TEXT_DOMAIN);
-		// Blocks Manager page! The only Wordpress menu item we've.
-		// All the other forms/grids (e.g templates-manager, etc...) is liked through this pages.
-		add_options_page($menuTitle, $menuTitle, 10, 'cjtoolbox', array(&$this->controller, '_doAction'));
-	}
-
-	/**
-	* put your comment there...
-	* 
-	*/
-	public function bootstrap() {
 		// Process request
 		$this->preProcessRequest();
 		$this->processRequest();
@@ -143,11 +127,35 @@ class CJTPlugin extends CJTWPEE {
 	* put your comment there...
 	* 
 	*/
+	public function addMenuPages() {
+		$menuTitle = __('CSS & Javascript Toolbox', CJTOOLBOX_TEXT_DOMAIN);
+		// Blocks Manager page! The only Wordpress menu item we've.
+		// All the other forms/grids (e.g templates-manager, etc...) is liked through this pages.
+		add_menu_page($menuTitle, $menuTitle, 10, 'cjtoolbox', array(&$this->controller, '_doAction'));
+		add_submenu_page('cjtoolbox', null, __('Extensions'), 10, 'cjtoolbox-tools', array(&$this->controller, 'extensionsList'));
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
 	public static function getInstance() {
 		if (!self::$instance) {
 			self::$instance = new CJTPlugin();
 		}
 		return self::$instance;
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	protected function loadExtensions() {
+		// Load extensions lib!
+		require_once 'framework/extensions/extensions.class.php';
+		$extensions = new CJTExtensions();
+		// Load all extensions!
+		$extensions->load();
 	}
 	
 	/**
@@ -175,7 +183,7 @@ class CJTPlugin extends CJTWPEE {
 		// case #2. If the $_REQUEST['page] == 'cjtoolbox' we'll run another controller!
 		// case #3. Edit Post/Page page for metabox!!
 		$itsAjaxRequest = (strpos($_SERVER['REQUEST_URI'], '/wp-admin/admin-ajax.php') !== false);
-		$itsCJTRequest = isset($_REQUEST['page']) && ($_REQUEST['page'] == 'cjtoolbox');
+		$itsCJTRequest = isset($_REQUEST['page']) && (strpos($_REQUEST['page'], 'cjtoolbox') === 0);
 		$this->onprocessrequestcheck($itsAjaxRequest, $itsCJTRequest);
 		if ($isProcessed = (!$itsAjaxRequest || $itsCJTRequest)) {
 			// Import CJT Core class,
@@ -184,6 +192,8 @@ class CJTPlugin extends CJTWPEE {
 			// The following dependencies is always needed!
 			require_once CJTOOLBOX_MVC_FRAMEWOK . '/model.inc.php';
 			require_once CJTOOLBOX_MVC_FRAMEWOK . '/controller.inc.php';
+			// Load CJT Extensions!
+			$this->loadExtensions();
 			// run the coupling!
 			if (!$itsAjaxRequest) {
 				CJTController::getInstance('blocks-coupling');
@@ -192,6 +202,10 @@ class CJTPlugin extends CJTWPEE {
 			if ($itsCJTRequest) {
 				//CJTView shouldnt be alwaus involved but for now do it!!
 				require_once CJTOOLBOX_MVC_FRAMEWOK . '/view.inc.php';
+				// If PAGE variable has a controller passed, use it.
+				if (count($pageParts = explode('-', $_REQUEST['page'])) > 1) {
+					$_REQUEST['controller'] = $pageParts[1];
+				}
 				// Default controller is "blocks" controller!
 				$controller = isset($_REQUEST['controller']) ? $_REQUEST['controller'] : 'blocks';
 				$this->controller = CJTController::getInstance($controller);
@@ -202,5 +216,8 @@ class CJTPlugin extends CJTWPEE {
 	
 }// End Class
 
+// Initialize events!
+CJTPlugin::define('CJTPlugin');
+
 // Let's Go!
-CJTPlugin::getInstance();
+add_action('plugins_loaded', array('CJTPlugin', 'getInstance'), 10, 0);

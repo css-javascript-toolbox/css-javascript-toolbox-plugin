@@ -33,12 +33,6 @@ class CJTBlocksCjtBlockView extends CJTView {
 	*/
 	public function __construct($viewInfo) {
 		parent::__construct($viewInfo);
-		// Calculate single block pages panel metrics.
-		$pagesPanelRegionMetrics = array(
-			'fontSize' => 11,
-			'holderWidth' => (252 - (15 + 18)), // <li> - CheckBox + External Link
-		);
-		$this->pagesPanelRegionMetrics = $pagesPanelRegionMetrics;
 		// Aggregate block view object!
 		$this->blockView = self::create('blocks/block');
 		// Register actions.
@@ -63,7 +57,7 @@ class CJTBlocksCjtBlockView extends CJTView {
 	public static function enqueueScripts() {
 		// Import related JScripts.
 		CJTBlocksBlockView::enqueueScripts();
-		self::useScripts(
+		self::useScripts(__CLASS__,
 			'jquery-ui-tabs', 
 			'jquery-ui-accordion', 
 			'views:blocks:cjt-block:public:js:{CJT_CJT_BLOCK-}jquery.block'
@@ -77,7 +71,9 @@ class CJTBlocksCjtBlockView extends CJTView {
 	public static function enqueueStyles() {
 		// Import related styles.
 		CJTBlocksBlockView::enqueueStyles();
-		self::useStyles('views:blocks:cjt-block:public:css:{CJT_BLOCKS_PAGE_BLOCK-}block');
+		self::useStyles(__CLASS__, 
+			'views:blocks:cjt-block:public:css:{CJT_BLOCKS_PAGE_BLOCK-}block'
+		);
 	}
 	
 	/**
@@ -111,3 +107,6 @@ class CJTBlocksCjtBlockView extends CJTView {
 	}
 	
 } // End class.
+
+// Hookable!!
+CJTBlocksCjtBlockView::define('CJTBlocksCjtBlockView');

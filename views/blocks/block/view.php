@@ -72,7 +72,7 @@ class CJTBlocksBlockView extends CJTView {
 	*/
 	public static function enqueueScripts() {
 		// Use related scripts.
-		self::useScripts(
+		self::useScripts(__CLASS__,
 			'jquery', 
 			'common', 
 			'wp-lists', 
@@ -84,21 +84,10 @@ class CJTBlocksBlockView extends CJTView {
 			'framework:js:ajax:{CJT-}cjt-server-queue',
 			'framework:js:ui:{CJT-}jquery.toolbox',
 			'framework:js:ace(loadMethod=Tag, lookFor=ace)',
-			
 			'framework:js:ace:{CJT-}pluggable',
-			'framework:js:ace:plugins:{CJT-}cac',
-			'framework:js:ace:plugins:cac:{CJT-}dialog',
-			'framework:js:ace:plugins:cac:parsers:{CJT-}common',
-			'framework:js:ace:plugins:cac:lib:{CJT-}mode',
-			
-			'framework:js:ace:plugins:cac:modes:{CJT-}css',
-			'framework:js:ace:plugins:cac:modes:{CJT-}javascript',
-			'framework:js:ace:plugins:cac:modes:{CJT-}html',
-			'framework:js:ace:plugins:cac:modes:{CJT-}php',
-			
 			'views:blocks:block:public:js:{CJT-}ajax',
 			'views:blocks:block:public:js:{CJT-}block',
-			'views:blocks:block:public:js:{CJT-}jquery.block'
+			'views:blocks:block:public:js:{CJT-}jquery.block'		
 		);
 	}
 	
@@ -108,7 +97,7 @@ class CJTBlocksBlockView extends CJTView {
 	*/
 	public static function enqueueStyles() {
 		// Use related styles.
-		self::useStyles(
+		self::useStyles(__CLASS__, 
 			'thickbox',
 			'views:blocks:block:public:css:{CJT-}block'
 		);
@@ -170,3 +159,6 @@ class CJTBlocksBlockView extends CJTView {
 	}
 	
 } // End class.
+
+// Hookable!
+CJTBlocksBlockView::define('CJTBlocksBlockView');

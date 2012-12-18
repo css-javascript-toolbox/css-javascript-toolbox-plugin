@@ -118,11 +118,26 @@ class cssJSToolbox {
 	* 
 	* @param mixed $path
 	*/
-	public static function getURI($vPath) {
-		// Translate Virtual path to real path.
-		$path = str_replace(':', '/', $vPath);
-		// Get full URI.
-		$uri = plugin_dir_url(__FILE__) . "{$path}";
+	public static function getURI($vPath, $uriBase = null) {
+		// PHP wrapper however its not imlpemented as wrapper yet
+		// because this is not the point right now!
+		if (strpos($vPath, 'extension://') === 0) {
+			// Expression for getting plugin/extension name!
+			$exp = '/^extension\:\/\/([^\/]+)/';
+			preg_match($exp, $vPath, $extensionPath);
+			// Get base URI + removing extension:// wrapper!
+			$uriBase =  plugins_url($extensionPath[1]);
+			$uri = self::getURI(preg_replace($exp, '', $vPath), $uriBase);
+		} 
+		else {
+			// Translate Virtual path to real path.
+			$path = str_replace(':', '/', $vPath);
+			// Get full URI.
+			if (!isset($uriBase)) {
+				$uriBase = plugin_dir_url(__FILE__);
+			}
+			$uri = "{$uriBase}{$path}";			
+		}
 		return $uri;
 	}
 	
