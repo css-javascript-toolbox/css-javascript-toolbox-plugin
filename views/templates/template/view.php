@@ -26,6 +26,13 @@ class CJTTemplatesTemplateView extends CJTView {
 	protected $item;
 	
 	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onprepareitem = array('parameters' => array('item', 'isNew'));
+	
+	/**
 	* Initialize view object.
 	* 
 	* @see CJTView for more details
@@ -50,6 +57,7 @@ class CJTTemplatesTemplateView extends CJTView {
 		if (!$this->isNew) {
 			$this->item = $this->getModel()->getItem();
 		}
+		$this->item = $this->onprepareitem($this->item, $this->isNew);
 		echo $this->getTemplate($tpl)	;
 	}
 	

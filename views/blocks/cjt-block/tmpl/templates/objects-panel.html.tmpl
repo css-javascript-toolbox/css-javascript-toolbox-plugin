@@ -26,7 +26,7 @@
 							</label> 
 							<span><a href="<?php bloginfo('url') ?>" target="_blank"><?php echo cssJSToolbox::getText('Front Page') ?></a></span>
 						</li>
-							<?php WPPagesListHelper::show_pages_with_checkbox($block->id, $block->pages, 'page', 'pages', $this->pagesPanelRegionMetrics); ?>
+							<?php WPPagesListHelper::show_pages_with_checkbox($block->id, $block->pages, 'page', 'pages'); ?>
 					</ul>
 				</div>
 				<div id="tabs-<?php echo $block->id; ?>-posts">
@@ -46,7 +46,7 @@
 <?php						echo $this->getPinCheckbox('pinPoint', CJTBlockModel::PINS_POSTS_RECENT) ?> <?php echo cssJSToolbox::getText('Recent Posts') ?>
 							</label>
 						</li>
-							<?php WPPagesListHelper::show_pages_with_checkbox($block->id, $block->posts, 'post', 'posts', $this->pagesPanelRegionMetrics); ?>
+							<?php WPPagesListHelper::show_pages_with_checkbox($block->id, $block->posts, 'post', 'posts'); ?>
 					</ul>
 				</div>
 				
@@ -65,7 +65,7 @@
 						foreach ($postTypes as $type => $postType) :
 							// Get list markups into memory!
 							ob_start();
-							WPPagesListHelper::show_pages_with_checkbox($block->id, $block->posts, $type, 'posts', $this->pagesPanelRegionMetrics); 
+							WPPagesListHelper::show_pages_with_checkbox($block->id, $block->posts, $type, 'posts'); 
 							$list = ob_get_clean();
 							// If there is not content on the output buffer then there is no posts inside that type!
 							if ($list) :
@@ -105,7 +105,7 @@
 <?php						echo $this->getPinCheckbox('pinPoint', CJTBlockModel::PINS_CATEGORIES_ALL_CATEGORIES) ?> <?php echo cssJSToolbox::getText('All Categories') ?>
 							</label>
 						</li>
-							<?php WPPagesListHelper::show_taxonomy_with_checkbox($block->id, $block->categories, $this->pagesPanelRegionMetrics); ?>
+							<?php WPPagesListHelper::show_taxonomy_with_checkbox($block->id, $block->categories); ?>
 					</ul>
 				</div>
 				<div id="tabs-<?php echo $block->id; ?>-other">

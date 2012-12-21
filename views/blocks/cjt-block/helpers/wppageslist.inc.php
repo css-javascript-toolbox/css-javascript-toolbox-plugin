@@ -49,7 +49,7 @@ abstract class WPPagesListHelper {
 	* @param string List Id.
 	* @param array Selected pages list.
 	*/
-	public static function show_pages_with_checkbox($blockId, $selectedPages, $postType, $name, $regionMetrics) {
+	public static function show_pages_with_checkbox($blockId, $selectedPages, $postType, $name) {
 		$args = array(
 			'order' => 'ASC',
 			'orderby' => 'title',
@@ -70,7 +70,7 @@ abstract class WPPagesListHelper {
 		if (is_post_type_hierarchical($postType)) {
 			$db_fields = array( 'parent' => 'post_parent', 'id' => 'ID' );
 		}
-		$walker = new cj_Walker_Nav_Menu_Checklist($db_fields, $blockId, $name, $selectedPages, $regionMetrics);
+		$walker = new cj_Walker_Nav_Menu_Checklist($db_fields, $blockId, $name, $selectedPages);
 		$post_type_object = get_post_type_object($post_type_name);
 		$args['walker'] = $walker;
 		$checkbox_items = walk_nav_menu_tree(array_map('wp_setup_nav_menu_item', $posts), 0, (object) $args);

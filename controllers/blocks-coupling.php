@@ -24,17 +24,17 @@ class CJTBlocksCouplingController extends CJTController {
 	* 
 	* @var mixed
 	*/
-	protected $controllerInfo = array('model' => 'coupling');
+	protected $blocks = array(
+		'code' => array('header' => '', 'footer' => ''),
+		'scripts' => array('header' => array(), 'footer' => array()),
+	);
 	
 	/**
 	* put your comment there...
 	* 
 	* @var mixed
 	*/
-	protected $blocks = array(
-		'code' => array('header' => '', 'footer' => ''),
-		'scripts' => array('header' => array(), 'footer' => array()),
-	);
+	protected $controllerInfo = array('model' => 'coupling');
 	
 	/**
 	* put your comment there...
@@ -55,6 +55,153 @@ class CJTBlocksCouplingController extends CJTController {
 	* 
 	* @var mixed
 	*/
+	protected $onassigncouplingcallback = array('parameters' => array('callback'));
+
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onappendcode = array('parameters' => array('code'));
+		
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $oncancelmatching  = array('parameters' => array('matched'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $ondefaultfilters = array('parameters' => array('filters'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $ondo = array('parameters' => array('data', 'method', 'condition'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onblocksorder = array('parameters' => array('order'));
+
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $ongetblocks = array('parameters' => array('blocks'));
+
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $ongetcache = array('parameters' => array('cache'));
+
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $ongetfilters = array('parameters' => array('filters'));
+			
+	/**
+	* put your comment there...
+	* 	
+	* @var mixed
+	*/
+	protected $onlinkedtemplates = array('parameters' => array('templates'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onlinkscripts = array('parameters' => array('templates'));
+
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onlinkstyles = array('parameters' => array('templates'));
+		
+	/**
+	* put your comment there...
+	* 	
+	* @var mixed
+	*/
+	protected $onlinktemplate = array('parameters' => array('template'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onmatchingurls  = array('parameters' => array('urls'));
+
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onnoblocks  = array('hookType' => CJTWordpressEvents::HOOK_ACTION);
+
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onoutput = array('parameters' => array('code', 'location'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onprocess  = array('hookType' => CJTWordpressEvents::HOOK_ACTION);
+
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onprocessblock  = array('parameters' => array('block'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onqueuecss = array('parameters' => array('style'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onqueuejavascript = array('parameters' => array('script'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onsetfilters = array('parameters' => array('filters'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	protected $templates = array();
 	
 	/**
@@ -64,17 +211,18 @@ class CJTBlocksCouplingController extends CJTController {
 	* @return void
 	*/
 	public function __construct() {
+		// Initialize controller.
+		parent::__construct();
 		// Import related libraries
 		CJTModel::import('block');
 		// Not default action needed.
 		$this->defaultAction = null;
 		// Initialize controller.
-		add_action('admin_init', array(&$this, 'initCoupling'));
-		add_action('wp', array(&$this, 'initCoupling'));
+		$initCouplingCallback = $this->onassigncouplingcallback(array(&$this, 'initCoupling'));
+		add_action('admin_init', $initCouplingCallback);
+		add_action('wp', $initCouplingCallback);
 		// Add Shortcode callbacks.
 		add_shortcode('cjtoolbox', array(&$this, 'shortcode'));
-		// Initialize controller.
-		parent::__construct();
 	}
 	
 	/**
@@ -86,22 +234,24 @@ class CJTBlocksCouplingController extends CJTController {
 		$this->setRequestFilters();
 		// Get blocks order. NOTE: This is all blocks order not only the queried/target blocks.
 		$blocksOrder = array();
-		$metaBoxesOrder = $this->model->getOrder();
+		$metaBoxesOrder = $this->onblocksorder($this->model->getOrder());
 		// Get ORDER-INDEX <TO> BLOCK-ID mapping.
 		preg_match_all('/cjtoolbox-(\d+)/', $metaBoxesOrder['normal'], $blocksOrder, PREG_SET_ORDER);
 		/**
 		* append more to orders produced by CJTBlocksCouplingController::setRequestFilter().
 		* More to orders may allow other blocks to bein the output (e.g metaboxe blocks).
 		*/
-		$blocksOrder = array_merge($this->filters->moreToOrder, $blocksOrder);
+		$blocksOrder = array_merge($this->getFilters()->moreToOrder, $blocksOrder);
 		// Prepare request URL to match against Links & Expressions.
 		$linksRequestURL = self::getRequestURL();
-		$expressionsRequestURL = "{$linksRequestURL}?{$_SERVER['QUERY_STRING']}";;
+		$expressionsRequestURL = "{$linksRequestURL}?{$_SERVER['QUERY_STRING']}";
+		extract($this->onmatchingurls(compact('linksRequestURL', 'expressionsRequestURL')));
 		// Get all blocks including (Links & Expressions Blocks).
-		$blocks = $this->model->getPinsBlocks(CJTBlockModel::PINS_LINK_EXPRESSION, 
-																					$this->filters->pinPoint, 
-																					$this->filters->customPins);
+		$blocks = $this->ongetblocks($this->model->getPinsBlocks(CJTBlockModel::PINS_LINK_EXPRESSION, 
+																					$this->getFilters()->pinPoint, 
+																					$this->getFilters()->customPins));
 		if (empty($blocks)) {
+			$this->onnoblocks();
 		  return false;
 		}
 		// Import related libraries.
@@ -110,11 +260,12 @@ class CJTBlocksCouplingController extends CJTController {
 		* Iterator over all blocks by using they order.
 		* For each block get code and scripts.
 		*/
+		$this->onprocess();
 		foreach ($blocksOrder as $blockOrder) {
 			$blockId = (int) $blockOrder[1];
 			// As mentioned above. Orders is for all blocks not just those queried from db.
 			if (isset($blocks[$blockId])) {
-				$block = $blocks[$blockId];
+				$block = $this->onprocessblock($blocks[$blockId]);
 				/**
 				* Process Links & Expressions blocks.
 				* For better performace check only those with links and expressions flags.
@@ -149,7 +300,7 @@ class CJTBlocksCouplingController extends CJTController {
 					* Exclude Links & Expressions Blocks that doesn't has a match.
 					* If there is no matched link or expression then exclude block.
 					*/
-					if (!($matchedExpression || $matchedLink)) {
+					if ($this->oncancelmatching(!($matchedExpression || $matchedLink))) {
 						continue;
 					}
 				}
@@ -160,18 +311,16 @@ class CJTBlocksCouplingController extends CJTController {
 				if (1) {
 					$evaluatedCode = "\n<!-- Block ({$blockId}) START-->\n{$evaluatedCode}\n<!-- Block ({$blockId}) END -->\n";
 				}
-				$this->blocks['code'][$block->location] .= $evaluatedCode;
-				// For every location store blocks scripts into single array.
-				$blockScripts = explode(',', $block->linkedScripts);
-				$scripts = array_merge($this->blocks['scripts'][$block->location], $blockScripts);
-				$this->blocks['scripts'][$block->location] = $scripts;
+				$this->blocks['code'][$block->location] .= $this->onappendcode($evaluatedCode);
 				// Store all used Ids in the CORRECT ORDER.
 				$this->onActionIds[] = $blockId;
 			}
 		}
 		$templates = $this->onActionIds ? $this->model->getLinkedTemplates($this->onActionIds) : array();
 		// Classisfy as we process Scripts and Styles separatly (different hooks!).
-		foreach ($templates as $id => $template) {
+		foreach ($this->onlinkedtemplates($templates) as $id => $template) {
+			// Filer template!
+			extract($this->onlinktemplate(compact('template', 'id')));
 			$this->templates[$template->type][$id] = $template;
 		}
 		// Return true if there is at least 1 block return within the set.
@@ -183,7 +332,16 @@ class CJTBlocksCouplingController extends CJTController {
 	* 
 	*/
 	public function getCached() {
-		return false;
+		// Cache is not implemented yet might be supported by extenal Extensions!
+		return $this->ongetcache(false);
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function getFilters() {
+		return $this->ongetfilters($this->filters);	
 	}
 	
 	/**
@@ -245,13 +403,16 @@ class CJTBlocksCouplingController extends CJTController {
 		$type = CJTCouplingModel::$templateTypes[$filterFor];
 		// Following vars are referenced based on the current type.
 		$templates = isset($this->templates[$type]) ? $this->templates[$type] : array();
+		// Filering!
+		$templates = $this->{"onlink{$filterFor}"}($templates);
 		/**
 		* @var WP_Dependencies
 		*/
 		$queue = $this->model->getQueueObject($filterFor);
 		// Add templates to the queye.
-		foreach ($templates as $template)  {
+		foreach ($templates as $template) {
 		 // Registery only if not yet registered.
+		 $template = $this->{"onqueue{$type}"}($template);
 		 if (!isset($queue->registered[$template->queueName])) {
 			 $queue->add($template->queueName, "/{$template->file}", null, $template->version);
 		 }
@@ -275,7 +436,7 @@ class CJTBlocksCouplingController extends CJTController {
 		$location = str_replace(array('wp_', 'admin_'), '', $currentFilter);
 		// Map to block location.
 		$location = $locationsMap[$location];
-		echo $this->blocks['code'][$location];
+		echo $this->onoutput($this->blocks['code'][$location], $location);
 	}
 	
 	/**
@@ -284,11 +445,11 @@ class CJTBlocksCouplingController extends CJTController {
 	*/
 	protected function setRequestFilters() {
 		// Get request blocks.
-		$filters = (object) array(
+		$filters = $this->ondefaultfilters((object) array(
 			'pinPoint' => 0x00000000,
 			'customPins' => array(),
 			'moreToOrder' => array(),
-		);
+		));
 		if (is_admin()) {
 			// Include all backend blocks.
 		  $filters->pinPoint |= CJTBlockModel::PINS_BACKEND;
@@ -393,7 +554,7 @@ class CJTBlocksCouplingController extends CJTController {
 				$filters->pinPoint |= CJTBlockModel::PINS_404_ERROR;
 			}
 		}
-		$this->filters = $filters;
+		$this->filters = $this->onsetfilters($filters);
 	}
 	
 	/**
@@ -464,3 +625,6 @@ class CJTBlocksCouplingController extends CJTController {
 	}
 	
 } // End class.
+
+// Hookable!
+CJTBlocksCouplingController::define('CJTBlocksCouplingController', array('hookType' => CJTWordpressEvents::HOOK_FILTER));

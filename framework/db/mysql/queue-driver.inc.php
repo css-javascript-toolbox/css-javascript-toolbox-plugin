@@ -7,7 +7,9 @@
 * 
 */
 
-class CJTMYSQLQueueDriver {
+class CJTMYSQLQueueDriver extends CJTHookableClass {
+	
+	
 	
 	/**
 	* put your comment there...
@@ -15,7 +17,42 @@ class CJTMYSQLQueueDriver {
 	* @var mixed
 	*/
 	protected $queue = array();
-	
+
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onprocessqueue = array('parameters' => array('queue'));
+
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onprocesscommand = array('parameters' => array('command'));
+		
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onqueue = array('parameters' => array('query'));
+
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onqueuereturn = array('parameters' => array('driver'));
+		
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onselect = array('parameters' => array('param'));
+		
 	/**
 	* put your comment there...
 	* 
@@ -28,6 +65,9 @@ class CJTMYSQLQueueDriver {
 	* 
 	*/
 	public function __construct($mysqlDriver) {
+		// Hookable!
+		parent::__construct();
+		// Internal DB engine!
 		$this->wpdb = $mysqlDriver;
 	}
 	
@@ -39,8 +79,10 @@ class CJTMYSQLQueueDriver {
 	protected function addQueue($query) {
 		$query = str_replace('#__', "{$this->wpdb->prefix}", $query);
 		$key = md5($query);
-		$this->queue[$key] = $query;
-		return $this;
+		if ($query = $this->onqueue($query)) {
+			$this->queue[$key] = $query;	
+		}
+		return $this->onqueuereturn($this);
 	}
 	
 	/**
@@ -184,9 +226,10 @@ class CJTMYSQLQueueDriver {
 	* 
 	*/
 	public function processQueue() {
+		$queue = $this->onprocessqueue($this->queue);
 		// Collect queue commands.
-		foreach ($this->queue as $command) {
-			  $this->wpdb->query($command);
+		foreach ($queue as $command) {
+			  $this->wpdb->query($this->onprocesscommand($command));
 		}
 		// Clear queue.
 		$this->clear();
@@ -219,8 +262,16 @@ class CJTMYSQLQueueDriver {
 	* @param mixed $query
 	*/
 	public function select($query, $returnType = OBJECT_K) {
+		// Initialize!
 		$query = str_replace('#__', "{$this->wpdb->prefix}", $query);
-		return $this->wpdb->get_results($query, $returnType);
+		$resultSet = array();
+		// Querying!
+		extract($this->onselect(compact('query', 'resultSet')));
+		// filter can controller the returned value or customize the query!
+		if ($query && empty($resultSet)) {
+			$resultSet = $this->wpdb->get_results($query, $returnType);
+		}
+		return $resultSet;
 	}
 	
 	/**
@@ -244,3 +295,6 @@ class CJTMYSQLQueueDriver {
 	}
 	
 } // End class.
+
+// Hooking!
+CJTMYSQLQueueDriver::define('CJTMYSQLQueueDriver', array('hookType' => CJTWordpressEvents::HOOK_FILTER));

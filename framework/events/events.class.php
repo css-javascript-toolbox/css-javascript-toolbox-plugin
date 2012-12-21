@@ -27,7 +27,14 @@ abstract class CJTEvents {
 	* 
 	* @var mixed
 	*/
-	private static $definition;
+	public static $definition;
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $freeStatic;
 	
 	/**
 	* put your comment there...
@@ -78,13 +85,14 @@ abstract class CJTEvents {
 	* @param mixed $options
 	* @return CJTEvents
 	*/
-	public function __construct($target, $options = array()) {
+	public function __construct($target, $options = array(), $freeStatic = false) {
 		// Initialize vars!
 		$this->target = $target;
 		$this->options = array_merge(self::$defaultOptions, $options);
+		$this->freeStatic = $freeStatic;
 		$this->targetClass = is_object($this->target) ? get_class($this->target) : $this->target;
-		// Find object/class events!
-		$this->findEvents();
+		// Define class events if not defined yet!
+		$this->define();
 	}
 	
 	/**
@@ -96,7 +104,7 @@ abstract class CJTEvents {
 		if (!self::$definition) {
 			self::$defaultOptions += $options;
 			// Definition object!
-			self::$definition = new CJTEventsDefinition();	
+			self::$definition = (new CJTEventsDefinition());
 			// Paths!
 			self::$paths['subjects'] = new CJTIncludes('subjects');
 			self::$paths['observers'] = new CJTIncludes('observers');
@@ -106,13 +114,15 @@ abstract class CJTEvents {
 	/**
 	* put your comment there...
 	* 
-	* @param mixed $type
+	* @param mixed $typeName
 	* @param mixed $observer
+	* @param mixed $typePrefixed
+	* @return CJTEvents
 	*/
 	public function bind($typeName, $observer, $typePrefixed = true) {
 		$type = $this->parseEventType($typeName, $typePrefixed);
-		$subject = $this->getSubject($type->name);
-		$subject[] = $observer;
+		$subject = $this->getSubject($type);
+		$subject[] = $subject;
 		return $this;
 	}
 
@@ -122,6 +132,7 @@ abstract class CJTEvents {
 	* @param mixed $type
 	*/
 	public function createSubject($event) {
+		// Initializing!
 		$subject = false;
 		$event = $this->prepareEventTypeOptions($event);
 		$type = $event['type'];
@@ -141,40 +152,35 @@ abstract class CJTEvents {
 	/**
 	* put your comment there...
 	* 
-	* @param mixed $className
-	* @param mixed $clsOptions
-	* @param mixed $insOptions
-	* @return CJTWordpressEvents
 	*/
 	protected function define() {
 		$className = $this->targetClass;
 		if (!isset(self::$classes[$className])) {
 			// Add class Definition!
-			self::getDefinition()->define($className, $this->options);
+			self::$definition->define($className, $this->options);
 			// Store!
 			self::$classes[$className] = $this;
 		}
-		return self::getDefinition()->get($className);
+		return self::$definition->get($className);
 	}
 
 	/**
 	* put your comment there...
 	* 
+	* @deprecated
 	*/
-	protected function findEvents() {
+	private function findEvents() {
 		// If the class is not defined, define it!
 		$typeDef  = $this->define();
 		// Create subjects!!
-		foreach ($typeDef['events'] as $scopes) {
-			foreach ($scopes as $event) {
-				$eventId = $event['id'];
-				if (!$subject = $this->getSubject($eventId)) {
-					$subject = $this->subjects[$eventId] = $this->createSubject($event);
-					// Live events!
-					$lives = (array) self::$live[$this->targetClass][$eventId];
-					foreach ($lives as $live) {
-						$subject[] = $live['observer'];
-					}
+		foreach ($typeDef['events'] as $event) {
+			$eventId = $event['id'];
+			if (!$subject = $this->getSubject($eventId)) {
+				$subject = $this->subjects[$eventId] = $this->createSubject($event);
+				// Live events!
+				$lives = (array) self::$live[$this->targetClass][$eventId];
+				foreach ($lives as $live) {
+					$subject[] = $live['observer'];
 				}
 			}
 		}
@@ -186,16 +192,36 @@ abstract class CJTEvents {
 	* @param mixed $class
 	*/
 	public function getDefinition() {
-		return self::$definition;
+		return self::$definition->get($this->targetClass);
 	}
 	
 	/**
 	* put your comment there...
 	* 
-	* @param mixed $eventName
+	* @param mixed $type
 	*/
-	public function getSubject($name) {
-		return $this->subjects[$name];
+	public function getSubject($type) {
+		// Initialize.
+		$definition = $this->getDefinition();
+		$events = $definition['events'];
+		//print_r($type);
+		// Instantiate subject if not ready yet!
+		if (!isset($this->subjects[$type->name])) {
+			// Check event type existance!
+			if (!isset($events[$type->type])) {
+				$type = print_r($type, true);
+				throw new Exception("Event type is not found! Could not find ({$type}) event type!");
+			}
+			$event = $events[$type->type];
+			// Create subject object! and bind live events!
+			$subject = $this->subjects[$event['id']] = $this->createSubject($event);
+			// Live events!
+			$lives = (array) self::$live[$this->targetClass][$event['id']];
+			foreach ($lives as $live) {
+				$subject[] = $live['observer'];
+			}
+		}		
+		return $this->subjects[$type->name];
 	}
 	
 	/**
@@ -210,6 +236,14 @@ abstract class CJTEvents {
 		 throw new Exception("Type not found!! Could not find {$typeName}!");
 	 }
 	 return self::$classes[$type->class];
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function isFreeStatic() {
+		return $this->freeStatic;	
 	}
 	
 	/**
@@ -262,6 +296,7 @@ abstract class CJTEvents {
 		}
 		else {
 			$type['name'] = $type['type'];
+			$type['type'] = "on{$type['type']}";
 		}
 		return ((object) $type);
 	}
@@ -282,7 +317,7 @@ abstract class CJTEvents {
 	* @param mixed $params
 	* @param mixed $typePrefixed
 	*/
-	public abstract function trigger($type, $params, $typePrefixed = true);
+	public abstract function trigger($type, $params = array(), $typePrefixed = true);
 	
 	/**
 	* put your comment there...

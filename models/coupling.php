@@ -3,14 +3,59 @@
 * 
 */
 
+// Disallow direct access.
+defined('ABSPATH') or die("Access denied");
+
+// Import dependencies.
 cssJSToolbox::import('tables:blocks.php');
+
 /**
 * 
 */
-class CJTCouplingModel {
+class CJTCouplingModel extends CJTHookableClass {
 
 	/**
-	* 	
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onexpressionsandlinkedblocks = array('parameters' => array('blocks'));
+
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $ongetorder = array('parameters' => array('order'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onquerylinkedtemplates = array('parameters' => array('query'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onpinsblockfilters = array('parameters' => array(
+			'params' => array('linksExpressionFlag', 'pinPoint', 'customPins')
+			)
+	);
+			
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onrequestblocks = array('parameters' => array('blocks'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
 	*/
 	public static $templateTypes = array('scripts' => 'javascript', 'styles' => 'css');
 	
@@ -19,7 +64,7 @@ class CJTCouplingModel {
 	* 
 	*/
 	public function getOrder() {
-		return get_option('meta-box-order_cjtoolbox');
+		return $this->ongetorder(get_option('meta-box-order_cjtoolbox'));
 	}
 	
 	/**
@@ -30,6 +75,8 @@ class CJTCouplingModel {
 	* @param mixed $customPins
 	*/
 	public function getPinsBlocks($linksExpressionFlag, $pinPoint, $customPins) {
+		// Extendable!
+		extract($this->onpinsblockfilters(compact('linksExpressionFlag', 'pinPoint', 'customPins')));
 		// Import required libraries for CJTPinsBlockSQLView.
 		require_once CJTOOLBOX_TABLES_PATH . '/pins-blocks-view.php';
 		// Initialize new CJTPinsBlockSQLView view object.
@@ -38,12 +85,12 @@ class CJTCouplingModel {
 		// Apply filter to view.
 		$view->filters($pinPoint, $customPins);
 		// retreiving blocks data associated with current request.
-		$blocks = $view->exec();
+		$blocks = $this->onrequestblocks($view->exec());
 		// Get links & expressions Blocks.
 		// NOTE: We need only blocks not presented in $blocks var -- exclude their id.
 		$view->filters($linksExpressionFlag, array(), 'active', array_keys($blocks));
 		// We'll process all blocks inside single loop.
-		$blocks = $blocks + $view->exec();
+		$blocks = $blocks + $this->onexpressionsandlinkedblocks($view->exec());
 		return $blocks;
 	}
 	
@@ -68,6 +115,8 @@ class CJTCouplingModel {
 		$query['where']['blocks'] = implode(',', $blocks);
 		$query['where']['attributes'] = CJTTemplateRevisionTable::FLAG_LAST_REVISION;
 		$query['where'] = "WHERE bt.blockId IN ({$query['where']['blocks']}) AND (r.attributes & {$query['where']['attributes']})";
+		// Filering!
+		$query = $this->onquerylinkedtemplates($query);
 		$query = "{$query['select']} {$query['from']} {$query['where']}";
 		$templates = cssJSToolbox::getInstance()->getDBDriver()->select($query);
 		return $templates;
@@ -89,3 +138,7 @@ class CJTCouplingModel {
 	}
 	
 } //  End class.
+
+
+// Hookable!
+CJTCouplingModel::define('CJTCouplingModel', array('hookType' => CJTWordpressEvents::HOOK_FILTER));

@@ -84,7 +84,7 @@ abstract class CJTHookableClass implements CJTIHookable {
 	 * @param mixed $options
 	 */
 	 public static function define($class, $options = array()) {
-	 	 return new CJTWordpressEvents($class, $options);
+	 	 return new CJTWordpressEvents($class, $options, true);
 	 }
 	 
 	 /**

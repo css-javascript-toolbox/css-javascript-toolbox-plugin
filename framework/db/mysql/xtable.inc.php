@@ -3,10 +3,13 @@
 * 
 */
 
+// Disallow direct access.
+defined('ABSPATH') or die("Access denied");
+
 /**
 * 
 */
-abstract class CJTxTable {
+abstract class CJTxTable extends CJTHookableClass {
 	
 	/**
 	* put your comment there...
@@ -44,11 +47,98 @@ abstract class CJTxTable {
 	/**
 	* put your comment there...
 	* 
+	* @var mixed
+	*/
+	protected $onconcatquery = array('parameters' => array('query'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $ondelete = array('parameters' => array('query', 'key'));
+
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $ongetdata = array('parameters' => array('item'));
+
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $ongetfield = array('parameters' => array('value', 'name'));
+
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected static $onimport = array('parameters' => array('type'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected static $oninstantiate = array('parameters' => array('args'));
+		
+	/**
+	* put your comment there...
+	* 	
+	* @var mixed
+	*/
+	protected $oninsert = array('parameters' => array('query'));
+
+	/**
+	* put your comment there...
+	* 	
+	* @var mixed
+	*/
+	protected $oninserted  = array('hookType' => CJTWordpressEvents::HOOK_ACTION);
+		
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onloadquery  = array('parameters' => array('query'));
+	
+	/**
+	* put your comment there...
+	* 	
+	* @var mixed
+	*/
+	protected $onsetfield = array('parameters' => array('property'));
+	
+	/**
+	* put your comment there...
+	* 	
+	* @var mixed
+	*/
+	protected $onupdate = array('parameters' => array('query'));
+
+	/**
+	* put your comment there...
+	* 	
+	* @var mixed
+	*/
+	protected $onupdated = array('hookType' => CJTWordpressEvents::HOOK_ACTION);
+	
+	/**
+	* put your comment there...
+	* 
 	* @param mixed $table
 	* @return CJTxTable
 	*/
 	public function __construct($dbDriver, $table, $key = array('id')) {
-		$this->dbDriver = $dbDriver;
+		// Hookable!
+		parent::__construct();
+		// Initialize!
+		$this->dbDriver =$dbDriver;
 		$this->name = "#__cjtoolbox_{$table}";
 		$this->key = $key;
 		// Read table fields.
@@ -64,10 +154,13 @@ abstract class CJTxTable {
 	public function delete($key = null) {
 		// building DELETE query!
 		$query['from']  = "DELETE FROM {$this->table()}";
-		$query['where'] = 'WHERE ' . implode(' AND ', $this->prepareQueryParameters($this->getKey($key)));
-		$query = "{$query['from']} {$query['where']}";
-		// Delete record.
-		$this->dbDriver->delete($query)->processQueue();
+		$query['where'] = 'WHERE ' . implode(' AND ', $this->prepareQueryParameters($key = $this->getKey($key)));
+		// filtering!
+		if ($query = $this->ondelete($query, $key)) {
+			$query = "{$query['from']} {$query['where']}";
+			// Delete record.
+			$this->dbDriver->delete($query)->processQueue();			
+		}
 		// Chaining!
 		return $this;
 	}
@@ -78,7 +171,7 @@ abstract class CJTxTable {
 	* @param mixed $field
 	*/
 	public function get($field) {
-		return $this->item->{$field};
+		return $this->ongetfield($this->item->{$field}, $field);
 	}
 	
 	/**
@@ -86,7 +179,7 @@ abstract class CJTxTable {
 	* 
 	*/
 	public function &getData() {
-		return $this->item;
+		return $this->ongetdata($this->item);
 	}
 	
 	/**
@@ -97,6 +190,9 @@ abstract class CJTxTable {
 	* @return CJTxTable
 	*/
 	public static function getInstance($type, $dbDriver = null, $query = null) {
+		// Filter all parameters.
+		extract(self::trigger('CJTxTable.instantiate', compact('type', 'dbDriver', 'query')));
+		// Getting dbdriver!
 		$dbDriver = !$dbDriver ? cssJSToolbox::getInstance()->getDBDriver() : $dbDriver;
 		// Import table file.
 		self::import($type);
@@ -137,8 +233,10 @@ abstract class CJTxTable {
 	* @param mixed
 	*/
 	public static function import($type) {
+		// Filtering parameters!
+		extract(self::trigger('CJTxTable.import', compact('type')));
+		// Implort table file.
 		cssJSToolbox::import("tables:{$type}.php");
-		return self;
 	}
 	
 	/**
@@ -159,10 +257,12 @@ abstract class CJTxTable {
 			$query['from'] = "FROM {$this->table()}";
 			// Where clause.
 			$query['where'] = 'WHERE ' . implode(' AND ', $this->prepareQueryParameters($this->getKey($key)));
-			// Read DB  record!
-			$query = "{$query['select']} {$query['from']} {$query['where']}";
+			if ($query = $this->onconcatquery($query)) {
+				// Read DB  record!
+				$query = "{$query['select']} {$query['from']} {$query['where']}";				
+			}
 		}
-		$this->item = array_shift($this->dbDriver->select($query));
+		$this->item = array_shift($this->dbDriver->select($this->onloadquery($query)));
 		return $this;
 	}
 	
@@ -211,14 +311,20 @@ abstract class CJTxTable {
 			// Where clause.
 			$condition = implode(' AND ', $this->prepareQueryParameters($this->getKey()));
 			$query = "UPDATE {$this->table()} SET {$fieldsList} WHERE {$condition}";
-			$this->dbDriver->update($query);
-			$this->dbDriver->processQueue();
+			if ($query = $this->onupdate($query)) {
+				$this->dbDriver->update($query)
+																					->processQueue();
+				$this->onupdated();
+			}
 		}
 		else { // Insert.
 			$query = "INSERT {$this->table()} SET {$fieldsList}";
-			$this->dbDriver->insert($query);
-			$this->dbDriver->processQueue();
-			$this->item->{$keyFieldName} = $this->dbDriver->getInsertId();
+			if ($query = $this->oninsert($query)) {
+				$this->dbDriver->insert($query)
+																					->processQueue();
+				$this->item->{$keyFieldName} = $this->dbDriver->getInsertId();
+				$this->oninserted();
+			}
 		}
 		 return $this;
 	}
@@ -230,6 +336,7 @@ abstract class CJTxTable {
 	* @param mixed $value
 	*/
 	public function set($prop, $value) {
+		extract($this->onsetfield(compact('prop', 'value')));
 		$this->item->{$prop} = $value;
 		return $this;
 	}
@@ -263,3 +370,6 @@ abstract class CJTxTable {
 	}
 	
 } // End class.
+
+// Hookable.
+CJTxTable::define('CJTxTable', array('hookType' =>CJTWordpressEvents::HOOK_FILTER));

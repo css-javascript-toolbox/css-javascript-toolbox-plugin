@@ -9,7 +9,7 @@ defined('ABSPATH') or die("Access denied");
 /**
 * 
 */
-class CJTExtensions {
+class CJTExtensions extends CJTHookableClass {
 	
 	/**
 	* 
@@ -45,6 +45,79 @@ class CJTExtensions {
 	* 
 	* @var mixed
 	*/
+	protected $onautoload = array('parameters' => array('file', 'class'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onbindevent = array('parameters' => array('event', 'callback'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $ondetectextension  = array('parameters' => array('extension'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $ongetactiveplugins = array('parameters' => array('plugins'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onload = array('parameters' => array('params'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onloadcallback = array('parameters' => array('callback'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onloaddefinition = array('parameters' => array('definition'));
+	
+	/***
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $ontregisterautoload = array('parameters' => array('callback'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onreloadcacheparameters = array('parameters' => array('params'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onloaded = array(
+		'hookType' => CJTWordpressEvents::HOOK_ACTION,
+		'parameters' => array('class', 'extension', 'definition', 'result')
+	);
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	protected $prefix;
 	
 	/**
@@ -55,8 +128,9 @@ class CJTExtensions {
 	 public function __autoload($className) {
 		// Load only classed defined on the list!
 		if (isset($this->extensions[$className])) {
+			$classFile = $this->onautoload($this->extensions[$className]['runtime']['classFile'], $className);
 			// Import class file!
-			require_once $this->extensions[$className]['runtime']['classFile'];
+			require_once $classFile;
 		}
 	}
 	
@@ -68,6 +142,9 @@ class CJTExtensions {
 	* @return CJTExtensions
 	*/
 	public function __construct($prefix = self::PREFIX, $loadMethod = self::LOAD_METHOD) {
+		// Hookable!
+		parent::__construct();
+		// Initializing!
 		$this->prefix = $prefix;
 		$this->loadMethod = $loadMethod;
 	}
@@ -88,9 +165,10 @@ class CJTExtensions {
 	*/
 	public function getExtensions($reload = false) {
 		// Get cached extensions or cache then if not yest cached!
+		extract($this->onreloadcacheparameters(compact('reload')));
 		if ($reload || !($extensions = get_option(self::CACHE_OPTION_NAME, array()))) {
 			$extensions = array();
-			$activePlugins = wp_get_active_and_valid_plugins();
+			$activePlugins = $this->ongetactiveplugins(wp_get_active_and_valid_plugins());
 			foreach ($activePlugins as $file) {
 				$pluginDir = dirname($file);
 				$pluginName = basename($pluginDir);
@@ -107,8 +185,10 @@ class CJTExtensions {
 						$extension['name'] = $pluginName;
 						// Cache XML file.
 						$extension['definition']['raw'] = file_get_contents($xmlFile);
+						// Filer!
+						$extension = $this->ondetectextension($extension);
 						// Read Basic XML Definition!
-						$definitionXML = new SimpleXMLElement($extension['definition']['raw']);
+						$definitionXML = $this->onloaddefinition(new SimpleXMLElement($extension['definition']['raw']));
 						$attrs = $definitionXML->attributes();
 						$extension['definition']['primary']['loadMethod'] = (string) $attrs->loadMethod;
 						// Add to list!
@@ -120,7 +200,7 @@ class CJTExtensions {
 			// Update the cache Cache!
 			// ----update_option(self::CACHE_OPTION_NAME, $extensions);
 		}
-		$this->extensions = $extensions;
+		$this->extensions = $this->onload($extensions);
 		// Chaining
 		return $this->extensions;
 	}
@@ -132,8 +212,9 @@ class CJTExtensions {
 	public function load() {
 		// Load all CJT extensions!
 		foreach ($this->getExtensions() as $class => $extension) {
+			extract($this->onload($extension, compact('class', 'extension')));
 			// Initialize common vars!
-			$callback = array($class, $this->loadMethod);
+			$callback = $this->onloadcallback(array($class, $this->loadMethod));
 			$pluginPath = ABSPATH . PLUGINDIR . "/{$extension['name']}";
 			// If auto load is speicifd then import class file and bind events.
 			if ($extension['definition']['primary']['loadMethod'] == 'auto') {
@@ -142,15 +223,22 @@ class CJTExtensions {
 				// Bind events!
 				$definitionXML = new SimpleXMLElement($extension['definition']['raw']);
 				foreach ($definitionXML->getInvolved->event as $event) {
+					// filter!
+					extract($this->onbindevent(compact('event', 'callback')));
+					// Bind!
 					CJTPlugin::on((string) $event->attributes()->type, $callback);
 				}
 			}
 			else { // If manual load specified just 
-				call_user_func($callback);
+				$this->onloaded($class, $extension, $definitionXML, call_user_func($callback));
 			}
 		}
 		// Auto load CJT extensions files when requested.
-		spl_autoload_register(array($this, '__autoload'));
+		spl_autoload_register($this->ontregisterautoload(array($this, '__autoload')));
 	}
 	
 } // End class.
+
+
+// Hookable!
+CJTExtensions::define('CJTExtensions', array('hookType' => CJTWordpressEvents::HOOK_FILTER));

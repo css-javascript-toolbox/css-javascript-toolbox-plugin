@@ -46,7 +46,7 @@ define('CJTOOLBOX_HTML_CONPONENTS_URL', CJTOOLBOX_URL . '/framework/html/compone
 * @author Original Developer
 * @version 0.3
 */
-class cssJSToolbox {
+class cssJSToolbox extends CJTHookableClass {
 	
 	/**
 	* put your comment there...
@@ -70,18 +70,62 @@ class cssJSToolbox {
 	* @var cssJSToolbox
 	*/
 	public static $instance = null;
+
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected static $ongettext = array('parameters' => array('text'));
 	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected static $onimport = array('parameters' => array('vpaths'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected static $oninstantiate = array('parameters' => array('instance'));
+		
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onloadconfiguration = array('parameters' => array('configuration'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onloaddbdriver  = array('parameters' => array('dbdriver'));
+
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected static $onresolvepath = array('parameters' => array('path', 'vpath'));
+		
 	/**
 	* Initialize Plugin. 
 	* 
 	* @return void
 	*/
 	protected function __construct() {
+		// Initialize hookable!
+		parent::__construct();
 		// Load configuration.
-		self::$config = require(self::resolvePath('configuration.inc.php'));
+		self::$config = $this->onloadconfiguration(require(self::resolvePath('configuration.inc.php')));
 		// Initialize vars!
 		self::import('framework:db:mysql:queue-driver.inc.php');
-		$this->dbDriver = new CJTMYSQLQueueDriver($GLOBALS['wpdb']);
+		$this->dbDriver = $this->onloaddbdriver(new CJTMYSQLQueueDriver($GLOBALS['wpdb']));
 	}
 	
 	/**
@@ -99,7 +143,7 @@ class cssJSToolbox {
 	*/
 	public static function getInstance() {
 		if (!self::$instance) {
-			self::$instance = new cssJSToolbox();
+			self::$instance = self::trigger('cssJSToolbox.instantiate', (new cssJSToolbox()));
 		}
 		return self::$instance;
 	}
@@ -110,7 +154,7 @@ class cssJSToolbox {
 	* @param mixed $text
 	*/
 	public function getText($text) {
-		return __($text, CJTOOLBOX_TEXT_DOMAIN);
+		return  __($text, CJTOOLBOX_TEXT_DOMAIN);
 	}
 	
 	/**
@@ -147,7 +191,7 @@ class cssJSToolbox {
 	*/
 	public static function import() {
 		// Allow vriables list parameters.
-		$vPaths = func_get_args();
+		$vPaths = self::trigger('cssJSToolbox.import', func_get_args());
 		foreach ($vPaths as $vPath) {
 			// Import file.
 			require_once self::resolvePath($vPath);
@@ -164,7 +208,10 @@ class cssJSToolbox {
 		// Replace all :'s with /'s.
 		$path = str_replace(':', '/', $vPath);
 		$path = "{$base}/{$path}";
-		return $path;
+		return self::trigger('cssJSToolbox.resolvepath', $path, $vPath);
 	}
 	
 }// End Class
+
+// Hookable!
+cssJSToolbox::define('cssJSToolbox', array('hookType' => CJTWordpressEvents::HOOK_FILTER));

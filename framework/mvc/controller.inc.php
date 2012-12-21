@@ -11,7 +11,7 @@ defined('ABSPATH') or die("Access denied");
 /**
 * CJT controller base class.
 */
-abstract class CJTController {
+abstract class CJTController extends CJTHookableClass {
 	
 	/**  */
 	const NONCE_ACTION = 'cjtoolbox';
@@ -36,7 +36,42 @@ abstract class CJTController {
 	* @var mixed
 	*/
 	protected $model = null;
+
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $oncallback = array('parameters' => array('callback', 'action', 'args'));
 	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $ongetactionname = array('parameters' => array('action'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected static $ongetclassname = array('parameters' => array('class', 'name', 'type'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $ongetviewname = array('parameters' => array('view'));
+		
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected static $onloadcontroller = array('parameters' => array('file', 'name'));
+		
 	/**
 	* put your comment there...
 	* 
@@ -49,12 +84,15 @@ abstract class CJTController {
 	* 
 	*/
 	public function __construct() {
+		// Initialize hookable!
+		parent::__construct();
 		// Create default model.
 		if (isset($this->controllerInfo['model'])) {
 			$this->model = CJTModel::create($this->controllerInfo['model'], array(), $this->controllerInfo['model_file']);
 		}
 		// Create default view.
-		if ($view = ($_REQUEST['view'] ? $_REQUEST['view'] : $this->controllerInfo['view'] )) {
+		$view = $this->ongetviewname($_REQUEST['view'] ? $_REQUEST['view'] : $this->controllerInfo['view']);
+		if ($view) {
 			$this->view = self::getView($view);
 			// Push model into view.
 			$this->view->setModel($this->model);
@@ -68,9 +106,14 @@ abstract class CJTController {
 	public function _doAction() {
 		// Call default action only if not needed by derivded class.
 		$action = isset($_GET['action']) ? $_GET['action'] : $this->defaultAction;
+		// filter action name!
+		$action = $this->ongetactionname($action);
 		if ($action) {
 			$actionHandler = "{$action}Action";
-			$this->$actionHandler();
+			// filter callback
+			$callback = $this->oncallback(array($this, $actionHandler), $action);
+			// Callback!
+			call_user_func($callback);
 		}
 	}
 	
@@ -84,7 +127,7 @@ abstract class CJTController {
 		// Import controller file.
 		$pathToControllers = CJTOOLBOX_CONTROLLERS_PATH;
 		$controllerFile = "{$pathToControllers}/{$name}.php";
-		require $controllerFile;
+		require self::trigger('CJTController.loadcontroller', $controllerFile, $name);
 		// Get controller class name.
 		$class = self::getClassName($name, 'Controller');
 		// Instantiate controller class.
@@ -140,7 +183,8 @@ abstract class CJTController {
 		$sanitizedName = ucfirst(str_replace(array('-', '_'), ' ', "{$name} {$type}"));
 		// Remove spaces.
 		$sanitizedName = str_replace(' ', '', $sanitizedName);
-		$className = "CJT{$sanitizedName}";
+		// Filter.
+		$className = self::trigger('CJTController.getclassname', "CJT{$sanitizedName}", $name, $type);
 		return $className;
 	}
 	
@@ -182,3 +226,6 @@ abstract class CJTController {
 	}
 	
 } // End class.
+
+// Hookable!
+CJTController::define('CJTController', array('hookType' => CJTWordpressEvents::HOOK_FILTER));

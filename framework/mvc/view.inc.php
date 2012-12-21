@@ -29,6 +29,34 @@ abstract class CJTView extends CJTHookableClass {
 		'hookType' => CJTWordpressEvents::HOOK_ACTION,
 		'parameters' => array('info'),
 	);
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected static $oncreateview = array(
+		'parameters' => array('view')
+	);
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $ongetmodel = array(
+		'parameters' => array('model')
+	);
+
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onimporthelper = array(
+		'parameters' => array('file'),
+	);
+		
 	/**
 	* put your comment there...
 	* 
@@ -47,6 +75,15 @@ abstract class CJTView extends CJTHookableClass {
 		'parameters' => array('content', 'file'),
 	);
 
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onsetmodel = array(
+		'parameters' => array('model'),
+	);
+	
 	/**
 	* put your comment there...
 	* 
@@ -98,7 +135,7 @@ abstract class CJTView extends CJTHookableClass {
 	* @param mixed $view
 	*/
 	public static function create($view) {
-		return CJTController::getView($view);
+		return self::trigger('CJTView.createview', CJTController::getView($view));
 	}
 	
 	/**
@@ -106,7 +143,7 @@ abstract class CJTView extends CJTHookableClass {
 	* 
 	*/
 	public function getModel() {
-		return $this->model;	
+		return $this->ongetmodel($this->model);
 	}
 	
 	/**
@@ -183,7 +220,7 @@ abstract class CJTView extends CJTHookableClass {
 	*/
 	public function importHelper($name, $helperDirectory = 'helpers') {
 		$helperPath = "{$this->viewInfo['path']}/{$helperDirectory}/{$name}.inc.php";
-		require_once $helperPath;
+		require_once $this->onimporthelper($helperPath);
 	}
 	
 	/**
@@ -201,7 +238,7 @@ abstract class CJTView extends CJTHookableClass {
 	* @param mixed $model
 	*/
 	public function setModel($model) {
-		$this->model = $model;
+		$this->model = $this->onsetmodel($model);
 	}
 	
 	/**

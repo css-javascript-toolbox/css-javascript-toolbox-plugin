@@ -26,6 +26,13 @@ class CJTTemplateController extends CJTAjaxController {
 	protected $controllerInfo = array('model' => 'template');
 	
 	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onsave = array('parameters' => array('data'));
+	
+	/**
 	* 
 	* Initialize new object.
 	* 
@@ -85,6 +92,8 @@ class CJTTemplateController extends CJTAjaxController {
 		}
 		// Get RAW input for all text fields avoid magic_quotes and this poor stuff!
 		parse_str($rawInput, $rawInput);
+		// Filer inputs.
+		$rawInput = $this->onsave($rawInput);
 		// Posted template data is in the item array, the others is just for making the request!
 		$this->model->inputs['item'] = $rawInput['item'];
 		if ($revision = $this->model->save()) {
@@ -93,3 +102,6 @@ class CJTTemplateController extends CJTAjaxController {
 	}
 	
 } // End class.
+
+// Hookable!
+CJTTemplateController::define('CJTTemplateController', array('hookType' => CJTWordpressEvents::HOOK_FILTER));

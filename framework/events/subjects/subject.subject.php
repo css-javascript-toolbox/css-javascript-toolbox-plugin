@@ -218,8 +218,7 @@ abstract class CJTEESubject implements CJTEEISubject, Countable, ArrayAccess {
 	*/
 	public function trigger() {
 		// Read parameters.
-		$this->initResultArray($params = func_get_args());
-		// Notifying observers!!!
+		$this->initResultArray(func_get_args());
 		reset($this->observers);
 		while ($observer = current($this->observers)) {
 			if ($this->processFilter($observer)) {
@@ -231,19 +230,7 @@ abstract class CJTEESubject implements CJTEEISubject, Countable, ArrayAccess {
 			}
 			next($this->observers);
 		}
-		
-		/*
-		foreach ($this->observers as $observer) {
-			if ($this->processFilter($observer)) {
-				// Pass observer referecne along with user params!!
-				$this->result['params']['observer'] = $observer;
-				$this->result['return'] = call_user_func_array(array($observer, 'trigger'), $this->result['params']);
-				// Prepare parameters based on the previous call result!
-				$this->prepareResultParameters();				
-			}
-		}
-		*/
-		
+		// Return last result!
 		return $this->result['return'];
 	}
 	

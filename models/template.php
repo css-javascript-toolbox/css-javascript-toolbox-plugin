@@ -9,7 +9,7 @@ defined('ABSPATH') or die('Access denied');
 /**
 * 
 */
-class CJTTemplateModel {
+class CJTTemplateModel extends CJTHookableClass {
 	
 	/** */
 	const TEMPLATES_DIR = 'wp-content/cjt-content/templates';
@@ -20,6 +20,20 @@ class CJTTemplateModel {
 	* @var mixed
 	*/
 	public $inputs;
+
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onloadcodefile = array('parameters' => array('code', 'item'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onqueryitem = array('parameters' => array('query'));
 	
 	/**
 	* put your comment there...
@@ -42,10 +56,13 @@ class CJTTemplateModel {
 																					r.file,
 																					r.state developmentState';
 		$query['where'] .= " AND t.id = {$this->inputs['id']}";
+		// Filering!
+		$query = $this->onqueryitem($query);
+		// Build and query!
 		$query = "{$query['select']} {$query['from']} {$query['where']}";
 		$item = array_shift(cssJSToolbox::getInstance()->getDBDriver()->select($query));
 		// Get code.
-		$item->code = file_get_contents(ABSPATH . "/{$item->file}");
+		$item->code = $this->onloadcodefile(file_get_contents(ABSPATH . "/{$item->file}"), $item);
 		// Return PHP StdClass object.
 		return $item;
 	}
@@ -162,3 +179,6 @@ class CJTTemplateModel {
 	}
 	
 } // End class.
+
+// Hookable!
+CJTTemplateModel::define('CJTTemplateModel', array('hookType' => CJTWordpressEvents::HOOK_FILTER));

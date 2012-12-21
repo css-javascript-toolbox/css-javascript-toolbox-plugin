@@ -44,6 +44,27 @@ abstract class CJTAjaxController extends CJTController {
 	* 
 	* @var mixed
 	*/
+	protected $onauthorize = array('parameters' => array('authorized'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onregisteraction  = array('parameters' => array('callback', 'action'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onresponse =  array('hookType' => CJTWordpressEvents::HOOK_ACTION);
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	public $response = false;
 	
 	/**
@@ -52,7 +73,7 @@ abstract class CJTAjaxController extends CJTController {
 	*/
 	public function _doAction() {
 		// Authorize request.
-		$authorized = check_ajax_referer(self::NONCE_ACTION, 'security', false);
+		$authorized = $this->onauthorize(check_ajax_referer(self::NONCE_ACTION, 'security', false));
 		if (!$authorized) {
 			$this->httpCode = "403 Not Authorized";
 		}
@@ -62,7 +83,7 @@ abstract class CJTAjaxController extends CJTController {
 			// Action name not specified by child class.
 			if (!isset($this->actionsMap[$action])) {
 				// Remove wp part
-				$action = str_replace(self::ACTION_PREFIX, '', $action);
+				$action = $this->ongetactionname(str_replace(self::ACTION_PREFIX, '', $action));
 				// Get method name from action name.
 				$method = ucfirst(str_replace('_', ' ', $action));
 				$method = str_replace(' ', '', $method);
@@ -77,18 +98,19 @@ abstract class CJTAjaxController extends CJTController {
 				// Child class map the action to another method name.
 				$method = $this->actionsMap[$action];
 			}
+			// Filter callback method and args.
+			$callback = $this->oncallback((object) array('method' => array($this, $method), 'args' => func_get_args()), $action);
 			// Call Action Method.
-			if (!method_exists($this, $method)) {
+			if (!is_callable($callback->method)) {
 				$this->httpCode = '403 Not supported action';
 			}
 			else {
-				$args = func_get_args();
 				// When there are no arguments passed to Wordpress action.
 				// do_action function pass an empty string parameter at index 0.
-				if (count($args) == 1 && ($args[0] == '')) {
-					$args = array();
+				if (count($callback->args) == 1 && ($callback->args[0] == '')) {
+					$callback->args = array();
 				}
-				call_user_func_array(array(&$this, $method), $args);
+				call_user_func_array($callback->method, $callback->args);
 				// Controller loaded with Wordpress typical Ajax request (e.g meta-box-order).
 				// We shouldn't output anything in these cases.
 				if ($this->impersonated) {
@@ -99,7 +121,8 @@ abstract class CJTAjaxController extends CJTController {
 		// Set HTTP headers.
 		header("HTTP/1.0 {$this->httpCode}");
 		header("Content-Type: {$this->httpContentType}");
-		
+		// Allow filtering any response data/header!
+		$this->onresponse();
 		// Output type based on the content type MIME.
 		switch ($this->httpContentType) {
 		  case 'text/plain':
@@ -123,7 +146,7 @@ abstract class CJTAjaxController extends CJTController {
 		$this->httpContentType = 'text/html';
 		ob_start();
 		$this->view->display($layout);
-		$this->response =  ob_get_clean(); 
+		$this->response =  ob_get_clean();
 	}
 	
 	/**
@@ -158,8 +181,13 @@ abstract class CJTAjaxController extends CJTController {
 	*/
 	protected function registryAction($action, $priority = 10, $paramsCount = 1, $prefix = self::ACTION_PREFIX) {
 		$action = "{$prefix}{$action}";
-		add_action($action, array(&$this, '_doAction'), $priority, $paramsCount);
+		$callback = $this->onregisteraction(array(&$this, '_doAction'), $action);
+		// Adding action!
+		add_action($action, $callback , $priority, $paramsCount);
 		return $this;
 	}
 	
 } // End class.
+
+// Hookable!
+CJTAjaxController::define('CJTAjaxController', array('hookType' => CJTWordpressEvents::HOOK_FILTER));

@@ -26,6 +26,21 @@ class CJTWordpressEvents extends CJTEvents {
 	/**
 	* put your comment there...
 	* 
+	* @param mixed $options
+	*/
+	public static function __init($options = array()) {
+		// Initialize CJTEvents!
+		parent::__init($options);
+		// Extend all Hookable objects with CJTEvents events!
+		$events = new CJTWordpressEvents(__CLASS__, $options, true);
+		// Inherits all CJTEvents and CJTWordpressEvents Events to all hookable objects!
+		self::$definition->addBaseClass(__CLASS__, array('hookType' => self::HOOK_FILTER));
+		return $events;
+	}
+	
+	/**
+	* put your comment there...
+	* 
 	* @param mixed $type
 	*/
 	protected function prepareEventTypeOptions($event) {
@@ -53,12 +68,12 @@ class CJTWordpressEvents extends CJTEvents {
 	* @param mixed $type
 	* @param mixed $params
 	*/
-	public function trigger($typeName, $params, $typePrefixed = true) {
+	public function trigger($typeName, $params = array(), $typePrefixed = true) {
 		$result = false;
 		// Get type object!
 		$type = $this->parseEventType($typeName, $typePrefixed);
 		// Get event type subject!
-		$subject = $this->getSubject($type->name);
+		$subject = $this->getSubject($type);
 		// Notify observers!
 		if ($subject) {
 			$result = call_user_func(array(&$subject, 'callIndirect'), $params);

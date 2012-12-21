@@ -521,10 +521,10 @@
 		this.copy = function(data) {
 			var properties = this.features.copy.fields;
 			$.each(properties, $.proxy(
-				function() {
-					var property = this.block.property(this);
+				function(index, name) {
+					var property = this.block.property(name);
 					// Use setValue Fields Common Setter Interface (FCSI) impleneted by CJTBlock.
-					property.setValue(data[this]);
+					property.setValue(data[name]);
 				}, this)
 			);			
 		}
