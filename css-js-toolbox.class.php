@@ -192,8 +192,10 @@ class cssJSToolbox extends CJTHookableClass {
 	* 
 	*/
 	public static function import() {
+		// Initialize!
+		$params = func_get_args();
 		// Allow vriables list parameters.
-		$vPaths = self::trigger('cssJSToolbox.import', func_get_args());
+		$vPaths = self::trigger('cssJSToolbox.import', $params);
 		foreach ($vPaths as $vPath) {
 			// Import file.
 			require_once self::resolvePath($vPath);
