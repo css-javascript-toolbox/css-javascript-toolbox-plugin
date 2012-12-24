@@ -154,7 +154,9 @@ class cssJSToolbox extends CJTHookableClass {
 	* @param mixed $text
 	*/
 	public function getText($text) {
-		return  __($text, CJTOOLBOX_TEXT_DOMAIN);
+		// Make sure to don't use $this while calling!
+		// $this might be an object other than CssJSToolbox!
+		return self::__callStatic('cssJSToolbox.ongettext', array(__($text, CJTOOLBOX_TEXT_DOMAIN)));
 	}
 	
 	/**

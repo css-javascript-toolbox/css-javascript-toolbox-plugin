@@ -90,6 +90,14 @@ abstract class CJTHookableClass implements CJTIHookable {
 	 /**
 	 * put your comment there...
 	 * 
+	 */
+	 public function iEvents() {
+			return $this->events; 
+	 }
+	 
+	 /**
+	 * put your comment there...
+	 * 
 	 * @param mixed $typeName
 	 * @param mixed $observer
 	 */
