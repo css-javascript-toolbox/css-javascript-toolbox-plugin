@@ -37,7 +37,7 @@ class CJTTemplatesManagerListTable extends WP_List_Table {
 			break;
 			case 'name':
 				// Display cell value as regular.
-				$value  = $item->{$name};
+				$value  = "<span class='template-name'>{$item->{$name}}</span>";
 				// Show description. Truncate description/display breif desc.
 				$brief = implode(' ', array_shift(array_chunk(explode(' ', $item->description), 20)));
 				$value .= '<br />';
@@ -91,6 +91,7 @@ class CJTTemplatesManagerListTable extends WP_List_Table {
 		$filters['development-states'] = 'Release';
 		$filters['last-modified-dates'] = 'Last Modified';
 		// Get the HTML field for each filter antput the result.
+		$filtersName = array();
 		foreach ($filters as $name => $text) { 
 			// Output field markup.
 			$fieldName = "filter_{$name}";
@@ -106,6 +107,13 @@ class CJTTemplatesManagerListTable extends WP_List_Table {
 					null,
 					cssJSToolbox::getText($text)
 				)->getInput();
+			// Complete list of filters names!
+			$filtersName[] = $fieldName;
+		}
+		if ($which == 'top') {
+			// Output all filter names list!
+			$filtersName = implode(',', $filtersName);
+			echo "<input type='hidden' name='allFiltersName' value='{$filtersName}' />";			
 		}
 	}
 	

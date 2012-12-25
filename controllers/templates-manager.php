@@ -19,6 +19,11 @@ cssJSToolbox::import('framework:mvc:controller-ajax.inc.php');
 class CJTTemplatesManagerController extends CJTAjaxController {
 
 	/**
+	* 
+	*/
+	const SESSIONED_FILTERS = 'cjt_templates__manager';
+	
+	/**
 	* put your comment there...
 	* 
 	* @var mixed
@@ -49,6 +54,17 @@ class CJTTemplatesManagerController extends CJTAjaxController {
 		if (!$_REQUEST['filter_states']) {
 			$_REQUEST['filter_states'] = 'published';
 		}
+		// Save all filters!
+		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+			$filters = array_intersect_key($_REQUEST, array_flip(explode(',', $_REQUEST['allFiltersName'])));
+			update_user_option(get_current_user_id(), self::SESSIONED_FILTERS, $filters);			
+		}
+		else {
+			// Load sessioned filter from database options table!
+			$filters = (array) get_user_option(self::SESSIONED_FILTERS, get_current_user_id());
+			$_REQUEST = array_merge($_REQUEST, $filters);
+		}
+		// Push inputs into the model!
 		$this->model->inputs = $_REQUEST;
 		// Display view.
 		parent::displayAction();	

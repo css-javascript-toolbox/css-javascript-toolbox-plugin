@@ -18,6 +18,13 @@ defined('ABSPATH') or die("Access denied");
 class CJTBlocksNewView extends CJTView {
 	
 	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	public $position;
+	
+	/**
 	* Initialize view object.
 	* 
 	* @see CJTView for more details

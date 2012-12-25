@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 defined('ABSPATH') or die("Access denied");
 
 /** CJT version */
-define('CJTOOLBOX_VERSION', '6.0');
+define('CJTOOLBOX_DB_VERSION', '2.0');
 
 /** CJT Name */
 define('CJTOOLBOX_NAME', plugin_basename(dirname(__FILE__)));
@@ -188,9 +188,12 @@ class CJTPlugin extends CJTHookableClass {
 		$itsCJTRequest = isset($_REQUEST['page']) && (strpos($_REQUEST['page'], 'cjtoolbox') === 0);
 		$this->onprocessrequestcheck($itsAjaxRequest, $itsCJTRequest);
 		if ($isProcessed = (!$itsAjaxRequest || $itsCJTRequest)) {
-			// Import CJT Core class,
+			// Bootstrap the Plugin!
 			require_once 'css-js-toolbox.class.php';
 			cssJSToolbox::getInstance();
+			// Install/Upgrade if needed!
+			require 'installer/router.class.php';
+			CJTInstallerRouter::getInstance()->route();
 			// The following dependencies is always needed!
 			require_once CJTOOLBOX_MVC_FRAMEWOK . '/model.inc.php';
 			require_once CJTOOLBOX_MVC_FRAMEWOK . '/controller.inc.php';

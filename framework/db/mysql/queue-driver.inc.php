@@ -23,6 +23,13 @@ class CJTMYSQLQueueDriver extends CJTHookableClass {
 	* 
 	* @var mixed
 	*/
+	protected $onexec = array('parameters' => array('param'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	protected $onprocessqueue = array('parameters' => array('queue'));
 
 	/**
@@ -51,13 +58,6 @@ class CJTMYSQLQueueDriver extends CJTHookableClass {
 	* 
 	* @var mixed
 	*/
-	protected $onselect = array('parameters' => array('param'));
-		
-	/**
-	* put your comment there...
-	* 
-	* @var mixed
-	*/
 	private $wpdb = null;
 	
 	/**
@@ -77,7 +77,7 @@ class CJTMYSQLQueueDriver extends CJTHookableClass {
 	* @param mixed $query
 	*/
 	protected function addQueue($query) {
-		$query = str_replace('#__', "{$this->wpdb->prefix}", $query);
+		$query = $this->resolveTableName($query);
 		$key = md5($query);
 		if ($query = $this->onqueue($query)) {
 			$this->queue[$key] = $query;	
@@ -131,6 +131,24 @@ class CJTMYSQLQueueDriver extends CJTHookableClass {
 		  break;
 		}
 		return $data;
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $query
+	*/
+	public function exec($query, $returnType = OBJECT_K) {
+		// Initialize!
+		$query = $this->resolveTableName($query);
+		$resultSet = array();
+		// Filtering!
+		extract($this->onexec(compact('query', 'resultSet')));
+		// filter can controller the returned value or customize the query!
+		if ($query && empty($resultSet)) {
+			$resultSet = $this->wpdb->get_results($query, $returnType);
+		}
+		return $resultSet;
 	}
 	
 	/**
@@ -238,6 +256,15 @@ class CJTMYSQLQueueDriver extends CJTHookableClass {
 	}
 	
 	/**
+	* put your comment there...
+	* 
+	* @param mixed $query
+	*/
+	public function resolveTableName($query) {
+		return  str_replace('#__', "{$this->wpdb->prefix}", $query);
+	}
+	
+	/**
 	* Put your comments here...
 	*
 	*
@@ -262,16 +289,7 @@ class CJTMYSQLQueueDriver extends CJTHookableClass {
 	* @param mixed $query
 	*/
 	public function select($query, $returnType = OBJECT_K) {
-		// Initialize!
-		$query = str_replace('#__', "{$this->wpdb->prefix}", $query);
-		$resultSet = array();
-		// Querying!
-		extract($this->onselect(compact('query', 'resultSet')));
-		// filter can controller the returned value or customize the query!
-		if ($query && empty($resultSet)) {
-			$resultSet = $this->wpdb->get_results($query, $returnType);
-		}
-		return $resultSet;
+		return $this->exec($query, $returnType);
 	}
 	
 	/**
