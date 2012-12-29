@@ -11,7 +11,9 @@ defined('ABSPATH') or die('Access denied');
 */
 class CJTTemplateModel extends CJTHookableClass {
 	
-	/** */
+	/**
+	 * 
+	 */
 	const TEMPLATES_DIR = 'wp-content/cjt-content/templates';
 	
 	/**

@@ -15,10 +15,9 @@ else {
 	$closeButtonText = cssJSToolbox::getText('Cancel');
 	$updateButtonText = cssJSToolbox::getText('Update');	
 }
-
 // Import dependencies.
 cssJSToolbox::import('framework:html:list.php');
-
+// If NEW enable core fields, if edit disable core fields!
 $coreFieldsState = $this->isNew ? '' : 'disabled="disabled"';
 ?>
 <html xmlns="">

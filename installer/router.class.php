@@ -10,11 +10,6 @@ defined('ABSPATH') or die("Access denied");
 * 
 */
 class CJTInstallerRouter {
-	
-	/**
-	* 
-	*/
-	const DB_VERSION_OPTION_NAME = 'cjtoolbox_db_version';
 
 	/**
 	* put your comment there...
@@ -51,7 +46,7 @@ class CJTInstallerRouter {
 	* 
 	*/
 	protected function readInstalledVersion() {
-		$this->installedDbVersion = get_option(self::DB_VERSION_OPTION_NAME);
+		$this->installedDbVersion = get_option(CJTPlugin::DB_VERSION_OPTION_NAME);
 	}
 	
 	/**
@@ -60,7 +55,7 @@ class CJTInstallerRouter {
 	*/
 	public function route() {
 		// As long as the stored DB version is not our 
-		if ($this->installedDbVersion != CJTOOLBOX_DB_VERSION) {
+		if ($this->installedDbVersion != CJTPlugin::DB_VERSION) {
 			require 'installer/installer.class.php';
 			$installer = CJTInstaller::getInstance()
 															->install();
@@ -85,6 +80,7 @@ class CJTInstallerRouter {
 			// Upgrade DB Version!
 			$this->writeInstallatedVersion();
 		}
+		return true;
 	}
 	
 	/**
@@ -92,7 +88,7 @@ class CJTInstallerRouter {
 	* 
 	*/
 	protected function writeInstallatedVersion() {
-		update_option(self::DB_VERSION_OPTION_NAME, CJTOOLBOX_DB_VERSION);
+		update_option(CJTPlugin::DB_VERSION_OPTION_NAME, CJTPlugin::DB_VERSION);
 	}
 	
 } // End class.

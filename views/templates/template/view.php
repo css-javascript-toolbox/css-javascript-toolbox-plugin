@@ -23,7 +23,7 @@ class CJTTemplatesTemplateView extends CJTView {
 	* 
 	* @var mixed
 	*/
-	protected $item;
+	public $item;
 	
 	/**
 	* put your comment there...
@@ -99,4 +99,4 @@ class CJTTemplatesTemplateView extends CJTView {
 } // End class.
 
 // Hookable!!
-CJTTemplatesTemplateView::define('CJTTemplatesTemplateView');
+CJTTemplatesTemplateView::define('CJTTemplatesTemplateView', array('hookType' => CJTWordpressEvents::HOOK_FILTER));

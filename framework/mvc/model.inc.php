@@ -33,9 +33,20 @@ abstract class CJTModel {
 	/**
 	* put your comment there...
 	* 
-	* @param mixed $model
+	* @deprecated Use CJTModel::getInstance.
 	*/
 	public static function create($model, $params = array(), $file = null) {
+		return self::getInstance($model, $params, $file);
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $model
+	* @param mixed $params
+	* @param mixed $file
+	*/
+	public static function getInstance($model, $params = array(), $file = null) {
 		return CJTController::getModel($model, $params, $file);
 	}
 	

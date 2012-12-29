@@ -54,11 +54,11 @@ class CJTBlocksModel {
 		// Create Tables objects.
 		$blocks = new CJTBlocksTable($this->dbDriver);
 		// Get new id if not specified.
-		if ($block->id === null) {
-			$block->id = $blocks->getNextId();
+		if ($block['id'] === null) {
+			$block['id'] = $blocks->getNextId();
 		}
 		$blocks->insert($block);
-		return $block->id;
+		return $block['id'];
 	}
 	
 	/**

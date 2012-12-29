@@ -3,13 +3,13 @@
 * 
 */
 
+// Disallow direct access.
+defined('ABSPATH') or die("Access denied");
+
 /**
 * 
 */
-
 class CJTMYSQLQueueDriver extends CJTHookableClass {
-	
-	
 	
 	/**
 	* put your comment there...
@@ -52,7 +52,14 @@ class CJTMYSQLQueueDriver extends CJTHookableClass {
 	* @var mixed
 	*/
 	protected $onqueuereturn = array('parameters' => array('driver'));
-		
+
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onselect = array('parameters' => array('param'));
+			
 	/**
 	* put your comment there...
 	* 
@@ -138,17 +145,17 @@ class CJTMYSQLQueueDriver extends CJTHookableClass {
 	* 
 	* @param mixed $query
 	*/
-	public function exec($query, $returnType = OBJECT_K) {
+	public function exec($query) {
 		// Initialize!
 		$query = $this->resolveTableName($query);
 		$resultSet = array();
 		// Filtering!
 		extract($this->onexec(compact('query', 'resultSet')));
 		// filter can controller the returned value or customize the query!
-		if ($query && empty($resultSet)) {
-			$resultSet = $this->wpdb->get_results($query, $returnType);
+		if ($query && empty($result)) {
+			$result = $this->wpdb->query($query);
 		}
-		return $resultSet;
+		return $result;
 	}
 	
 	/**
@@ -289,7 +296,16 @@ class CJTMYSQLQueueDriver extends CJTHookableClass {
 	* @param mixed $query
 	*/
 	public function select($query, $returnType = OBJECT_K) {
-		return $this->exec($query, $returnType);
+		// Initialize!
+		$query = $this->resolveTableName($query);
+		$resultSet = array();
+		// Filtering!
+		extract($this->onselect(compact('query', 'resultSet')));
+		// filter can controller the returned value or customize the query!
+		if ($query && empty($resultSet)) {
+			$resultSet = $this->wpdb->get_results($query, $returnType);
+		}
+		return $resultSet;
 	}
 	
 	/**

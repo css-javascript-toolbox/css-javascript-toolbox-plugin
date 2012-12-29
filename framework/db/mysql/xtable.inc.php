@@ -295,19 +295,30 @@ abstract class CJTxTable extends CJTHookableClass {
 	}
 	
 	/**
+	* put your comment there...
+	* 
+	*/
+	public function reset() {
+		$this->item = null;
+		return $this;	
+	}
+	
+	/**
 	* UPDATE/INSERT
 	* 
 	* THIS METHOD STILL DOESNT SUPPORT COMPOUND KEYS!!
 	* 
+	* @param mixed $forceInsert
+	* @return CJTxTable
 	*/
-	public function save() {
+	public function save($forceInsert = false) {
 		$keyFieldName = $this->key[0];
 		$id = $this->item->{$keyFieldName};
 		$item = (array) $this->item;
 		// Don't update id field.
 		$fieldsList = array_diff_key($item, array_flip($this->key));
 		$fieldsList = implode(',', $this->prepareQueryParameters($fieldsList));
-		if ($id) { // Update
+		if (!$forceInsert && $id) { // Update
 			// Where clause.
 			$condition = implode(' AND ', $this->prepareQueryParameters($this->getKey()));
 			$query = "UPDATE {$this->table()} SET {$fieldsList} WHERE {$condition}";
@@ -361,6 +372,16 @@ abstract class CJTxTable extends CJTHookableClass {
 		return $this;
 	}
 
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $key
+	*/
+	public function setTableKey($key) {
+		$this->key = $key;
+		return $this;	
+	}
+	
 	/**
 	* put your comment there...
 	* 

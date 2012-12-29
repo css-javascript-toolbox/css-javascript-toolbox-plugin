@@ -141,7 +141,7 @@ class CJTBlockModel extends CJTModel {
 	/**
 	* put your comment there...
 	* 
-	* @param mixed $block
+	* @deprecated Use calculatePinpoint
 	*/
 	public static function calculateBlockPinPoint(&$block) {
 		// Generate PinPoint Value.
@@ -170,6 +170,21 @@ class CJTBlockModel extends CJTModel {
 		}
 		// Set new pin point.
 		$block->pinPoint = $pinPoint;		
+		return $block;
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $block
+	* @param mixed $pins
+	*/
+	public static function calculatePinPoint($block, $pins) {
+		// Add pins to Block object so that calculateBlockPinPoint can calculate PinPoint value!
+		$block = (object) array_merge($block, $pins);
+		$pinPoint = self::calculateBlockPinPoint($block)->pinPoint;
+		// Return only pinPoint.
+		return $pinPoint;
 	}
 	
 	/**
