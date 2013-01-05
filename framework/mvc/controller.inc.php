@@ -137,11 +137,25 @@ abstract class CJTController extends CJTHookableClass {
 	/**
 	* put your comment there...
 	* 
+	* @deprecated Use cssJSToolbox::createSecurityToken
 	*/
 	public function createSecurityToken() {
 		return wp_create_nonce(self::NONCE_ACTION);
 	}
 
+	/**
+	* put your comment there...
+	* 
+	*/
+	protected function displayAction() {
+		// Get view layout!
+		$layout = isset($_REQUEST['layout']) ? $_REQUEST['layout'] : 'default';
+		ob_start();
+		$this->view->display($layout);
+		$content = ob_get_clean();
+		return $content;
+	}
+	
 	/**
 	* put your comment there...
 	* 

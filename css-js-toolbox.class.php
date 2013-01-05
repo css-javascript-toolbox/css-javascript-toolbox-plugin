@@ -151,6 +151,14 @@ class cssJSToolbox extends CJTHookableClass {
 	/**
 	* put your comment there...
 	* 
+	*/
+	public function getSecurityToken() {
+		return wp_create_nonce(CJTController::NONCE_ACTION);
+	}
+	
+	/**
+	* put your comment there...
+	* 
 	* @param mixed $text
 	*/
 	public function getText($text) {

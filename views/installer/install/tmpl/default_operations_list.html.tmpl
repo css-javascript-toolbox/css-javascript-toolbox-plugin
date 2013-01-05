@@ -1,0 +1,15 @@
+<?php
+/**
+* 
+*/
+
+// Disallow direct access.
+defined('ABSPATH') or die("Access denied");
+
+// Output operations.
+foreach ($operations as $name => $operation) :
+	// Get the MPO (Modeled  Presented Object)
+	$operation = array_merge($operation, $this->operations['operations'][$type][$name]);
+	// Operation LI item
+	echo $this->getTemplate('default_operation', array('operation' => $operation));
+endforeach;

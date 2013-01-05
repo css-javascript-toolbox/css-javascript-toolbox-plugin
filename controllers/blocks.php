@@ -58,5 +58,13 @@ class CJTBlocksController extends CJTController {
 		// Output the view.
 		echo $this->view->display();
 	}
-
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	protected function installAction() {
+		echo parent::displayAction();
+	}
+	
 } // End class.

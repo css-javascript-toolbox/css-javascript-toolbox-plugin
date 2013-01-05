@@ -47,7 +47,8 @@ var CJTServer;
 			templateRevisions : 'template-revisions',
 			template : 'template',
 			settings : 'settings',
-			metabox : 'metabox'
+			metabox : 'metabox',
+			installer : 'installer'
 		},
 		
 		/*

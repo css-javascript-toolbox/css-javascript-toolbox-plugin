@@ -89,6 +89,15 @@ abstract class CJTView extends CJTHookableClass {
 	* 
 	* @var mixed
 	*/
+	protected $ontemplateparameters =  array(
+		'parameters' => array('params', 'name', 'dir', 'extension'),
+	);
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	protected static $onusescripts = array(
 		'parameters' => array('scripts'),
 	);
@@ -132,7 +141,7 @@ abstract class CJTView extends CJTHookableClass {
 	/**
 	* Create view object.
 	* 
-	* @param mixed $view
+	* @deprecated Use CJTView::getInstance().
 	*/
 	public static function create($view) {
 		return self::trigger('CJTView.createview', CJTController::getView($view));
@@ -141,8 +150,22 @@ abstract class CJTView extends CJTHookableClass {
 	/**
 	* put your comment there...
 	* 
+	* @param mixed $view
 	*/
-	public function getModel() {
+	public static function getInstance($view) {
+		return self::trigger('CJTView.createview', CJTController::getView($view));
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $name
+	*/
+	public function getModel($name = null) {
+		// Instantiate model if required!
+		if ($name) {
+			$this->model = CJTModel::getInstance($name);
+		}
 		return $this->ongetmodel($this->model);
 	}
 	
@@ -160,7 +183,13 @@ abstract class CJTView extends CJTHookableClass {
 	* 
 	* @param mixed $name
 	*/
-	public function getTemplate($name, $params = array(), $dir = 'tmpl', $extension = '.html.tmpl') {
+	public function getTemplate($name, $params = array(), $dir = 'tmpl', $extension = null) {
+		// Initialize defaults.
+		if ($extension === null) {
+			$extension = '.html.tmpl';
+		}
+		// filter parameters.
+		$params = $this->ontemplateparameters($params, $name, $dir, $extension);
 		// Get template content into variable.
 		ob_start();
 		// Push params into the local scope.

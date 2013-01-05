@@ -1,0 +1,12 @@
+<?php
+/**
+* 
+*/
+
+// Disallow direct access.
+defined('ABSPATH') or die("Access denied");
+
+// Return operatrions!
+return array(
+	'backups' => array('text' => cssJSToolbox::getText('Transfer backup blocks.')),
+);

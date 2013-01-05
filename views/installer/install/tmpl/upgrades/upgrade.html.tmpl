@@ -1,0 +1,26 @@
+<?php
+/**
+* 
+*/
+
+// Disallow direct access.
+defined('ABSPATH') or die("Access denied");
+?>
+<h3><?php  echo cssJSToolbox::getText('Upgrading Plugin') ?></h3>
+<p><?php echo cssJSToolbox::getText('The upgrade process time estimation cannot be preditected because its based on the amount of data (blocks + other data) you\'ve created.') ?></p>
+<p><?php echo cssJSToolbox::getText('Important Note: It is highly recommended to upgrade the plugin using the same administrator or user that was used to manage the code blocks. This allows the upgrade system to obtain the code blocks \'ORDER\' from the current logged in administrators or users\' meta data.') ?></p>
+<ul class="installation-list upgrade">
+<?php
+		// Define upgrade-common operations.
+		$operations = array(
+				'blocks' => array('text' => cssJSToolbox::getText('Transfer blocks to the new blocks table. Old versions doesn\'t use a specific blocks table!')),
+				'templates' => array('text' => cssJSToolbox::getText('Transfer templates to the new database table. New template is enhanced and support revisioning and other development attributes.')),
+		);
+		// Get version operations.
+		$operations = array_merge($operations, (array) @include ("{$this->installedDbVersionId}.operations"));
+		// Add last operations.
+		$operations['finalize'] = array('text' => cssJSToolbox::getText('Finalize Upgrade.'));
+		// Print upgrade operations.
+		echo $this->getTemplate('default_operations_list', array('type' => 'upgrade', 'operations' => $operations));
+?>
+</ul>

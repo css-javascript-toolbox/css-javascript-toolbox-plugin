@@ -34,7 +34,6 @@ class CJTPinsBlockSQLView extends CJTSQLView {
 			'blocks.pinPoint',
 			'blocks.code',
 			'blocks.location',
-			'blocks.linkedScripts',
 			'blocks.links',
 			'blocks.expressions'
 		);

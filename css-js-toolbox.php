@@ -67,7 +67,12 @@ class CJTPlugin extends CJTHookableClass {
 	* 
 	*/
 	const DB_VERSION = '2.0';
-		
+	
+	/**
+	* 
+	*/
+	const VERSION = '6.0'	;
+	
 	/**
 	* 
 	*/
@@ -84,6 +89,13 @@ class CJTPlugin extends CJTHookableClass {
 	* @var CJTController
 	*/
 	public $controller;
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $installed;
 	
 	/**
 	* put your comment there...
@@ -107,7 +119,7 @@ class CJTPlugin extends CJTHookableClass {
 	* @var CJTPluginOnPrcoessRequestWPAction
 	*/
 	protected $onprocessrequest = array(
-		'parameters' => array('itsAjaxRequest', 'itsCJTRequest', 'isProcessed')
+		'parameters' => array('itsCJTRequest', 'isProcessed')
 	);
 	
 	/**
@@ -117,7 +129,7 @@ class CJTPlugin extends CJTHookableClass {
 	* @var CJTPluginOnPrcoessRequestCheckWPAction
 	*/
 	protected $onprocessrequestcheck = array(
-		'parameters' => array('itsAjaxRequest', 'itsCJTRequest')
+		'parameters' => array('itsCJTRequest')
 	);
 		
 	/**
@@ -126,8 +138,9 @@ class CJTPlugin extends CJTHookableClass {
 	*/
 	protected function __construct() {
 		parent::__construct();
+		// Read vars!
+		$this->installed = ((get_option(self::DB_VERSION_OPTION_NAME)) == self::DB_VERSION);
 		// Process request
-		$this->preProcessRequest();
 		$this->processRequest();
 		// Add menu pages!
 		if (is_admin()) {
@@ -173,16 +186,31 @@ class CJTPlugin extends CJTHookableClass {
 	}
 	
 	/**
-	* put your comment there...
+	* Build in redirects to redirect the request when needed.
+	* 
 	* 
 	*/
 	protected function preProcessRequest() {
 		$this->onpreprocessrequest();
-		// Imporsenate request if it for edit post/page.
-		if (strpos($_SERVER['REQUEST_URI'], 'wp-admin/post.php') !== false) {
-			$_REQUEST['page'] = self::PLUGIN_REQUEST_ID;
-			$_REQUEST['controller'] = 'metabox';
-		}	
+		// Install/Upgrade if needed!
+		if (!$this->installed) {
+			// Only if the controller in not the "installer" redirect to blocks::installAction()!
+			if ($_REQUEST['controller'] != 'installer') {
+				// Cache original request vars for redirecting after installing completed!
+				$request = $_REQUEST;
+				// If not installed always override controller to point to installer controller!
+				$_REQUEST['page'] = self::PLUGIN_REQUEST_ID . '-blocks';
+				$_GET['action'] = 'install';
+				$_REQUEST['view'] = 'installer/install';				
+			}
+		}
+		else {
+			// Imporsenate request if it for edit post/page.
+			if (strpos($_SERVER['REQUEST_URI'], 'wp-admin/post.php') !== false) {
+				$_REQUEST['page'] = self::PLUGIN_REQUEST_ID;
+				$_REQUEST['controller'] = 'metabox';
+			}	
+		}
 	}
 	
 	/**
@@ -192,49 +220,36 @@ class CJTPlugin extends CJTHookableClass {
 	* @return void
 	*/
 	protected function processRequest() {
-		/// Tri-Cases to run a controller! ///
-		// case #1. We always have the Coupling controller running unless its ajax request!
-		// case #2. If the $_REQUEST['page] == 'cjtoolbox' we'll run another controller!
-		// case #3. Edit Post/Page page for metabox!!
-		$itsAjaxRequest = (strpos($_SERVER['REQUEST_URI'], '/wp-admin/admin-ajax.php') !== false);
-		$itsCJTRequest = isset($_REQUEST['page']) && (strpos($_REQUEST['page'], self::PLUGIN_REQUEST_ID) === 0);
-		$this->onprocessrequestcheck($itsAjaxRequest, $itsCJTRequest);
-		if ($isProcessed = (!$itsAjaxRequest || $itsCJTRequest)) {
-			// Set development parameters!
-			if (CJTOOLBOX_ACTIVE_PROFILE == CJTOOLBOX_PROFILE_DEVELOPMENT) {
-				$GLOBALS['wpdb']->show_errors(true);
-			}
-			// Bootstrap the Plugin!
-			require_once 'css-js-toolbox.class.php';
-			cssJSToolbox::getInstance();
-			// Load MVC framework core!
-			require_once CJTOOLBOX_MVC_FRAMEWOK . '/model.inc.php';
-			require_once CJTOOLBOX_MVC_FRAMEWOK . '/controller.inc.php';
-			// Install/Upgrade if needed!
-			if ($notInstalled = (get_option(self::DB_VERSION_OPTION_NAME) != self::DB_VERSION)) {
-				require 'installer/router.class.php';
-				$notInstalled = !CJTInstallerRouter::getInstance()->route();				
-			}
-			// Load CJT Extensions!
-			$this->loadExtensions();
-			// run the coupling!
-			if (!$notInstalled && !$itsAjaxRequest) {
-				CJTController::getInstance('blocks-coupling');
-			}
-			// Dispath the other controller.
-			if ($itsCJTRequest) {
-				//CJTView shouldnt be alwaus involved but for now do it!!
-				require_once CJTOOLBOX_MVC_FRAMEWOK . '/view.inc.php';
-				// If PAGE variable has a controller passed, use it.
-				if (count($pageParts = explode('-', $_REQUEST['page'])) > 1) {
-					$_REQUEST['controller'] = $pageParts[1];
-				}
-				// Default controller is "blocks" controller!
-				$controller = isset($_REQUEST['controller']) ? $_REQUEST['controller'] : 'blocks';
-				$this->controller = CJTController::getInstance($controller);
-			}
+		// Bootstrap the Plugin!
+		require_once 'css-js-toolbox.class.php';
+		cssJSToolbox::getInstance();
+		// Load MVC framework core!
+		require_once CJTOOLBOX_MVC_FRAMEWOK . '/model.inc.php';
+		require_once CJTOOLBOX_MVC_FRAMEWOK . '/controller.inc.php';
+		// Load CJT Extensions!
+		$this->loadExtensions();
+		// Run the coupling only if the installer runs before!
+		if ($this->installed) {
+			CJTController::getInstance('blocks-coupling');
 		}
-		$this->onprocessrequest($itsAjaxRequest, $itsCJTRequest, $isProcessed);
+		// Chekck if we're in request!
+		$itsCJTRequest = isset($_REQUEST['page']) && (strpos($_REQUEST['page'], self::PLUGIN_REQUEST_ID) === 0);
+		$this->onprocessrequestcheck($itsCJTRequest);
+		// Pre process!
+		$this->preProcessRequest();
+		// Dispath the other controller.
+		if ($itsCJTRequest) {
+			//CJTView shouldnt be alwaus involved but for now do it!!
+			require_once CJTOOLBOX_MVC_FRAMEWOK . '/view.inc.php';
+			// If PAGE variable has a controller passed, use it.
+			if (count($pageParts = explode('-', $_REQUEST['page'])) > 1) {
+				$_REQUEST['controller'] = $pageParts[1];
+			}
+			// Default controller is "blocks" controller!
+			$controller = isset($_REQUEST['controller']) ? $_REQUEST['controller'] : 'blocks';
+			$this->controller = CJTController::getInstance($controller);
+		}
+		$this->onprocessrequest($itsCJTRequest, $isProcessed);
 	}
 	
 }// End Class
@@ -243,4 +258,4 @@ class CJTPlugin extends CJTHookableClass {
 CJTPlugin::define('CJTPlugin');
 
 // Let's Go!
-add_action('plugins_loaded', array('CJTPlugin', 'getInstance'), 10, 0);
+add_action('plugins_loaded', array('CJTPlugin', 'getInstance'));
