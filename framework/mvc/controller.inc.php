@@ -82,8 +82,10 @@ abstract class CJTController extends CJTHookableClass {
 	/**
 	* put your comment there...
 	* 
+	* @param mixed $hasView
+	* @return CJTController
 	*/
-	public function __construct() {
+	public function __construct($hasView = true) {
 		// Initialize hookable!
 		parent::__construct();
 		// Create default model.
@@ -91,11 +93,13 @@ abstract class CJTController extends CJTHookableClass {
 			$this->model = CJTModel::create($this->controllerInfo['model'], array(), $this->controllerInfo['model_file']);
 		}
 		// Create default view.
-		$view = $this->ongetviewname($_REQUEST['view'] ? $_REQUEST['view'] : $this->controllerInfo['view']);
-		if ($view) {
-			$this->view = self::getView($view);
-			// Push model into view.
-			$this->view->setModel($this->model);
+		if ($hasView) {
+			$view = $this->ongetviewname($_REQUEST['view'] ? $_REQUEST['view'] : $this->controllerInfo['view']);
+			if ($view) {
+				$this->view = self::getView($view);
+				// Push model into view.
+				$this->view->setModel($this->model);
+			}
 		}
 	}
 	
@@ -237,6 +241,16 @@ abstract class CJTController extends CJTHookableClass {
 			'viewFile' => "{$pathToViews}/{$path}/view.php",
 		);
 		return $viewInfo;
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $action
+	*/
+	public function setAction($action) {
+		$this->defaultAction = $action;
+		return $this;
 	}
 	
 } // End class.

@@ -51,6 +51,8 @@ class CJTBlocksModel {
 	* @param mixed $customPins
 	*/
 	public function add($block) {
+		// Make sure it array and not stdClass as it has been used from various areas!
+		$block = (array) $block;
 		// Create Tables objects.
 		$blocks = new CJTBlocksTable($this->dbDriver);
 		// Get new id if not specified.

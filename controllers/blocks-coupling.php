@@ -212,7 +212,7 @@ class CJTBlocksCouplingController extends CJTController {
 	*/
 	public function __construct() {
 		// Initialize controller.
-		parent::__construct();
+		parent::__construct(false);
 		// Import related libraries
 		CJTModel::import('block');
 		// Not default action needed.
@@ -241,7 +241,7 @@ class CJTBlocksCouplingController extends CJTController {
 		* append more to orders produced by CJTBlocksCouplingController::setRequestFilter().
 		* More to orders may allow other blocks to bein the output (e.g metaboxe blocks).
 		*/
-		$blocksOrder = array_merge($this->getFilters()->moreToOrder, $blocksOrder);
+		$blocksOrder = array_merge($blocksOrder, $this->getFilters()->moreToOrder);
 		// Prepare request URL to match against Links & Expressions.
 		$linksRequestURL = self::getRequestURL();
 		$expressionsRequestURL = "{$linksRequestURL}?{$_SERVER['QUERY_STRING']}";

@@ -104,14 +104,16 @@ class CJTBlocksAjaxController extends CJTAjaxController {
 			throw new Exception('Could not add new block!!!');
 		}
 		else {
-			$block->setValues($newBlockData);			
-			// Get block view.
-			$blockView = CJTController::getView("blocks/{$viewName}");
-			// Push vars into the view.
-			$blockView->setBlock($block);
+			$block->setValues($newBlockData);
+			if ($viewName ){
+				// Get block view.
+				$blockView = CJTController::getView("blocks/{$viewName}");
+				// Push vars into the view.
+				$blockView->setBlock($block);
+				$response['view'] = $blockView->getTemplate('new');
+			}
+			$response['id'] = $id;	
 			// Set response object.
-			$response['id'] = $id;
-			$response['view'] = $blockView->getTemplate('new');
 			$this->response = $response;		
 		}
 	}

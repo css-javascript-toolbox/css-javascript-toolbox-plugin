@@ -162,8 +162,8 @@ abstract class CJTAjaxController extends CJTController {
 		$currentFilter= current_filter();
 		// Remove current Action!
 		remove_action($currentFilter, array(&$this, '_doAction'));
-		// Destroy all references to our controller and activate the target CTR!
-		CJTPlugin::$controller = CJTController::getInstance($controller);;
+		// activate the target CTR!
+		CJTController::getInstance($controller);
 		// Fire the action manually.
 		do_action($currentFilter);
 	}

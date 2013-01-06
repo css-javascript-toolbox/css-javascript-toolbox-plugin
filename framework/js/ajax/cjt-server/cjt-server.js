@@ -135,10 +135,12 @@ var CJTServer;
 		getRequestObject : function(controller, action, data) {
 			var requestObject = {};
 			var requestTime = new Date();
-			// CJT Wordpress Plugin Ajax hooks prefix.
-			action = this.pageId + '_' + action;
+			// CJT Wordpress Ajax Access Point!
+			var accessPoint = this.pageId + '_api';
 			// Action & Controller parameter always in the URL -- not posted.
-			var queryString = 'action=' + action + '&controller=' + CJTServer.controllers[controller];
+			var queryString = 'action=' + accessPoint + 
+																						'&controller=' + CJTServer.controllers[controller] +
+																						'&CJTAjaxAction=' + action;
 			var url = CJTServer.ajaxURL + '?' + queryString;
 			// Prepare request object.
 			var requestToken = {

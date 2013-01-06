@@ -38,6 +38,9 @@ define('CJTOOLBOX_PATH', dirname(__FILE__));
 /** Dont use!! @deprecated */
 define('CJTOOLBOX_INCLUDE_PATH', CJTOOLBOX_PATH . '/framework'); 
 
+/** Access Points  path */
+define('CJTOOLBOX_ACCESS_POINTS', CJTOOLBOX_PATH . '/access.points');
+
 /** Frmaework path */
 define('CJTOOLBOX_FRAMEWORK', CJTOOLBOX_INCLUDE_PATH); // Alias to include path!
 
@@ -84,11 +87,11 @@ class CJTPlugin extends CJTHookableClass {
 	const PLUGIN_REQUEST_ID = 'cjtoolbox';
 	
 	/**
-	* Target controller object.
+	* put your comment there...
 	* 
-	* @var CJTController
+	* @var mixed
 	*/
-	public $controller;
+	protected $accessPoints;
 	
 	/**
 	* put your comment there...
@@ -103,34 +106,6 @@ class CJTPlugin extends CJTHookableClass {
 	* @var CJTPlugin
 	*/
 	protected static $instance;
-	
-	/**
-	* put your comment there...
-	* 
-	* @access public
-	* @var CJTPluginOnPrePrcoessRequestWPAction
-	*/
-	protected $onpreprocessrequest;
-	
-	/**
-	* Triggered when the request is actually served by CJT Plugin.
-	* 
-	* @access public
-	* @var CJTPluginOnPrcoessRequestWPAction
-	*/
-	protected $onprocessrequest = array(
-		'parameters' => array('itsCJTRequest', 'isProcessed')
-	);
-	
-	/**
-	* Triggered when the request is about to be checked!
-	* 
-	* @access public
-	* @var CJTPluginOnPrcoessRequestCheckWPAction
-	*/
-	protected $onprocessrequestcheck = array(
-		'parameters' => array('itsCJTRequest')
-	);
 		
 	/**
 	* put your comment there...
@@ -140,11 +115,35 @@ class CJTPlugin extends CJTHookableClass {
 		parent::__construct();
 		// Read vars!
 		$this->installed = ((get_option(self::DB_VERSION_OPTION_NAME)) == self::DB_VERSION);
-		// Process request
-		$this->processRequest();
-		// Add menu pages!
+		// Apply blocks to the request.
+		$this->apply();
+		// Define access points.
 		if (is_admin()) {
-			add_action('admin_menu', array(&$this, 'addMenuPages'));
+			// Import dependencies.
+			require_once 'framework/wordpress/access-point.class.php';
+			require_once 'framework/wordpress/definer.class.php';
+			// Define access points!
+			$this->accessPoints = CJTAccessPointsDefiner::getInstance('CJT', CJTOOLBOX_ACCESS_POINTS)->define();
+		}
+	}
+	
+	/**
+	* Apply blocks assigned to the request!
+	* 
+	* @return void
+	*/
+	protected function apply() {
+		// Bootstrap the Plugin!
+		require_once 'css-js-toolbox.class.php';
+		cssJSToolbox::getInstance();
+		// Load MVC framework core!
+		require_once CJTOOLBOX_MVC_FRAMEWOK . '/model.inc.php';
+		require_once CJTOOLBOX_MVC_FRAMEWOK . '/controller.inc.php';
+		// Load CJT Extensions!
+		$this->loadExtensions();
+		// Run the coupling only if the installer runs before!
+		if ($this->installed) {
+			CJTController::getInstance('blocks-coupling');
 		}
 	}
 	
@@ -152,14 +151,8 @@ class CJTPlugin extends CJTHookableClass {
 	* put your comment there...
 	* 
 	*/
-	public function addMenuPages() {
-		$menuTitle = __('CSS & Javascript Toolbox', CJTOOLBOX_TEXT_DOMAIN);
-		// Blocks Manager page! The only Wordpress menu item we've.
-		// All the other forms/grids (e.g templates-manager, etc...) is liked through this pages.
-		add_menu_page($menuTitle, $menuTitle, 10, self::PLUGIN_REQUEST_ID, array(&$this->controller, '_doAction'));
-		add_submenu_page(self::PLUGIN_REQUEST_ID, null, __('Extensions'), 10, null);
-		// Hack Extensions menu item to point to Plugins page!
-		$GLOBALS['submenu'][self::PLUGIN_REQUEST_ID][1][2] = admin_url('plugins.php?s=CJTE');
+	public function getAccessPoints() {
+		return $this->accessPoints;
 	}
 	
 	/**
@@ -177,79 +170,20 @@ class CJTPlugin extends CJTHookableClass {
 	* put your comment there...
 	* 
 	*/
+	public function isInstalled() {
+		return $this->installed;	
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
 	protected function loadExtensions() {
 		// Load extensions lib!
 		require_once 'framework/extensions/extensions.class.php';
 		$extensions = new CJTExtensions();
 		// Load all extensions!
 		$extensions->load();
-	}
-	
-	/**
-	* Build in redirects to redirect the request when needed.
-	* 
-	* 
-	*/
-	protected function preProcessRequest() {
-		$this->onpreprocessrequest();
-		// Install/Upgrade if needed!
-		if (!$this->installed) {
-			// Only if the controller in not the "installer" redirect to blocks::installAction()!
-			if ($_REQUEST['controller'] != 'installer') {
-				// Cache original request vars for redirecting after installing completed!
-				$request = $_REQUEST;
-				// If not installed always override controller to point to installer controller!
-				$_REQUEST['page'] = self::PLUGIN_REQUEST_ID . '-blocks';
-				$_GET['action'] = 'install';
-				$_REQUEST['view'] = 'installer/install';				
-			}
-		}
-		else {
-			// Imporsenate request if it for edit post/page.
-			if (strpos($_SERVER['REQUEST_URI'], 'wp-admin/post.php') !== false) {
-				$_REQUEST['page'] = self::PLUGIN_REQUEST_ID;
-				$_REQUEST['controller'] = 'metabox';
-			}	
-		}
-	}
-	
-	/**
-	* Check if the request is for CJT controller,
-	* if so create constroller object to server the request.
-	* 
-	* @return void
-	*/
-	protected function processRequest() {
-		// Bootstrap the Plugin!
-		require_once 'css-js-toolbox.class.php';
-		cssJSToolbox::getInstance();
-		// Load MVC framework core!
-		require_once CJTOOLBOX_MVC_FRAMEWOK . '/model.inc.php';
-		require_once CJTOOLBOX_MVC_FRAMEWOK . '/controller.inc.php';
-		// Load CJT Extensions!
-		$this->loadExtensions();
-		// Run the coupling only if the installer runs before!
-		if ($this->installed) {
-			CJTController::getInstance('blocks-coupling');
-		}
-		// Chekck if we're in request!
-		$itsCJTRequest = isset($_REQUEST['page']) && (strpos($_REQUEST['page'], self::PLUGIN_REQUEST_ID) === 0);
-		$this->onprocessrequestcheck($itsCJTRequest);
-		// Pre process!
-		$this->preProcessRequest();
-		// Dispath the other controller.
-		if ($itsCJTRequest) {
-			//CJTView shouldnt be alwaus involved but for now do it!!
-			require_once CJTOOLBOX_MVC_FRAMEWOK . '/view.inc.php';
-			// If PAGE variable has a controller passed, use it.
-			if (count($pageParts = explode('-', $_REQUEST['page'])) > 1) {
-				$_REQUEST['controller'] = $pageParts[1];
-			}
-			// Default controller is "blocks" controller!
-			$controller = isset($_REQUEST['controller']) ? $_REQUEST['controller'] : 'blocks';
-			$this->controller = CJTController::getInstance($controller);
-		}
-		$this->onprocessrequest($itsCJTRequest, $isProcessed);
 	}
 	
 }// End Class

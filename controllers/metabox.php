@@ -29,12 +29,13 @@ class CJTMetaboxController extends CJTAjaxController {
 		// Instantiate model object.
 		$this->model = self::getModel('metabox', array($_GET['post']));
 		// Make sure that current post type is selected by user.
-		if ($this->model->doPost()) {
-			// Action to be fired in the normal admin request.
-			add_action('add_meta_boxes', array(&$this, 'showMetabox'));
-			// Ajax actions.
+		if (CJTPlugin::getInstance()->getAccessPoints()->getActive()->getName() == 'ajax') {
 			$this->registryAction('create');
 			$this->registryAction('delete');
+		}
+		else if ($this->model->doPost()) {
+			// Add metabox.
+			$this->showMetabox();
 		}
 	}
 	
@@ -55,7 +56,7 @@ class CJTMetaboxController extends CJTAjaxController {
 			$this->model->create($pin)->save();
 			// Create new block.
 			$blocksController = CJTController::create('blocks-ajax');
-			$blocksController->createBlockAction($blockId, 'metabox', $pin->flag, 'cjt-block');
+			$blocksController->createBlockAction($blockId, 'metabox', $pin->flag);
 			// Get metabox block view object.
 			$this->view = CJTView::create('blocks/metabox');
 			$this->view->setBlock(CJTModel::create('blocks')->getBlock($blockId));

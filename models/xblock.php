@@ -10,7 +10,7 @@
 * for a single block should be defined here!
 * 
 */
-class CJTBlockModel {
+class CJTXBlockModel {
 	
 	/**
 	* put your comment there...

@@ -23,7 +23,7 @@ class CJTBlockController extends CJTAjaxController {
 	* 	
 	* @var mixed
 	*/
-	protected $controllerInfo = array('model' => 'block', 'model_file' => 'xblock');
+	protected $controllerInfo = array('model' => 'x-block', 'model_file' => 'xblock');
 	
 	/**
 	* put your comment there...

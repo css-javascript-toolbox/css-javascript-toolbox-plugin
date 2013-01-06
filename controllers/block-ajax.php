@@ -19,13 +19,6 @@ cssJSToolbox::import('framework:mvc:controller-ajax.inc.php');
 class CJTBlockAjaxController extends CJTAjaxController {
 	
 	/**
-	* put your comment there...
-	* 
-	* @var mixed
-	*/
-	protected $controllerInfo = array('model' => 'blocks');
-	
-	/**
 	* Initialize controller object.
 	* 
 	* @see CJTController for more details
@@ -55,13 +48,15 @@ class CJTBlockAjaxController extends CJTAjaxController {
 	/**
 	* put your comment there...
 	* 
+	* @deprecated All will be moved to other controllers in the future versions.
 	*/
 	public function getInfoViewAction() {
+		$model = $this->getModel('blocks');
 		// Set content type as HTML.
 		$this->httpContentType = "text/html";
 		// Get block info.
 		$id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-		$Info = $this->model->getInfo($id);
+		$Info = $model->getInfo($id);
 		// Create info view object.
 		$view = CJTController::getView('blocks/info');
 		// Get view info content.
@@ -72,20 +67,24 @@ class CJTBlockAjaxController extends CJTAjaxController {
 	/**
 	* put your comment there...
 	* 
+	* @deprecated All will be moved to other controllers in the future versions.
 	*/
 	public function getRevisionAction() {
+		$model = $this->getModel('blocks');
 		// Get request parameters.
 		$revision['id'] = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 		$revision['fields'] = array('id', 'code', 'pinPoint', 'links', 'expressions');
-		$revision = $this->model->getBlock($revision['id'], array(), $revision['fields']);
+		$revision = $model->getBlock($revision['id'], array(), $revision['fields']);
 		$this->response = $revision;
 	}
 	
 	/**
 	* put your comment there...
 	* 
+	* @deprecated All will be moved to other controllers in the future versions.
 	*/
 	public function getRevisionsAction() {
+		$model = $this->getModel('blocks');
 		// Get request parameters.
 		$blockId = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 		// Get block revisions.
@@ -95,7 +94,7 @@ class CJTBlockAjaxController extends CJTAjaxController {
 		// This is because id field must be first to be used as the array key
 		$revisions['fields'] = array('id', 'name', 'created', 'lastModified');
 		// Query getBlocks without ids filter or backup.
-		$revisions = $this->model->getBlocks(null, $revisions['filter'], $revisions['fields']);
+		$revisions = $model->getBlocks(null, $revisions['filter'], $revisions['fields']);
 		// Create view.
 		$view = $this->getView('blocks/revisions');
 		// Push view vars.
@@ -126,7 +125,7 @@ class CJTBlockAjaxController extends CJTAjaxController {
 	public function setPropertyAction() {
 		// Initialize.
 		$response = array();
-		$blocks = $this->model;
+		$blocks = $this->getModel('blocks');
 		// Prepare parameters.
 		$blockId = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
 		$property = filter_input(INPUT_POST, 'property', FILTER_SANITIZE_STRING);
