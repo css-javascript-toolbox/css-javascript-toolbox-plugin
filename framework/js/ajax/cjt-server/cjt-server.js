@@ -146,8 +146,7 @@ var CJTServer;
 			var requestToken = {
 				security : CJTServer.securityToken,
 				requestTime : requestTime,
-				requestId : requestTime.getTime(),
-				page : this.pageId // Always send page Id with the request.
+				requestId : requestTime.getTime()
 			};
 			// Combine user data with request parameters data.
 			data = $.extend(requestToken, data);
@@ -214,24 +213,6 @@ var CJTServer;
 			return queue;
 		},
 		
-		/**
-		* Impersonate Wordpress Ajax request to dispatch specific CJT controller.
-		*
-		* Add Security Token and controller parameters to ajaxurl variable
-		* to send along with Wordpress Ajax request.
-		*
-		* Don't forget to call resetWordpressAjaxURL
-		*
-		* @param string Controller name.
-		* @return void
-		*/
-		impersonateWPAR : function(controller) { // Wordpress Ajax Request.
-			// Add security token.
-			ajaxurl += '?security=' + CJTServer.securityToken;
-			// Add Controller.
-			ajaxurl += '&controller=' + CJTServer.controllers[controller];
-		},
-		
 		/*
 		* initialize CJTServer object. 
 		*
@@ -242,18 +223,7 @@ var CJTServer;
 			// Caching Security nonce value.
 			CJTServer.securityToken = $('input:hidden#cjt-securityToken').val();
 		},
-		
-		/*
-		* Reset/Deimpersonate Wordpress ajaxurl variable.
-		*
-		*
-		* @return void
-		*/
-		resetWordpressAjaxURL : function() {
-			// Reset ajaxurl to its original value.
-			ajaxurl = CJTServer.ajaxURL;
-		},
-		
+
 		/*
 		* Send Ajax request to server.
 		*

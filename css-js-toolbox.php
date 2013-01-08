@@ -58,7 +58,15 @@ CJTWordpressEvents::$paths['subjects']['core'] = CJTOOLBOX_FRAMEWORK . '/events/
 CJTWordpressEvents::$paths['observers']['core'] = CJTOOLBOX_FRAMEWORK . '/events/observers';
 
 /**
-* CJT main controller -- represent Wordpress Plugin interface.
+* CJT Plugin interface.
+* 
+* The CJT Plugin is maximum deferred.
+* All functionality here is just to detect if the request should be processed!
+* 
+* The main class is located css-js-toolbox.class.php cssJSToolbox class
+* The plugin is fully developed using Model-View-Controller design pattern.
+* 
+* access.points directory has all the entry points that processed by the Plugin.
 * 
 * @package CJT
 * @author Ahmed Said
@@ -119,6 +127,7 @@ class CJTPlugin extends CJTHookableClass {
 		$this->apply();
 		// Define access points.
 		if (is_admin()) {
+			self::$instance = $this; // Allow access points to utilize from CJTPlugin functionality!
 			// Import dependencies.
 			require_once 'framework/wordpress/access-point.class.php';
 			require_once 'framework/wordpress/definer.class.php';

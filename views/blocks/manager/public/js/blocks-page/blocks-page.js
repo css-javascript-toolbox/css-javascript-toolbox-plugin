@@ -735,14 +735,14 @@ var CJTBlocksPage;
 		*
 		*/
 		saveBlocksOrder : function() {
-			// impersonateWPAR allow CJTBlocksAjaxController to be loaded with the request.
-			// We need it loaded to update order in one common place.
-			// This method may be removed in later versions!!
-			CJTServer.impersonateWPAR('blocksPage');
-			postboxes.manual_save_order(CJTBlocksPage.pageId);
-			CJTServer.resetWordpressAjaxURL();
-			// Cache new order.
-			CJTBlocksPage.blocksContainer.data('cjtOrders', CJTBlocksPage.blocksContainer.sortable('toArray'));
+			var request = {order : CJTBlocksPage.blocksContainer.sortable('toArray').join(',')};
+			// Save Blocks order!
+			CJTBlocksPage.server.send('blocksPage', 'saveOrder', request).success($.proxy(
+				function() {
+					// Refresh local cache order!
+					CJTBlocksPage.blocksContainer.data('cjtOrders', request.order);
+				}, this)
+			);
 		},
 		
 		/*

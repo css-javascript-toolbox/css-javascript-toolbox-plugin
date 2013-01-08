@@ -1,0 +1,20 @@
+<?php
+/**
+* 
+*/
+
+// Disallow direct access.
+defined('ABSPATH') or die("Access denied");
+?>
+<div class="cjt-installation-notice updated">
+	<input type="hidden" id="cjt-securityToken" value="<?php echo cssJSToolbox::getSecurityToken() ?>" />
+	<p>
+		<?php echo cssJSToolbox::getText('CJT Plugin has been installed throught Wordpress Plugins manager page. In order for CJT Plugin to work correctly you must install it throught') ?>
+		<a href="<?php echo admin_url('admin.php?page=cjtoolbox') ?>"><?php echo cssJSToolbox::getText('CJT-Instalaltion page.') ?></a>
+	</p>
+	<p>
+	<?php echo cssJSToolbox::getText('Please or you can go to the installation page directly through the') ?>
+	<a href="<?php echo admin_url('admin.php?page=cjtoolbox') ?>"><?php echo cssJSToolbox::getText('CSS & Javascript Toolbox page.') ?></a>
+	</p>
+	<a class="dismiss" href="#"><?php echo cssJSToolbox::getText('Dismiss') ?></a>
+</div>

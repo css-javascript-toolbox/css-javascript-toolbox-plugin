@@ -54,7 +54,7 @@ class CJTBlocksController extends CJTController {
 		$this->view->securityToken = $this->createSecurityToken();
 		// page hook is added later after this object is already created.
 		// Get page hook directrly from controllers.
-		$this->view->pageHook = 'cjtoolbox';
+		$this->view->pageHook = CJTPlugin::PLUGIN_REQUEST_ID;
 		// Output the view.
 		echo $this->view->display();
 	}
@@ -65,6 +65,18 @@ class CJTBlocksController extends CJTController {
 	*/
 	protected function installAction() {
 		echo parent::displayAction();
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	protected function notInstalledNoticeAction() {
+		$model = $this->getModel('installer');
+		// Diplay notice only if not dismissed!
+		if (!$model->dismissNotice()) {
+			echo parent::displayAction();	
+		}
 	}
 	
 } // End class.

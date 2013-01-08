@@ -15,7 +15,7 @@ abstract class WPPagesListHelper {
 	* @param string List Id.
 	* @param array Selected terms list.
 	*/
-	public static function show_taxonomy_with_checkbox($blockId, $selectedTaxonomies, $regionMetrics) {
+	public static function show_taxonomy_with_checkbox($blockId, $selectedTaxonomies) {
 		$taxonomy_name = 'category';
 		$args = array(
     		'child_of' => 0,

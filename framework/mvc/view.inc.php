@@ -288,7 +288,7 @@ abstract class CJTView extends CJTHookableClass {
 			throw new Exception('CJTView::useScripts method must has at least on script parameter passed!');
 		}
 		// Script name Reg Exp pattern.
-		$nameExp = '/\:?(\{((\w+)-)\})?([\w\-\.]+)(\(.+\))?$/';
+		$nameExp = '/\:?(\{((\w+)-)\})?([\w\-\.]+)(\(.+\))?(\;(\d))?$/';
 		// For every script, Enqueue and localize, only if localization file found/exists.
 		foreach ($scripts as $script) {
 			// Get script name.
@@ -303,7 +303,7 @@ abstract class CJTView extends CJTHookableClass {
 				$jsFile = cssJSToolbox::getURI(preg_replace($nameExp, "{$libPath}.js", $script));
 				$localizationFile = cssJSToolbox::resolvePath(preg_replace($nameExp, "{$libPath}.localization.php", $script));
 				// Enqueue script file.
-				wp_enqueue_script($name, $jsFile);
+				wp_enqueue_script($name, $jsFile, null, null, $scriptObject[7]);
 				// Set script parameters.
 				if (preg_match_all('/(\w+)=(\w+)/', $scriptObject[5], $params, PREG_SET_ORDER) ) {
 					// Set parameters.
@@ -329,7 +329,7 @@ abstract class CJTView extends CJTHookableClass {
 			}
 			// Enqueue already registered scripts!
 			else {
-				wp_enqueue_script($name, $jsFile);	
+				wp_enqueue_script($name, $jsFile, null, null, $scriptObject[7]);
 			}
 		}
 	}

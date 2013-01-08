@@ -29,6 +29,16 @@ class CJTInstallerController extends CJTAjaxController {
 		parent::__construct();
 		// Register actions!
 		$this->registryAction('install');
+		$this->registryAction('dismissNotice');
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function dismissNoticeAction() {
+		$this->model->dismissNotice(true);
+		$this->response = true;
 	}
 	
 	/**

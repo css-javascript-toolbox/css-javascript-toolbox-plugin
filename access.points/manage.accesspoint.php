@@ -20,6 +20,10 @@ class CJTManageAccessPoint extends CJTAccessPoint {
 		$this->name = 'manage';
 		// Add menu pages.
 		add_action('admin_menu', array(&$this, 'addMenu'));
+		// If not installed and not in manage page display admin notice!
+		if (!CJTPlugin::getInstance()->isInstalled()) {
+			add_action('admin_notices', array(&$this, 'notInstalled'));
+		}
 		// Initialize Access Point base!
 		parent::__construct();
 	}
@@ -35,7 +39,7 @@ class CJTManageAccessPoint extends CJTAccessPoint {
 		$pageHookId= add_menu_page($menuTitle, $menuTitle, 10, CJTPlugin::PLUGIN_REQUEST_ID, array(&$this->controller, '_doAction'));
 		// Carry out the request!
 		$managerName = "load-{$pageHookId}";
-		add_action($managerName, array($this, 'route'));
+		add_action($managerName, array($this, 'manage'));
 		// Add sub menu item to point to Wordpress plugins page with a search term passed!
 		add_submenu_page(CJTPlugin::PLUGIN_REQUEST_ID, null, cssJSToolbox::getText('Extensions'), 10, null);
 		// Hack Extensions menu item to point to Plugins page!
@@ -46,7 +50,7 @@ class CJTManageAccessPoint extends CJTAccessPoint {
 	* put your comment there...
 	* 
 	*/
-	public function route() {
+	public function manage() {
 		$action = 'index';
 		// No actions until we installed!
 		// Display installation page if not installed!
@@ -54,10 +58,28 @@ class CJTManageAccessPoint extends CJTAccessPoint {
 			$_REQUEST['view'] = 'installer/install';	
 			$action = 'install';
 		}
-		// Instantiate controller! & set the action
-		$controller = parent::route()
+		// Instantiate controller! & set the action, display manage page!
+		$controller = $this->route()
 														->setAction($action);
-		return $controller;
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function notInstalled() {
+		// If we're not in manage page (not controller loaded in $this access point)
+		// notife user for installation.
+		if (!$this->isLoaded())	{
+			// Set MVC request parameters.
+			$_REQUEST['view'] = 'installer/notice';
+			// Instantiate installer cotroller and fire notice action!
+			$this->route()
+			// Set action name.
+			->setAction('notInstalledNotice')
+			// Fire action!
+			->_doAction();
+		}
 	}
 	
 } // End class.

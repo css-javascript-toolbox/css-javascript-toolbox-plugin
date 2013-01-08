@@ -21,6 +21,13 @@ abstract class CJTController extends CJTHookableClass {
 	* 
 	* @var mixed
 	*/
+	protected $action;
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	protected $controllerInfo = null;
 	
 	/**
@@ -108,8 +115,10 @@ abstract class CJTController extends CJTHookableClass {
 	* 
 	*/
 	public function _doAction() {
-		// Call default action only if not needed by derivded class.
-		$action = isset($_GET['action']) ? $_GET['action'] : $this->defaultAction;
+		// Force use of internal action untless its empty
+		// then look for submitted action or get the default!
+		$action = $this->action ? $this->action : 
+													(isset($_GET['action']) ? $_GET['action'] : $this->defaultAction);
 		// filter action name!
 		$action = $this->ongetactionname($action);
 		if ($action) {
@@ -249,7 +258,7 @@ abstract class CJTController extends CJTHookableClass {
 	* @param mixed $action
 	*/
 	public function setAction($action) {
-		$this->defaultAction = $action;
+		$this->action = $action;
 		return $this;
 	}
 	

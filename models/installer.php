@@ -22,6 +22,11 @@ class CJTInstallerModel {
 	const INSTALLATION_STATE = 'state.CJTInstallerModel.operations';
 	
 	/**
+	* 
+	*/
+	const NOTICED_DISMISSED_OPTION_NAME = 'settings.CJTInstallerModel.noticeDismissed';
+	
+	/**
 	* put your comment there...
 	* 
 	* @var mixed
@@ -41,6 +46,21 @@ class CJTInstallerModel {
 	*/
 	public function __construct() {
 		$this->installedDbVersion = get_option(CJTPlugin::DB_VERSION_OPTION_NAME);
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $dismiss
+	*/
+	public function dismissNotice($dismiss = null) {
+		// Read current value!
+		$currentValue = get_option(self::NOTICED_DISMISSED_OPTION_NAME);
+		if ($dismiss !== null) {
+			// Dismiss can' be reverted!
+			update_option(self::NOTICED_DISMISSED_OPTION_NAME, true);
+		}
+		return $currentValue;
 	}
 	
 	/**

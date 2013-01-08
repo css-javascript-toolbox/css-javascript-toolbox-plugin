@@ -37,11 +37,11 @@ class CJTBlocksAjaxController extends CJTAjaxController {
 	*/
 	public function __construct() {
 		parent::__construct();
-		// Supported actions.
-		add_action('wp_ajax_cjtoolbox_create_block', array(&$this, '_doAction'));
-		add_action('wp_ajax_cjtoolbox_get_view', array(&$this, '_doAction'));
-		add_action('wp_ajax_cjtoolbox_save_blocks', array(&$this, '_doAction'));
-		add_action('updated_user_meta', array(&$this, '_doAction'), 10, 4);
+		// Register action.
+		$this->registryAction('create_block');
+		$this->registryAction('get_view');
+		$this->registryAction('save_blocks');
+		$this->registryAction('saveOrder');
 	}
 	
 	/**
@@ -209,21 +209,15 @@ class CJTBlocksAjaxController extends CJTAjaxController {
 	/**
 	* put your comment there...
 	* 
-	* @param mixed $meta_id
-	* @param mixed $object_id
-	* @param mixed $meta_key
-	* @param mixed $_meta_value
 	*/
-	public function updatedUserMetaAction($meta_id, $object_id, $meta_key, $_meta_value) {
-		// Sort meta box orders.
-		switch ($meta_key) {
-		  case 'meta-box-order_cjtoolbox':
-				// Don't put anything on the Output buffer.
-				$this->impersonated = true;
-				// Save common copy (for all users to use) of metaboxes order.
-		  	$this->model->setOrder($_meta_value);
-		  break;
-		}
+	public function saveOrderAction() {
+		// Read order.
+		$order = array('normal' => $_GET['order']);
+		// Update user order so sortable Plugin will display them in correct orders!
+		update_user_option(get_current_user_id(), 'meta-box-order_cjtoolbox', $order, true);
+		// Centralized orders to be shared between all users!
+		$this->model->setOrder($order);
+		$this->response = array('order' => $order, 'state' => 'saved');
 	}
 	
 } // End class.
