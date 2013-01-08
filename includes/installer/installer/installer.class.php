@@ -89,7 +89,8 @@ class CJTInstaller extends CJTHookableClass {
 	* 
 	*/
 	public function finalize() {
-		// Nothing here for now!
+		// Update version number.
+		update_option(CJTPlugin::DB_VERSION_OPTION_NAME, CJTPlugin::DB_VERSION);
 		return $this;
 	}
 	

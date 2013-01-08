@@ -85,8 +85,6 @@ abstract class CJTUpgradeNonTabledVersions extends CJTHookableClass {
 		// Drop cjdata table as is it no longed needed!
 		$driver = cssJSToolbox::getInstance()->getDBDriver();
 		$driver->exec('DROP TABLE #__cjtoolbox_cjdata;');
-		// Update version number.
-		update_option(CJTPlugin::DB_VERSION_OPTION_NAME, CJTPlugin::DB_VERSION);
 		return $this;
 	}
 	

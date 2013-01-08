@@ -50,7 +50,7 @@ class CJTTemplatesLookupController extends CJTAjaxController {
 		// Prepare inputs
 		$this->model->inputs['blockId'] = $_REQUEST['blockId'];
 		// Display view!
-		parent::displayAction()	;
+		parent::displayAction();
 	}
 	
 	/**

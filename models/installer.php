@@ -91,10 +91,12 @@ class CJTInstallerModel {
 			// Get Installer operations.
 			cssJSToolbox::import('includes:installer:installer:installer.class.php');
 			$operations['operations']['install'] = CJTInstallerReflection::getInstance('CJTInstaller', 'CJTInstaller')->getOperations();
-			// Get upgrade operations , Also cache upgrader info for later use!
-			$operations['upgrader'] = $upgrader = $this->getUpgrader();
-			cssJSToolbox::import($upgrader['file']);
-			$operations['operations']['upgrade'] = CJTInstallerReflection::getInstance($upgrader['class'], 'CJTUpgradeNonTabledVersions')->getOperations();
+			if ($this->isUpgrade()) {
+				// Get upgrade operations , Also cache upgrader info for later use!
+				$operations['upgrader'] = $upgrader = $this->getUpgrader();
+				cssJSToolbox::import($upgrader['file']);
+				$operations['operations']['upgrade'] = CJTInstallerReflection::getInstance($upgrader['class'], 'CJTUpgradeNonTabledVersions')->getOperations();				
+			}
 			// Cache operations!
 			update_option(self::INSTALLATION_STATE, $operations);
 		}
