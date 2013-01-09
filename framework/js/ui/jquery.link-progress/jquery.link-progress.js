@@ -77,12 +77,10 @@
 								this.jNode.css({width : stack.originalWidth})
 								// Add loading class.
 								this.jNode.addClass(this.config.cssClass);
-								// Unbind all event handlers and take a temp copy!
-								stack.clickEventHandlers = this.jNode.data('events').click;
-								// Unbind all handlers.
-								this.jNode.data('events').click = undefined;
-								// Make link inactive.
-								this.jNode.click(function(event) {
+								// Make link inactive by deattaching original handler (defined by the caller),
+								// plus prevent default behavior!
+								this.jNode.unbind('click', this.config.ceHandler);
+								this.jNode.bind('click.CJTLoading', function(event) {
 										event.preventDefault();
 									}
 								);
@@ -94,8 +92,10 @@
 								this.jNode.text(stack.text);
 								// Remove custom width.
 								this.jNode.css({width : ''});
-								// Bind back all temporary saved event handlers.
-								this.jNode.data('events').click = stack.clickEventHandlers;
+								// Bind original handler back to the click event!
+								this.jNode.bind('click', this.config.ceHandler)
+								// Unbind prevent default handler defined by this class
+								.unbind('click.CJTLoading');
 								// Destroy jQuery Plugin for that object.
 								node.CJTLoader = undefined;
 							}

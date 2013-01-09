@@ -169,15 +169,15 @@ var CJTBlock;
 		*/
 		this.getDIFields = function() {
 			var fieldsNames = ['links', 'expressions', 'pinPoint', 'pages', 'posts', 'categories'];
-			var diFieldsSelector = '';
+			var diFieldsSelector = [];
 			var diFields;
 			var block = this; // To be used inside each().
 			$.each(fieldsNames,
 				function(index, field) {
-					diFieldsSelector += block.property(field).selector + ',';
+					diFieldsSelector.push(block.property(field).selector);
 				}
 			);
-			diFields = block.box.find(diFieldsSelector);
+			diFields = block.box.find(diFieldsSelector.join(','));
 			return diFields;
 		}
 		

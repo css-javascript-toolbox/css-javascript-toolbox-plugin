@@ -60,7 +60,7 @@ var CJTBlocksPage;
 						// If the CJTBlocksPage take place then we wont be able to get metabox object.
 						var metabox = CJTBlocksPage.blocks.getBlock(CJTBlocksPage.blocks.getExistsIds()[0]);
 						// Show Ajax loading progress.
-						this.createLink.CJTLoading();
+						this.createLink.CJTLoading({ceHandler : this._oncreate});
 						// Load CSS files required for metabox-block to work.
 						(new StylesLoader(blockView.references.styles)).load();
 						// Set tb_position to thickbox original so that metabox CJTBlocksPage can get it.

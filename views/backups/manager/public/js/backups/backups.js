@@ -140,7 +140,7 @@
 				.error(
 					function() {
 						// Hide loading Image.
-						jLink.CJTLoading({loading : false});
+						jLink.CJTLoading({loading : false, ceHandler : CJTBackupsForm._ondelete});
 					}
 				);		
 			}
