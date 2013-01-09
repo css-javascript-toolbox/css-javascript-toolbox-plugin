@@ -92,7 +92,7 @@ class CJTBlockAjaxController extends CJTAjaxController {
 		$revisions['filter']['type'] = 'revision';
 		// Its mandatory to select fields instead of using just .*.
 		// This is because id field must be first to be used as the array key
-		$revisions['fields'] = array('id', 'name', 'created', 'lastModified');
+		$revisions['fields'] = array('id', 'name', 'created', 'lastModified', 'owner');
 		// Query getBlocks without ids filter or backup.
 		$revisions = $model->getBlocks(null, $revisions['filter'], $revisions['fields']);
 		// Create view.

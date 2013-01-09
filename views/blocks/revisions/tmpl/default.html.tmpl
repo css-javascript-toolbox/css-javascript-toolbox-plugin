@@ -16,14 +16,14 @@ defined('ABSPATH') or die("Access denied");
 			<form id="block-revisions-form" class="cjt-form">
 				<input type="hidden" id="blockId" value="<?php echo $this->blockId ?>" />
 <?php		if (empty($this->revisions)) : // No revisions ?>
-				<p><?php echo cssJSToolbox::getText('No revisions available') ?></p>
+				<p><?php echo cssJSToolbox::getText('No revisions!') ?></p>
 <?php		else : // Revisions available ?>
 				<ul>
 <?php
 					foreach ($this->revisions as $revision) :
 ?>
 						<li>
-							<span><?php echo $revision->created ?> <?php echo cssJSToolbox::getText('by') ?> <?php echo $revision->author->display_name ?></span> 
+							<span><?php echo $revision->created ?> <?php echo cssJSToolbox::getText('by') ?> <?php echo get_userdata($revision->owner)->display_name ?></span> | 
 							<a class="restore-link" href="#<?php echo $revision->id ?>"><?php echo cssJSToolbox::getText('Restore') ?></a>
 						</li>
 <?php

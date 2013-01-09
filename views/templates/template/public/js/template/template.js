@@ -31,6 +31,36 @@
 
 		/**
 		* put your comment there...
+		* 
+		* @param event
+		*/
+		_ontypechanged : function(event) {
+			// Read vars!
+			var list = event.target;
+			var typeName = list.value;
+			// Type name once set cannot be changed again unless the dialog is cl0sed and re-opened!
+			// It was better to ask user for the type before showing the form like 'creating javascript template,
+			// or creating 'css template' or any specific type! doesn't make sense to allow changing the type more than one time!
+			if (typeName) {
+				// Ask for confirmation only when creating new template only!
+				if (this.form.prop('item[template][id]').value || confirm(CJTTemplateI18N.confirmSetType)) {
+					// Set mode namt.
+					var modePath =  'ace/mode/' + typeName;
+					this.aceEditor.getSession().setMode(modePath);
+					// Disable the list.
+					$(list).prop('disabled', 'disabled');
+				}
+				else {
+					// Clear selection and allow changing it!
+					event.target.value = '';
+				}
+			}
+			// Enable editor if there is a type selected or disable it if non types is selected!
+			this.aceEditor.setReadOnly(typeName ? false : true);
+		},
+		
+		/**
+		* put your comment there...
 		* 		
 		*/
 		close : function() {
@@ -55,12 +85,15 @@
 			// ACE Editor.
 			this.aceEditor = ace.edit('code');
 			this.aceEditor.setTheme('ace/theme/chrome');
-			this.aceEditor.getSession().setMode('ace/mode/php');
 			this.aceEditor.setShowPrintMargin(false);
 			// Update button.
 			$('#save').click($.proxy(this.save, this));
 			// Close button.
 			$('#cancel').click($.proxy(this.close, this));
+			// Change AceEditor Language when type changed!
+			$('select#type').change($.proxy(this._ontypechanged, this))
+			// Set mode when page startup!
+			.trigger('change');
 		},
 		
 		/**

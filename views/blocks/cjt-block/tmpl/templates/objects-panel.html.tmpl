@@ -10,42 +10,16 @@
 					<li><a href="#tabs-<?php echo $block->id; ?>-posts"><?php echo cssJSToolbox::getText('Posts') ?></a></li>
 					<li><a href="#tabs-<?php echo $block->id; ?>-custom-posts"><?php echo cssJSToolbox::getText('Custom Posts') ?></a></li>
 					<li><a href="#tabs-<?php echo $block->id; ?>-categories"><?php echo cssJSToolbox::getText('Categories') ?></a></li>
-					<li><a href="#tabs-<?php echo $block->id; ?>-other"><?php echo cssJSToolbox::getText('Other') ?></a></li>
+					<li><a href="#tabs-<?php echo $block->id; ?>-other"><?php echo cssJSToolbox::getText('Auxiliary') ?></a></li>
 					<li><a href="#tabs-<?php echo $block->id; ?>-advanced"><?php echo cssJSToolbox::getText('Advanced') ?></a></li>
 				</ul>
 				<div id="tabs-<?php echo $block->id; ?>-pages">
 					<ul class="pagelist">
-						<li>
-							<label>
-<?php						echo $this->getPinCheckbox('pinPoint', CJTBlockModel::PINS_PAGES_ALL_PAGES) ?> <?php echo cssJSToolbox::getText('All Pages') ?>
-							</label>
-						</li>
-						<li>
-							<label>
-<?php						echo $this->getPinCheckbox('pinPoint', CJTBlockModel::PINS_PAGES_FRONT_PAGE) ?>
-							</label> 
-							<span><a href="<?php bloginfo('url') ?>" target="_blank"><?php echo cssJSToolbox::getText('Front Page') ?></a></span>
-						</li>
 							<?php WPPagesListHelper::show_pages_with_checkbox($block->id, $block->pages, 'page', 'pages'); ?>
 					</ul>
 				</div>
 				<div id="tabs-<?php echo $block->id; ?>-posts">
 					<ul class="pagelist">
-						<li>
-							<label>
-<?php						echo $this->getPinCheckbox('pinPoint', CJTBlockModel::PINS_POSTS_ALL_POSTS) ?> <?php echo cssJSToolbox::getText('All Posts') ?>
-							</label>
-						</li>
-						<li>
-							<label>
-<?php						echo $this->getPinCheckbox('pinPoint', CJTBlockModel::PINS_POSTS_BLOG_INDEX) ?> <?php echo cssJSToolbox::getText('Blog Index') ?>
-							</label>
-						</li>
-						<li>
-							<label>
-<?php						echo $this->getPinCheckbox('pinPoint', CJTBlockModel::PINS_POSTS_RECENT) ?> <?php echo cssJSToolbox::getText('Recent Posts') ?>
-							</label>
-						</li>
 							<?php WPPagesListHelper::show_pages_with_checkbox($block->id, $block->posts, 'post', 'posts'); ?>
 					</ul>
 				</div>
@@ -100,26 +74,32 @@
 				
 				<div id="tabs-<?php echo $block->id; ?>-categories">
 					<ul class="pagelist">
-						<li>
-							<label>
-<?php						echo $this->getPinCheckbox('pinPoint', CJTBlockModel::PINS_CATEGORIES_ALL_CATEGORIES) ?> <?php echo cssJSToolbox::getText('All Categories') ?>
-							</label>
-						</li>
 							<?php WPPagesListHelper::show_taxonomy_with_checkbox($block->id, $block->categories); ?>
 					</ul>
 				</div>
 				<div id="tabs-<?php echo $block->id; ?>-other">
 					<ul class="pagelist">
+						<li>
+							<label>
+<?php						echo $this->getPinCheckbox('pinPoint', CJTBlockModel::PINS_PAGES_FRONT_PAGE) ?>
+							</label> 
+							<span><a href="<?php bloginfo('url') ?>" target="_blank"><?php echo cssJSToolbox::getText('Front Page') ?></a></span>
+						</li>
 <?php
 							$list = array(
-								CJTBlockModel::PINS_FRONTEND => __('Entire Website'),
-								CJTBlockModel::PINS_BACKEND => __('Website Backend'),
-								CJTBlockModel::PINS_SEARCH => __('Search Pages'),
-								CJTBlockModel::PINS_ARCHIVE => __('All Archives'),
-								CJTBlockModel::PINS_TAG => __('Tag Archives'),
-								CJTBlockModel::PINS_AUTHOR => __('Author Archives'),
-								CJTBlockModel::PINS_ATTACHMENT => __('Attachment Pages'),
-								CJTBlockModel::PINS_404_ERROR => __('404 Error'),
+								CJTBlockModel::PINS_POSTS_BLOG_INDEX =>  cssJSToolbox::getText('Blog Index'),
+								CJTBlockModel::PINS_POSTS_ALL_POSTS =>  cssJSToolbox::getText('All Posts'),
+								CJTBlockModel::PINS_PAGES_ALL_PAGES =>  cssJSToolbox::getText('All Pages'),
+								CJTBlockModel::PINS_CATEGORIES_ALL_CATEGORIES =>  cssJSToolbox::getText('All Categories'),
+								CJTBlockModel::PINS_POSTS_RECENT =>  cssJSToolbox::getText('Recent Posts'),
+								CJTBlockModel::PINS_FRONTEND => cssJSToolbox::getText('Entire Website'),
+								CJTBlockModel::PINS_BACKEND => cssJSToolbox::getText('Website Backend'),
+								CJTBlockModel::PINS_SEARCH => cssJSToolbox::getText('Search Pages'),
+								CJTBlockModel::PINS_ARCHIVE => cssJSToolbox::getText('All Archives'),
+								CJTBlockModel::PINS_TAG => cssJSToolbox::getText('Tag Archives'),
+								CJTBlockModel::PINS_AUTHOR => cssJSToolbox::getText('Author Archives'),
+								CJTBlockModel::PINS_ATTACHMENT => cssJSToolbox::getText('Attachment Pages'),
+								CJTBlockModel::PINS_404_ERROR => cssJSToolbox::getText('404 Error'),
 							);
 							foreach ($list as $value => $text) :
 ?>
