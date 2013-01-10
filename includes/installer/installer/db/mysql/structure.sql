@@ -130,6 +130,5 @@ CREATE TABLE IF NOT EXISTS `#__cjtoolbox_template_revisions` (
   `file` varchar(400) DEFAULT NULL,
   `id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `templateid-revisionNo` (`revisionNo`,`templateId`),
-  UNIQUE KEY `file` (`file`)
+  UNIQUE KEY `templateid-revisionNo` (`revisionNo`,`templateId`)
 );
