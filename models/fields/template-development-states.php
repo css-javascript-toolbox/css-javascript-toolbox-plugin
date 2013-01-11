@@ -17,11 +17,11 @@ class CJTTemplateDevelopmentStatesField extends CJTListField {
 	*/
 	protected function prepareItems() {
 		if ($this->options['result'] == 'fullList') {
-			$this->items['release']['text'] = 'Release';
-			$this->items['beta']['text'] = 'Beta';
-			$this->items['alpha']['text'] = 'Alpha';
-			$this->items['release-candidate']['text'] = 'Release Candidate';
-			$this->items['revision']['text'] = 'Revision';
+			$this->items['release']['text'] = cssJSToolbox::getText('release');
+			$this->items['beta']['text'] = cssJSToolbox::getText('beta');
+			$this->items['alpha']['text'] = cssJSToolbox::getText('alpha');
+			$this->items['release-candidate']['text'] = cssJSToolbox::getText('release-candidate');
+			$this->items['revision']['text'] = cssJSToolbox::getText('revision');
 		}
 		else {
 			// Import dependencies.

@@ -254,7 +254,7 @@ class CJTMYSQLQueueDriver extends CJTHookableClass {
 		$queue = $this->onprocessqueue($this->queue);
 		// Collect queue commands.
 		foreach ($queue as $command) {
-			  $this->wpdb->query($this->onprocesscommand($command));
+			$this->wpdb->query($this->onprocesscommand($command));
 		}
 		// Clear queue.
 		$this->clear();

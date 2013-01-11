@@ -16,14 +16,21 @@ class CJTAjaxAccessPoint extends CJTAccessPoint {
 	* 
 	*/
 	public function __construct() {
-		// Set access point name!
-		$this->name = 'ajax';
-		// Define CJT AJAX access point!
-		add_action("wp_ajax_{$this->pageId}_api", array(&$this, 'route'));
 		// Initialize Access Point base!
 		parent::__construct();
+		// Set access point name!
+		$this->name = 'ajax';
 	}
 
+	/**
+	* put your comment there...
+	* 
+	*/
+	protected function doListen() {
+		// Define CJT AJAX access point!
+		add_action("wp_ajax_{$this->pageId}_api", array(&$this, 'route'));
+	}
+	
 	/**
 	* put your comment there...
 	* 
@@ -43,3 +50,6 @@ class CJTAjaxAccessPoint extends CJTAccessPoint {
 	}
 	
 } // End class.
+
+// Hookable!
+CJTAjaxAccessPoint::define('CJTAjaxAccessPoint', array('hookType' => CJTWordpressEvents::HOOK_FILTER));

@@ -45,7 +45,7 @@ class CJTTemplatesManagerModel {
 		$ids = $dbDriver->select("SELECT id 
 																														FROM #__cjtoolbox_templates 
 																														WHERE ID IN ({$ids}) AND `state` = 'trash'");
-		$ids = array_keys($ids);
+		$ids = implode(', ', array_keys($ids));
 		// Permenantly delete all templates data from
 		// templates table and all refernced tables.
 		$dbDriver->startTransaction()

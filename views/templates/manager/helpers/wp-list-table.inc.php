@@ -125,9 +125,9 @@ class CJTTemplatesManagerListTable extends WP_List_Table {
 		// Bulk ations.
 		$actions = array(
 			'delete' => cssJSToolbox::getText('Delete'),
-			'changeState::published' => cssJSToolbox::getText('Publish'),
-			'changeState::trash' => cssJSToolbox::getText('Trash'),
-			'changeState::draft' => cssJSToolbox::getText('Draft'),
+			'changeState::published' => cssJSToolbox::getText('published'),
+			'changeState::trash' => cssJSToolbox::getText('trash'),
+			'changeState::draft' => cssJSToolbox::getText('draft'),
 		);
 		// Return actions!
 		return $actions;

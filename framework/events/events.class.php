@@ -122,7 +122,7 @@ abstract class CJTEvents {
 	public function bind($typeName, $observer, $typePrefixed = true) {
 		$type = $this->parseEventType($typeName, $typePrefixed);
 		$subject = $this->getSubject($type);
-		$subject[] = $subject;
+		$subject[] = $observer;
 		return $this;
 	}
 

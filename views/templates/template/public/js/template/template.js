@@ -44,11 +44,16 @@
 			if (typeName) {
 				// Ask for confirmation only when creating new template only!
 				if (this.form.prop('item[template][id]').value || confirm(CJTTemplateI18N.confirmSetType)) {
-					// Set mode namt.
+					// Set mode name.
 					var modePath =  'ace/mode/' + typeName;
 					this.aceEditor.getSession().setMode(modePath);
 					// Disable the list.
 					$(list).prop('disabled', 'disabled');
+					// Disable fields doesn't be in the submission! 
+					// Add hidden field with the selected value
+					$(list).after('<input type="hidden" name="' + list.name + '" value="' + list.value + '" />');
+					// Don't leave two items with the same names!
+					list.name = '';
 				}
 				else {
 					// Clear selection and allow changing it!

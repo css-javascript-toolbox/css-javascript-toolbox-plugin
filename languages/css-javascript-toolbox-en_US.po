@@ -1,0 +1,1058 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: CSS & Javascript Toolbox 6.0\n"
+"POT-Creation-Date: 2013-01-11 15:59+0100\n"
+"PO-Revision-Date: 2013-01-11 19:52+0100\n"
+"Last-Translator: \n"
+"Language-Team: CJT Team <development@css-javascript-toolbox.com>\n"
+"Language: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-KeywordsList: getText\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#: access.points/manage.accesspoint.php:30
+#: views/blocks/manager/tmpl/blocks.html.tmpl:11
+msgid "CSS & Javascript Toolbox"
+msgstr ""
+
+#: access.points/manage.accesspoint.php:38
+msgid "Extensions"
+msgstr ""
+
+#: controllers/blocks-coupling.php:621
+msgid ""
+"Shortcode Type is not supported!! Only (block) type is currently available!!!"
+msgstr ""
+
+#: controllers/metabox.php:53
+#, php-format
+msgid "CJT Block - Post #%d"
+msgstr ""
+
+#: controllers/metabox.php:87 controllers/metabox.php:161
+msgid "CJT Block"
+msgstr ""
+
+#: controllers/templates-lookup.php:81
+#: views/templates/lookup/tmpl/default.html.tmpl:40
+msgid "Unlink"
+msgstr ""
+
+#: controllers/templates-lookup.php:99 controllers/templates-lookup.php:115
+#: views/templates/lookup/tmpl/default.html.tmpl:42
+msgid "Link"
+msgstr ""
+
+#: framework/js/misc/simple-error-dialog/simple-error-dialog.localization.php:13
+msgid "Submission Error!"
+msgstr ""
+
+#: tables/template.php:50
+#: views/templates/manager/helpers/wp-list-table.inc.php:130
+msgid "draft"
+msgstr "Draft"
+
+#: tables/template.php:51
+#: views/templates/manager/helpers/wp-list-table.inc.php:128
+msgid "published"
+msgstr "Published"
+
+#: tables/template.php:52
+#: views/templates/manager/helpers/wp-list-table.inc.php:129
+msgid "trash"
+msgstr "Trash"
+
+#: views/backups/manager/public/js/backups/backups.localization.php:11
+msgid "Backup name cannot be null!"
+msgstr ""
+
+#: views/backups/manager/public/js/backups/backups.localization.php:12
+msgid "Would you like to delete \"{BACKUP-NAME}\" backup?"
+msgstr ""
+
+#: views/blocks/block/view.php:119
+msgid "Click to update Block name"
+msgstr ""
+
+#: views/blocks/block/public/js/jquery.block/jquery.block.localization.php:13
+msgid "Block revisions"
+msgstr ""
+
+#: views/blocks/block/public/js/jquery.block/jquery.block.localization.php:14
+msgid "CJT-Block Info"
+msgstr ""
+
+#: views/blocks/block/public/js/jquery.block/jquery.block.localization.php:15
+#, php-format
+msgid "Are you sure you want to delete this (%s) code block?"
+msgstr ""
+
+#: views/blocks/block/public/js/jquery.block/jquery.block.localization.php:16
+msgid "Deactivate (turn off) code block"
+msgstr ""
+
+#: views/blocks/block/public/js/jquery.block/jquery.block.localization.php:17
+msgid "Activate (turn on) code block"
+msgstr ""
+
+#: views/blocks/block/public/js/jquery.block/jquery.block.localization.php:18
+msgid "Set output location hook to footer"
+msgstr ""
+
+#: views/blocks/block/public/js/jquery.block/jquery.block.localization.php:19
+msgid "Set output location hook to header"
+msgstr ""
+
+#: views/blocks/block/public/js/jquery.block/jquery.block.localization.php:20
+msgid "Revert code editor to default mode"
+msgstr ""
+
+#: views/blocks/block/public/js/jquery.block/jquery.block.localization.php:21
+msgid "Switch code editor to fullscreen mode"
+msgstr ""
+
+#: views/blocks/cjt-block/public/js/jquery.block/jquery.block.localization.php:13
+msgid "Switch code editor to fullwidth mode (hides assignment panel)"
+msgstr ""
+
+#: views/blocks/cjt-block/public/js/jquery.block/jquery.block.localization.php:14
+msgid "Revert code editor to default mode (show assignment panel)"
+msgstr ""
+
+#: views/blocks/create-metabox/public/js/metabox/metabox.localization.php:13
+msgid "Would you like to create CJT block Metabox for this post?"
+msgstr ""
+
+#: views/blocks/manager/public/js/blocks-page/blocks-page.localization.php:13
+msgid "Create New Code Block"
+msgstr ""
+
+#: views/blocks/manager/public/js/blocks-page/blocks-page.localization.php:14
+msgid "General settings"
+msgstr ""
+
+#: views/blocks/manager/public/js/blocks-page/blocks-page.localization.php:15
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:35
+msgid "Backups"
+msgstr ""
+
+#: views/blocks/manager/public/js/blocks-page/blocks-page.localization.php:16
+msgid "Restoring blocks backup will result in losing all the current blocks."
+msgstr ""
+
+#: views/blocks/manager/public/js/blocks-page/blocks-page.localization.php:16
+msgid "Are you sure, you'd like to continue?"
+msgstr ""
+
+#: views/blocks/manager/public/js/blocks-page/blocks-page.localization.php:17
+msgid "Backup could not be restored"
+msgstr ""
+
+#: views/blocks/manager/public/js/blocks-page/blocks-page.localization.php:18
+msgid "Templates Manager"
+msgstr ""
+
+#: views/blocks/manager/public/js/blocks-page/blocks-page.localization.php:19
+#, php-format
+msgid "You're about to delete %d code block(s)."
+msgstr ""
+
+#: views/blocks/manager/public/js/blocks-page/blocks-page.localization.php:20
+msgid "Are you sure you want to delete all code blocks?"
+msgstr ""
+
+#: views/blocks/manager/public/js/blocks-page/blocks-page.localization.php:21
+msgid "Are you sure you want to delete all the empty code blocks?"
+msgstr ""
+
+#: views/blocks/metabox/public/js/jquery.block/jquery.block.localization.php:12
+msgid "Preview Post/Page in a new window"
+msgstr ""
+
+#: views/blocks/metabox/public/js/metabox/metabox.localization.php:13
+msgid "You've changed CJT block content but you didn' save this changes yet!"
+msgstr ""
+
+#: views/blocks/metabox/public/js/metabox/metabox.localization.php:13
+msgid "Would you really like to leave the page without saving this chnages"
+msgstr ""
+
+#: views/blocks/new/public/js/add-new-block/add-new-block.localization.php:13
+msgid "block"
+msgstr ""
+
+#: views/blocks/new/public/js/add-new-block/add-new-block.localization.php:14
+msgid "code block"
+msgstr ""
+
+#: views/installer/install/public/js/default/default.localization.php:13
+msgid "Start"
+msgstr ""
+
+#: views/installer/install/public/js/default/default.localization.php:14
+msgid "Installation Completed ... Click Start button and have fun!!!"
+msgstr ""
+
+#: views/installer/notice/public/js/default/default.localization.php:13
+msgid ""
+"The notice message wont displayed again! You still can install/upgrade the "
+"Plugin by going to the manage blocks page.  Would you really like to dismis "
+"this notice?"
+msgstr ""
+
+#: views/settings/manager/view.php:35
+msgid "MetaBox"
+msgstr ""
+
+#: views/templates/info/view.php:39
+msgid "N/A"
+msgstr ""
+
+#: views/templates/lookup/public/js/lookup/lookup.localization.php:13
+msgid "This operation is permanent and cannot be reverted!"
+msgstr ""
+
+#: views/templates/lookup/public/js/lookup/lookup.localization.php:15
+msgid "Would you like to UNLINK all linked templates?"
+msgstr ""
+
+#: views/templates/lookup/public/js/lookup/lookup.localization.php:16
+msgid "All Templates has been unlinked sucessfully!"
+msgstr ""
+
+#: views/templates/manager/helpers/wp-list-table.inc.php:51
+#: views/templates/info/tmpl/default.html.tmpl:3
+msgid "Info"
+msgstr ""
+
+#: views/templates/manager/helpers/wp-list-table.inc.php:52
+msgid "Edit"
+msgstr ""
+
+#: views/templates/manager/helpers/wp-list-table.inc.php:55
+#: views/templates/manager/helpers/wp-list-table.inc.php:127
+msgid "Delete"
+msgstr ""
+
+#: views/templates/manager/helpers/wp-list-table.inc.php:149
+#: views/blocks/info/tmpl/default.html.tmpl:4
+#: views/blocks/new/tmpl/default.html.tmpl:24
+#: views/templates/info/tmpl/default.html.tmpl:6
+#: views/templates/template/tmpl/default.html.tmpl:44
+msgid "Name"
+msgstr ""
+
+#: views/templates/manager/helpers/wp-list-table.inc.php:150
+#: views/templates/info/tmpl/default.html.tmpl:7
+msgid "Type"
+msgstr ""
+
+#: views/templates/manager/helpers/wp-list-table.inc.php:151
+#: views/templates/info/tmpl/default.html.tmpl:16
+#: views/templates/template/tmpl/default.html.tmpl:39
+#: views/templates/template/tmpl/default.html.tmpl:73
+msgid "Version"
+msgstr ""
+
+#: views/templates/manager/helpers/wp-list-table.inc.php:152
+msgid "Release"
+msgstr ""
+
+#: views/templates/manager/helpers/wp-list-table.inc.php:153
+#: views/blocks/info/tmpl/default.html.tmpl:5
+#: views/templates/info/tmpl/default.html.tmpl:17
+msgid "Author"
+msgstr ""
+
+#: views/templates/manager/helpers/wp-list-table.inc.php:154
+#: views/blocks/info/tmpl/default.html.tmpl:6
+msgid "Date Created"
+msgstr ""
+
+#: views/templates/manager/helpers/wp-list-table.inc.php:155
+#: views/blocks/info/tmpl/default.html.tmpl:7
+#: views/templates/info/tmpl/default.html.tmpl:9
+msgid "Last Modified"
+msgstr ""
+                                                                                                                                    
+#: views/templates/manager/helpers/wp-list-table.inc.php:156
+#: views/templates/template/tmpl/default.html.tmpl:75
+msgid "State"
+msgstr ""
+
+#: views/templates/manager/public/js/manager/manager.localization.php:13
+msgid "Create New Template"
+msgstr ""
+
+#: views/templates/manager/public/js/manager/manager.localization.php:14
+msgid "Edit Template"
+msgstr ""
+
+#: views/templates/manager/public/js/manager/manager.localization.php:15
+msgid "Are you sure you want to delete all the selected templates?"
+msgstr ""
+
+#: views/templates/template/public/js/template/template.localization.php:13
+#: views/templates/template/public/js/template/template.localization.php:14
+msgid "template"
+msgstr ""
+
+#: views/templates/template/public/js/template/template.localization.php:15
+msgid "language type"
+msgstr ""
+
+#: views/templates/template/public/js/template/template.localization.php:15
+msgid "CSS, JavaScript, HTML, or PHP"
+msgstr ""
+
+#: views/templates/template/public/js/template/template.localization.php:16
+msgid "template state"
+msgstr ""
+
+#: views/templates/template/public/js/template/template.localization.php:16
+msgid "Published, Draft, or Trash"
+msgstr ""
+
+#: views/templates/template/public/js/template/template.localization.php:17
+msgid ""
+"You won't be able to revert the type name once its set! Are you sure would "
+"you like to use the selected type?"
+msgstr ""
+
+#: views/backups/manager/tmpl/form.html.tmpl:6
+msgid ""
+"Write backup name and click Backup button to create backup from current "
+"blocks"
+msgstr ""
+
+#: views/backups/manager/tmpl/list.html.tmpl:3
+msgid ""
+"There is no backups available! You can start creating new backups from the "
+"form above."
+msgstr ""
+
+#: views/backups/manager/tmpl/single-backup.html.tmpl:16
+msgid "By"
+msgstr ""
+
+#: views/blocks/block/tmpl/edit.html.tmpl:12
+msgid "Cancel editing code block title"
+msgstr ""
+
+#: views/blocks/block/tmpl/edit.html.tmpl:13
+msgid "Save code block title"
+msgstr ""
+
+#: views/blocks/block/tmpl/templates/editor-toolbox.html.tmpl:12
+msgid "Increase font size in code editor"
+msgstr ""
+
+#: views/blocks/block/tmpl/templates/editor-toolbox.html.tmpl:13
+msgid "Decrease font size in code editor"
+msgstr ""
+
+#: views/blocks/block/tmpl/templates/editor-toolbox.html.tmpl:14
+msgid "Reset font size in code editor"
+msgstr ""
+
+#: views/blocks/block/tmpl/templates/editor-toolbox.html.tmpl:15
+msgid ""
+"Clear all text in code editor.  To undo, click Command-Z for Mac or Ctrl-Z "
+"for Windows.  Click Save to permanently take affect"
+msgstr ""
+
+#: views/blocks/block/tmpl/templates/toolbox.html.tmpl:9
+msgid "Template Lookup - Embed or link templates to code blocks"
+msgstr ""
+
+#: views/blocks/block/tmpl/templates/toolbox.html.tmpl:12
+msgid "Show code block information"
+msgstr ""
+
+#: views/blocks/block/tmpl/templates/toolbox.html.tmpl:14
+msgid "Set editing language for syntax highlighting"
+msgstr ""
+
+#: views/blocks/block/tmpl/templates/toolbox.html.tmpl:16
+msgid "Set editing language to CSS"
+msgstr ""
+
+#: views/blocks/block/tmpl/templates/toolbox.html.tmpl:16
+msgid "Cascading Style Sheets"
+msgstr ""
+
+#: views/blocks/block/tmpl/templates/toolbox.html.tmpl:17
+msgid "Set editing language to HTML"
+msgstr ""
+
+#: views/blocks/block/tmpl/templates/toolbox.html.tmpl:17
+msgid "Hyper Text Markup Language"
+msgstr ""
+
+#: views/blocks/block/tmpl/templates/toolbox.html.tmpl:18
+msgid "Set editing language to JavaScript"
+msgstr ""
+
+#: views/blocks/block/tmpl/templates/toolbox.html.tmpl:18
+msgid "javascript"
+msgstr "JavaScript"
+
+#: views/blocks/block/tmpl/templates/toolbox.html.tmpl:19
+msgid "Set editing language to PHP"
+msgstr ""
+
+#: views/blocks/block/tmpl/templates/toolbox.html.tmpl:19
+msgid "PHP: Hypertext Preprocessor"
+msgstr ""
+
+#: views/blocks/block/tmpl/templates/toolbox.html.tmpl:22
+msgid "Edit code block title.  Click Save to take affect"
+msgstr ""
+
+#: views/blocks/block/tmpl/templates/toolbox.html.tmpl:23
+msgid "View and restore code block revisions"
+msgstr ""
+
+#: views/blocks/block/tmpl/templates/toolbox.html.tmpl:24
+msgid "Delete Block"
+msgstr ""
+
+#: views/blocks/block/tmpl/templates/toolbox.html.tmpl:28
+msgid "Save changes to code block"
+msgstr ""
+
+#: views/blocks/block/tmpl/templates/toolbox.html.tmpl:28
+#: views/templates/template/tmpl/default.html.tmpl:12
+msgid "Save"
+msgstr ""
+
+#: views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:9
+msgid "Pages"
+msgstr ""
+
+#: views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:10
+msgid "Posts"
+msgstr ""
+
+#: views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:11
+msgid "Custom Posts"
+msgstr ""
+
+#: views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:12
+msgid "Categories"
+msgstr ""
+
+#: views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:13
+msgid "Auxiliary"
+msgstr ""
+
+#: views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:14
+msgid "Advanced"
+msgstr ""
+
+#: views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:62
+msgid "There is no Custom Posts Defined yet!"
+msgstr ""
+
+#: views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:86
+msgid "Front Page"
+msgstr ""
+
+#: views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:90
+msgid "Blog Index"
+msgstr ""
+
+#: views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:91
+msgid "All Posts"
+msgstr ""
+
+#: views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:92
+msgid "All Pages"
+msgstr ""
+
+#: views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:93
+msgid "All Categories"
+msgstr ""
+
+#: views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:94
+msgid "Recent Posts"
+msgstr ""
+
+#: views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:95
+msgid "Entire Website"
+msgstr ""
+
+#: views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:96
+msgid "Website Backend"
+msgstr ""
+
+#: views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:97
+msgid "Search Pages"
+msgstr ""
+
+#: views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:98
+msgid "All Archives"
+msgstr ""
+
+#: views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:99
+msgid "Tag Archives"
+msgstr ""
+
+#: views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:100
+msgid "Author Archives"
+msgstr ""
+
+#: views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:101
+msgid "Attachment Pages"
+msgstr ""
+
+#: views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:102
+msgid "404 Error"
+msgstr ""
+
+#: views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:116
+msgid "One URL per line"
+msgstr ""
+
+#: views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:116
+msgid "URLs"
+msgstr ""
+
+#: views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:120
+msgid "One Expression per line"
+msgstr ""
+
+#: views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:120
+msgid "Expressions"
+msgstr ""
+
+#: views/blocks/create-metabox/tmpl/create.html.tmpl:22
+msgid "Would you like to create a new CJT block for this post?"
+msgstr ""
+
+#: views/blocks/create-metabox/tmpl/create.html.tmpl:23
+msgid ""
+"In order to increase performance while navigating the post pages and for "
+"saving database records we're not creating CJT code block for any post until "
+"you really need to do!"
+msgstr ""
+
+#: views/blocks/create-metabox/tmpl/create.html.tmpl:24
+msgid "Click"
+msgstr ""
+
+#: views/blocks/create-metabox/tmpl/create.html.tmpl:24
+#: views/blocks/new/tmpl/default.html.tmpl:67
+msgid "Create"
+msgstr ""
+
+#: views/blocks/create-metabox/tmpl/create.html.tmpl:24
+msgid ""
+"to create CJT code block for current post and utilize from all features "
+"found in the CJT management page!"
+msgstr ""
+
+#: views/blocks/info/tmpl/default.html.tmpl:3
+#: views/templates/info/tmpl/default.html.tmpl:5
+msgid "ID"
+msgstr ""
+
+#: views/blocks/info/tmpl/default.html.tmpl:8
+msgid "Shortcode"
+msgstr ""
+
+#: views/blocks/manager/tmpl/blocks.html.tmpl:21
+msgid ""
+"You have now restored the code blocks from the current backup. Nothing is "
+"saved until you click \"Restore\" button. To revert back to the previous "
+"code blocks and discard this action, simply click the \"Cancel Restore\" "
+"button."
+msgstr ""
+
+#: views/blocks/manager/tmpl/blocks.html.tmpl:34
+msgid "Warning!"
+msgstr ""
+
+#: views/blocks/manager/tmpl/blocks.html.tmpl:34
+msgid ""
+"Please make sure to validate added CSS &amp; JavaScript codes, the plugin "
+"doesn't do that for you!"
+msgstr ""
+
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:3
+msgid "Add new code block"
+msgstr ""
+
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:3
+msgid "New Code Block"
+msgstr ""
+
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:4
+msgid "Save changes to all code blocks"
+msgstr ""
+
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:4
+msgid "Save All Changes"
+msgstr ""
+
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:5
+msgid "Cancel backup restoring"
+msgstr ""
+
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:5
+msgid "Cancel Restore"
+msgstr ""
+
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:6
+msgid "Save restored Backup"
+msgstr ""
+
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:6
+#: views/blocks/revisions/tmpl/default.html.tmpl:27
+msgid "Restore"
+msgstr ""
+
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:9
+msgid "Tools for block state (batch)"
+msgstr ""
+
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:11
+msgid "Activate (turn on) all code blocks"
+msgstr ""
+
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:11
+msgid "Activate All"
+msgstr ""
+
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:13
+msgid "Deactivate (turn off) all code blocks"
+msgstr ""
+
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:13
+msgid "Deactivate All"
+msgstr ""
+
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:15
+msgid "Switch current state for all code blocks"
+msgstr ""
+
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:15
+msgid "Revert State"
+msgstr ""
+
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:18
+msgid "Tools for location hook (batch)"
+msgstr ""
+
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:20
+msgid "Set output location hook to footer for all code blocks"
+msgstr ""
+
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:20
+msgid "Footer all"
+msgstr ""
+
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:22
+msgid "Set output location hook to header for all code blocks"
+msgstr ""
+
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:22
+msgid "Header all"
+msgstr ""
+
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:26
+msgid "Code Template Manager"
+msgstr ""
+
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:29
+msgid "Tools for block cleanup and backup"
+msgstr ""
+
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:31
+msgid "Delete all code blocks"
+msgstr ""
+
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:31
+msgid "Delete all"
+msgstr ""
+
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:33
+msgid "Delete only empty code blocks"
+msgstr ""
+
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:33
+msgid "Delete Empty"
+msgstr ""
+
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:35
+msgid "Backup Manager - Create, restore, or delete backups"
+msgstr ""
+
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:38
+msgid "General plugin settings"
+msgstr ""
+
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:40
+msgid "Maximise all code blocks"
+msgstr ""
+
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:41
+msgid "Minimise all code blocks"
+msgstr ""
+
+#: views/blocks/new/tmpl/default.html.tmpl:24
+msgid "Name or title of code block  (must be unique and cannot be left blank)"
+msgstr ""
+
+#: views/blocks/new/tmpl/default.html.tmpl:28
+msgid "Tick the checkbox to Activate (turn on) code block"
+msgstr ""
+
+#: views/blocks/new/tmpl/default.html.tmpl:28
+msgid "Activate"
+msgstr ""
+
+#: views/blocks/new/tmpl/default.html.tmpl:32
+msgid "Set location hook for code block output to: Header or Footer"
+msgstr ""
+
+#: views/blocks/new/tmpl/default.html.tmpl:32
+msgid "Location Hook"
+msgstr ""
+
+#: views/blocks/new/tmpl/default.html.tmpl:36
+msgid "Header"
+msgstr ""
+
+#: views/blocks/new/tmpl/default.html.tmpl:37
+msgid "Footer"
+msgstr ""
+
+#: views/blocks/new/tmpl/default.html.tmpl:48
+msgid "Set initial code block position to: First Block or Last Block"
+msgstr ""
+
+#: views/blocks/new/tmpl/default.html.tmpl:48
+msgid "Initial Block Position"
+msgstr ""
+
+#: views/blocks/new/tmpl/default.html.tmpl:53
+msgid "First Block"
+msgstr ""
+
+#: views/blocks/new/tmpl/default.html.tmpl:54
+msgid "Last Block"
+msgstr ""
+
+#: views/blocks/new/tmpl/default.html.tmpl:66
+#: views/templates/template/tmpl/default.html.tmpl:15
+msgid "Cancel"
+msgstr ""
+
+#: views/blocks/revisions/tmpl/default.html.tmpl:19
+msgid "No revisions!"
+msgstr ""
+
+#: views/blocks/revisions/tmpl/default.html.tmpl:26
+msgid "by"
+msgstr ""
+
+#: views/installer/install/tmpl/default.html.tmpl:23
+msgid ""
+"In order to start using CJT Plugin you need first to install the Plugin."
+msgstr ""
+
+#: views/installer/install/tmpl/default.html.tmpl:24
+msgid ""
+"The installation process will create CJT database tables, build-it Database "
+"records."
+msgstr ""
+
+#: views/installer/install/tmpl/default.html.tmpl:25
+msgid "Check for previous version and if the upgrade process is needed."
+msgstr ""
+
+#: views/installer/install/tmpl/default.html.tmpl:26
+msgid ""
+"The Plugin is in disable state untill the  installation process took place!"
+msgstr ""
+
+#: views/installer/install/tmpl/default.html.tmpl:27
+msgid ""
+"To utilize from the CJT functionality you must install the Plugin first!!"
+msgstr ""
+
+#: views/installer/install/tmpl/default.html.tmpl:29
+msgid "Installing Version "
+msgstr ""
+
+#: views/installer/install/tmpl/default.html.tmpl:30
+msgid ""
+"When you install a new version of CJT for the first time or even upgrading "
+"from old versions, a number of processes will happen, which will take "
+"approximately 1 to 2 minutes. These processes include"
+msgstr ""
+
+#: views/installer/install/tmpl/default.html.tmpl:37
+msgid "Create database tables."
+msgstr ""
+
+#: views/installer/install/tmpl/default.html.tmpl:38
+msgid ""
+"Creating file system directories (e.g wp-content/cjt-content/templates)."
+msgstr ""
+
+#: views/installer/install/tmpl/default.html.tmpl:39
+msgid "Add CJT built-in authors used by templates system."
+msgstr ""
+
+#: views/installer/install/tmpl/default.html.tmpl:40
+msgid ""
+"Add Wordpress built-in scripts and styles as CJT Templates so it can be used "
+"throught Templates Lookup form."
+msgstr ""
+
+#: views/installer/install/tmpl/default.html.tmpl:41
+msgid ""
+"Add CJT templats library comes with the installer. There're a few great "
+"templates out there."
+msgstr ""
+
+#: views/installer/install/tmpl/default.html.tmpl:42
+msgid "Sample blocks can be used to learn how to use CJT Plugin."
+msgstr ""
+
+#: views/installer/install/tmpl/default.html.tmpl:43
+msgid "Finalize Installation."
+msgstr ""
+
+#: views/installer/install/tmpl/upgrades/upgrade.html.tmpl:9
+msgid "Upgrading Plugin"
+msgstr ""
+
+#: views/installer/install/tmpl/upgrades/upgrade.html.tmpl:10
+msgid ""
+"The upgrade process time estimation cannot be preditected because its based "
+"on the amount of data (blocks + other data) you've created."
+msgstr ""
+
+#: views/installer/install/tmpl/upgrades/upgrade.html.tmpl:11
+msgid ""
+"Important Note: It is highly recommended to upgrade the plugin using the "
+"same administrator or user that was used to manage the code blocks. This "
+"allows the upgrade system to obtain the code blocks 'ORDER' from the current "
+"logged in administrators or users' meta data."
+msgstr ""
+
+#: views/installer/install/tmpl/upgrades/upgrade.html.tmpl:16
+msgid ""
+"Transfer blocks to the new blocks table. Old versions doesn't use a specific "
+"blocks table!"
+msgstr ""
+
+#: views/installer/install/tmpl/upgrades/upgrade.html.tmpl:17
+msgid ""
+"Transfer templates to the new database table. New template is enhanced and "
+"support revisioning and other development attributes."
+msgstr ""
+
+#: views/installer/install/tmpl/upgrades/upgrade.html.tmpl:22
+msgid "Finalize Upgrade."
+msgstr ""
+
+#: views/installer/notice/tmpl/default.html.tmpl:12
+msgid ""
+"CJT Plugin has been installed throught Wordpress Plugins manager page. In "
+"order for CJT Plugin to work correctly you must install it throught"
+msgstr ""
+
+#: views/installer/notice/tmpl/default.html.tmpl:13
+msgid "CJT-Instalaltion page."
+msgstr ""
+
+#: views/installer/notice/tmpl/default.html.tmpl:16
+msgid "Please or you can go to the installation page directly through the"
+msgstr ""
+
+#: views/installer/notice/tmpl/default.html.tmpl:17
+msgid "CSS & Javascript Toolbox page."
+msgstr ""
+
+#: views/installer/notice/tmpl/default.html.tmpl:19
+msgid "Dismiss"
+msgstr ""
+
+#: views/settings/manager/tmpl/pages/metabox.html.tmpl:12
+msgid "Registered Post Types"
+msgstr ""
+
+#: views/templates/info/tmpl/default.html.tmpl:8
+msgid "Creation Date"
+msgstr ""
+
+#: views/templates/info/tmpl/default.html.tmpl:10
+msgid "Last Revision Comment"
+msgstr ""
+
+#: views/templates/info/tmpl/default.html.tmpl:13
+msgid "About"
+msgstr ""
+
+#: views/templates/info/tmpl/default.html.tmpl:15
+#: views/templates/template/tmpl/default.html.tmpl:38
+#: views/templates/template/tmpl/default.html.tmpl:65
+msgid "Description"
+msgstr ""
+
+#: views/templates/info/tmpl/default.html.tmpl:18
+#: views/templates/template/tmpl/default.html.tmpl:66
+msgid "Keywords"
+msgstr ""
+
+#: views/templates/lookup/tmpl/default.html.tmpl:32
+msgid "User"
+msgstr ""
+
+#: views/templates/lookup/tmpl/default.html.tmpl:38
+msgid "Embed"
+msgstr ""
+
+#: views/templates/lookup/tmpl/default.html.tmpl:58
+msgid "Show"
+msgstr ""
+
+#: views/templates/lookup/tmpl/default.html.tmpl:60
+msgid "Linked"
+msgstr ""
+
+#: views/templates/lookup/tmpl/default.html.tmpl:61
+msgid "Unlinked"
+msgstr ""
+
+#: views/templates/lookup/tmpl/default.html.tmpl:62
+msgid "All"
+msgstr ""
+
+#: views/templates/lookup/tmpl/default.html.tmpl:66
+msgid "Unlink All"
+msgstr ""
+
+#: views/templates/manager/tmpl/default.html.tmpl:25
+msgid "Create Template"
+msgstr ""
+
+#: views/templates/template/tmpl/default.html.tmpl:11
+msgid "Close"
+msgstr ""
+
+#: views/templates/template/tmpl/default.html.tmpl:16
+msgid "Update"
+msgstr ""
+
+#: views/templates/template/tmpl/default.html.tmpl:37
+msgid "Main"
+msgstr ""
+
+#: views/templates/template/tmpl/default.html.tmpl:44
+msgid "Name or title of template  (must be unique and cannot be left blank)"
+msgstr ""
+
+#: views/templates/template/tmpl/default.html.tmpl:46
+msgid ""
+"Set the code language to: CSS, JavaScript, HTML, or PHP  (selection must be "
+"made)"
+msgstr ""
+
+#: views/templates/template/tmpl/default.html.tmpl:46
+msgid "Language"
+msgstr ""
+
+#: views/templates/template/tmpl/default.html.tmpl:47
+msgid "< Select Type >"
+msgstr ""
+
+#: views/templates/template/tmpl/default.html.tmpl:50
+msgid ""
+"Set the template state to: Published, Draft, or Trash  (selection must be "
+"made)"
+msgstr ""
+
+#: views/templates/template/tmpl/default.html.tmpl:50
+msgid "Template State"
+msgstr ""
+
+#: views/templates/template/tmpl/default.html.tmpl:51
+#: views/templates/template/tmpl/default.html.tmpl:76
+msgid "< Select State >"
+msgstr ""
+
+#: views/templates/template/tmpl/default.html.tmpl:54
+msgid ""
+"Enter code for the template in the large text ﬁeld and click Save when done"
+msgstr ""
+
+#: views/templates/template/tmpl/default.html.tmpl:54
+msgid "Code"
+msgstr ""
+
+#: views/templates/template/tmpl/default.html.tmpl:65
+msgid ""
+"Enter a descriptive write-up for the template describing what it is, and how "
+"it works, etc "
+msgstr ""
+
+#: views/templates/template/tmpl/default.html.tmpl:66
+msgid ""
+"Enter strong keywords for the template - each being separated by a comma"
+msgstr ""
+
+#: views/templates/template/tmpl/default.html.tmpl:73
+msgid "Enter the speciﬁc version for the template  (e.g. 1.0)"
+msgstr ""
+
+#: views/templates/template/tmpl/default.html.tmpl:75
+msgid ""
+"Set the release state to: Release, Beta, Alpha, Release Candidate, or "
+"Revision"
+msgstr ""
+
+#: views/templates/template/tmpl/default.html.tmpl:78
+msgid ""
+"Add any notes such as stability issues, bug ﬁxes, or anything that can be "
+"useful for future development"
+msgstr ""
+
+#: views/templates/template/tmpl/default.html.tmpl:78
+msgid "Revision note"
+msgstr ""
+
+#: Database mapping. Maps database constants to localized strings. Language
+#: Types & Template States.
+msgid "php"
+msgstr "PHP"
+
+msgid "css"
+msgstr "CSS"
+
+msgid "html"
+msgstr "HTML"
+
+#: Template R3evision State
+msgid "release"
+msgstr "Release"
+
+msgid "revision"
+msgstr "Revision"
+
+msgid "beta"
+msgstr "Beta"
+
+msgid "alpha"
+msgstr "Alpha"
+
+msgid "release-candidate"
+msgstr "Release Candidate"

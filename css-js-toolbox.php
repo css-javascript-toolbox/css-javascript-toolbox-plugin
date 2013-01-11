@@ -32,6 +32,9 @@ define('CJTOOLBOX_NAME', plugin_basename(dirname(__FILE__)));
 /** CJT Text Domain used for localize texts */
 define('CJTOOLBOX_TEXT_DOMAIN', CJTOOLBOX_NAME);
 
+/**  */
+define('CJTOOLBOX_LANGUAGES', CJTOOLBOX_NAME . '/languages/');
+
 /** CJT Absoulte path */
 define('CJTOOLBOX_PATH', dirname(__FILE__));
 
@@ -114,26 +117,59 @@ class CJTPlugin extends CJTHookableClass {
 	* @var CJTPlugin
 	*/
 	protected static $instance;
+
+	/**
+	* put your comment there...
+	* 	
+	* @var mixed
+	*/
+	protected $onloadcoupling = array('parameters' => array('controllerName'));
 		
+	/**
+	* put your comment there...
+	* 	
+	* @var mixed
+	*/
+	protected $onloaddbversion = array('parameters' => array('dbVersion'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onimportbasefile = array('parameters' => array('file'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onimportcontroller = array('parameters' => array('file'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onimportmodel  = array('parameters' => array('file'));
+	
 	/**
 	* put your comment there...
 	* 
 	*/
 	protected function __construct() {
+		// Hookable!
 		parent::__construct();
+		// Allow access points to utilize from CJTPlugin functionality
+		// even if the call is recursive inside getInstance/construct methods!!!
+		self::$instance = $this; 
 		// Read vars!
-		$this->installed = ((get_option(self::DB_VERSION_OPTION_NAME)) == self::DB_VERSION);
+		$dbVersion = $this->onloaddbversion(get_option(self::DB_VERSION_OPTION_NAME));
+		$this->installed = (($dbVersion) == self::DB_VERSION);
 		// Apply blocks to the request.
 		$this->apply();
-		// Define access points.
-		if (is_admin()) {
-			self::$instance = $this; // Allow access points to utilize from CJTPlugin functionality!
-			// Import dependencies.
-			require_once 'framework/wordpress/access-point.class.php';
-			require_once 'framework/wordpress/definer.class.php';
-			// Define access points!
-			$this->accessPoints = CJTAccessPointsDefiner::getInstance('CJT', CJTOOLBOX_ACCESS_POINTS)->define();
-		}
+		// Listen to the request / Define Access Points
+		$this->listen();
 	}
 	
 	/**
@@ -143,16 +179,16 @@ class CJTPlugin extends CJTHookableClass {
 	*/
 	protected function apply() {
 		// Bootstrap the Plugin!
-		require_once 'css-js-toolbox.class.php';
+		require_once $this->onimportbasefile('css-js-toolbox.class.php');
 		cssJSToolbox::getInstance();
 		// Load MVC framework core!
-		require_once CJTOOLBOX_MVC_FRAMEWOK . '/model.inc.php';
-		require_once CJTOOLBOX_MVC_FRAMEWOK . '/controller.inc.php';
+		require_once $this->onimportmodel(CJTOOLBOX_MVC_FRAMEWOK . '/model.inc.php');
+		require_once $this->onimportcontroller(CJTOOLBOX_MVC_FRAMEWOK . '/controller.inc.php');
 		// Load CJT Extensions!
 		$this->loadExtensions();
 		// Run the coupling only if the installer runs before!
 		if ($this->installed) {
-			CJTController::getInstance('blocks-coupling');
+			CJTController::getInstance($this->onloadcoupling('blocks-coupling'));
 		}
 	}
 	
@@ -160,8 +196,8 @@ class CJTPlugin extends CJTHookableClass {
 	* put your comment there...
 	* 
 	*/
-	public function getAccessPoints() {
-		return $this->accessPoints;
+	public function getAccessPoint($name) {
+		return $this->accessPoints[$name];
 	}
 	
 	/**
@@ -187,6 +223,30 @@ class CJTPlugin extends CJTHookableClass {
 	* put your comment there...
 	* 
 	*/
+	protected function listen() {
+		// For now we've only admin access points! Future versions might has something changed!
+		if (is_admin()) {
+			// Import access points core classes.
+			require_once 'framework/access-points/access-point.class.php';
+			require_once 'framework/access-points/directory-spider.class.php';
+			// Get access points!
+			$accessPoints = CJTAccessPointsDirectorySpider::getInstance('CJT', CJTOOLBOX_ACCESS_POINTS);
+			// For every access point create instance and LISTEN to the request!
+			foreach ($accessPoints as $name => $info) {
+				/**
+				* @var CJTAccessPoint
+				*/
+				$this->accessPoints[$name] = $point = $accessPoints->point()->listen();
+				// We need to do some work with there is a connected access point.
+				$point->onconnected = array(&$this, 'onconnected');
+			}
+		}
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
 	protected function loadExtensions() {
 		// Load extensions lib!
 		require_once 'framework/extensions/extensions.class.php';
@@ -195,10 +255,23 @@ class CJTPlugin extends CJTHookableClass {
 		$extensions->load();
 	}
 	
+	/**
+	* Called When any In-Listen-State (ILS) Access point is 
+	* connected (called by Wordpress hooking system).
+	* 
+	* @return boolean TRUE.
+	*/
+	public function onconnected($observer, $state) {
+		// In all cases that we'll process the request load the localization file.
+		load_plugin_textdomain(CJTOOLBOX_TEXT_DOMAIN, false, CJTOOLBOX_LANGUAGES);
+		// Always connet  the access point!
+		return $state;
+	}
+	
 }// End Class
 
 // Initialize events!
-CJTPlugin::define('CJTPlugin');
+CJTPlugin::define('CJTPlugin', array('hookType' => CJTWordpressEvents::HOOK_FILTER));
 
 // Let's Go!
 add_action('plugins_loaded', array('CJTPlugin', 'getInstance'));

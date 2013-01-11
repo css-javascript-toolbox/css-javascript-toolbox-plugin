@@ -210,16 +210,18 @@ class CJTExtensions extends CJTHookableClass {
 	* 
 	*/
 	public function load() {
+		// Auto load CJT extensions files when requested.
+		spl_autoload_register($this->ontregisterautoload(array($this, '__autoload')));
 		// Load all CJT extensions!
 		foreach ($this->getExtensions() as $class => $extension) {
 			extract($this->onload($extension, compact('class', 'extension')));
 			// Initialize common vars!
 			$callback = $this->onloadcallback(array($class, $this->loadMethod));
 			$pluginPath = ABSPATH . PLUGINDIR . "/{$extension['name']}";
+			// Set runtime variables.
+			$this->extensions[$class]['runtime']['classFile'] = "{$pluginPath}/{$extension['name']}.class.php";
 			// If auto load is speicifd then import class file and bind events.
 			if ($extension['definition']['primary']['loadMethod'] == 'auto') {
-				// Set runtime variables.
-				$this->extensions[$class]['runtime']['classFile'] = "{$pluginPath}/{$extension['name']}.class.php";
 				// Bind events!
 				$definitionXML = new SimpleXMLElement($extension['definition']['raw']);
 				foreach ($definitionXML->getInvolved->event as $event) {
@@ -230,11 +232,11 @@ class CJTExtensions extends CJTHookableClass {
 				}
 			}
 			else { // If manual load specified just 
-				$this->onloaded($class, $extension, $definitionXML, call_user_func($callback));
+				if (class_exists($class)) { // Make sure the class is loaded!
+					$this->onloaded($class, $extension, $definitionXML, call_user_func($callback));
+				}
 			}
 		}
-		// Auto load CJT extensions files when requested.
-		spl_autoload_register($this->ontregisterautoload(array($this, '__autoload')));
 	}
 	
 } // End class.

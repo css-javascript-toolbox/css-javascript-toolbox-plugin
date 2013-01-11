@@ -14,8 +14,8 @@
 		*/
 		_onbulkaction : function(event) {
 			// Get bulk action list element.
-			var actionListName = event.target.id.replace('do', '');
-			var actionList = $('form#templates-manager select[name="'+ actionListName + '"]');
+			var actionListId = event.target.id.replace('do', '');
+			var actionList = $('form#templates-manager select#'+ actionListId);
 			// Get selected action name.
 			var actionInfo = actionList.val().match(/^(\w+)(::(\w+))?$/);
 			if (actionInfo) { // Only if action selected.
@@ -159,6 +159,11 @@
 			);
 			// Single row actions.
 			$('.row-actions span a').click($.proxy(this._onrowaction, this));
+			// Because we're using 'action' query variable for Controller Request purposes
+			// bulk actions lists should use name='action' name!
+			// Set Id instead of name so value can be retrieved too!
+			$('select[name=action]').removeAttr('name').prop('id', 'action');
+			$('select[name=action2]').removeAttr('name').prop('id', 'action2');
 			// Bulk actions.
 			$('#doaction, #doaction2').click($.proxy(this._onbulkaction, this));
 			// Chech/Uncheck rows.

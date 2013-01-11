@@ -38,7 +38,12 @@ class CJTTemplateTable extends CJTxTable {
 	* 
 	*/
 	public function setQueueName() {
-		$queueName = strtolower(preg_replace('/\W+/', '-', $this->get('name')));
+		$type = $this->get('type');
+		// Santiize the template name!
+		$sanitizedName = strtolower(preg_replace('/\W+/', '-', $this->get('name')));
+		// Prefix all user templates so it woule be unique when added
+		// to Wordpress queue!
+		$queueName = "cjt-{$type}-template-{$sanitizedName}";
 		$this->set('queueName', $queueName);
 		return $this;
 	}
@@ -47,7 +52,7 @@ class CJTTemplateTable extends CJTxTable {
 
 // Initialize static's!
 CJTTemplateTable::$states = array(
-		'draft' => cssJSToolbox::getText('Draft'),
-		'published' => cssJSToolbox::getText('Publish'), 
-		'trash' => cssJSToolbox::getText('Trash'),
+		'draft' => cssJSToolbox::getText('draft'),
+		'published' => cssJSToolbox::getText('published'), 
+		'trash' => cssJSToolbox::getText('trash'),
 );

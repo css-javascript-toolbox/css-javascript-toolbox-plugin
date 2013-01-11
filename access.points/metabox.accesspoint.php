@@ -16,14 +16,21 @@ class CJTMetaboxAccessPoint extends CJTAccessPoint {
 	* 
 	*/
 	public function __construct() {
-		// Set access point name!
-		$this->name = 'metabox';
-		// Define AJAX access point!
-		add_action("add_meta_boxes", array(&$this, 'route'));
 		// Initialize Access Point base!
 		parent::__construct();
+		// Set access point name!
+		$this->name = 'metabox';
 	}
 
+	/**
+	* put your comment there...
+	* 
+	*/
+	protected function doListen() {
+		// Define AJAX access point!
+		add_action("add_meta_boxes", array(&$this, 'route'));
+	}
+	
 	/**
 	* put your comment there...
 	* 
@@ -40,3 +47,6 @@ class CJTMetaboxAccessPoint extends CJTAccessPoint {
 	}
 	
 } // End class.
+
+// Hookable!
+CJTMetaboxAccessPoint::define('CJTMetaboxAccessPoint', array('hookType' => CJTWordpressEvents::HOOK_FILTER));

@@ -33,8 +33,8 @@ do_action('admin_print_styles');
   						<select name="location" id="cjt-new-block-hook">
 <?php
 							$locations = array(
-  							'header' => __('Header'),
-  							'footer' => __('Footer'),
+  							'header' => cssJSToolbox::getText('Header'),
+  							'footer' => cssJSToolbox::getText('Footer'),
 							);
 							foreach ($locations as $key => $displayName) :
 ?>
@@ -50,8 +50,8 @@ do_action('admin_print_styles');
 <?php
 							// Static locations.
 							$positions = array(
-  							'top' => __('First Block'),
-  							'bottom' => __('Last Block'),
+  							'top' => cssJSToolbox::getText('First Block'),
+  							'bottom' => cssJSToolbox::getText('Last Block'),
 							);
 							// Display locations list.
 							foreach ($positions as $position => $displayName) :

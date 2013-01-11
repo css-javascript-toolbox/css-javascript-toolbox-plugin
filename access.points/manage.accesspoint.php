@@ -16,16 +16,10 @@ class CJTManageAccessPoint extends CJTAccessPoint {
 	* 
 	*/
 	public function __construct() {
-		// Set access point name!
-		$this->name = 'manage';
-		// Add menu pages.
-		add_action('admin_menu', array(&$this, 'addMenu'));
-		// If not installed and not in manage page display admin notice!
-		if (!CJTPlugin::getInstance()->isInstalled()) {
-			add_action('admin_notices', array(&$this, 'notInstalled'));
-		}
 		// Initialize Access Point base!
 		parent::__construct();
+		// Set access point name!
+		$this->name = 'manage';
 	}
 	
 	/**
@@ -46,6 +40,19 @@ class CJTManageAccessPoint extends CJTAccessPoint {
 		$GLOBALS['submenu'][CJTPlugin::PLUGIN_REQUEST_ID][1][2] = admin_url('plugins.php?s=CJTE');
 	}
 
+	/**
+	* put your comment there...
+	* 
+	*/
+	protected function doListen() {
+		// Add menu pages.
+		add_action('admin_menu', array(&$this, 'addMenu'));
+		// If not installed and not in manage page display admin notice!
+		if (!CJTPlugin::getInstance()->isInstalled()) {
+			add_action('admin_notices', array(&$this, 'notInstalled'));
+		}
+	}
+	
 	/**
 	* put your comment there...
 	* 
@@ -83,3 +90,6 @@ class CJTManageAccessPoint extends CJTAccessPoint {
 	}
 	
 } // End class.
+
+// Hookable!
+CJTManageAccessPoint::define('CJTAjaxAccessPoint', array('hookType' => CJTWordpressEvents::HOOK_FILTER));

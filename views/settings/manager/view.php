@@ -32,8 +32,7 @@ class CJTSettingsManagerView extends CJTView {
 	public function __construct($info) {
 		parent::__construct($info);
 		// Define setting pages.
-		//$this->pages[] = array('name' => 'general', 'displayName' => __('General'));
-		$this->pages[] = array('name' => 'metabox', 'displayName' => __('MetaBox'));
+		$this->pages[] = array('name' => 'metabox', 'displayName' => cssJSToolbox::getText('MetaBox'));
 		// Enqueue external resources.
 		$this->enqueueScripts();
 		$this->enqueueStyles();
