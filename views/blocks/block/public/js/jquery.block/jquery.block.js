@@ -104,7 +104,9 @@
 		this._oncanceleditname = function() {
 			var editName = this.elements.editBlockName;
 			// Hide edit block area.
-			editName.css('display', 'none');
+			editName.css('display', 'none')
+			// Unbind events that binded when the edit block name form is displayed.
+			.find('input.block-name').unbind('keydown.editName');
 		}
 		
 		/**
@@ -206,7 +208,7 @@
 			// Check if already in edit mode.
 			if (editName.css('display') == 'none') {
 				// Cancel or Save editing when ESCAPE or Enter button is pressed.
-				inputText.keydown($.proxy(
+				inputText.bind('keydown.editName', $.proxy(
 					function(event) {
 						if (event.keyCode == 27) {
 							// Cancel
@@ -433,9 +435,17 @@
 		*/
 		this._onsavename = function () {
 			// Save only if new and old name are not same.
-			var blockNameInput = this.elements.editBlockName.find('input.block-name');
+			var blockName = this.elements.editBlockName.find('input.block-name').val();
+			// Name cannot be empty!
+			if (!blockName) {
+				// Reset the name back!
+				// fill name so the below code will be compatible to handle both cases.
+				blockName = this.block.get('name');
+				// Show message!
+				alert(CJTJqueryBlockI18N.nameCantBeEmpty);
+			}
 			// Change block name.
-			this.block.set('name', blockNameInput.val())
+			this.block.set('name', blockName)
 			.success($.proxy(
 				function(rName) {
 				// Update metabox title when sucess.

@@ -18,6 +18,14 @@
 		/**
 		* 
 		*/
+		this._onadvancedaccordionchanged = function(event, ui) {
+			// Activate textarea under the current selected item content!
+			ui.newContent.find('textarea').focus();
+		}
+		
+		/**
+		* 
+		*/
 		this._onselectchilds = function(event) {
 			// Initialize vars.
 			var overlay = $(event.target);
@@ -96,15 +104,19 @@
 		// Close it if it were closed.
 		this._ontogglepagespanel({target : toggler.jButton}, this.block.get('pagesPanelToggleState', ''));
 		// Accordion menu for Advanced TAB.
-		this.block.box.find('#advanced-accordion').accordion();
+		this.block.box.find('#advanced-accordion-' + this.block.get('id')).accordion({
+				change : this._onadvancedaccordionchanged,
+				header: '.acc-header'
+			}
+		);
 		// Put select-childs checkboxes in action!
 		pagesPanel.find('.select-childs-checkbox-overlay').click($.proxy(this._onselectchilds, this));
 		// More to Dock with Fullscreen mode!
 		this.extraDocks = [
 			{element : pagesPanel.find('.ui-tabs-panel'), pixels : 89},
 			{element : pagesPanel.find('.ui-tabs-panel .pagelist'), pixels : 132},
-			{element : pagesPanel.find('#advanced-accordion .ui-accordion-content'), pixels : 169},
-			{element : pagesPanel.find('#advanced-accordion .ui-accordion-content textarea'), pixels : 177}
+			{element : pagesPanel.find('.advanced-accordion .ui-accordion-content'), pixels : 169},
+			{element : pagesPanel.find('.advanced-accordion .ui-accordion-content textarea'), pixels : 177}
 		];
 	} // End class.
 	

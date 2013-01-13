@@ -54,6 +54,9 @@ class CJTTemplatesManagerModel {
 													->delete("DELETE FROM #__cjtoolbox_templates WHERE id IN ({$ids})")
 													->commit()
 													->processQueue();
+		// Deleing template directory files.
+		
+		// Chaining!
 		return $this;
 	}
 	

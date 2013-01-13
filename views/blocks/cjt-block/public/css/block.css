@@ -34,10 +34,9 @@ a.l_ext { position: relative; top: 3px; background:url(../images/pages-panel/ext
 /**
 * Advanced TAB Accordion menu.
 */
-#advanced-accordion {margin-top: 6px;}
-#advanced-accordion textarea {
-	height: 201px;
-	max-height: 201px;
+.advanced-accordion {margin-top: 6px;}
+.advanced-accordion textarea {
+	height: 211px;
 	width: 282px;
 	max-width: 282px;
 	margin-top: 4px;
@@ -45,18 +44,19 @@ a.l_ext { position: relative; top: 3px; background:url(../images/pages-panel/ext
 	white-space: nowrap;
 	text-decoration: underline;
 }
-#advanced-accordion .ui-accordion-header {cursor: pointer;}
-#advanced-accordion .ui-accordion-header a,
-#advanced-accordion .ui-accordion-header a:hover,
-#advanced-accordion .ui-accordion-header a:visited {
+.advanced-accordion a.acc-header {display: block;}
+.advanced-accordion a.acc-header,
+.advanced-accordion  a.acc-header:hover,
+.advanced-accordion a.acc-header:visited {
 	text-decoration: none;
 	font-family: Helvetica;
-	color: #a5581b;
+	color: #AFAFAF;
 	font-weight: bold;
 	font-size: 16px;
+	padding: 7px 4px;
 }
-#advanced-accordion .ui-accordion-content {height: 208px;}
-
+.advanced-accordion .ui-accordion-content {height: 218px;}
+.advanced-accordion .ui-accordion-header-active {color: #a5581b !important;}
 /*
  * jQuery UI Tabs 1.8.16
  *

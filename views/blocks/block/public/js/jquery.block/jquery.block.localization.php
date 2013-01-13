@@ -19,4 +19,5 @@ return array(
 	'location_footerTitle' => cssJSToolbox::getText('Set output location hook to header'),
 	'screenmode_fullscreenTitle' => cssJSToolbox::getText('Revert code editor to default mode'),
 	'screenmode_Title' => cssJSToolbox::getText('Switch code editor to fullscreen mode'),
+	'nameCantBeEmpty' => cssJSToolbox::getText('Block name cannot be empty!'),
 );

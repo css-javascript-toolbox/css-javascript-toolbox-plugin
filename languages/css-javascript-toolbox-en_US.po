@@ -115,6 +115,10 @@ msgstr ""
 msgid "Switch code editor to fullscreen mode"
 msgstr ""
 
+#: views/blocks/block/public/js/jquery.block/jquery.block.localization.php:21
+msgid "Block name cannot be empty!"
+msgstr ""
+
 #: views/blocks/cjt-block/public/js/jquery.block/jquery.block.localization.php:13
 msgid "Switch code editor to fullwidth mode (hides assignment panel)"
 msgstr ""
@@ -418,7 +422,7 @@ msgid "View and restore code block revisions"
 msgstr ""
 
 #: views/blocks/block/tmpl/templates/toolbox.html.tmpl:24
-msgid "Delete Block"
+msgid "Delete code block"
 msgstr ""
 
 #: views/blocks/block/tmpl/templates/toolbox.html.tmpl:28

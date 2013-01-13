@@ -377,7 +377,7 @@ class CJTBlocksCouplingController extends CJTController {
 		// do nothing.
 		if ($this->getCached() || $this->getBlocks()) {
 			$actionsPrefix = is_admin() ? 'admin'	: 'wp';
-			// Add the script and style files to header/footer
+			// Output blocks on various locations!
 			add_action("{$actionsPrefix}_head", array(&$this, 'outputBlocks'), 30);
 		  add_action("{$actionsPrefix}_footer", array(&$this, 'outputBlocks'), 30);
 		  // Links templates & styloes!
