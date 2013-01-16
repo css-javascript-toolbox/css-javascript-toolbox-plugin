@@ -1,0 +1,12 @@
+.cjt-form ul li input[type="text"]{min-width: 256px}
+#cjt-setup-activation-form-view fieldset strong {background-color: white;}
+ul.fields-list {width: 400px;} /* Force The field to be below labels! */
+
+/* License states as returned from server calls */
+#license-state {width: 30px;height: 21px;display: inline-block;position: relative;top: 5px;	display: none;}
+#license-state.valid,
+#license-state.invalid,
+#license-state.unknown {display : inline-block}
+#license-state.valid {background-color: red;}
+#license-state.invalid {background-color: green;}
+#license-state.unknown {background-color: blue;}

@@ -49,6 +49,12 @@ define('CJTOOLBOX_HTML_CONPONENTS_URL', CJTOOLBOX_URL . '/framework/html/compone
 class cssJSToolbox extends CJTHookableClass {
 	
 	/**
+	* @todo Point to the CJT Web site domain instead of the test domain!
+	*/
+	//const CJT_WEB_SITE_DOMAIN = 'css-javascript-toolbox.com';
+	const CJT_WEB_SITE_DOMAIN = 'localhost/css-javascript-toolbox/6.0/3.5';
+	
+	/**
 	* put your comment there...
 	* 
 	* @todo remove this and use configuration instead
@@ -126,6 +132,15 @@ class cssJSToolbox extends CJTHookableClass {
 		// Initialize vars!
 		self::import('framework:db:mysql:queue-driver.inc.php');
 		$this->dbDriver = $this->onloaddbdriver(new CJTMYSQLQueueDriver($GLOBALS['wpdb']));
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function getCJTWebSiteURL($path = null) {
+		$domain = self::CJT_WEB_SITE_DOMAIN;	
+		return "http://{$domain}/{$path}";
 	}
 	
 	/**

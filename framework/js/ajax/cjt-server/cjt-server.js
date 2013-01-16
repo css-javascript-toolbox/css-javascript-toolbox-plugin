@@ -30,7 +30,7 @@ var CJTServer;
 		* @internal
 		* @var string
 		*/
-		ajaxURL : ajaxurl,
+		ajaxURL : window.top.ajaxurl,
 		
 		/*
 		* Mapping to all CJT available ajax controllers.
@@ -48,7 +48,8 @@ var CJTServer;
 			template : 'template',
 			settings : 'settings',
 			metabox : 'metabox',
-			installer : 'installer'
+			installer : 'installer',
+			setup : 'setup'
 		},
 		
 		/*

@@ -1,0 +1,15 @@
+<?php
+/**
+* 
+*/
+
+// Disallow direct access.
+defined('ABSPATH') or die("Access denied");
+?>
+<div class="cjt-setup-page"><br>
+	<form action="">
+		<input type="hidden" id="component" value="<?php echo $this->component['name'] ?>" /> 
+		<input type="hidden" id="cjt-securityToken" value="<?php echo $this->securityToken ?>" />
+		<iframe id="activation-form" src="_blank" NOBORDER="true" style="width:100%;height:250px;display:none"></iframe>
+	</form>
+</div>

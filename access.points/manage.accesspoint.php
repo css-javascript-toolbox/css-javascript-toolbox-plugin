@@ -10,7 +10,14 @@ defined('ABSPATH') or die("Access denied");
 * 
 */
 class CJTManageAccessPoint extends CJTAccessPoint {
-	 
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $pages = array();
+	
 	/**
 	* put your comment there...
 	* 
@@ -26,18 +33,32 @@ class CJTManageAccessPoint extends CJTAccessPoint {
 	* put your comment there...
 	* 
 	*/
-	public function addMenu() {
-		$menuTitle = cssJSToolbox::getText('CSS & Javascript Toolbox');
+	public function addPages() {
 		// Blocks Manager page! The only Wordpress menu item we've.
-		// All the other forms/grids (e.g templates-manager, etc...) is liked through this pages.
-		$pageHookId= add_menu_page($menuTitle, $menuTitle, 10, CJTPlugin::PLUGIN_REQUEST_ID, array(&$this->controller, '_doAction'));
-		// Carry out the request!
-		$managerName = "load-{$pageHookId}";
-		add_action($managerName, array($this, 'manage'));
-		// Add sub menu item to point to Wordpress plugins page with a search term passed!
-		add_submenu_page(CJTPlugin::PLUGIN_REQUEST_ID, null, cssJSToolbox::getText('Extensions'), 10, null);
+		$managePageHookId= add_menu_page(
+			cssJSToolbox::getText('CSS & Javascript Toolbox'), 
+			cssJSToolbox::getText('CSS & Javascript Toolbox'), 
+			'manage_options', 
+			CJTPlugin::PLUGIN_REQUEST_ID, 
+			array(&$this->controller, '_doAction')
+		);
+		add_action("load-{$managePageHookId}", array($this, 'getPage'));
+		$this->pages[$managePageHookId] = array('handler' => 'manage');
+		// Setup Page.
+		$setupPageHookId = add_submenu_page(
+			CJTPlugin::PLUGIN_REQUEST_ID, 
+			cssJSToolbox::getText('CSS & Javascript Toolbox - Setup'), 
+			cssJSToolbox::getText('Setup'), 
+			'manage_options', 
+			CJTPlugin::PLUGIN_REQUEST_ID . '-setup', 
+			array(&$this->controller, '_doAction')
+		);
+		add_action("load-{$setupPageHookId}", array($this, 'getPage'));
+		$this->pages[$setupPageHookId] = array('handler' => 'setup');
+		// Extensions page.
+		add_submenu_page(CJTPlugin::PLUGIN_REQUEST_ID, null, cssJSToolbox::getText('Extensions'), 'manage_options', null);
 		// Hack Extensions menu item to point to Plugins page!
-		$GLOBALS['submenu'][CJTPlugin::PLUGIN_REQUEST_ID][1][2] = admin_url('plugins.php?s=CJTE');
+		$GLOBALS['submenu'][CJTPlugin::PLUGIN_REQUEST_ID][2][2] = admin_url('plugins.php?s=CJTE');
 	}
 
 	/**
@@ -46,7 +67,7 @@ class CJTManageAccessPoint extends CJTAccessPoint {
 	*/
 	protected function doListen() {
 		// Add menu pages.
-		add_action('admin_menu', array(&$this, 'addMenu'));
+		add_action('admin_menu', array(&$this, 'addPages'));
 		// If not installed and not in manage page display admin notice!
 		if (!CJTPlugin::getInstance()->isInstalled()) {
 			add_action('admin_notices', array(&$this, 'notInstalled'));
@@ -57,17 +78,34 @@ class CJTManageAccessPoint extends CJTAccessPoint {
 	* put your comment there...
 	* 
 	*/
-	public function manage() {
-		$action = 'index';
-		// No actions until we installed!
-		// Display installation page if not installed!
+	public function getPage() {
+		// If not installed always run the installer.
 		if (!CJTPlugin::getInstance()->isInstalled()) {
-			$_REQUEST['view'] = 'installer/install';	
-			$action = 'install';
+			// Set controller internal parameters.
+			$_REQUEST['view'] = 'installer/install';
+			// create controller.
+			$this->route()
+			// Set Action
+			->setAction('install')
+			// Dispatch the call.
+			->_doAction();
 		}
+		else { // If installed work like a pages proxy!
+			// Fetch page object!
+			$pageId = str_replace('load-', '', current_filter());
+			$page = $this->pages[$pageId];
+			// Dispatch the call.
+			$this->{$page['handler']}();
+		}
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function manage() {
 		// Instantiate controller! & set the action, display manage page!
-		$controller = $this->route()
-														->setAction($action);
+		$this->route();
 	}
 	
 	/**
@@ -87,6 +125,20 @@ class CJTManageAccessPoint extends CJTAccessPoint {
 			// Fire action!
 			->_doAction();
 		}
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function setup() {
+		// Load setup controller to handle the request.
+			// Set MVC request parameters.
+			$_REQUEST['view'] = 'setup/setup';
+			// Instantiate installer cotroller and fire notice action!
+			$this->route()
+			// Set action name.
+			->setAction('setup');
 	}
 	
 } // End class.
