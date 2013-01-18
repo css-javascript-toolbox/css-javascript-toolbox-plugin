@@ -1,0 +1,4 @@
+/* Hide few elements! */
+.add-new-h2,
+.subtitle
+.wrap h2{display: none;}

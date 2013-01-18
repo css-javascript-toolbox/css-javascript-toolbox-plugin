@@ -16,6 +16,13 @@ abstract class CJTAjaxController extends CJTController {
 	* 
 	* @var mixed
 	*/
+	protected $methodName;
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	protected $actionsMap = array();
 	
 	/**
@@ -80,23 +87,22 @@ abstract class CJTAjaxController extends CJTController {
 		else {
 			// Dispatch action.
 			$action = current_filter();
-			// Action name not specified by child class.
-			if (!isset($this->actionsMap[$action])) {
-				// Remove wp part
-				$action = $this->ongetactionname(str_replace(self::ACTION_PREFIX, '', $action));
-				// Get method name from action name.
-				$method = ucfirst(str_replace('_', ' ', $action));
-				$method = str_replace(' ', '', $method);
-				// Lower case the first character.
-				$method = strtolower($method{0}) . substr($method, 1);
-				// Relying on the trailer "Action" for security.
-				// Derivded class should not never use trailer "Action"
-				// for internal methods.
-				$method = "{$method}Action";
-			}
-			else {
-				// Child class map the action to another method name.
-				$method = $this->actionsMap[$action];
+			// Get method name from frrom Wordpress action name!
+			$method = $this->ongetactionname(str_replace(self::ACTION_PREFIX, '', $action));
+			// Get method name from action name.
+			$method = ucfirst(str_replace('_', ' ', $method));
+			$method = str_replace(' ', '', $method);
+			// Lower case the first character.
+			$method = strtolower($method{0}) . substr($method, 1);
+			// Cahe method name for child classes to use!
+			$this->methodName = $method;
+			// Relying on the trailer "Action" for security.
+			// Derivded class should not never use trailer "Action"
+			// for internal methods.
+			$method = "{$method}Action";
+			// If its mapped from child classed redirect the call!
+			if ((isset($this->actionsMap[$action]) && ($use = $action)) || (isset($this->actionsMap[$method]) && ($use = $method))) {
+				$method = $this->actionsMap[$use];
 			}
 			// Filter callback method and args.
 			$callback = $this->oncallback((object) array('method' => array($this, $method), 'args' => func_get_args()), $action);

@@ -109,6 +109,13 @@ class CJTPlugin extends CJTHookableClass {
 	* 
 	* @var mixed
 	*/
+	protected $extensions;
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	protected $installed;
 	
 	/**
@@ -196,6 +203,14 @@ class CJTPlugin extends CJTHookableClass {
 	* put your comment there...
 	* 
 	*/
+	public function extensions() {
+		return $this->extensions;	
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
 	public function getAccessPoint($name) {
 		return $this->accessPoints[$name];
 	}
@@ -228,6 +243,7 @@ class CJTPlugin extends CJTHookableClass {
 		if (is_admin()) {
 			// Import access points core classes.
 			require_once 'framework/access-points/access-point.class.php';
+			require_once 'framework/access-points/page.class.php';
 			require_once 'framework/access-points/directory-spider.class.php';
 			// Get access points!
 			$accessPoints = CJTAccessPointsDirectorySpider::getInstance('CJT', CJTOOLBOX_ACCESS_POINTS);
@@ -250,9 +266,9 @@ class CJTPlugin extends CJTHookableClass {
 	protected function loadExtensions() {
 		// Load extensions lib!
 		require_once 'framework/extensions/extensions.class.php';
-		$extensions = new CJTExtensions();
+		$this->extensions = new CJTExtensions();
 		// Load all extensions!
-		$extensions->load();
+		$this->extensions->load();
 	}
 	
 	/**

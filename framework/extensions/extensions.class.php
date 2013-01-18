@@ -38,6 +38,13 @@ class CJTExtensions extends CJTHookableClass {
 	* 
 	* @var mixed
 	*/
+	protected $file2Classmap;
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	protected $loadMethod;
 	
 	/**
@@ -163,11 +170,14 @@ class CJTExtensions extends CJTHookableClass {
 	* @param mixed $reload
 	* @return CJTExtensions
 	*/
-	public function getExtensions($reload = false) {
+	public function & getExtensions($reload = false) {
 		// Get cached extensions or cache then if not yest cached!
 		extract($this->onreloadcacheparameters(compact('reload')));
-		if ($reload || !($extensions = get_option(self::CACHE_OPTION_NAME, array()))) {
+		if ($reload || (!($extensions = $this->extensions) && !($extensions = get_option(self::CACHE_OPTION_NAME, array())))) {
+			//Resting!
+			$this->file2Classmap = array();
 			$extensions = array();
+			// filter all installed Plugins to fetch all out Extensions!
 			$activePlugins = $this->ongetactiveplugins(wp_get_active_and_valid_plugins());
 			foreach ($activePlugins as $file) {
 				$pluginDir = dirname($file);
@@ -191,8 +201,12 @@ class CJTExtensions extends CJTHookableClass {
 						$definitionXML = $this->onloaddefinition(new SimpleXMLElement($extension['definition']['raw']));
 						$attrs = $definitionXML->attributes();
 						$extension['definition']['primary']['loadMethod'] = (string) $attrs->loadMethod;
+						$extension['definition']['primary']['requiredLicense'] = (string) $definitionXML->license;
+						$className = ((string) $attrs->class);
 						// Add to list!
-						$extensions[((string) $attrs->class)] = $extension;
+						$extensions[$className] = $extension;
+						// Map Plugin FILE-2-CLASS name!
+						$this->file2Classmap["{$extension['dir']}/{$extension['file']}"] = $className;
 						$definitionXML = null;
 					}
 				}
@@ -237,6 +251,14 @@ class CJTExtensions extends CJTHookableClass {
 				}
 			}
 		}
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function & getFiles2ClassesMap() {
+		return $this->file2Classmap;	
 	}
 	
 } // End class.

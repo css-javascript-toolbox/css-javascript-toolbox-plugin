@@ -65,7 +65,7 @@ class CJTSetupActivationFormView extends CJTView {
 		$this->securityToken = cssJSToolbox::getSecurityToken();
 		$this->component = $model->getRequestComponent();
 		$this->cjtWebSite = cssJSToolbox::getCJTWebSiteURL();
-		$this->license = $model->getComponentLicenseType($this->component, 'license');
+		$this->license = $model->getStateStruct($this->component, 'license');
 		// Display view.
 		echo $this->getTemplate($tpl);
 	}
@@ -80,6 +80,7 @@ class CJTSetupActivationFormView extends CJTView {
 			'jquery',
 			'jquery-serialize-object',
 			'thickbox',
+			'framework:js:ui:{CJT-}jquery.link-progress',
 			'framework:js:ajax:{CJT-}cjt-server',
 			'framework:js:misc:{CJT-}simple-error-dialog',
 			'views:setup:activation-form:public:js:{CJTSetupActivationFormView-}default'

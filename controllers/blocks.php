@@ -31,6 +31,14 @@ class CJTBlocksController extends CJTController {
 	private $pageHookName = null;
 	
 	/**
+	* put your comment there...
+	* 
+	*/
+	public function extensionsAction() {
+		parent::displayAction();
+	}
+	
+	/**
 	* Display blocks page content.
 	* 
 	* The method directory output the content of the 

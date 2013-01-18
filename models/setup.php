@@ -14,66 +14,30 @@ class CJTSetupModel {
 	/**
 	* 
 	*/
-	const EDD_PRODUCT_NAME = 'CSS & Javascript Toolbox';
+	const EDD_PRODUCT_NAME = 'CSS Javascript Toolbox';
 	
 	/**
 	* 
 	*/
 	const LICENSES_CACHE = 'cache.CJTSetupModel.licenses';
-	
-	/**
-	* put your comment there...
-	* 
-	* @var mixed
-	*/
-	protected $inputs;
-	
+
 	/**
 	* put your comment there...
 	* 
 	* @param mixed $component
-	* @param mixed $license
-	*/
-	public function activate($component, $license) {
-		// Call EDD APIs to actiavte the license.
-		$state = $this->dispatchEddCall('activate', $component, $license);
-		// Cache the returned response even if its valid or invalid!
-		$this->cacheComponentLicense($component['name'], $license, $state);
-		// Return State as it saved in the database!
-		return $this->getComponentLicenseType($component, 'state');
-	}
-	
-	/**
-	* put your comment there...
-	* 
-	* @param mixed $name
-	* @param mixed $license
+	* @param mixed $action
 	* @param mixed $state
 	*/
-	public function cacheComponentLicense($name, $license, $state) {
+	public function cacheState($component, $action,  $state) {
 		// Read cache from db!
 		$cache = get_option(self::LICENSES_CACHE);
-		// Build cache object.
-		$component['license'] = $license;
-		$component['internals'] = current_time('mysql');
-		$component['state'] = $state ? $state : array('license' => 'unknown');
+		// Add action to the state object!
+		$state['action'] = $action;
 		// Cache object!
-		$cache[$name] = $component;
+		$cache[$component['name']] = $state;
 		update_option(self::LICENSES_CACHE, $cache);
-	}
-	
-	/**
-	* put your comment there...
-	* 
-	* @param mixed $component
-	* @param mixed $license
-	*/
-	public function check($component, $license) {
-		$state = $this->dispatchEddCall('check', $component, $license);
-		// Cache the returned response even if its valid or invalid!
-		$this->cacheComponentLicense($component['name'], $license, $state);
-		// Return State as it saved in the database!
-		return $this->getComponentLicenseType($component, 'state');
+		// return action name
+		return $action;		
 	}
 	
 	/**
@@ -84,20 +48,19 @@ class CJTSetupModel {
 	* @param mixed $license
 	*/
 	public function dispatchEddCall($action, $component, $license) {
-		// Initializing.
-		$http = new WP_Http();
-		$url = cssJSToolbox::getCJTWebSiteURL();
 		// Activating License key thorugh EDD APIs!		
 		$request['edd_action'] = "{$action}_license";
-		$request['item_name'] = $component['name'];
+		$request['item_name'] = urlencode($component['name']);
 		$request['license'] = $license['key'];
-		$request['licenseName'] = $license['name'];
-		// Build request string query string.
-		$request = http_build_query($request);
+		//$request['licenseName'] = $license['name'];
 		// Request the server!
-		$response = $http->get("{$url}?{$request}");
+		$response = wp_remote_get(add_query_arg($request, cssJSToolbox::getCJTWebSiteURL()));
 		// We need only the JSON object returned by EDD APIs.
-		$response = @json_decode($response['body'], true);
+		$response = @json_decode(wp_remote_retrieve_body($response), true);
+		// If request error compaitble the response object to be used!
+		if (!$response) {
+			$response = array('license' => 'error', 'component' => $component['name']);
+		}
 		return $response;
 	}
 	
@@ -107,13 +70,13 @@ class CJTSetupModel {
 	* @param mixed $compoment
 	* @param mixed $field
 	*/
-	public function getComponentLicenseType($compoment, $type = null) {
+	public function getStateStruct($compoment, $struct = null) {
 		// Read all licenses from db!
 		$licensesCache = get_option(self::LICENSES_CACHE);
 		// If not set return clean empty array!
 		$componentName = $compoment['name'];
-		$license = isset($licensesCache[$componentName]) ? $licensesCache[$componentName] : array();
-		return $type ? $license[$type] : $license;
+		$state = isset($licensesCache[$componentName]) ? $licensesCache[$componentName] : false;
+		return ($struct ? ($state[$struct] ? $state[$struct] : false)  : $state);
 	}
 	
 	/**
@@ -121,16 +84,26 @@ class CJTSetupModel {
 	* 
 	*/
 	public function getRequestComponent() {
-		return $this->inputs['component'] ? $this->inputs['component'] : array('name' => self::EDD_PRODUCT_NAME);
+		return $_REQUEST['component'] ? $_REQUEST['component']: array('name' => self::EDD_PRODUCT_NAME);
 	}
 	
 	/**
 	* put your comment there...
 	* 
-	* @param mixed $inputs
+	* @param mixed $state
 	*/
-	public function setInputs($inputs) {
-		$this->inputs = $inputs;	
+	public function removeStateCache($state) {
+		// Initializing!
+		$componentName = $state['component']['name'];
+		// Read all cached licenses!
+		$cachedStates = get_option(self::LICENSES_CACHE);
+		// Set return value!
+		$result = isset($cachedStates[$componentName]) ? 'valid' : 'invalid';
+		// Remove component license even if its not exists, nothing will happen!  
+		unset($cachedStates[$componentName]);
+		// Update cache list!
+		update_option(self::LICENSES_CACHE, $cachedStates);
+		return $result;
 	}
 	
 } // End class.

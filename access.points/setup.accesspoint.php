@@ -9,8 +9,8 @@ defined('ABSPATH') or die("Access denied");
 /**
 * 
 */
-class CJTManageAccessPoint extends CJTPageAccessPoint {
-
+class CJTSetupAccessPoint extends CJTPageAccessPoint {
+	
 	/**
 	* put your comment there...
 	* 
@@ -19,7 +19,7 @@ class CJTManageAccessPoint extends CJTPageAccessPoint {
 		// Initialize Access Point base!
 		parent::__construct();
 		// Set access point name!
-		$this->name = 'manage';
+		$this->name = 'setup';
 	}
 
 	/**
@@ -38,15 +38,16 @@ class CJTManageAccessPoint extends CJTPageAccessPoint {
 	* 
 	*/
 	public function menu() {
-		// Blocks Manager page! The only Wordpress menu item we've.
-		$pageHookId= add_menu_page(
-			cssJSToolbox::getText('CSS & Javascript Toolbox'), 
-			cssJSToolbox::getText('CSS & Javascript Toolbox'), 
-			'manage_options', 
+		// Setup Page.
+		$pageHookId = add_submenu_page(
 			CJTPlugin::PLUGIN_REQUEST_ID, 
+			cssJSToolbox::getText('CSS & Javascript Toolbox - Setup'), 
+			cssJSToolbox::getText('Setup'), 
+			'manage_options', 
+			CJTPlugin::PLUGIN_REQUEST_ID . '-setup', 
 			array(&$this->controller, '_doAction')
 		);
-		// Process request if installed!
+		// Process when its installed!!
 		add_action("load-{$pageHookId}", array($this, 'getPage'));
 	}
 	
@@ -55,11 +56,16 @@ class CJTManageAccessPoint extends CJTPageAccessPoint {
 	* 
 	*/
 	public function processRequest() {
-		// Instantiate controller! & set the action, display manage page!
-		$this->route();
+		// Load setup controller to handle the request.
+			// Set MVC request parameters.
+			$_REQUEST['view'] = 'setup/setup';
+			// Instantiate installer cotroller and fire notice action!
+			$this->route()
+			// Set action name.
+			->setAction('setup');
 	}
 	
 } // End class.
 
 // Hookable!
-CJTManageAccessPoint::define('CJTManageAccessPoint', array('hookType' => CJTWordpressEvents::HOOK_FILTER));
+CJTSetupAccessPoint::define('CJTSetupAccessPoint', array('hookType' => CJTWordpressEvents::HOOK_FILTER));
