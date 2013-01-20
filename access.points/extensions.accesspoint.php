@@ -38,7 +38,7 @@ class CJTExtensionsAccessPoint extends CJTPageAccessPoint {
 	*/
 	protected function doListen() {
 		// Add menu pages.
-		add_action('admin_menu', array(&$this, 'menu'), 11);
+		add_action('admin_menu', array(&$this, 'menu'), 12);
 	}
 	
 	/**

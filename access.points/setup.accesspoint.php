@@ -28,7 +28,7 @@ class CJTSetupAccessPoint extends CJTPageAccessPoint {
 	*/
 	protected function doListen() {
 		// Add menu pages.
-		add_action('admin_menu', array(&$this, 'menu'));
+		add_action('admin_menu', array(&$this, 'menu'), 11);
 		// Initialize installer access points!
 		parent::doListen();
 	}
