@@ -52,11 +52,14 @@ class CJTExtensionsPluginsListView extends CJTView {
 	* @param mixed $parent
 	*/
 	public function activateExtensionsMenuItem($parent) {
-		// Vars to hack!
-		global $submenu_file, $_wp_real_parent_file;
-		// Set parent file to point to CSS & Javascript toolbox parent menu!
-		$_wp_real_parent_file[CJTPlugin::PLUGIN_REQUEST_ID] = "admin.php?page=" . CJTPlugin::PLUGIN_REQUEST_ID . '.php';
-		return CJTPlugin::PLUGIN_REQUEST_ID;
+		// Hack Wordpress menu to select CSS & Javascript root menu item
+		// and the Extensions child menu item!
+		// We just hack get_admin_page_parent() function!
+		$GLOBALS['typenow'] = CJTPlugin::PLUGIN_REQUEST_ID;
+		$GLOBALS['pagenow'] = CJTPlugin::PLUGIN_REQUEST_ID;
+		$GLOBALS['plugin_page'] = $GLOBALS['submenu'][CJTPlugin::PLUGIN_REQUEST_ID][CJTExtensionsAccessPoint::MENU_POSITION_INDEX][2];
+		// We use this filter as (ACTION) not change in the return value!
+		return $parent;
 	}
 	
 	/**
@@ -99,7 +102,7 @@ class CJTExtensionsPluginsListView extends CJTView {
 		$this->extensions = CJTPlugin::getInstance()->extensions();
 		if ($this->listTypeName == 'extensions') {
 			// Select Extensions menu item instead of Wordpress Plugins item!
-			add_filter('parent_file', array(&$this, 'activateExtensionsMenuItem'), 100);
+			add_filter('parent_file', array(&$this, 'activateExtensionsMenuItem'));
 		}
 		// Output internal HTML used by JS!
 		add_action('admin_footer', array(&$this, 'outputCommonMarkups'));

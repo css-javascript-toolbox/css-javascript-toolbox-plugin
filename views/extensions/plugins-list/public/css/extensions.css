@@ -1,4 +1,8 @@
 /* Hide few elements! */
 .add-new-h2,
-.subtitle
-.wrap h2{display: none;}
+.subtitle,
+.search-box,
+.subsubsub {display: none;}
+.wrap h2 {visibility: hidden;}
+
+#icon-cjtoolbox {background url('') no-repeat; background-color: red;}

@@ -14,6 +14,11 @@ class CJTExtensionsAccessPoint extends CJTPageAccessPoint {
 	/**
 	* 
 	*/
+	const MENU_POSITION_INDEX = 2;
+	
+	/**
+	* 
+	*/
 	const PLUGINS_PAGE_SEARCH_TERM = 'CJT-Extension';
 	
 	/**
@@ -44,7 +49,7 @@ class CJTExtensionsAccessPoint extends CJTPageAccessPoint {
 		// Extensions page.
 		add_submenu_page(CJTPlugin::PLUGIN_REQUEST_ID, null, cssJSToolbox::getText('Extensions'), 'manage_options', null);
 		// Hack Extensions menu item to point to Plugins page!
-		$GLOBALS['submenu'][CJTPlugin::PLUGIN_REQUEST_ID][2][2] = admin_url('plugins.php?s=' . self::PLUGINS_PAGE_SEARCH_TERM);
+		$GLOBALS['submenu'][CJTPlugin::PLUGIN_REQUEST_ID][self::MENU_POSITION_INDEX][2] = admin_url('plugins.php?s=' . self::PLUGINS_PAGE_SEARCH_TERM);
 		// When plugins page loaded!
 		add_action('load-plugins.php', array($this, 'getPage'));
 	}
