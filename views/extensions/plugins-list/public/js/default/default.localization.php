@@ -10,5 +10,5 @@
 * Localization text for backups script.
 */
 return array(
-	'activationFormTitle' => cssJSToolbox::getText('License Activation'),
+	'activationFormTitle' => cssJSToolbox::getText('CJT Extension License Activation Form'),
 );

@@ -42,6 +42,13 @@ abstract class CJTController extends CJTHookableClass {
 	* 
 	* @var mixed
 	*/
+	protected $request;
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	protected $model = null;
 
 	/**
@@ -95,6 +102,8 @@ abstract class CJTController extends CJTHookableClass {
 	public function __construct($hasView = true) {
 		// Initialize hookable!
 		parent::__construct();
+		// Read request parameters.
+		$this->request = $_REQUEST;
 		// Create default model.
 		if (isset($this->controllerInfo['model'])) {
 			$this->model = CJTModel::create($this->controllerInfo['model'], array(), $this->controllerInfo['model_file']);
@@ -103,9 +112,10 @@ abstract class CJTController extends CJTHookableClass {
 		if ($hasView) {
 			$view = $this->ongetviewname($_REQUEST['view'] ? $_REQUEST['view'] : $this->controllerInfo['view']);
 			if ($view) {
-				$this->view = self::getView($view);
-				// Push model into view.
-				$this->view->setModel($this->model);
+				$this->view  = self::getView($view)
+				// Push data into view.
+				->setModel($this->model)
+				->setRequest($this->request);
 			}
 		}
 	}
@@ -216,6 +226,15 @@ abstract class CJTController extends CJTHookableClass {
 	}
 	
 	/**
+	* put your comment there...
+	* 
+	* @param mixed $name
+	*/
+	public function getRequestParameter($name) {
+		return $this->request;	
+	}
+	
+	/**
 	* 
 	* Use CJTView:create instrad.
 	* 
@@ -259,6 +278,17 @@ abstract class CJTController extends CJTHookableClass {
 	*/
 	public function setAction($action) {
 		$this->action = $action;
+		return $this;
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $name
+	* @param mixed $value
+	*/
+	public function setRequestParameter($name, $value) {
+		$this->request[$name]	= $value;
 		return $this;
 	}
 	

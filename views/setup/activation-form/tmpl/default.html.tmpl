@@ -20,6 +20,7 @@ do_action('admin_print_styles');
 		  <form id="cjt-setup-activation-form-view" class="cjt-form">
 		  	<input type="hidden" id="cjt-securityToken" value="<?php echo $this->securityToken ?>" />
 		  	<input type="hidden" name="component[name]" value="<?php echo $this->component['name'] ?>" />
+		  	<input type="hidden" name="component[pluginBase]" value="<?php echo $this->component['pluginBase'] ?>" />
   			<fieldset>
   				<strong><?php echo cssJSToolbox::getText('License Key') ?> <span class="component-name">&quot;<?php echo $this->component['name'] ?>&quot;</span></strong>
   				<p>

@@ -63,7 +63,7 @@ class CJTSetupActivationFormView extends CJTView {
 		$model =& $this->model;
 		// Set vars!
 		$this->securityToken = cssJSToolbox::getSecurityToken();
-		$this->component = $model->getRequestComponent();
+		$this->component = $this->getRequestParameter('component');
 		$this->cjtWebSite = cssJSToolbox::getCJTWebSiteURL();
 		$this->license = $model->getStateStruct($this->component, 'license');
 		// Display view.

@@ -25,13 +25,14 @@
 		*/
 		_onsetup : function(event) {
 			// Getting component name from clicked link!
-			var componentName = event.target.href.match(/\#(.+)/)[1];
+			var component = CJTUtilities.parseString(/\#(.+)/.exec(event.target.href)[1]);
 			// Build request parameters.
 			var request = {
 				view : 'setup/activation-form',
-				component : {name : componentName},
+				component : component,
 				/* Thickbox */
-				TB_iframe : true
+				TB_iframe : true,
+				height : 280
 			};
 			// Get URL to activation form.
 			var url = this.server.getRequestURL('setup', 'activationFormView', request);

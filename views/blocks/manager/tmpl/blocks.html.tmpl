@@ -23,7 +23,7 @@ defined('ABSPATH') or die("Access denied");
 <?php 	echo $this->getTemplate('toolbox', array('location' => 'top'));	?>
 <?php		do_meta_boxes($this->pageHook, 'normal', null); ?>
 				<div id="cjt-noblocks-intro"<?php if ($this->hasBlocks) : ?> style="display:none"<?php endif; ?>>
-<?php		echo $this->getTemplate('intro', array(), 'help') ?>
+<?php		echo $this->getTemplate('intro', array(), 'tmpl/help') ?>
 				</div>
 <?php 	echo $this->getTemplate('toolbox', array('location' => 'bottom'));	?>
 			</div>

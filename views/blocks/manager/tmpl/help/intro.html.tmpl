@@ -1,0 +1,25 @@
+<?php
+/**
+* 
+*/
+
+// Diallow direct access.
+defined('ABSPATH') or die("Access denied");
+?>
+
+<h2><?php echo cssJSToolbox::getText('Welcome to the CSS & JavaScript Toolbox dashboard') ?></h2>
+<p><?php echo cssJSToolbox::getText('Since you do not have any code blocks active, you can either: create a new code block or create a new code template.') ?></p>
+<h4><?php echo cssJSToolbox::getText('Create a new Code Block') ?></h4>
+<p><?php echo cssJSToolbox::getText('You can add a new code block by clicking the New Code Block button.  Once your code block has been added, simply choose the editor you wish to work with and write your code.  You can then select if you want your code to run in the header or the footer of the webpage.  Now it\'s just a matter of selecting the webpage where you want the code to run on, by using the Assignment Panel.  This panel lets you assign your code block to Pages, Posts, Categories, URLs, and much more, and you can select as many as you need.  Once you have saved your code block by clicking the Save button (or Save All Changes button), you can see it in action by refreshing the assigned webpage.') ?></p>
+<h4><?php echo cssJSToolbox::getText('Create a new Code Template') ?></h4>
+<p><?php echo cssJSToolbox::getText('You can create code templates when you click into the Code Template Manager.  To find this, hover over the icon showing a small cog over pages, and a tooltip should say Code Template Manager.  Press this and if you have chosen to install the Template Samples, you will notice them sitting in there ready to be used.  If you want to create a code template from scratch, click the Create Template button.  Here you can choose a name for your code template, select a code language type (i.e. CSS, JavaScript, HTML, PHP), choose whether the template is in Draft or Published state, and then write your code.  You have other tabs that allow you to write a Description, add Keywords and Version number, etc.  Once you are happy with your code template, you can click the Save button') ?></p>
+<h4><?php echo cssJSToolbox::getText('Embedding or Linking a Code Templates') ?></h4>
+<p> <?php echo cssJSToolbox::getText('Code Templates can be either embedded or linked into your code blocks.  To see all your code templates, you have to click the Template Lookup icon by hovering over the icon with the open/closed angled brackets.  A popup will appear showing you code templates in the form of users and they are:') ?></p>
+<ol>
+	<li><?php echo cssJSToolbox::getText('WordPress:  default code templates that are packaged with WordPress') ?></li>
+	<li><?php echo cssJSToolbox::getText('Sample Templates:  CJT Sample Templates (depending if Sample Templates were selected during install)') ?></li>
+	<li><?php echo cssJSToolbox::getText('Users:  code templates created by actual WordPress users and administrators') ?>	</li>
+</ol>
+<p><?php echo cssJSToolbox::getText('You can click on any of the 3 types of users to see all of their code templates, and you can either embed or link these to code blocks.') ?></p>
+<p><strong><?php echo cssJSToolbox::getText('Embed') ?></strong>: <?php echo cssJSToolbox::getText('embedding a code template will paste the entire template contents into the code block editor. This can be ideal if you want to do further enhancements and customisations to the code without permanently changing the base template.') ?></p>
+<p><strong><?php echo cssJSToolbox::getText('Link') ?></strong>: <?php echo cssJSToolbox::getText('linking the code template does not actually paste the template into the code block editor but instead links to it.  This is more ideal if you want to link many code templates to the one code block.  There is no need to create individual code blocks for each.') ?></p>

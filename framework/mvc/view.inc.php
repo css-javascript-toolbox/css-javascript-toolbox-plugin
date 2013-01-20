@@ -116,6 +116,13 @@ abstract class CJTView extends CJTHookableClass {
 	* 
 	* @var mixed
 	*/
+	protected $request;
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	private $viewInfo = null;
 	
 	/**
@@ -176,6 +183,24 @@ abstract class CJTView extends CJTHookableClass {
 	*/
 	public function getPath($destination) {
 		return self::getViewPath($this->viewInfo['name'], $destination);
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function & getRequest() {
+		return $this->request;	
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $name
+	* @param mixed $value
+	*/
+	public function getRequestParameter($name) {
+		return $this->request[$name];
 	}
 	
 	/**
@@ -268,6 +293,28 @@ abstract class CJTView extends CJTHookableClass {
 	*/
 	public function setModel($model) {
 		$this->model = $this->onsetmodel($model);
+		return $this;
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $request
+	*/
+	public function setRequest(& $request) {
+		$this->request = $request;
+		return $this;	
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $name
+	* @param mixed $value
+	*/
+	public function setRequestParameter($name, $value) {
+		$this->request[$name] = $value;
+		return $this;
 	}
 	
 	/**

@@ -250,10 +250,10 @@ var CJTBlocksPage;
 			// Confimation message!
 			var blocksCount = CJTBlocksPage.blocks.getBlocks().length;
 			var confirmMessage = CJTBlocksPageI18N.commonDeleteMessage.replace('%d', blocksCount)
-																								+ "\n\n"
-																								+ CJTBlocksPage.blocks.toArray('name').join("\n")
-																								+ "\n\n"
-																								+ CJTBlocksPageI18N.confirmDeleteAll;
+																									+ "\n\n"
+																									+ CJTBlocksPage.blocks.toArray('name').join("\n")
+																									+ "\n\n"
+																									+ CJTBlocksPageI18N.confirmDeleteAll;
 			// Confirm deletion.
 			if (confirm(confirmMessage)) {
 				CJTBlocksPage.deleteBlocks(CJTBlocksPage.blocks.getBlocks());

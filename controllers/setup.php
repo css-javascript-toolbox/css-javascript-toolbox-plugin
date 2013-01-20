@@ -96,10 +96,10 @@ class CJTsetupController extends CJTAjaxController {
 		$state['component'] = $_REQUEST['component'];
 		$state['license'] = false;
 		// Remove License state cache!
-		$state['response']['license'] = $model->removeStateCache($state);
+		$state['response']['license'] = $model->removeCachedLicense($state);
 		// Set response parameters.
 		$state['action'] = 'reset';
-		// With DUMMY EDDn response so we're standarizing the response for all actions
+		// With DUMMY EDD response so we're standarizing the response for all actions
 		// even those not belongs to EDD real requests!!
 		$state['response']['item_name'] = $state['component']['name'];
 		$this->response = $state;

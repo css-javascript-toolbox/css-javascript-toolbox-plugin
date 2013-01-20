@@ -49,10 +49,14 @@ class CJTExtensionsPluginsListView extends CJTView {
 	/**
 	* put your comment there...
 	* 
-	* @param mixed $parentFile
+	* @param mixed $parent
 	*/
-	public function setMenuParentFile() {
-		return 'cjtoolbox';
+	public function activateExtensionsMenuItem($parent) {
+		// Vars to hack!
+		global $submenu_file, $_wp_real_parent_file;
+		// Set parent file to point to CSS & Javascript toolbox parent menu!
+		$_wp_real_parent_file[CJTPlugin::PLUGIN_REQUEST_ID] = "admin.php?page=" . CJTPlugin::PLUGIN_REQUEST_ID . '.php';
+		return CJTPlugin::PLUGIN_REQUEST_ID;
 	}
 	
 	/**
@@ -73,6 +77,7 @@ class CJTExtensionsPluginsListView extends CJTView {
 				// Load license
 				 $definition = new SimpleXMLElement($extension['definition']['raw']);
 				 $component['name'] = (string) $definition->license->name;
+				 $component['pluginBase'] = $file;
 				// Get action Markup!
 				$links['license-key'] = $this->getTemplate('default_setup_action', array('component' => $component));
 			}
@@ -94,7 +99,7 @@ class CJTExtensionsPluginsListView extends CJTView {
 		$this->extensions = CJTPlugin::getInstance()->extensions();
 		if ($this->listTypeName == 'extensions') {
 			// Select Extensions menu item instead of Wordpress Plugins item!
-			add_filter('parent_file', array(&$this, 'setMenuParentFile'), 11);
+			add_filter('parent_file', array(&$this, 'activateExtensionsMenuItem'), 100);
 		}
 		// Output internal HTML used by JS!
 		add_action('admin_footer', array(&$this, 'outputCommonMarkups'));
@@ -113,6 +118,7 @@ class CJTExtensionsPluginsListView extends CJTView {
 		self::useScripts(__CLASS__,
 			'jquery',
 			'thickbox',
+			'framework:js:{CJT-}utilities',
 			'framework:js:ajax:{CJT-}cjt-server',
 			'views:extensions:plugins-list:public:js:{CJTExtensionsPluginsListView-}default',
 			"views:extensions:plugins-list:public:js:{CJTExtensionsPluginsListView-}{$listTypeName}"

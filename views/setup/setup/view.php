@@ -44,7 +44,7 @@ class CJTSetupSetupView extends CJTView {
 	* @param mixed $tpl
 	*/
 	public function display($tpl = null) {
-		$this->component= $this->getModel('setup')->getRequestComponent();
+		$this->component= $this->getModel('setup')->getCJTComponentData();
 		$this->securityToken = cssJSToolbox::getSecurityToken();
 		// Display view.
 		echo $this->getTemplate($tpl);
@@ -57,6 +57,7 @@ class CJTSetupSetupView extends CJTView {
 	public static function enqueueScripts() {
 		// Use related scripts.
 		self::useScripts(__CLASS__,
+			'jquery-serialize-object',
 			'framework:js:ajax:{CJT-}cjt-server',
 			'views:setup:setup:public:js:{CJTSetupSetupView-}default'
 		);

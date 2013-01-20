@@ -6,7 +6,7 @@
 /* Give extra space for the last Block Code-Auto-Completion dialog */
 #wpbody-content {margin-bottom: 129px; overflow: visible !important;}
 .postbox {}
-#cjt-noblocks-intro{padding-left: 14px; font-size: 12px; font-weight: bold;}
+#cjt-noblocks-intro{padding-left: 14px;}
 #cjtoolbox_form { clear:both; }
 #cjt-info {
   background-color: #EFE;
@@ -90,3 +90,7 @@
 .cjt-block-scripts ul{ list-style: none; margin: 0px; padding: 5px 5px 5px 5px; height: 450px; overflow: auto; }
 .cjt-block-scripts ul li{ display: inline-block; background: none; width: 200px; }
 .marked-text{ color: #bf6b19; }
+
+/* No Blocks Intro Help text */
+cjt-noblocks-intro h2 {font-weight: bold; margin: 4px 0px;}
+cjt-noblocks-intro h4 {font-weight: bold; font-size: 15px;}

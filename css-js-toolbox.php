@@ -26,6 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 // Disallow direct access.
 defined('ABSPATH') or die("Access denied");
 
+/** * */
+define('CJTOOLBOX_PLUGIN_BASE', basename(dirname(__FILE__)) . '/' . basename(__FILE__));
+
 /** CJT Name */
 define('CJTOOLBOX_NAME', plugin_basename(dirname(__FILE__)));
 
@@ -173,9 +176,12 @@ class CJTPlugin extends CJTHookableClass {
 		// Read vars!
 		$dbVersion = $this->onloaddbversion(get_option(self::DB_VERSION_OPTION_NAME));
 		$this->installed = (($dbVersion) == self::DB_VERSION);
-		// Apply blocks to the request.
+		// Load plugin and all installed extensions!.
+		$this->load();
+		$this->loadExtensions();
+		// Apply blocks for output!
 		$this->apply();
-		// Listen to the request / Define Access Points
+		// Listen to the request / Define Access Points.
 		$this->listen();
 	}
 	
@@ -185,14 +191,6 @@ class CJTPlugin extends CJTHookableClass {
 	* @return void
 	*/
 	protected function apply() {
-		// Bootstrap the Plugin!
-		require_once $this->onimportbasefile('css-js-toolbox.class.php');
-		cssJSToolbox::getInstance();
-		// Load MVC framework core!
-		require_once $this->onimportmodel(CJTOOLBOX_MVC_FRAMEWOK . '/model.inc.php');
-		require_once $this->onimportcontroller(CJTOOLBOX_MVC_FRAMEWOK . '/controller.inc.php');
-		// Load CJT Extensions!
-		$this->loadExtensions();
 		// Run the coupling only if the installer runs before!
 		if ($this->installed) {
 			CJTController::getInstance($this->onloadcoupling('blocks-coupling'));
@@ -257,6 +255,19 @@ class CJTPlugin extends CJTHookableClass {
 				$point->onconnected = array(&$this, 'onconnected');
 			}
 		}
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	protected function load() {
+		// Bootstrap the Plugin!
+		require_once $this->onimportbasefile('css-js-toolbox.class.php');
+		cssJSToolbox::getInstance();
+		// Load MVC framework core!
+		require_once $this->onimportmodel(CJTOOLBOX_MVC_FRAMEWOK . '/model.inc.php');
+		require_once $this->onimportcontroller(CJTOOLBOX_MVC_FRAMEWOK . '/controller.inc.php');
 	}
 	
 	/**
