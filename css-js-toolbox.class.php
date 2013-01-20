@@ -49,10 +49,9 @@ define('CJTOOLBOX_HTML_CONPONENTS_URL', CJTOOLBOX_URL . '/framework/html/compone
 class cssJSToolbox extends CJTHookableClass {
 	
 	/**
-	* @todo Point to the CJT Web site domain instead of the test domain!
+	* 
 	*/
-	//const CJT_WEB_SITE_DOMAIN = 'css-javascript-toolbox.com';
-	const CJT_WEB_SITE_DOMAIN = 'localhost/css-javascript-toolbox/6.0/3.5';
+	const CJT_WEB_SITE_DOMAIN = 'css-javascript-toolbox.com';
 	
 	/**
 	* put your comment there...
