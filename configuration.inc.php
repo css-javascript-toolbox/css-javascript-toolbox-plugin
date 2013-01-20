@@ -24,5 +24,9 @@ return (object) array(
 			'php' => (object) array('extension' => 'php'),
 			'html' => (object) array('extension' => 'html'),
 		)
-	)
+	),
+	'fileSystem'  => (object) array(
+		'contentDir' => 'cjt-content',
+		'templatesDir' => 'templates',
+	),
 );

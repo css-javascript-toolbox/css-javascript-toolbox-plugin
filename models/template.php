@@ -12,11 +12,6 @@ defined('ABSPATH') or die('Access denied');
 class CJTTemplateModel extends CJTHookableClass {
 	
 	/**
-	 * 
-	 */
-	const TEMPLATES_DIR = 'wp-content/cjt-content/templates';
-	
-	/**
 	* put your comment there...
 	* 
 	* @var mixed
@@ -90,6 +85,7 @@ class CJTTemplateModel extends CJTHookableClass {
 		// import libraries.
 		cssJSToolbox::import('framework:db:mysql:xtable.inc.php');
 		// Initialize vars.
+		$fSConfig = cssJSToolbox::$config->fileSystem;
 		$currentUser = get_userdata(get_current_user_id());
 		$dbDriver = cssJSToolbox::getInstance()->getDBDriver();
 		// Load template data is exists (load), change values (setData).
@@ -98,7 +94,7 @@ class CJTTemplateModel extends CJTHookableClass {
 																																																			->setData($this->inputs['item']['template'])
 																																																			->setQueueName();
 		$templateDirName = $template->get('queueName');
-		$templateDir = self::TEMPLATES_DIR . "/{$templateDirName}";
+		$templateDir = "wp-content/{$fSConfig->contentDir}/{$fSConfig->templatesDir}/{$templateDirName}";
 		if (!$template->get('id')) { // Add new Template
 			// Search for author for the current local Wordpress user. 
 			// If not created in the Authors table create one! If created get the ID!

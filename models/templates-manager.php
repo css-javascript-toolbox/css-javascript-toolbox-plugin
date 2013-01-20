@@ -39,25 +39,47 @@ class CJTTemplatesManagerModel {
 	*/
 	public function delete() {
 		// initialize vars.
+		$ids = array();
 		$dbDriver = cssJSToolbox::getInstance()->getDBDriver();
-		$ids = implode(',', $this->inputs['ids']);
+		$fsConfig = cssJSToolbox::$config->fileSystem;
+		// Import dependencies.
+		cssJSToolbox::import('framework:db:mysql:xtable.inc.php');
+		CJTxTable::import('template');
 		// Delete only templates in "trash" state!
-		$ids = $dbDriver->select("SELECT id 
+		// For more security don't even delete templates with SYSTEM Attribute flag
+		// is turned ON!
+		$sysFlag = CJTTemplateTable::ATTRIBUTES_SYSTEM_FLAG;
+		$idsQueryList = implode(',', $this->inputs['ids']);
+		$templates = $dbDriver->select("SELECT id, queueName `directory`
 																														FROM #__cjtoolbox_templates 
-																														WHERE ID IN ({$ids}) AND `state` = 'trash'");
-		$ids = implode(', ', array_keys($ids));
-		// Permenantly delete all templates data from
-		// templates table and all refernced tables.
-		$dbDriver->startTransaction()
-													->delete("DELETE FROM #__cjtoolbox_block_templates WHERE templateId IN ({$ids})")
-													->delete("DELETE FROM #__cjtoolbox_template_revisions WHERE templateId IN ({$ids})")
-													->delete("DELETE FROM #__cjtoolbox_templates WHERE id IN ({$ids})")
-													->commit()
-													->processQueue();
-		// Deleing template directory files.
-		
-		// Chaining!
-		return $this;
+																														WHERE ID IN ({$idsQueryList}) AND ((attributes & {$sysFlag}) = 0) AND (`state` = 'trash')");
+		if (!empty($templates)) {
+			// Deleing template directory files.
+			foreach ($templates as $template) {
+				// Absolute path to template directory!
+				$templateDirectoryAbsPath = WP_CONTENT_DIR . "/{$fsConfig->contentDir}/{$fsConfig->templatesDir}/{$template->directory}";
+				// Delete all files inside the directory!
+				$revisionFiles = new DirectoryIterator($templateDirectoryAbsPath);
+				foreach ($revisionFiles as $file) {
+					if (!$file->isDot()) {
+						unlink($file->getPathname());
+					}
+				}
+				// Delete template directory!
+				rmdir($templateDirectoryAbsPath);
+			}
+			// Get templates IDs to delete.
+			$ids = implode(', ', array_keys($templates));
+			// Permenantly delete all templates data from
+			// templates table and all refernced tables.
+			$dbDriver->startTransaction()
+														->delete("DELETE FROM #__cjtoolbox_block_templates WHERE templateId IN ({$ids})")
+														->delete("DELETE FROM #__cjtoolbox_template_revisions WHERE templateId IN ({$ids})")
+														->delete("DELETE FROM #__cjtoolbox_templates WHERE id IN ({$ids})")
+														->commit()
+														->processQueue();
+		}
+		return $ids;
 	}
 	
 	/**

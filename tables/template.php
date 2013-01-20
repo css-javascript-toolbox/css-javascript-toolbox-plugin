@@ -16,6 +16,11 @@ defined('ABSPATH') or die("Access denied");
 class CJTTemplateTable extends CJTxTable {
 	
 	/**
+	* 
+	*/
+	const ATTRIBUTES_SYSTEM_FLAG = 0x01;
+	
+	/**
 	* put your comment there...
 	* 
 	* @var mixed

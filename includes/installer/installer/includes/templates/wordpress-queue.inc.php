@@ -53,6 +53,7 @@ class CJTInstallerWordpressQueueTemplates extends ArrayIterator {
 		parent::__construct($coupling->getQueueObject($wpQueueName)->registered);
 		// Import dependencies!
 		cssJSToolbox::import('framework:db:mysql:xtable.inc.php');
+		CJTxTable::import('template');
 		CJTxTable::import('author');
 	}
 
@@ -81,6 +82,7 @@ class CJTInstallerWordpressQueueTemplates extends ArrayIterator {
 			->set('ownerId', get_current_user_id())
 			->set('authorId', CJTAuthorTable::WORDPRESS_AUTHOR_ID)
 			->set('state', 'published')
+			->set('attributes', CJTTemplateTable::ATTRIBUTES_SYSTEM_FLAG)
 			->save();
 			// Add revision for that template.
 			$revision = CJTxTable::getInstance('template-revision')

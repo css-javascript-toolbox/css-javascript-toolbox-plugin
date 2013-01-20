@@ -64,10 +64,13 @@ class CJTInstaller extends CJTHookableClass {
 	* 
 	*/
 	public function fileSystem() {
+		// Initializing!
+		$wpContentDir = 'wp-content';
+		$fSConfig = cssJSToolbox::$config->fileSystem;
 		// Directories to create!
 		$directories = array(
-			'wp-content/cjt-content',
-			'wp-content/cjt-content/templates',
+			"{$wpContentDir}/{$fSConfig->contentDir}",
+			"{$wpContentDir}/{$fSConfig->contentDir}/{$fSConfig->templatesDir}",
 		);
 		foreach ($directories as $dir) {
 			// Create directory only if not exists!

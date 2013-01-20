@@ -76,9 +76,8 @@ class CJTTemplatesManagerController extends CJTAjaxController {
 	*/
 	protected function deleteAction() {
 		$this->model->inputs['ids'] = $_GET['ids'];
-		$this->model->delete();
 		// Response with changed ids.
-		$this->response['changes'] = $this->model->inputs['ids'];		
+		$this->response['changes'] = $this->model->delete();
 	}
 	
 	/**
