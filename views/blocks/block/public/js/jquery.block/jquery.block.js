@@ -389,6 +389,10 @@
 		*/
 		this._onsavechanges = function() {
 			var saveButton = this.toolbox.buttons['save'];
+			// Dont save unless there is a change!
+			if (saveButton.jButton.hasClass('cjttbs-disabled')) {
+				return;
+			}
 			// Queue User Direct Interact fields (code, posts, categories, links, expressions etc...).
 			var data = {calculatePinPoint : this.features.calculatePinPoint, createRevision : 1};
 			// Push DiFields inside Ajax queue.
