@@ -29,8 +29,6 @@ class CJTManageAccessPoint extends CJTPageAccessPoint {
 	protected function doListen() {
 		// Add menu pages.
 		add_action('admin_menu', array(&$this, 'menu'));
-		// Initialize installer access points!
-		parent::doListen();
 	}
 	
 	/**
@@ -49,15 +47,6 @@ class CJTManageAccessPoint extends CJTPageAccessPoint {
 		);
 		// Process request if installed!
 		add_action("load-{$pageHookId}", array($this, 'getPage'));
-	}
-	
-	/**
-	* put your comment there...
-	* 
-	*/
-	public function processRequest() {
-		// Instantiate controller! & set the action, display manage page!
-		$this->route();
 	}
 	
 } // End class.

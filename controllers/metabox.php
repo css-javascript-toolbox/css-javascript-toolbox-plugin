@@ -29,7 +29,8 @@ class CJTMetaboxController extends CJTAjaxController {
 		// Instantiate model object.
 		$this->model = self::getModel('metabox', array($_GET['post']));
 		// Don't regiter Ajax actions unless AAP (Ajax Access Point) is loaded!
-		if (CJTPlugin::getInstance()->getAccessPoint('ajax')->isLoaded()) {
+		$connectedObject =& CJTAccessPoint::isConnected();
+		if ($connectedObject && ($connectedObject->getName() == 'ajax')) {
 			$this->registryAction('create');
 			$this->registryAction('delete');
 		}

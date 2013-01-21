@@ -9,7 +9,7 @@ defined('ABSPATH') or die("Access denied");
 /**
 * 
 */
-class CJTExtensionsAccessPoint extends CJTPageAccessPoint {
+class CJTExtensionsAccessPoint extends CJTAccessPoint {
 	
 	/**
 	* 
@@ -51,18 +51,20 @@ class CJTExtensionsAccessPoint extends CJTPageAccessPoint {
 		// Hack Extensions menu item to point to Plugins page!
 		$GLOBALS['submenu'][CJTPlugin::PLUGIN_REQUEST_ID][self::MENU_POSITION_INDEX][2] = admin_url('plugins.php?s=' . self::PLUGINS_PAGE_SEARCH_TERM);
 		// When plugins page loaded!
-		add_action('load-plugins.php', array($this, 'getPage'));
+		add_action('load-plugins.php', array($this, 'route'));
 	}
 	
 	/**
 	* put your comment there...
 	* 
 	*/
-	public function processRequest() {
+	public function route() {
+		// Set as connected object!
+		$this->connected();
 		// Load extensions view throughjt the default controller!
 		$_REQUEST['view'] ='extensions/plugins-list';
 		// Create controller!
-		$this->route()
+		parent::route()
 		// Set Action name!
 		->setAction('extensions')
 		// Dispatch the call!

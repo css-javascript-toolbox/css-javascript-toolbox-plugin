@@ -29,8 +29,6 @@ class CJTSetupAccessPoint extends CJTPageAccessPoint {
 	protected function doListen() {
 		// Add menu pages.
 		add_action('admin_menu', array(&$this, 'menu'), 11);
-		// Initialize installer access points!
-		parent::doListen();
 	}
 	
 	/**
@@ -55,14 +53,13 @@ class CJTSetupAccessPoint extends CJTPageAccessPoint {
 	* put your comment there...
 	* 
 	*/
-	public function processRequest() {
-		// Load setup controller to handle the request.
-			// Set MVC request parameters.
-			$_REQUEST['view'] = 'setup/setup';
-			// Instantiate installer cotroller and fire notice action!
-			$this->route()
-			// Set action name.
-			->setAction('setup');
+	public function route() {
+		// Set MVC request parameters.
+		$_REQUEST['view'] = 'setup/setup';
+		// Instantiate installer cotroller and fire notice action!
+		parent::route()
+		// Set action name.
+		->setAction('setup');
 	}
 	
 } // End class.

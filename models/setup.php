@@ -102,7 +102,7 @@ class CJTSetupModel {
 	* 
 	*/
 	public function & getLicenses() {
-		return $this->licenses;	
+		return $this->licenses ? $this->licenses : array();	
 	}
 	
 	/**

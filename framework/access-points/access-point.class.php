@@ -29,6 +29,13 @@ abstract class CJTAccessPoint extends CJTHookableClass implements CJTIAccessPoin
 	* 
 	* @var mixed
 	*/
+	protected static $connected;
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	protected $controller;
 	
 	/**
@@ -37,13 +44,6 @@ abstract class CJTAccessPoint extends CJTHookableClass implements CJTIAccessPoin
 	* @var mixed
 	*/
 	protected $controllerName;
-	
-	/**
-	* put your comment there...
-	* 
-	* @var mixed
-	*/
-	protected $loaded;
 	
 	/**
 	* put your comment there...
@@ -80,7 +80,6 @@ abstract class CJTAccessPoint extends CJTHookableClass implements CJTIAccessPoin
 	*/
 	protected $onsetcontroller = array('parameters' => array('controller'));
 	
-		
 	/**
 	* put your comment there...
 	* 
@@ -97,6 +96,22 @@ abstract class CJTAccessPoint extends CJTHookableClass implements CJTIAccessPoin
 		parent::__construct();
 		// Initialize!
 		$this->controllerName = $this->ongetdefaultcontrollername($_REQUEST['controller'] ? $_REQUEST['controller'] : $defaultController);
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	* @return Boolean TRUE if it wasn't connected! FALSE otherwise.
+	*/
+	protected function connected() {
+		// Do connect only if not connected yet
+		if ($returns = !self::$connected) {
+			// Fire connected event!
+			$this->onconnected(true);
+			// Set current instance as the connected object!
+			self::$connected = $this;
+		}
+		return $returns;
 	}
 	
 	/**
@@ -133,8 +148,8 @@ abstract class CJTAccessPoint extends CJTHookableClass implements CJTIAccessPoin
 	* put your comment there...
 	* 
 	*/
-	public function isLoaded() {
-		return $this->loaded;
+	public static function & isConnected() {
+		return self::$connected;
 	}
 	
 	/**
@@ -156,12 +171,10 @@ abstract class CJTAccessPoint extends CJTHookableClass implements CJTIAccessPoin
 	public function route() {
 		// Only loading one controller is allowed.
 		if (!$this->controller) {
-			if ($this->loaded = $this->onconnected(true)) { // Mark as loaded.
-				// Import view class.
-				require_once CJTOOLBOX_MVC_FRAMEWOK . '/view.inc.php';
-				// Instantiate controller!
-				$this->controller = $this->onsetcontroller(CJTController::getInstance($this->controllerName));
-			} 
+			// Import view class.
+			require_once CJTOOLBOX_MVC_FRAMEWOK . '/view.inc.php';
+			// Instantiate controller!
+			$this->controller = $this->onsetcontroller(CJTController::getInstance($this->controllerName));
 		}
 		return $this->controller;
 	}

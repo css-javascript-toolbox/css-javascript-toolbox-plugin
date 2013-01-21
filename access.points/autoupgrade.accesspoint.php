@@ -43,8 +43,8 @@ class CJTAutoUpgradeAccessPoint extends CJTAccessPoint {
 	* 
 	* @return Boolean false
 	*/
-	public function isLoaded() {
-		return false;
+	public function connected() {
+		throw new Exception('I\'ll never be the connected object!');
 	}
 	
 	/**

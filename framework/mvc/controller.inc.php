@@ -150,7 +150,7 @@ abstract class CJTController extends CJTHookableClass {
 		// Import controller file.
 		$pathToControllers = CJTOOLBOX_CONTROLLERS_PATH;
 		$controllerFile = "{$pathToControllers}/{$name}.php";
-		require self::trigger('CJTController.loadcontroller', $controllerFile, $name);
+		require_once self::trigger('CJTController.loadcontroller', $controllerFile, $name);
 		// Get controller class name.
 		$class = self::getClassName($name, 'Controller');
 		// Instantiate controller class.

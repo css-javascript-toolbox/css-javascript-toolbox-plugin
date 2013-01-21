@@ -36,9 +36,14 @@ class CJTAjaxAccessPoint extends CJTAccessPoint {
 	* 
 	*/
 	public function route() {
+		// Initializing!
 		$controller = false;
+		// Controllers allowed to be Loaded if not installed
+		$notInstalledAllowedControllers = array('installer', 'setup');
 		// Veil access point unless CJT installed or the controller is installer (to allow instalaltion throught AJAX)!
-		if (CJTPlugin::getInstance()->isInstalled() || ($this->controllerName == 'installer')) {
+		if (CJTPlugin::getInstance()->isInstalled() || in_array($this->controllerName, $notInstalledAllowedControllers)) {
+			// Connected!
+			$this->connected();
 			// Instantiate controller.
 			$controller = parent::route();
 			// Dispatch the call as its originally requested from ajax action!

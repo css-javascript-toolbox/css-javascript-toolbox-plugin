@@ -39,8 +39,11 @@ class CJTMetaboxAccessPoint extends CJTAccessPoint {
 		$controller = false;
 		// Veil access point unless CJT installed!
 		if (CJTPlugin::getInstance()->isInstalled()) {
-			$this->controllerName = 'metabox'; // Impersonating!
-			// Instantiate controller.
+			// Set as connected object!
+			$this->connected();
+			// Load metabox controller!
+			$this->controllerName = 'metabox';
+			// Do Work!
 			$controller = parent::route();			
 		}
 		return $controller;
