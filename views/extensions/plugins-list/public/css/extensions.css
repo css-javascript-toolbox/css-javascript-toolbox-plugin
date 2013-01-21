@@ -5,4 +5,4 @@
 .subsubsub {display: none;}
 .wrap h2 {visibility: hidden;}
 
-#icon-cjtoolbox {background url('') no-repeat; background-color: red;}
+#icon-cjtoolbox {background: url('../images/extensions/icon32.png') no-repeat;}
