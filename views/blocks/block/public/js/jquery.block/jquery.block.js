@@ -391,7 +391,8 @@
 			var saveButton = this.toolbox.buttons['save'];
 			// Dont save unless there is a change!
 			if (saveButton.jButton.hasClass('cjttbs-disabled')) {
-				return;
+				// Return REsolved Dummy Object for standarizing sake!
+				return CJTBlocksPage.server.getDeferredObject().resolve().promise();
 			}
 			// Queue User Direct Interact fields (code, posts, categories, links, expressions etc...).
 			var data = {calculatePinPoint : this.features.calculatePinPoint, createRevision : 1};
