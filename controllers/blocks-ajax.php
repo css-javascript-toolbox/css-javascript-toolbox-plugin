@@ -192,6 +192,7 @@ class CJTBlocksAjaxController extends CJTAjaxController {
 				$blockData->lastModified = current_time('mysql');
 				// Update database.
 				$this->model->update($blockData, $calculatePinPoint);
+				$this->model->save();
 				// Send the changes properties back to client.
 				foreach ($postedblockPartialData as $property => $value) {
 					$response[$id][$property]['value'] = $value;
