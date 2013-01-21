@@ -97,7 +97,7 @@ class CJTBlocksBackupsModel {
 			$blocksTable->insert($blockData);
 			// Insert block Pins.
 			$pinsData = array_intersect_key($block, array_flip(array('pages', 'posts', 'categories')));
-			$blockPinsTable->insert($desBlockId, $pinsData);
+			$blockPinsTable->insert($block['id'], $pinsData);
 		}
 	}
 	
