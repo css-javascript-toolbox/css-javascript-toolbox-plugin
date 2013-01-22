@@ -70,7 +70,7 @@ class CJTAccessPointsDirectorySpider extends ArrayIterator {
 	* @return CJTAccessPointsDirectorySpider
 	* @todo Set realod = false when released!
 	*/
-	protected function load($reload = true) {
+	protected function load($reload = false) {
 		// Get if cached and not force reload!
 		if (!($this->aPoints = get_option(self::CACHE_POINTER)) || $reload) {
 			// Reset access points!
