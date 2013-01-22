@@ -131,4 +131,4 @@ CREATE TABLE IF NOT EXISTS `#__cjtoolbox_template_revisions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`),
   UNIQUE KEY `templateid-revisionNo` (`revisionNo`,`templateId`)
-);
+)
