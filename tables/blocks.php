@@ -147,13 +147,16 @@ class CJTBlocksTable extends CJTTable {
 		// Get block id copy.
 		$id = $block['id'];
 		// Don't update id field.
-		$block['id'] = null;
-		// Prepare New Record data.
-		$block = $this->prepareQueryParameters($block);
-		$block = implode(',', $block);
-		// Insert statement.
-		$query = "UPDATE {$this->table} SET {$block} WHERE `id` = {$id};";
-		$this->dbDriver->update($query);
+		unset($block['id']);
+		if (!empty($block)) {
+			// Prepare New Record data.
+			$block = $this->prepareQueryParameters($block);
+			$block = implode(',', $block);
+			// Insert statement.
+			$query = "UPDATE {$this->table} SET {$block} WHERE `id` = {$id};";
+			$this->dbDriver->update($query);
+		}
+		return $this;
 	}
 	
 } // End class.
