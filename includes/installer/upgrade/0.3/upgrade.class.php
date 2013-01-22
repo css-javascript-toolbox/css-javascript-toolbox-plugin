@@ -46,7 +46,7 @@ class CJTV03Upgrade extends CJTUpgradeNonTabledVersions {
 	public function backups() {
 		// No custom work is neede for now just upgrade backups!
 		foreach ($this->backups as $backup) {
-			//$this->backups->upgrade();
+			$this->backups->upgrade();
 		}
 		return $this;
 	}

@@ -16,12 +16,63 @@ cssJSToolbox::import('framework:db:mysql:xtable.inc.php');
 class CJTInstallerBlocks03 extends CJTInstallerBlock {
 	
 	/**
+	* 
+	*/
+	const BLOCK_TYPE_BACKUP = 'backup';
+
+	/**
+	* 
+	*/
+	const BLOCK_TYPE_BLOCK = 'block';
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $type;
+	
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $blocks
+	* @param mixed $type
+	* @return CJTInstallerBlocks03
+	*/
+	public function __construct($blocks, $type = null) {
+		// Initialize object!
+		$this->type = $type ? $type : self::BLOCK_TYPE_BLOCK;
+		// Initialize block base iterator.
+		parent::__construct($blocks);
+		// import dependencies.
+		cssJSToolbox::import('tables:blocks.php');
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function id() {
+		$id = false;
+		// If its a normal block just get the id from the KEY!
+		if ($this->type == self::BLOCK_TYPE_BACKUP) {
+			$blocksTable = new CJTBlocksTable(cssJSToolbox::getInstance()->getDBDriver());
+			$id = $blocksTable->getNextId();
+		}
+		else { // If backup block generate new ID!
+			$id = parent::id();
+		}
+		return $id;
+	}
+	
+	/**
 	* put your comment there...
 	* 
 	*/
 	public function upgrade() {
-		$key = $this->key();
+		/// Get current element.
 		$id = $this->id();
+		$key = $this->key();
 		$block =& $this[$key];
 		// Prepare block data!
 		$block['name'] = $block['block_name'];
