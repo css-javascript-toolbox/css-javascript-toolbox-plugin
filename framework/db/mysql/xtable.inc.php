@@ -240,6 +240,25 @@ abstract class CJTxTable extends CJTHookableClass {
 	}
 	
 	/**
+	* put your comment there...
+	* 
+	* @param mixed $tableKey
+	*/
+	public function isValidKey($tableKey = null) { 
+		$isValid = false;
+		// Get key!
+		$key = $this->getKey($tableKey);
+		// If any field has a value then its not null key!
+		foreach ($key as $field) {
+			if ($field !== null) {
+				$isValid = $key;
+				break;
+			}
+		}
+		return $isValid;
+	}
+	
+	/**
 	* Load record into table!
 	* 	
 	* @param mixed 
@@ -248,21 +267,26 @@ abstract class CJTxTable extends CJTHookableClass {
 		$key = null;
 		// Query might be an array of keys!
 		if (is_array($query)) {
-			$key = $query;
+			$tableKey = $query;
 			$query = null;
 		}
 		if (!$query) {
 			$item = (array) $this->item;
 			$query['select'] = 'SELECT *';
 			$query['from'] = "FROM {$this->table()}";
-			// Where clause.
-			$query['where'] = 'WHERE ' . implode(' AND ', $this->prepareQueryParameters($this->getKey($key)));
-			if ($query = $this->onconcatquery($query)) {
-				// Read DB  record!
-				$query = "{$query['select']} {$query['from']} {$query['where']}";				
+			// Load only if key is not NULL!
+			if ($key = $this->isValidKey($tableKey)) {
+				$query['where'] = 'WHERE ' . implode(' AND ', $this->prepareQueryParameters($key));
+				if ($query = $this->onconcatquery($query)) {
+					// Read DB  record!
+					$query = "{$query['select']} {$query['from']} {$query['where']}";				
+					$this->item = array_shift($this->dbDriver->select($this->onloadquery($query)));
+				}				
 			}
 		}
-		$this->item = array_shift($this->dbDriver->select($this->onloadquery($query)));
+		else {
+			$this->item = array_shift($this->dbDriver->select($this->onloadquery($query)));
+		}
 		return $this;
 	}
 	
