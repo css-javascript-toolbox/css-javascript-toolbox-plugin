@@ -25,6 +25,10 @@
 		*/
 		_oninstall : function() {
 			var operations = [];
+			// Don't process if not confirmed!
+			if (!confirm(CJTInstallerDefaultI18N.confirmMessage)) {
+				return;
+			}
 			// Operations to process.
 			this.installationForm.find('ul.installation-list').each($.proxy(
 				function(listIndex, list) {
