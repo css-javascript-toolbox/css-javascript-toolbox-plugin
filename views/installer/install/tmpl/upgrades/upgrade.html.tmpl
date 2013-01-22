@@ -17,7 +17,8 @@ defined('ABSPATH') or die("Access denied");
 				'templates' => array('text' => cssJSToolbox::getText('Transfer templates to the new database table. New template is enhanced and support revisioning and other development attributes.')),
 		);
 		// Get version operations.
-		$operations = array_merge($operations, (array) @include ("{$this->installedDbVersionId}.operations"));
+		$versionOperation = @include ("{$this->installedDbVersionId}.operations");
+		$operations = array_merge($operations, ($versionOperation ? $versionOperation : array()));
 		// Add last operations.
 		$operations['finalize'] = array('text' => cssJSToolbox::getText('Finalize Upgrade.'));
 		// Print upgrade operations.
