@@ -79,6 +79,7 @@ abstract class CJTObserver implements CJTIObserver {
 	* put your comment there...
 	* 
 	* @param mixed $name
+	* @param mixed $filter
 	* @return CJTObserver
 	*/
 	public function __construct($name, $filter = null) {
@@ -118,6 +119,8 @@ abstract class CJTObserver implements CJTIObserver {
 			$observer = $callback;
 		}
 		else {
+			// @TODO: Why there is $name, $filter and $param variable only if $callback is not native PHP callback!
+			$name = $filter = $param = null; // E_ALL Complain!
 			// Short-hand array structure!
 			if (is_array($callback) && isset($callback['callback'])) {
 				// Get all params without callback
