@@ -268,7 +268,15 @@ class CJTMYSQLQueueDriver extends CJTHookableClass {
 	* @param mixed $query
 	*/
 	public function resolveTableName($query) {
-		return  str_replace('#__', "{$this->wpdb->prefix}", $query);
+		// Define list of Prefixes to be replaced with Wordpress table prefix!
+		$keywords = array('#__wordpress_' => '', '#__cjtoolbox_' => 'cjtoolbox_');
+		// Replace each keyword with Wordpress table prefix
+		// + if there is any prefix defined for the keyword itself!
+		foreach ($keywords as $search => $prefix) {
+			$query = str_replace($search, "{$this->wpdb->prefix}{$prefix}", $query);
+		}
+		// Return new query with table names resolved.
+		return  $query;
 	}
 	
 	/**
