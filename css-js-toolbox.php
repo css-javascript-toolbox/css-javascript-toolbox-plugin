@@ -179,19 +179,23 @@ class CJTPlugin extends CJTHookableClass {
 		// Load plugin and all installed extensions!.
 		$this->load();
 		$this->loadExtensions();
-		// Apply blocks for output!
-		$this->apply();
 		// Listen to the request / Define Access Points.
 		$this->listen();
+		// Apply blocks for output!
+		$this->apply();
 	}
 	
 	/**
-	* Apply blocks assigned to the request!
+	* @TODO: Those controllers loaded inside this method
+	* should be loaded using Access Point!!
+	* For now (finalizing version 6.0) there
+	* is no chance for such modification!
 	* 
+	* @deprecated
 	* @return void
 	*/
 	protected function apply() {
-		// Run the coupling only if the installer runs before!
+		// Load  coupling (the one applying the block code for output!) controller  only if the installer runs before!
 		if ($this->installed) {
 			CJTController::getInstance($this->onloadcoupling('blocks-coupling'));
 		}
@@ -268,6 +272,8 @@ class CJTPlugin extends CJTHookableClass {
 		// Load MVC framework core!
 		require_once $this->onimportmodel(CJTOOLBOX_MVC_FRAMEWOK . '/model.inc.php');
 		require_once $this->onimportcontroller(CJTOOLBOX_MVC_FRAMEWOK . '/controller.inc.php');
+		// Always Load Error controller and put it in action!
+		CJTController::getInstance('errors')->setAction('track')->_doAction();
 	}
 	
 	/**

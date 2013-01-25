@@ -159,8 +159,10 @@ var CJTServerQueue;
 			var serverQueue = this; // To use inside .each().
 			var queueParams = null;
 			$(this.queue).each(function(index, queue) {
+				// If rejected don't call getResponseParameters() to avoid error
+				// This is a temporary solution for version 6.0 to be releases!
 				// Get queue parameters based on queue type.
-				if (queue.type == 'endpoint') {
+				if ((state == 'reject') || (queue.type == 'endpoint')) {
 					// endpoint type queue is queue to handle the typical/native
 					// ajax response without setting up response parameters.
 					queueParams = [response];

@@ -247,7 +247,12 @@ var CJTServer;
 			returnType = (returnType == undefined) ? 'json' : returnType;
 			// Send the request.
 			request = CJTServer.getRequestObject(controller, action, data);
-			promising = $[requestMethod](request.url, request.data, null, returnType);
+			promising = $[requestMethod](request.url, request.data, null, returnType).error(
+				// Global routine to handle errors!
+				$.proxy(function() {
+					alert('Error<br>');
+				}, this)
+			);
 			return promising;
 		},
 		
