@@ -36,7 +36,7 @@ define('CJTOOLBOX_NAME', plugin_basename(dirname(__FILE__)));
 define('CJTOOLBOX_TEXT_DOMAIN', CJTOOLBOX_NAME);
 
 /**  */
-define('CJTOOLBOX_LANGUAGES', CJTOOLBOX_NAME . '/languages/');
+define('CJTOOLBOX_LANGUAGES', CJTOOLBOX_NAME . '/locals/languages/');
 
 /** CJT Absoulte path */
 define('CJTOOLBOX_PATH', dirname(__FILE__));

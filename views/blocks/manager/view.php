@@ -64,8 +64,6 @@ class CJTBlocksManagerView extends CJTView {
 		parent::__construct($parameters);
 		// Import other dependencies views.
 		self::Import('blocks/cjt-block');
-		// Page load.
-		add_action("load-settings_page_cjtoolbox", array($this, 'initPage'));
 		// register callback to show styles needed for the admin page
 		add_action('admin_print_styles', array(__CLASS__, 'enququeStyles'));
 		// Load scripts for admin panel working
@@ -107,32 +105,6 @@ class CJTBlocksManagerView extends CJTView {
 	*/
 	public function getBlocksOrder() {
 		return $this->order;
-	}
-	
-	/**
-	* put your comment there...
-	* 
-	*/
-	public function initPage() {
-		global $current_screen;
-		/// Add Screen Help tabs.
-		$helpTabs = array(
-			'overview' => array(
-	  		'title' => __('Overview'),
-			),
-		);
-		// Add tabs to WP_Screen object.
-		foreach ($helpTabs as $id => $tab) {
-			// Get view content from the external file.
-			$helpFile = $id;
-			$tab['content'] = $this->getTemplate($helpFile, array(), 'help/screen/tabs', '.html.help');
-			// Push tab id to array.
-			$tab['id'] = "cjt-blocks-page-help-{$id}";
-			$current_screen->add_help_tab($tab);
-		}
-		// Set screen-help sidebar content.
-		$sidebarContent = $this->getTemplate('sidebar', array(), 'help/screen', '.html.help');
-		$current_screen->set_help_sidebar($sidebarContent);
 	}
 	
 	/**

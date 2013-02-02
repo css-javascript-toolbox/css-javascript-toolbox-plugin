@@ -25,7 +25,7 @@
 		*/
 		_onsetup : function(event) {
 			// Getting component name from clicked link!
-			var component = CJTUtilities.parseString(/\#(.+)/.exec(event.target.href)[1]);
+			var component = CJTUtilities.parseString(decodeURI(/\#(.+)/.exec(event.target.href)[1]));
 			// Build request parameters.
 			var request = {
 				view : 'setup/activation-form',

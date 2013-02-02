@@ -14,7 +14,7 @@ class CJTSetupModel {
 	/**
 	* 
 	*/
-	const EDD_PRODUCT_NAME = 'CSS Javascript Toolbox';
+	const EDD_PRODUCT_NAME = 'CJT V6';
 	
 	/**
 	* 
@@ -73,7 +73,8 @@ class CJTSetupModel {
 		$request['edd_action'] = "{$action}_license";
 		$request['item_name'] = urlencode($component['name']);
 		$request['license'] = $license['key'];
-		//$request['licenseName'] = $license['name'];
+		/* CJT Extra Fields For EDD */
+		$request['CJTEFFEDD_licenseName'] = $license['name'];
 		// Request the server!
 		$response = wp_remote_get(add_query_arg($request, cssJSToolbox::getCJTWebSiteURL()));
 		// We need only the JSON object returned by EDD APIs.

@@ -45,7 +45,7 @@ class CJTTemplateTable extends CJTxTable {
 	public function setQueueName() {
 		$type = $this->get('type');
 		// Santiize the template name!
-		$sanitizedName = strtolower(preg_replace('/\W+/', '-', $this->get('name')));
+		$sanitizedName = strtolower(sanitize_file_name($this->get('name')));
 		// Prefix all user templates so it woule be unique when added
 		// to Wordpress queue!
 		$queueName = "cjt-{$type}-template-{$sanitizedName}";

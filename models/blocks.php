@@ -217,7 +217,11 @@ class CJTBlocksModel {
 	* @param mixed $order
 	*/
 	public function setOrder($order) {
-		update_option('meta-box-order_cjtoolbox', $order);
+		$orderOptionName = 'meta-box-order_cjtoolbox';
+		// Update user order so That jQuery sortable Plugin will display them in correct orders!
+		update_user_option(get_current_user_id(), $orderOptionName, $order, true);
+		// Update CENTRALIZED order in the options table!
+		update_option($orderOptionName, $order);
 	}
 	
 	/**

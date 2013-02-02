@@ -4,7 +4,7 @@
 			<ul>
 				<li class="id"><span class="label"><?php echo cssJSToolbox::getText('ID') ?>:</span> #<?php echo $this->item->id ?></li>
 				<li><span class="label"><?php echo cssJSToolbox::getText('Name') ?>:</span> <?php echo $this->item->name ?></li>
-				<li><span class="label"><?php echo cssJSToolbox::getText('Type') ?>:</span> <?php echo $this->item->type ?></li>
+				<li><span class="label"><?php echo cssJSToolbox::getText('Type') ?>:</span> <?php echo cssJSToolbox::getText($this->item->type) ?></li>
 		    <li><span class="label"><?php echo cssJSToolbox::getText('Creation Date') ?>:</span> <?php echo $this->item->creationDate ?></li>
 		    <li><span class="label"><?php echo cssJSToolbox::getText('Last Modified') ?>:</span> <?php echo $this->item->lastModified ?></li>		    
 		    <li><span class="label"><?php echo cssJSToolbox::getText('Last Revision Comment') ?>:</span><p class="content large"><?php echo $this->item->changeLog ?></p></li>

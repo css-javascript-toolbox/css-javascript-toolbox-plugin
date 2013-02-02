@@ -21,7 +21,7 @@
 	cursor: pointer;
 	margin-left: 3px;
 	background-repeat: no-repeat;
-	background-position: center;
+	background-position: left 85%;
 }
 .cjt-toolbox .icons-group a.cjt-tb-text-link {
 	padding-left: 30px;

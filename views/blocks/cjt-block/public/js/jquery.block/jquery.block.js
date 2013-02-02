@@ -31,12 +31,15 @@
 			var overlay = $(event.target);
 			var checkbox = overlay.parent().find('.select-childs');
 			var state = checkbox.prop('checked') ? '' : 'checked';
-			// Revert checkbox state.
-			checkbox.prop('checked', state);
-			// Clone state to parent checkbox.
-			checkbox.parent().find('label>input:checkbox').prop('checked', state).trigger('change');
-			//Clone state to all child checkboxes
-			checkbox.parent().find('.children input:checkbox').prop('checked', state).trigger('change');
+			// Work only if select-child checkbox is interactive!
+			if (checkbox.attr('disabled') != 'disabled') {
+				// Revert checkbox state.
+				checkbox.prop('checked', state);
+				// Clone state to parent checkbox.
+				checkbox.parent().find('label>input:checkbox').prop('checked', state).trigger('change');
+				//Clone state to all child checkboxes
+				checkbox.parent().find('.children input:checkbox').prop('checked', state).trigger('change');
+			}
 			// For link to behave inactive.
 			return false;
 		}
@@ -53,12 +56,12 @@
 			var tabs = block.box.find('.cjt-pages-tab');
 			var pagesBlock = block.box.find('.cjpageblock');
 			var codeBlock = block.box.find('.cjcodeblock');
-			var aceEditor = block.box.find('.code-editor');
+			var aceEditor = block.aceEditor;
 			var newState = '';
 			// Hide pages panel when:
 			if (tabs.css('display') != 'none') {
 				// Hide if initial value == undefined or initial value == closed.
-				if (initialState != '') {
+				if ((initialState != '') && (initialState != 'undefined')) {
 					// Hide elements.
 					tabs.hide();
 					pagesBlock.css('width', '0px');

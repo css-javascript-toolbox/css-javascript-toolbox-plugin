@@ -48,8 +48,14 @@ class CJTExtensionsAccessPoint extends CJTAccessPoint {
 	public function menu() {
 		// Extensions page.
 		add_submenu_page(CJTPlugin::PLUGIN_REQUEST_ID, null, cssJSToolbox::getText('Extensions'), 'manage_options', null);
-		// Hack Extensions menu item to point to Plugins page!
-		$GLOBALS['submenu'][CJTPlugin::PLUGIN_REQUEST_ID][self::MENU_POSITION_INDEX][2] = admin_url('plugins.php?s=' . self::PLUGINS_PAGE_SEARCH_TERM);
+		// Hack the item only if user has permission!
+		// If hacked when user has no permission to the root
+		// menu item the result is that the Dashboard showing
+		// The parent menu item with empty sub menus!
+		if (current_user_can('manage_options')) {
+			// Hack Extensions menu item to point to Plugins page!
+			$GLOBALS['submenu'][CJTPlugin::PLUGIN_REQUEST_ID][self::MENU_POSITION_INDEX][2] = admin_url('plugins.php?s=' . self::PLUGINS_PAGE_SEARCH_TERM);
+		}
 		// When plugins page loaded!
 		add_action('load-plugins.php', array($this, 'route'));
 	}

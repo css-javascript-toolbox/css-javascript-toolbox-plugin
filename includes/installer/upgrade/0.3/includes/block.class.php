@@ -81,7 +81,7 @@ class CJTInstallerBlocks03 extends CJTInstallerBlock {
 		// Cache other fields before clening up deprecated block data!
 		$scripts = explode(',', $block['scripts']);
 		// Remove deprecated field!
-		$this[$key] = array_diff_key($block, array_flip(array('block_name', 'scripts')));
+		$this[$key] = array_diff_key($block, array_flip(array('block_name', 'scripts', 'meta')));
 		// Upgrade block (save into db, etc...)
 		parent::upgrade();
 		// Associate block templates!
