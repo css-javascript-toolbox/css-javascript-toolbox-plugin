@@ -57,7 +57,7 @@
 				}
 				else {
 					// Clear selection and allow changing it!
-					event.target.value = '';
+					 typeName = event.target.value = '';
 				}
 			}
 			// Enable editor if there is a type selected or disable it if non types is selected!
@@ -81,7 +81,7 @@
 			this.form = $('form#item-form');
 		  this.errors = new CJTSimpleErrorDialog(this.form)
 		  .onSet('item[template]') // Avoid writing set/array/group name multipe times!
-		  	.add('[name]', /^[\w\d\-\_\x20]+$/, CJTTemplateI18N.invalidName)
+		  	.add('[name]', /^.+$/, CJTTemplateI18N.invalidName)
 		  	.add('[type]', /^.+$/, CJTTemplateI18N.languageIsNotSelected)
 		  	.add('[state]', /^.+$/, CJTTemplateI18N.stateIsNotSelected)
 		  .onSet('');

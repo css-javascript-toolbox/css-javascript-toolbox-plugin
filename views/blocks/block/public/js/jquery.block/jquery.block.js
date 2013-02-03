@@ -774,56 +774,12 @@
 			var editorCommands = this.block.aceEditor.commands;
 			var commands = [
 				{
-					name: 'Toggle-Fullscreen', 
-					bindKey: {
-						win : 'F11', 
-						mac : 'Command-K'
-					}, 
-					exec: $.proxy(this._onfullscreen, this)
-				},
-				{
 					name: 'Save-Changes',
 					bindKey: {
 						win : 'Ctrl-S',
 						mac : 'Command-J'
 					},
 					exec: $.proxy(this._onsavechanges, this)
-				},
-				{
-					name: 'Font-Large',
-					bindKey: {
-						win : 'Ctrl-+',
-						mac : 'Command-+'
-					},
-					exec: $.proxy(
-						function() {
-							this._onfontsize({}, {direction : 1})
-						}, this
-					)
-				},
-				{
-					name: 'Font-Small',
-					bindKey: {
-						win : 'Ctrl--',
-						mac : 'Command--'
-					},
-					exec: $.proxy(
-						function() {
-							this._onfontsize({}, {direction : -1})
-						}, this
-					)
-				},
-				{
-					name: 'Reset-Font',
-					bindKey: {
-						win : 'Ctrl-*',
-						mac : 'Command-*'
-					},
-					exec: $.proxy(
-						function() {
-							this._onfontsize({}, {reset : true})
-						}, this
-					)
 				}
 			];
 			/** Add Our Ace Save, Full screen and Code-Auto-Completion commands */

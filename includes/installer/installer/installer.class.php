@@ -108,18 +108,6 @@ class CJTInstaller extends CJTHookableClass {
 	/**
 	* put your comment there...
 	* 
-	* 
-	* @CJTInstallerReflection<optional=true>
-	*/
-	public function sampleBlocks() {
-		
-		
-		return $this;
-	}
-	
-	/**
-	* put your comment there...
-	* 
 	*/
 	public function wordpressTemplates() {
 		// Dependencies!

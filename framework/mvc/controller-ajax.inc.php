@@ -72,7 +72,7 @@ abstract class CJTAjaxController extends CJTController {
 	* 
 	* @var mixed
 	*/
-	public $response = null;
+	public $response = false;
 	
 	/**
 	* put your comment there...

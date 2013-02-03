@@ -7,10 +7,12 @@
 defined('ABSPATH') or die("Access denied");
 
 /**
-* Applying Code blocks to the current request.
+* Applying Code blocks for the curren request.
 * 
-* The class resposibility is to output the code blocks & Linking
-* templates associated with current request.
+* This controller is always loaded.
+* 
+* The class resposibility is to output the code blocks
+* tha associated with current request.
 * 
 * @author Ahmed Said
 * @version 6
@@ -442,8 +444,6 @@ class CJTBlocksCouplingController extends CJTController {
 	* 
 	*/
 	protected function setRequestFilters() {
-		//$z = new DOMDocument();
-		//$xx[$z] = 10;
 		// Get request blocks.
 		$filters = $this->ondefaultfilters((object) array(
 			'pinPoint' => 0x00000000,

@@ -279,14 +279,21 @@ var CJTBlocksPage;
 		  		}
 		  	}
 		  );
-			// Confimation message!
-			var confirmMessage = CJTBlocksPageI18N.commonDeleteMessage.replace('%d', emptyBlocks.length)
-																								+ "\n\n"
-																								+ CJTBlocksPage.blocks.toArray('name', emptyBlocks).join("\n")
-																								+ "\n\n"
-																								+ CJTBlocksPageI18N.confirmDeleteEmpty;
-		  if (confirm(confirmMessage)) {
-				CJTBlocksPage.deleteBlocks(emptyBlocks);				
+		  // If there is at least one empty block to delete just confirm
+		  // otherwise show error!
+		  if (emptyBlocks.length) {
+				// Confimation message!
+				var confirmMessage = CJTBlocksPageI18N.commonDeleteMessage.replace('%d', emptyBlocks.length)
+																									+ "\n\n"
+																									+ CJTBlocksPage.blocks.toArray('name', emptyBlocks).join("\n")
+																									+ "\n\n"
+																									+ CJTBlocksPageI18N.confirmDeleteEmpty;
+			  if (confirm(confirmMessage)) {
+					CJTBlocksPage.deleteBlocks(emptyBlocks);				
+			  }
+		  }
+		  else {
+				alert(CJTBlocksPageI18N.noBlocksToDelete)
 		  }
 		},
 		
@@ -318,7 +325,7 @@ var CJTBlocksPage;
 				'margin-left' : '5px',
 				'margin-top': '0px',
 				'width' : '99%',
-				'height' : ((window.innerHeight - 40) + 'px'),
+				'height' : ((jQuery(window).height() - 40) + 'px'),
 				'z-index' : 1000000
 			});
 			// Set Iframe style.
@@ -473,10 +480,10 @@ var CJTBlocksPage;
 			if (!CJTBlocksPage.deletedBlocks.length) {
 				// If there is no changes in any block save-changed button shouild be disabled.
 				if (!CJTBlocksPage.toolboxes.isEnabled('save-changes')) {
-					return null;
+					return;
 				}
 			}
-			return "Confirm Not Save";
+			return CJTBlocksPageI18N.confirmNotSavedChanges;
 		},
 		
 		/**

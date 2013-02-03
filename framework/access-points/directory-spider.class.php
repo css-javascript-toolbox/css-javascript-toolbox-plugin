@@ -81,7 +81,7 @@ class CJTAccessPointsDirectorySpider extends ArrayIterator {
 				if (!$file->isDir()) {
 					// Build point info!
 					$point = array();
-					$point['file'] = $file->getPathName();
+					$point['file'] = $file->getFilename();
 					$point['name'] = $file->getBaseName('.accesspoint.php');
 					$point['class'] = "{$this->prefix}{$point['name']}AccessPoint";
 					// Add to points list!
@@ -101,8 +101,10 @@ class CJTAccessPointsDirectorySpider extends ArrayIterator {
 	public function point() {
 		// Get access point info!
 		$point =& $this[$this->key()];
+		// Full absolulte path to access point file!
+		$absPath = "{$this->dir}/{$point['file']}";
 		// Instantiate point class, this will put it in action!
-		require_once $point['file'];
+		require_once $absPath;
 		return new $point['class']();
 	}
 	

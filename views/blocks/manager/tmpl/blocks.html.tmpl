@@ -8,7 +8,8 @@ defined('ABSPATH') or die("Access denied");
 ?>
 <div id="cjtoolbox-admin" class="wrap">
 	<div id="custom-icon" class="icon32 blocks-icon32"></div>
-	<h2><?php echo cssJSToolbox::getText('CSS & Javascript Toolbox') ?></h2>
+	<h2><?php echo cssJSToolbox::getText('CSS & Javascript Toolbox V6') ?></h2>
+	<span class="cjt-user-manual"><?php echo cssJSToolbox::getText('Need Help?') ?>&nbsp;&nbsp;&nbsp;<a target="_blank" href="<?php echo CJTOOLBOX_URL ?>/docs/CJT_V6_User_Manual.pdf"><?php echo cssJSToolbox::getText('CJT User Manual') ?></a></span>
 	<form id="cjtoolbox-blocks-page-form" method="post">
 		<?php wp_nonce_field('cjtoolbox'); ?>
 		<?php wp_nonce_field('closedpostboxes', 'closedpostboxesnonce', false); ?>

@@ -214,8 +214,6 @@ class CJTBlocksAjaxController extends CJTAjaxController {
 	public function saveOrderAction() {
 		// Read order.
 		$order = array('normal' => $_GET['order']);
-		// Update user order so sortable Plugin will display them in correct orders!
-		update_user_option(get_current_user_id(), 'meta-box-order_cjtoolbox', $order, true);
 		// Centralized orders to be shared between all users!
 		$this->model->setOrder($order);
 		$this->response = array('order' => $order, 'state' => 'saved');

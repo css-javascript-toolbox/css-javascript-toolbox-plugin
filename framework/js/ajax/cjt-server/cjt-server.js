@@ -247,12 +247,22 @@ var CJTServer;
 			returnType = (returnType == undefined) ? 'json' : returnType;
 			// Send the request.
 			request = CJTServer.getRequestObject(controller, action, data);
-			promising = $[requestMethod](request.url, request.data, null, returnType).error(
-				// Global routine to handle errors!
-				$.proxy(function() {
-					alert('Error<br>');
+			promising = $[requestMethod](request.url, request.data, null, returnType)
+			/* @TODO: This is a temporary solution for version 6.0 to be releases! Later we'll have a full error handling system! */
+			// --- Start temporary Error handling Block ---
+			.error($.proxy(
+				function(jqXHR, textStatus) {
+					switch (textStatus) {
+						case 'parsererror':
+							// For now just create a temporary element to be over any other elements!
+							if (confirm(CJTCjtServerI18N.confirmSubmitErrorForm)) {
+								this.unhandledErrorSubmissionForm(jqXHR.responseText);
+							}
+						break;
+					}
 				}, this)
 			);
+			// --- End temporary Error handling Block ---
 			return promising;
 		},
 		
@@ -266,6 +276,53 @@ var CJTServer;
 				uri = document.location.href;
 			}
 			return uri.replace(repExp, actionParameter);
+		},
+
+		/**
+		* @internal
+		*/
+		unhandledErrorSubmissionForm : function(text) {
+			//Create form dialog if not exists!
+			var jQuery = window.top.jQuery;
+			var errorForm = jQuery.find('#cjt-unhandled-error-form');
+			if (!errorForm.length) {
+				// Creating form element!
+				var errorForm = jQuery('<div id="#cjt-unhandled-error-form"><div class="content"></div><input type="button" /></div>').appendTo(jQuery('body'));
+			}
+			// Close Button!
+			errorForm.find('input:button')
+			// Localizing!
+			.prop('value', 'Close')
+			// Styling
+			.css({float : 'right', width : '100px'})
+			// Close form!
+			.click($.proxy(
+				function() {
+					if (confirm(CJTCjtServerI18N.confirmCloseErrorForm)) {
+						errorForm.remove();
+					}
+				}, this)
+			);
+			// Error!
+			errorForm.find('.content').html(text)
+			// Styling!
+			.css({overflow : 'auto', height : '92%', 'text-align' : 'center'});
+			// Form!
+			errorForm.css({
+				/* Positioning center*/
+				position : 'fixed',
+				backgroundColor : 'white',
+				left : '2.5%',
+				top : '2.5%',
+				width : '95%',
+				height : '91%',
+				/* Styling */
+				padding : '10px 10px',
+				border : '4px solid gray',
+				/* Over everything! */
+				'z-index' : 10000000,
+				display : 'block'
+			});
 		}
 		
 	} // End class.

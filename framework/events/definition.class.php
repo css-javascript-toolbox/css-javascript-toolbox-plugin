@@ -85,11 +85,8 @@ class CJTEventsDefinition {
 	protected function & extend(& $definition) {
 		// Extend events from all base classes!
 		foreach ($this->bases as $baseClassName => $options) {
-			// Get base class events!
 			$baseClass = $this->get($baseClassName);
-			$events = isset($baseClass['events']) ? $baseClass['events'] : array();
-			// Merge single event definition!
-			foreach ($events as $name => $event) {
+			foreach (((array) $baseClass['events']) as $name => $event) {
 				$event['type'] = array_merge($event['type'], $options);
 				$definition['events'][$name] = $event;
 			}

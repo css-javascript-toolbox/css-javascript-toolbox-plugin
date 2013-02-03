@@ -1,6 +1,8 @@
 /** CSS &amp; Javascript Toolkit - blocks page CSS **/
 /* Wordpress Page */
 .wrap { position: relative; }
+.cjt-user-manual {right: 0px;position: absolute;top: 2px;}
+.cjt-user-manual a, .cjt-user-manual a:hover, .cjt-user-manual a:visited{color: #A5581B;}
 .blocks-icon32 { background: transparent url('../images/CSS_JS_Toolbox_Icon.png') no-repeat; }
 #post-body{ display: none; min-width:700px; }
 /* Give extra space for the last Block Code-Auto-Completion dialog */

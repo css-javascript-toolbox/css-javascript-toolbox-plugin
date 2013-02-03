@@ -55,8 +55,13 @@ abstract class CJTUpgradeNonTabledVersions extends CJTHookableClass {
 	* 
 	*/
 	public function blocks() {
+		$defaultOrder = array();
 		// Upgrade all blocks.
-		foreach ($this->blocks as $block) {
+		foreach ($this->blocks as $index => $block) {
+			// In case the user is never re-ordered the blocks then
+			// the blocks order is not saved in the meta table
+			// however use the blocks order instead!
+			$defaultOrder[] = 'cjtoolbox-' . ($index + 1);
 			// No customization neede, just upgrade!
 			$this->blocks->upgrade();
 		}
@@ -64,14 +69,20 @@ abstract class CJTUpgradeNonTabledVersions extends CJTHookableClass {
 		$this->blocks->model->save();
 		// Version 0.2 and 0.3 use wrong algorithm for saving blocks order!
 		// Every version  has its owen blocks order however the orders is not used to output the blocks!
-		// Version 2.0 still has argument about this but for simplification sake and for time save
+		// Version 1.0 still has argument about this but for simplification sake and for time save
 		// We just get orders from current runnign user! This is not 100% correct but we just need to advice 
 		// to install the Plugin using the same author you need to inherits the order from!
-		$page = CJTPlugin::PLUGIN_REQUEST_ID;
+		$blocksPageSlug = CJTPlugin::PLUGIN_REQUEST_ID;
 		// Get current logged-in user order!
-		$order = get_user_option("meta-box-order_settings_page_{$page}");
+		$order = get_user_option("meta-box-order_settings_page_{$blocksPageSlug}");
 		// Save it into GLOBAL/SHARED option to centralized all users!
+		if (!$order && !empty($defaultOrder)) {
+			$order = array('normal' => implode(',', $defaultOrder));
+		}		
 		$this->blocks->model->setOrder($order);
+		// Sync closed block metaboxes!
+		$closedBlocks = get_user_meta(get_current_user_id(), "closedpostboxes_settings_page_{$blocksPageSlug}", true);
+		update_user_meta(get_current_user_id(), "closedpostboxes_{$blocksPageSlug}", $closedBlocks);
 		return true;
 	}
 	
@@ -85,6 +96,10 @@ abstract class CJTUpgradeNonTabledVersions extends CJTHookableClass {
 		// Drop cjdata table as is it no longed needed!
 		$driver = cssJSToolbox::getInstance()->getDBDriver();
 		$driver->exec('DROP TABLE #__cjtoolbox_cjdata;');
+		// Clean up metabox meta data!
+		$orderUserMetaKey = 'meta-box-order_settings_page_' . CJTPlugin::PLUGIN_REQUEST_ID;
+		$closedUserMetaKey = 'closedpostboxes_settings_page_' . CJTPlugin::PLUGIN_REQUEST_ID;
+		$driver->exec("DELETE FROM #__wordpress_usermeta WHERE meta_key IN ('{$orderUserMetaKey}', '{$closedUserMetaKey}');");
 		return $this;
 	}
 	
