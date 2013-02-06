@@ -97,20 +97,21 @@ abstract class CJTController extends CJTHookableClass {
 	* put your comment there...
 	* 
 	* @param mixed $hasView
+	* @param mixed $request
 	* @return CJTController
 	*/
-	public function __construct($hasView = true) {
+	public function __construct($hasView = null, $request = null) {
 		// Initialize hookable!
 		parent::__construct();
 		// Read request parameters.
-		$this->request = $_REQUEST;
+		$this->request = $request ? $request : $_REQUEST;
 		// Create default model.
 		if (isset($this->controllerInfo['model'])) {
 			$this->model = CJTModel::create($this->controllerInfo['model'], array(), $this->controllerInfo['model_file']);
 		}
 		// Create default view.
-		if ($hasView) {
-			$view = $this->ongetviewname($_REQUEST['view'] ? $_REQUEST['view'] : $this->controllerInfo['view']);
+		if ($hasView === null) { // Default value for $hasView = true
+			$view = $this->ongetviewname($this->request['view'] ? $this->request['view'] : $this->controllerInfo['view']);
 			if ($view) {
 				$this->view  = self::getView($view)
 				// Push data into view.
@@ -143,10 +144,12 @@ abstract class CJTController extends CJTHookableClass {
 	/**
 	* put your comment there...
 	* 
+	* @deprecated Use CJTController::getInstance() instead!
+	* 
 	* @param mixed $name
-	* @deprecated Use CJTController::getInstance()!
+	* @param mixed $request
 	*/
-	public static function create($name) {
+	public static function create($name, $hasView = null, $request = null) {
 		// Import controller file.
 		$pathToControllers = CJTOOLBOX_CONTROLLERS_PATH;
 		$controllerFile = "{$pathToControllers}/{$name}.php";
@@ -154,7 +157,7 @@ abstract class CJTController extends CJTHookableClass {
 		// Get controller class name.
 		$class = self::getClassName($name, 'Controller');
 		// Instantiate controller class.
-		return new $class();
+		return new $class($hasView, $request);
 	}
 	
 	/**
@@ -183,9 +186,11 @@ abstract class CJTController extends CJTHookableClass {
 	* put your comment there...
 	* 
 	* @param mixed $name
+	* @param mixed $hasView
+	* @param mixed $request
 	*/
-	public static function getInstance($name) {
-		return self::create($name);
+	public static function getInstance($name, $hasView = null, $request = null) {
+		return self::create($name, $hasView, $request);
 	}
 	
 	/**

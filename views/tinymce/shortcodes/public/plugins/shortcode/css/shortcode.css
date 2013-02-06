@@ -1,0 +1,9 @@
+a#content_blocksList,
+#content_blocksList .mceIcon.cjt-blocks-list-tinymce-button,
+#content_blocksList img.mceIcon {width: 40px; height: 21px}
+
+#menu_content_content_blocksList_menu_co {max-height: 300px; overflow: auto; width: 266px}
+#menu_content_content_blocksList_menu_tbl {max-height: 300px; width: 100%}
+
+a#content_blocksList {opacity: 0.7; filter:alpha(opacity = 70%)}
+a#content_blocksList:hover {opacity: 1; filter:alpha(opacity = 100%)}
