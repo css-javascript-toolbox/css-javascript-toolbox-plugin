@@ -3,7 +3,9 @@
 */
 
 /**
-* 
+* TinyMCE Plugin for inserting CJT Block Shortcode
+* into Wordpress TinyMCE Editor!
+*
 */
 (function($) {
 	 // === Define statics ===
@@ -19,9 +21,6 @@
 	* 
 	*/
 	var pluginURL = null;
-	
-	// Load language file!
-	tinymce.PluginManager.requireLangPack('CJTShortcodes');
 	
 	// Register Plugin.
 	tinymce.create('tinymce.plugins.CJTShortcodes', {
@@ -52,7 +51,7 @@
 			case 'CJTBlockShortcode':
 				// Create blocks list!
 				var bList = cm.createMenuButton('blocksList', {
-					title : 'CJTBlockShortcode.title',
+					title : CJTBlockShortcode.title,
 					image : pluginURL + '/images/blocks.png',
 					'class' : 'cjt-blocks-list-tinymce-button'
 				});
