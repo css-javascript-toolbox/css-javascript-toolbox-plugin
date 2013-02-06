@@ -165,16 +165,17 @@ abstract class CJTAccessPoint extends CJTHookableClass implements CJTIAccessPoin
 	}
 	
 	/**
-	* Instantiate the requested controller.
+	* put your comment there...
 	* 
+	* @param mixed $request
 	*/
-	public function route() {
+	public function route($request = null) {
 		// Only loading one controller is allowed.
 		if (!$this->controller) {
 			// Import view class.
 			require_once CJTOOLBOX_MVC_FRAMEWOK . '/view.inc.php';
 			// Instantiate controller!
-			$this->controller = $this->onsetcontroller(CJTController::getInstance($this->controllerName));
+			$this->controller = $this->onsetcontroller(CJTController::getInstance($this->controllerName, null, $request));
 		}
 		return $this->controller;
 	}

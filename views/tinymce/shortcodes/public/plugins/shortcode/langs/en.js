@@ -1,0 +1,10 @@
+/**
+* 
+*/
+
+/**
+* 
+*/
+var CJTBlockShortcode = {
+	title : 'Title'
+};

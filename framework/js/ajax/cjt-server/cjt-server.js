@@ -49,7 +49,8 @@ var CJTServer;
 			settings : 'settings',
 			metabox : 'metabox',
 			installer : 'installer',
-			setup : 'setup'
+			setup : 'setup',
+			tinymceBlocks : 'tinymce-blocks'
 		},
 		
 		/*
