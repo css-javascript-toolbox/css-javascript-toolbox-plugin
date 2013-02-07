@@ -36,26 +36,11 @@ class CJTInstaller extends CJTHookableClass {
 	/**
 	* put your comment there...
 	* 
-	* 
-	* @CJTInstallerReflection<optional=true>
-	*/
-	public function builtinTemplates() {
-		
-		return $this;
-	}
-	
-	/**
-	* put your comment there...
-	* 
 	*/
 	public function database() {
 		// Install Database structure!
 		cssJSToolbox::import('framework:installer:dbfile.class.php');
 		CJTDBFileInstaller::getInstance(cssJSToolbox::resolvePath('includes:installer:installer:db:mysql:structure.sql'))->exec();
-		// Install built-in authors.
-		$this->builtinAuthors();
-		// Install built-in templates!
-		$this->builtinTemplates();
 		return $this;
 	}
 	
