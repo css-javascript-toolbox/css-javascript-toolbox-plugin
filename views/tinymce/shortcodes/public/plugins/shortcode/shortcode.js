@@ -65,9 +65,13 @@
 						tinyMCEButtonImage.prop('src', (CJTPluginURI + '/framework/css/images/loading.gif'))
 						.css({width : '16px', height : '16px', 'margin-left' : '10px'});
 						// Read blocks from server!
-						CJTServer.send('tinymceBlocks', 'getBlocksList', {postId : parseInt($('#POST_ID').val())})
+						CJTServer.send('tinymceBlocks', 'getBlocksList')
 						.success($.proxy(
 							function(blocks) {
+								// If not blocks do nothing!
+								if (!blocks.count) {
+									blocks.list = [];
+								}
 								// Add blocks as menu item!
 								$.each(blocks.list, $.proxy(
 									function(id, block) {
