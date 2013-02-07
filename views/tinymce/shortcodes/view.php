@@ -59,10 +59,7 @@ class CJTTinymceShortcodesView extends CJTView {
 		// Please thos scripts below should be already loaded
 		// by the metabox views If the tinymce is loaded inside the editbox
 		// IN OTHER CASES!!! what is the other cases! we load it!
-		self::useScripts(__CLASS__,  
-			'jquery',
-			'framework:js:ajax:{CJT-}cjt-server'
-		);
+		self::useScripts(__CLASS__,  'framework:js:ajax:{CJT-}cjt-server');
 	}
 
 	/**

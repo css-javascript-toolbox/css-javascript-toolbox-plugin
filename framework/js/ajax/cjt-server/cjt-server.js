@@ -223,7 +223,10 @@ var CJTServer;
 		*/
 		init : function() {
 			// Caching Security nonce value.
-			CJTServer.securityToken = $('input:hidden#cjt-securityToken').val();
+			var securityToken = $('input:hidden#cjt-securityToken').val();
+			if (securityToken) {
+				CJTServer.securityToken = securityToken;
+			}
 		},
 
 		/*

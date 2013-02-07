@@ -24,10 +24,13 @@ class CJTTinymceAccessPoint extends CJTAccessPoint {
 	* 
 	*/
 	protected function doListen() {
+		// Only if installed!
+		if (CJTPlugin::getInstance()->isInstalled()) {
 	   // Don't bother doing this stuff if the current user lacks permissions
 	   if ((current_user_can('edit_posts') || current_user_can('edit_pages')) && (get_user_option('rich_editing') == 'true')) {
 	   	 add_filter('mce_external_plugins', array($this, 'route'));
 	   }
+		}
 	}
 	
 	/**

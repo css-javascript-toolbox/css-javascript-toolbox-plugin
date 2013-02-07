@@ -55,7 +55,7 @@
 	position: relative;
 }
 /* Links */
-.cjt-toolbox-blocks a.cjttbl-state-tools { background: url(../images/toolbox/activate-all.png) no-repeat; }
+.cjt-toolbox-blocks a.cjttbl-state-tools {width: 28px !important; background: url(../images/toolbox/activate-all.png) no-repeat;}
 .cjt-toolbox-blocks a.cjttbl-location-tools { background: url(../images/toolbox/header-all.png) no-repeat; }
 .cjt-toolbox-blocks a.cjttbl-admin-tools { background: url(../images/toolbox/admin-tools.png) no-repeat; }
 .cjt-toolbox-blocks a.cjttbl-templates-manager { background: url(../images/toolbox/templates-manager.png) no-repeat; }
