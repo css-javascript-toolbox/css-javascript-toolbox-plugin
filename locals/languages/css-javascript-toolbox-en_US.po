@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: CSS & Javascript Toolbox V6\n"
-"POT-Creation-Date: 2013-02-02 22:01+0100\n"
-"PO-Revision-Date: 2013-02-02 22:01+0100\n"
+"POT-Creation-Date: 2013-02-07 18:38+0100\n"
+"PO-Revision-Date: 2013-02-07 18:38+0100\n"
 "Last-Translator: \n"
 "Language-Team: CJT <development@css-javascript-toolbox.com>\n"
 "Language: English\n"
@@ -1176,12 +1176,6 @@ msgid ""
 msgstr ""
 
 #: D:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/installer/install/tmpl/default.html.tmpl:41
-msgid ""
-"Add CJT templats library comes with the installer. There're a few great "
-"templates out there."
-msgstr ""
-
-#: D:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/installer/install/tmpl/default.html.tmpl:42
 msgid "Finalize Installation."
 msgstr ""
 
