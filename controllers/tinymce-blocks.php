@@ -45,7 +45,7 @@ class CJTTinymceBlocksController extends CJTAjaxController {
 			$block->owner = !$user ? 'N/A' : $user->display_name;
 			$this->response['list'][$id] = $block;
 		}
-		$this->response['count'] = count($this->response['blocks']);
+		$this->response['count'] = count($this->response['list']);
 	}
 	
 } // End class.
