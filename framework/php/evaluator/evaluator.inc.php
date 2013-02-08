@@ -29,8 +29,7 @@ class CJTPHPCodeEvaluator {
 	* @return CJTPHPCodeEvaluator
 	*/
 	public function __construct($code) {
-		// Encode code for using inside php data:// wrapper.
-		$this->code = base64_encode($code);
+		$this->code = $code;
 	}
 	
 	/**
@@ -39,13 +38,15 @@ class CJTPHPCodeEvaluator {
 	* @param mixed $stack
 	*/
 	public function exec($stack = array()) {
+		// Base64 encoding for code to be included by data:// wrapper!
+		$base64Code = base64_encode($this->code);
 		// Make all stack variables available to the local scope.
 		extract($stack);
 		// Get the content in an output buffer.
 		ob_start();
 		// Execute PHP code!
-		require "data://text/plain;base64,{$this->code}";
-		$this->output = ob_get_clean();
+		@include "data://text/plain;base64,{$base64Code}";
+		$this->output = error_get_last() ? $this->code : ob_get_clean();
 		return $this;
 	}
 	
