@@ -30,6 +30,13 @@ abstract class CJTAjaxController extends CJTController {
 	* 
 	* @var mixed
 	*/
+	protected $defaultCapability = array('administrator');
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	protected $impersonated = false;
 	
 	/**
@@ -81,7 +88,7 @@ abstract class CJTAjaxController extends CJTController {
 	public function _doAction() {
 		// Authorize request.
 		$authorized = $this->onauthorize(check_ajax_referer(self::NONCE_ACTION, 'security', false));
-		if (!$authorized) {
+		if (!$authorized || !call_user_func_array('current_user_can', $this->defaultCapability)) {
 			$this->httpCode = "403 Not Authorized";
 		}
 		else {

@@ -55,10 +55,10 @@ class CJTInstallerModel {
 	*/
 	public function dismissNotice($dismiss = null) {
 		// Read current value!
-		$currentValue = get_option(self::NOTICED_DISMISSED_OPTION_NAME);
+		$currentValue = get_user_option(self::NOTICED_DISMISSED_OPTION_NAME);
 		if ($dismiss !== null) {
 			// Dismiss can' be reverted!
-			update_option(self::NOTICED_DISMISSED_OPTION_NAME, true);
+			update_user_option(get_current_user_id(), self::NOTICED_DISMISSED_OPTION_NAME, true);
 		}
 		return $currentValue;
 	}

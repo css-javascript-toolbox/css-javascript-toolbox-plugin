@@ -30,6 +30,8 @@ class CJTTinymceBlocksController extends CJTAjaxController {
 		parent::__construct($hasView, $request);
 		// Register actions!
 		$this->registryAction('getBlocksList');
+		// @TODO: $this->defaultCapability is risky if  there is any admin actions added later, please remove!
+		$this->defaultCapability = array('edit_posts', 'edit_pages');
 	}
 	
 	/**
