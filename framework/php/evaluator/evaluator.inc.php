@@ -13,7 +13,7 @@ class CJTPHPCodeEvaluator {
 	* 
 	* @var mixed
 	*/
-	private $code = null;
+	private $block = null;
 	
 	/**
 	* put your comment there...
@@ -26,11 +26,12 @@ class CJTPHPCodeEvaluator {
 	* put your comment there...
 	* 
 	* @param mixed $code
+	* @param stdClass Block object!
 	* @return CJTPHPCodeEvaluator
 	*/
-	public function __construct($code) {
-		// Encode code for using inside php data:// wrapper.
-		$this->code = base64_encode($code);
+	public function __construct(& $block) {
+		// Hold Block code!
+		$this->block = $block;
 	}
 	
 	/**
@@ -39,13 +40,29 @@ class CJTPHPCodeEvaluator {
 	* @param mixed $stack
 	*/
 	public function exec($stack = array()) {
+		$block =& $this->block;
+		$code =& $block->code;
 		// Make all stack variables available to the local scope.
 		extract($stack);
-		// Get the content in an output buffer.
+		// Evaluate PHP codes!
 		ob_start();
-		// Execute PHP code!
-		require "data://text/plain;base64,{$this->code}";
-		$this->output = ob_get_clean();
+		// Evaluate PHP code and save the result!
+		$beforeEvalError = error_get_last();
+		$unusedResult = eval("?>{$code}");
+		$evalOBuffer = ob_get_clean();
+		// Handling errors!
+		if ($beforeEvalError != error_get_last()) {
+			if (ini_get('display_errors')) {
+				$this->output  = 'CJT PHP Code Error detected for the following block: <br><br>';
+				$this->output .= "Name: {$block->name}<br>";
+				$this->output .= "ID: #{$block->id}<br><br>";
+				$this->output .= "PHP Error Details are listed below:<br>";
+				$this->output .= $evalOBuffer;
+			}
+		}
+		else { // Get evaludated code result!
+			$this->output .= $evalOBuffer;
+		}
 		return $this;
 	}
 	
@@ -53,8 +70,8 @@ class CJTPHPCodeEvaluator {
 	* put your comment there...
 	* 
 	*/
-	public function getCode() {
-		return $this->code;	
+	public function getBlock() {
+		return $this->block;	
 	}
 	
 	/**
