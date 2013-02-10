@@ -189,6 +189,7 @@ body.fullscreen #wpadminbar {display: none;} /** No admin menu */
 .postbox.fullscreen .cjcontainer .datablock,
 .postbox.fullscreen .cjcontainer .code-editor {height: 100%;}
 .postbox.fullscreen .cjcontainer .datablock {padding-top: 0;}
+.postbox.fullscreen .cjcontainer .cjcodeblock {margin-right:325px;}
 /* Lookup form */
 .postbox.fullscreen .cjt-toolbox .icons-group .popup-menu.templates-lookup ,
 .popup-menu {z-index: 32 !important;}
