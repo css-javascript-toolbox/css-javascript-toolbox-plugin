@@ -34,7 +34,7 @@ class CJTInstallerAccessPoint extends CJTAccessPoint {
 	*/
 	protected function doListen() {
 		// If not installed and not in manage page display admin notice!
-		if (!CJTPlugin::getInstance()->isInstalled()) {
+		if (!CJTPlugin::getInstance()->isInstalled() && $this->hasAccess()) {
 			add_action('admin_notices', array(&$this, 'notInstalledAdminNotice'));
 		}
 	}
@@ -44,14 +44,16 @@ class CJTInstallerAccessPoint extends CJTAccessPoint {
 	* 
 	*/
 	public function installationPage() {
-		// Set as connected object!
-		$this->connected();
-		// Set controller internal parameters.
-		$_REQUEST['view'] = 'installer/install';
-		// create controller.
-		return $this->route()
-		// Set Action
-		->setAction('install');
+		if ($this->hasAccess()) {
+			// Set as connected object!
+			$this->connected();
+			// Set controller internal parameters.
+			$_REQUEST['view'] = 'installer/install';
+			// create controller.
+			return $this->route()
+			// Set Action
+			->setAction('install');
+		}
 	}
 	
 	/**

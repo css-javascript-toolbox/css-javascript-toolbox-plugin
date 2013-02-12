@@ -27,8 +27,11 @@ class CJTMetaboxAccessPoint extends CJTAccessPoint {
 	* 
 	*/
 	protected function doListen() {
-		// Define AJAX access point!
-		add_action("add_meta_boxes", array(&$this, 'route'));
+		// Only if permitted!
+		if ($this->hasAccess()) {
+			// Add CJT Block metabox!
+			add_action("add_meta_boxes", array(&$this, 'route'));
+		}
 	}
 	
 	/**
@@ -39,12 +42,15 @@ class CJTMetaboxAccessPoint extends CJTAccessPoint {
 		$controller = false;
 		// Veil access point unless CJT installed!
 		if (CJTPlugin::getInstance()->isInstalled()) {
-			// Set as connected object!
-			$this->connected();
-			// Load metabox controller!
-			$this->controllerName = 'metabox';
-			// Do Work!
-			$controller = parent::route();			
+			// Only if permitted!
+			if ($this->hasAccess()) {
+				// Set as connected object!
+				$this->connected();
+				// Load metabox controller!
+				$this->controllerName = 'metabox';
+				// Do Work!
+				$controller = parent::route();
+			}
 		}
 		return $controller;
 	}
