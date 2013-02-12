@@ -306,7 +306,7 @@ class CJTBlocksCouplingController extends CJTController {
 				}
 				// For every location store blocks code into single string
 				/** @todo  Use method other data:// wrapper, its only available in Hight version of PHP (5.3 or so!) */
-				$evaluatedCode = CJTPHPCodeEvaluator::getInstance($block->code)->exec()->getOutput();
+				$evaluatedCode = CJTPHPCodeEvaluator::getInstance($block)->exec()->getOutput();
 				/** @todo Include Debuging info only if we're in debuging mode! */
 				if (1) {
 					$evaluatedCode = "\n<!-- Block ({$blockId}) START-->\n{$evaluatedCode}\n<!-- Block ({$blockId}) END -->\n";
