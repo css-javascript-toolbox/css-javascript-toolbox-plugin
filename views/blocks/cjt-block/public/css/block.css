@@ -4,8 +4,8 @@
 .editor-toolbox a.cjttbl-toggle-objects-panel {background-image: url(../images/editor-toolbox/close-panel.png);}
 .editor-toolbox a.cjttbl-toggle-objects-panel.closed {background-image: url(../images/editor-toolbox/open-panel.png);}
 /*  Pages Panel */
-.cjpageblock { width:300px; height: 100%; position:absolute; right:12px; }  
-.pagelist { padding:10px; height: 251px; overflow:auto; background:#fff; border:1px solid #ccc; }
+.cjpageblock {width: 315px; height: 100%; position: absolute; right: 3px;}
+.pagelist {padding:10px; height: 251px; overflow:auto; background:#fff; border:1px solid #ccc;}
 /* Wrap long text */
 .pagelist a{color: black; text-decoration: none;}
 .select-childs {position: relative; left: 2px; top: 2px; margin-left:-12px !important; margin-right: 1px !important; margin-top: 0px !important;}

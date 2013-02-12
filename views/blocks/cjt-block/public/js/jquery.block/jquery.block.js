@@ -78,8 +78,11 @@
 			}
 			else {
 				// Show elements.
-				codeBlock.animate({'margin-right' : 317}, undefined, undefined,
+				codeBlock.animate({'margin-right' : 320}, undefined, undefined,
 					function() {
+						// Use CSS class margin not inline style!
+						codeBlock.css('margin-right', '');
+						// Show panel!
 						pagesBlock.css('width', '');
 						tabs.show();
 						toggler.removeClass('closed');
