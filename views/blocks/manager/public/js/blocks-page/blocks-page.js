@@ -743,12 +743,13 @@ var CJTBlocksPage;
 		*
 		*/
 		saveBlocksOrder : function() {
-			var request = {order : CJTBlocksPage.blocksContainer.sortable('toArray').join(',')};
+			var ordersArray = CJTBlocksPage.blocksContainer.sortable('toArray');
+			var request = {order : ordersArray.join(',')};
 			// Save Blocks order!
 			CJTBlocksPage.server.send('blocksPage', 'saveOrder', request).success($.proxy(
 				function() {
 					// Refresh local cache order!
-					CJTBlocksPage.blocksContainer.data('cjtOrders', request.order);
+					CJTBlocksPage.blocksContainer.data('cjtOrders', ordersArray);
 				}, this)
 			);
 		},
