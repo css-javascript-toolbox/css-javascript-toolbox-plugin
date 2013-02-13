@@ -22,4 +22,18 @@ class CJTDefaultController extends CJTController {
 		echo parent::displayAction();
 	}
 	
+	/**
+	* Uninstall CJT Plugin
+	* installaion flags, setup-flags
+	* and user data!
+	* 
+	* @return void
+	*/
+	public function uninstallAction() {
+		// Initializing!
+		$model =& CJTModel::getInstance('uninstall');
+		// Uninstall everything!
+		die('uninstall');
+	}
+	
 } // End class.

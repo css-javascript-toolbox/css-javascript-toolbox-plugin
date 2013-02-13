@@ -29,6 +29,9 @@ defined('ABSPATH') or die("Access denied");
 /** * */
 define('CJTOOLBOX_PLUGIN_BASE', basename(dirname(__FILE__)) . '/' . basename(__FILE__));
 
+/** * */
+define('CJTOOLBOX_PLUGIN_FILE', __FILE__);
+
 /** CJT Name */
 define('CJTOOLBOX_NAME', plugin_basename(dirname(__FILE__)));
 
