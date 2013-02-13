@@ -156,6 +156,14 @@ abstract class CJTAccessPoint extends CJTHookableClass implements CJTIAccessPoin
 	* put your comment there...
 	* 
 	*/
+	public function hasAccess() {
+		return current_user_can('administrator');
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
 	public function listen() {
 		// Fire listen event!
 		$this->onlisten();

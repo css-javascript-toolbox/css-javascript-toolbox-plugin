@@ -33,7 +33,10 @@ class CJTAutoUpgradeAccessPoint extends CJTAccessPoint {
 	* 
 	*/
 	protected function doListen() {
-		add_action('admin_init', array(&$this, 'route'));
+		// Only if permitted!
+		if ($this->hasAccess()) {
+			add_action('admin_init', array(&$this, 'route'));
+		}
 	}
 	
 	/**

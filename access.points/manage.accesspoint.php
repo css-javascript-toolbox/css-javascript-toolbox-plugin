@@ -27,8 +27,11 @@ class CJTManageAccessPoint extends CJTPageAccessPoint {
 	* 
 	*/
 	protected function doListen() {
-		// Add menu pages.
-		add_action('admin_menu', array(&$this, 'menu'));
+		// Only if permitted!
+		if ($this->hasAccess()) {
+			// Add menu page.
+			add_action('admin_menu', array(&$this, 'menu'));
+		}
 	}
 	
 	/**
@@ -40,7 +43,7 @@ class CJTManageAccessPoint extends CJTPageAccessPoint {
 		$pageHookId= add_menu_page(
 			cssJSToolbox::getText('CSS & Javascript Toolbox'), 
 			cssJSToolbox::getText('CSS & Javascript Toolbox'), 
-			'manage_options', 
+			'administrator', 
 			CJTPlugin::PLUGIN_REQUEST_ID, 
 			array(&$this->controller, '_doAction'),
 			CJTOOLBOX_VIEWS_URL . '/blocks/manager/public/images/menu.png'
