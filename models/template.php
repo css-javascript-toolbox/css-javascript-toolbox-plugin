@@ -37,11 +37,12 @@ class CJTTemplateModel extends CJTHookableClass {
 	* 
 	* @param mixed $code
 	*/
-	public function decryptCode($code) {
-		// Get iv parameter!
-    $iv = mcrypt_create_iv(mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB), MCRYPT_RAND);		
-    // Decrypt!
-		return mcrypt_decrypt(MCRYPT_RIJNDAEL_256, md5(AUTH_KEY), base64_decode($code), MCRYPT_MODE_ECB, $iv);	
+	public function decryptCode($encodedCode) {
+		/// base 64 code!
+		$code64 = str_replace(array('<?php defined("ABS_PATH") or die("Access Denied"); \'', '\' ?>'), '', $encodedCode);
+		// Decode!
+		$code = base64_decode($code64);
+		return $code;
 	}
 	
 	/**
@@ -50,10 +51,11 @@ class CJTTemplateModel extends CJTHookableClass {
 	* @param mixed $code
 	*/
 	public function encryptCode($code) {
-		// Get iv parameter!
-    $iv = mcrypt_create_iv(mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB), MCRYPT_RAND);		
-    // Encrypt!
-		return base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5(AUTH_KEY), $code, MCRYPT_MODE_ECB, $iv));	
+		// Base 64 Encode!
+		$code64 = base64_encode($code);
+		// Hide inside PHP tags!
+		$encodedCode = "<?php defined(\"ABS_PATH\") or die(\"Access Denied\"); '{$code64}'; ?>";
+		return $encodedCode;
 	}
 	
 	/**
