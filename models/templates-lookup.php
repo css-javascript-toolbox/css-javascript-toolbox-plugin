@@ -30,8 +30,13 @@ class CJTTemplatesLookupModel {
 		if (!$revision->get('id')) {
 			throw new Exception('Revision could not be found!!');
 		}
+		$revisionFile = $revision->get('file');
 		// Read revision code.
-		$code = file_get_contents(ABSPATH . "/{$revision->get('file')}");
+		$code = file_get_contents(ABSPATH . "/{$revisionFile}");
+		// Decrypt PHP codes!
+		if (preg_match('/\.php$/', $revisionFile)) {
+			$code = CJTModel::getInstance('template')->decryptCode($code);
+		}
 		return $code;
 	}
 	

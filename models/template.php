@@ -35,6 +35,32 @@ class CJTTemplateModel extends CJTHookableClass {
 	/**
 	* put your comment there...
 	* 
+	* @param mixed $code
+	*/
+	public function decryptCode($encodedCode) {
+		/// base 64 code!
+		$code64 = str_replace(array('<?php defined("ABS_PATH") or die("Access Denied"); \'', '\' ?>'), '', $encodedCode);
+		// Decode!
+		$code = base64_decode($code64);
+		return $code;
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $code
+	*/
+	public function encryptCode($code) {
+		// Base 64 Encode!
+		$code64 = base64_encode($code);
+		// Hide inside PHP tags!
+		$encodedCode = "<?php defined(\"ABS_PATH\") or die(\"Access Denied\"); '{$code64}'; ?>";
+		return $encodedCode;
+	}
+	
+	/**
+	* put your comment there...
+	* 
 	*/
 	public function getItem() {
 		$tManager = CJTModel::create('templates-manager');
@@ -59,7 +85,7 @@ class CJTTemplateModel extends CJTHookableClass {
 		$query = "{$query['select']} {$query['from']} {$query['where']}";
 		$item = array_shift(cssJSToolbox::getInstance()->getDBDriver()->select($query));
 		// Get code.
-		$item->code = $this->onloadcodefile(file_get_contents(ABSPATH . "/{$item->file}"), $item);
+		$item->code = $this->onloadcodefile($this->decryptCode(file_get_contents(ABSPATH . "/{$item->file}")), $item);
 		// Return PHP StdClass object.
 		return $item;
 	}
@@ -143,10 +169,11 @@ class CJTTemplateModel extends CJTHookableClass {
 																											|| $lastRevision->get('version') !== $revisionData['version']
 																											|| $lastRevision->get('changeLog') !== $revisionData['changeLog'];
 		if ($revisionHasChanges) {
+			$templateType = $template->get('type');
 			// New added revision number!
 			$revisionNo = $lastRevisionNo + 1;
 			// Get template revision extension.
-			$extension = cssJSToolbox::$config->templates->types[$template->get('type')]->extension;
+			$extension = cssJSToolbox::$config->templates->types[$templateType]->extension;
 			// Remove fields that not part of the revision table!
 			$code = $this->inputs['item']['revision']['code'];
 			unset($this->inputs['item']['revision']['code']);
@@ -159,6 +186,10 @@ class CJTTemplateModel extends CJTHookableClass {
 			->set('attributes', CJTTemplateRevisionTable::FLAG_LAST_REVISION) // Mark as last revision.
 			->set('file', "{$templateDir}/{$revisionNo}.{$extension}")
 			->save();
+			// Encrypt PHP codes!
+			if ($templateType == 'php') {
+				$code = $this->encryptCode($code);
+			}
 			// Write revision content into Disk File!
 			 file_put_contents(ABSPATH . "/{$revision->get('file')}", $code);
 			// Remove  FLAG_LAST_REVISION flag from last revision so
