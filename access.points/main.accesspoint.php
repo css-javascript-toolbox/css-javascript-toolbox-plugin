@@ -67,7 +67,7 @@ class CJTMainAccessPoint extends CJTAccessPoint {
 		$mainAccessPointObject = self::$instance;
 		// Load default controller!
 		$mainAccessPointObject->controllerName = 'default';
-		$controller = $this->route()
+		$controller = $mainAccessPointObject->route()
 		// Fire uninstall action!
 		->setAction('uninstall')
 		->_doAction();
