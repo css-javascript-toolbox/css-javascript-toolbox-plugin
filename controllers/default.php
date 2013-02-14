@@ -33,7 +33,7 @@ class CJTDefaultController extends CJTController {
 		// Initializing!
 		$model =& CJTModel::getInstance('uninstall');
 		// Uninstall everything!
-		die('uninstall');
+		$model->expressUninstall();
 	}
 	
 } // End class.
