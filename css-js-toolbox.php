@@ -130,14 +130,14 @@ class CJTPlugin extends CJTHookableClass {
 	* @var CJTPlugin
 	*/
 	protected static $instance;
-
+	
 	/**
 	* put your comment there...
-	* 	
+	* 
 	* @var mixed
 	*/
-	protected $onloadcoupling = array('parameters' => array('controllerName'));
-		
+	protected $mainAC;
+	
 	/**
 	* put your comment there...
 	* 	
@@ -182,22 +182,8 @@ class CJTPlugin extends CJTHookableClass {
 		// Load plugin and all installed extensions!.
 		$this->load();
 		$this->loadExtensions();
-		// Apply blocks for output!
-		$this->apply();
-		// Listen to the request / Define Access Points.
-		$this->listen();
-	}
-	
-	/**
-	* Apply blocks assigned to the request!
-	* 
-	* @return void
-	*/
-	protected function apply() {
-		// Run the coupling only if the installer runs before!
-		if ($this->installed) {
-			CJTController::getInstance($this->onloadcoupling('blocks-coupling'));
-		}
+		// Run MAIN access point!
+		$this->main();
 	}
 	
 	/**
@@ -239,11 +225,10 @@ class CJTPlugin extends CJTHookableClass {
 	* put your comment there...
 	* 
 	*/
-	protected function listen() {
+	public function listen() {
 		// For now we've only admin access points! Future versions might has something changed!
 		if (is_admin()) {
 			// Import access points core classes.
-			require_once 'framework/access-points/access-point.class.php';
 			require_once 'framework/access-points/page.class.php';
 			require_once 'framework/access-points/directory-spider.class.php';
 			// Get access points!
@@ -258,6 +243,8 @@ class CJTPlugin extends CJTHookableClass {
 				$point->onconnected = array(&$this, 'onconnected');
 			}
 		}
+		// Chaining!
+		return $this;
 	}
 	
 	/**
@@ -271,6 +258,8 @@ class CJTPlugin extends CJTHookableClass {
 		// Load MVC framework core!
 		require_once $this->onimportmodel(CJTOOLBOX_MVC_FRAMEWOK . '/model.inc.php');
 		require_once $this->onimportcontroller(CJTOOLBOX_MVC_FRAMEWOK . '/controller.inc.php');
+		// Chaining!
+		return $this;
 	}
 	
 	/**
@@ -283,6 +272,22 @@ class CJTPlugin extends CJTHookableClass {
 		$this->extensions = new CJTExtensions();
 		// Load all extensions!
 		$this->extensions->load();
+		// Chaining!
+		return $this;
+	}
+	
+	/**
+	* Run MAIN access point!
+	* 
+	* @return $this
+	*/
+	protected function main() {
+		// Access point base class is a dependency!
+		require_once 'framework/access-points/access-point.class.php';
+		// Run Main Acces Point!
+		require_once 'access.points/main.accesspoint.php';
+		$this->mainAC = new CJTMainAccessPoint();
+		$this->mainAC->listen();
 	}
 	
 	/**
@@ -304,4 +309,4 @@ class CJTPlugin extends CJTHookableClass {
 CJTPlugin::define('CJTPlugin', array('hookType' => CJTWordpressEvents::HOOK_FILTER));
 
 // Let's Go!
-add_action('plugins_loaded', array('CJTPlugin', 'getInstance'));
+CJTPlugin::getInstance();
