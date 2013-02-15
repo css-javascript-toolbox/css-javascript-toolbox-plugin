@@ -111,23 +111,28 @@ class CJTMetaboxController extends CJTAjaxController {
 		* files without HTTP may be already loaded (e.g jQuery, etc..)
 		*/
 		ob_start(); do_action('admin_print_scripts'); do_action('admin_print_styles'); ob_end_clean();
+		global $wp_scripts;
 		$references = array_merge($GLOBALS['wp_scripts']->registered, $GLOBALS['wp_styles']->registered);
+		$queue = array_merge($GLOBALS['wp_scripts']->queue, $GLOBALS['wp_styles']->queue);
 		foreach ($references as $script) {
-			// Scripts with absoult URL is only for the metabox block
-			// but not for Wordpress default scripts (e.g jquery, thickbox, etc...).
-			if (strpos($script->src, 'http') === 0)	 {
-				// For JS to work properly Always have cjt object set.
-				if (!isset($script->cjt)) {
-					$script->cjt = (object) array();
-				}
-				// Refine $script object and get only src, cjt and extra->data/localization properties!
-				$script = (object) array_intersect_key(((array) $script), array_flip(array('src', 'cjt' , 'extra')));
-				// Organize references into JS and CSS files lists.
-				if (preg_match('/\.js$/', $script->src)) {
-					$result['scripts'][] = $script;
-				}
-				else {
-					$result['styles'][] = $script;
+			// use only items on the queue!
+			if (in_array($script->handle, $queue)) {
+				// Scripts with absoult URL is only for the metabox block
+				// but not for Wordpress default scripts (e.g jquery, thickbox, etc...).
+				if (strpos($script->src, 'http') === 0)	 {
+					// For JS to work properly Always have cjt object set.
+					if (!isset($script->cjt)) {
+						$script->cjt = (object) array();
+					}
+					// Refine $script object and get only src, cjt and extra->data/localization properties!
+					$script = (object) array_intersect_key(((array) $script), array_flip(array('src', 'cjt' , 'extra')));
+					// Organize references into JS and CSS files lists.
+					if (preg_match('/\.js$/', $script->src)) {
+						$result['scripts'][] = $script;
+					}
+					else {
+						$result['styles'][] = $script;
+					}
 				}
 			}
 		}
