@@ -85,7 +85,12 @@ class CJTTemplateModel extends CJTHookableClass {
 		$query = "{$query['select']} {$query['from']} {$query['where']}";
 		$item = array_shift(cssJSToolbox::getInstance()->getDBDriver()->select($query));
 		// Get code.
-		$item->code = $this->onloadcodefile($this->decryptCode(file_get_contents(ABSPATH . "/{$item->file}")), $item);
+		$code = file_get_contents(ABSPATH . "/{$item->file}");
+		// Decode if its a PHP template!
+		if ($item->type == 'php') {
+			$code = $this->decryptCode($code);
+		}
+		$item->code = $this->onloadcodefile($code, $item);
 		// Return PHP StdClass object.
 		return $item;
 	}
