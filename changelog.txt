@@ -1,0 +1,15 @@
+Version 6.0.25.1:
+ - Upgrade ACE Editor from version 0.2.0 to 1.0.0
+ - Fix all Template Types is being decrypted when retrieved. Only PHP template is now decrypted!
+ 
+Version 6.0.17.1:
+	- Improve PHP execution compatibility with different PHP configuration by using PHP.
+	- Adding more security to ALL requests that can be made to CJT through AJAX or directly from user interactions to allow only 'administrators' to take actions.
+	- Fixing Block 'Assignment Panel' not correctly displayed when opening through Chrome browser under height screen resolution.
+	- Encrypting and Hiding PHP template files so it cannot be accessed/read/executed by public/foreign users requests.
+	- Fixing saving order issue after adding new block without pressing 'save all changed' button.
+	- Add uninstaller to wipe out all CJT Blocks user data!
+	- Fix CREATE and DELETE CJT-Blocks Metaboxes for Wordpress Posts that may occurred if there is a conflict with other Plugins
+
+Version 6.0:
+	- First Release.
