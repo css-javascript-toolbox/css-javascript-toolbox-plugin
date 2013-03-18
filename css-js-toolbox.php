@@ -285,7 +285,7 @@ class CJTPlugin extends CJTHookableClass {
 		// Access point base class is a dependency!
 		require_once 'framework/access-points/access-point.class.php';
 		// Run Main Acces Point!
-		require_once 'access.points/main.accesspoint.php';
+		include_once 'access.points/main.accesspoint.php';
 		$this->mainAC = new CJTMainAccessPoint();
 		$this->mainAC->listen();
 	}

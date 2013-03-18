@@ -67,29 +67,22 @@ class CJTAccessPointsDirectorySpider extends ArrayIterator {
 	* put your comment there...
 	* 
 	* @param mixed $reload
-	* @return CJTAccessPointsDirectorySpider
-	* @todo Set realod = false when released!
 	*/
-	protected function load($reload = false) {
-		// Get if cached and not force reload!
-		if (!($this->aPoints = get_option(self::CACHE_POINTER)) || $reload) {
-			// Reset access points!
-			$this->aPoints =array();
-			// Get all defined ap inside the specified directory!
-			$accessPoints = new DirectoryIterator($this->dir);
-			foreach ($accessPoints as $file) {
-				if (!$file->isDir()) {
-					// Build point info!
-					$point = array();
-					$point['file'] = $file->getFilename();
-					$point['name'] = $file->getBaseName('.accesspoint.php');
-					$point['class'] = "{$this->prefix}{$point['name']}AccessPoint";
-					// Add to points list!
-					$this->aPoints[$point['name']] = $point;
-				}
-			}			
-			// Update the cache;
-			update_option(self::CACHE_POINTER, $this->aPoints);
+	protected function load() {
+		// Reset access points!
+		$this->aPoints =array();
+		// Get all defined ap inside the specified directory!
+		$accessPoints = new DirectoryIterator($this->dir);
+		foreach ($accessPoints as $file) {
+			if (!$file->isDir()) {
+				// Build point info!
+				$point = array();
+				$point['file'] = $file->getFilename();
+				$point['name'] = $file->getBaseName('.accesspoint.php');
+				$point['class'] = "{$this->prefix}{$point['name']}AccessPoint";
+				// Add to points list!
+				$this->aPoints[$point['name']] = $point;
+			}
 		}
 		return $this;
 	}
@@ -104,7 +97,7 @@ class CJTAccessPointsDirectorySpider extends ArrayIterator {
 		// Full absolulte path to access point file!
 		$absPath = "{$this->dir}/{$point['file']}";
 		// Instantiate point class, this will put it in action!
-		require_once $absPath;
+		include_once $absPath;
 		return new $point['class']();
 	}
 	
