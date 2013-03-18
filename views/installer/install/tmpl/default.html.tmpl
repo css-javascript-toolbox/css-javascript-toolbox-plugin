@@ -16,6 +16,7 @@ else {
 }
 ?>
 <div class="cjt-installer-view">
+<?php if (!$this->error) : ?>
 	<form name="installation-form" action="">
 		<input type="hidden" id="cjt-securityToken" value="<?php echo $this->securityToken ?>" />
 		<h1><?php echo cssJSToolbox::getText($title) ?></h1>
@@ -50,5 +51,9 @@ else {
 		}
 ?>
 		<input type="button" name="install" value="<?php echo cssJSToolbox::getText($installButtonTitle) ?>" />
+<?php else : ?>
+<div class="error"><p><?php echo $this->error->getMessage() ?></p></div>
+<br>
+<?php endif ?>
 	</form>
 </div>

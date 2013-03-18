@@ -11,14 +11,9 @@ defined('ABSPATH') or die("Access denied");
 <p><?php echo cssJSToolbox::getText('Important Note: It is highly recommended to upgrade the plugin using the same administrator or user that was used to manage the code blocks. This allows the upgrade system to obtain the code blocks \'ORDER\' from the current logged in administrators or users\' meta data.') ?></p>
 <ul class="installation-list upgrade">
 <?php
-		// Define upgrade-common operations.
-		$operations = array(
-				'blocks' => array('text' => cssJSToolbox::getText('Transfer blocks to the new blocks table. Old versions doesn\'t use a specific blocks table!')),
-				'templates' => array('text' => cssJSToolbox::getText('Transfer templates to the new database table. New template is enhanced and support revisioning and other development attributes.')),
-		);
 		// Get version operations.
-		$versionOperation = @include ("{$this->installedDbVersionId}.operations");
-		$operations = array_merge($operations, ($versionOperation ? $versionOperation : array()));
+		$operations = @include ("{$this->installedDbVersionId}.operations");
+		$operations = $operations ? $operations : array();
 		// Add last operations.
 		$operations['finalize'] = array('text' => cssJSToolbox::getText('Finalize Upgrade.'));
 		// Print upgrade operations.

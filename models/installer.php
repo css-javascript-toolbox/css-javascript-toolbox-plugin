@@ -76,7 +76,7 @@ class CJTInstallerModel {
 	* 
 	*/
 	public function getInternalVersionName() {
-		return str_replace('.', '', $this->installedDbVersion);
+		return str_replace(array('.', '-'), '', $this->installedDbVersion);
 	}
 
 	/**
