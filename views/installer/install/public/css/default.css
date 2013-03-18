@@ -9,3 +9,4 @@ ul.installation-list li.progress {list-style-image: url('../images/progress.gif'
 ul.installation-list li.installed {margin-left: 34px; list-style-image: url('../images/installed.png');}
 
 input[name="install"] {width: 79px;}
+.error {font-size: 20px}

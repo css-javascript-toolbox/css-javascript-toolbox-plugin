@@ -14,6 +14,13 @@ class CJTInstallerInstallView extends CJTView {
 	/**
 	* put your comment there...
 	* 
+	* @var Exception
+	*/
+	protected $error;
+	
+	/**
+	* put your comment there...
+	* 
 	* @var mixed
 	*/
 	protected $installedDbVersion;
@@ -67,11 +74,16 @@ class CJTInstallerInstallView extends CJTView {
 	public function display($tpl = null) {
 		$model = $this->getModel('installer');
 		// Initialize templates vars!
-		$this->installedDbVersion = $model->getInstalledDbVersion();
-		$this->installedDbVersionId = $model->getInternalVersionName();
-		$this->securityToken = cssJSToolbox::getSecurityToken();
-		$this->operations = $model->getOperations();
-		$this->upgrade = $model->isUpgrade();
+		try {
+			$this->installedDbVersion = $model->getInstalledDbVersion();
+			$this->installedDbVersionId = $model->getInternalVersionName();
+			$this->securityToken = cssJSToolbox::getSecurityToken();
+			$this->operations = $model->getOperations();
+			$this->upgrade = $model->isUpgrade();
+		}
+		catch (Exception $exception) {
+			$this->error = $exception;
+		}
 		// Display view!
 		echo $this->getTemplate($tpl);
 	}

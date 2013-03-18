@@ -78,12 +78,14 @@ class CJTInstallerModel {
 	public function getInternalVersionName() {
 		return str_replace('.', '', $this->installedDbVersion);
 	}
-	
+
 	/**
 	* put your comment there...
 	* 
+	* @param Boolean is to cache the operations if not yet cached!
+	* @return array Operations list metadata.
 	*/
-	public function getOperations() {
+	public function getOperations($doCache = false) {
 		// If installation is didn't never run before thise would be unset!
 		if (!($operations = get_option(self::INSTALLATION_STATE))) {
 			// Import installer reflection!
@@ -97,12 +99,14 @@ class CJTInstallerModel {
 				cssJSToolbox::import($upgrader['file']);
 				$operations['operations']['upgrade'] = CJTInstallerReflection::getInstance($upgrader['class'], 'CJTUpgradeNonTabledVersions')->getOperations();				
 			}
-			// Cache operations!
-			update_option(self::INSTALLATION_STATE, $operations);
+			if ($doCache) {
+				// Cache operations!
+				update_option(self::INSTALLATION_STATE, $operations);				
+			}
 		}
 		return $operations;
 	}
-	
+
 	/**
 	* put your comment there...
 	* 
@@ -127,7 +131,7 @@ class CJTInstallerModel {
 		$rOperation = $this->input['operation'];
 		$type = $rOperation['type'];
 		// Get allowed operations with thier state!
-		$operations = (array) get_option(self::INSTALLATION_STATE);
+		$operations = $this->getOperations(true);
 		// Invalid operation!
 		if (!isset($operations['operations'][$type][$rOperation['name']])) {
 			throw new Exception('Invalid operation');
