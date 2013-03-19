@@ -1,3 +1,8 @@
+Version 6.1.27.1:
+	- Fix: Don't break down the site if manual upgrade/downgrage process is incompleted! Allow user to revert back manually aor disable the Plugin.
+	- Fix: Don't allow installation if the upgrade/downgrade version is not supported.
+	- Added: Support for upgrade from version 6.0 CE.
+ 
 Version 6.0.25.1:
  - Upgrade ACE Editor from version 0.2.0 to 1.0.0
  - Fix all Template Types is being decrypted when retrieved. Only PHP template is now decrypted!
