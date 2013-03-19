@@ -12,11 +12,6 @@ defined('ABSPATH') or die("Access denied");
 class CJTAccessPointsDirectorySpider extends ArrayIterator {
 	
 	/**
-	* 
-	*/
-	const CACHE_POINTER = 'settings.CJTAccessPointsDirectorySpider.cache';
-	
-	/**
 	* put your comment there...
 	* 
 	* @var mixed
@@ -66,7 +61,7 @@ class CJTAccessPointsDirectorySpider extends ArrayIterator {
 	/**
 	* put your comment there...
 	* 
-	* @param mixed $reload
+	* @return CJTAccessPointsDirectorySpider Returns $this.
 	*/
 	protected function load() {
 		// Reset access points!
