@@ -85,23 +85,20 @@ class CJTInstallerModel {
 	* @return array Operations list metadata.
 	*/
 	public function getOperations() {
-		// Read cache!
-		if ($operations = get_option(self::INSTALLATION_STATE)) {
-			// Check if cached: Use only installer cache for 'current' CJT version.
-			if (!isset($operations[CJTPlugin::DB_VERSION])) {
-				// Import installer reflection!
-				cssJSToolbox::import('framework:installer:reflection.class.php');
-				// Get Installer operations.
-				cssJSToolbox::import('includes:installer:installer:installer.class.php');
-				$operations[CJTPlugin::DB_VERSION]['operations']['install'] = CJTInstallerReflection::getInstance('CJTInstaller', 'CJTInstaller')->getOperations();
-				if ($this->isUpgrade()) {
-					// Get upgrade operations , Also cache upgrader info for later use!
-					$operations[CJTPlugin::DB_VERSION]['upgrader'] = $upgrader = $this->getUpgrader();
-					cssJSToolbox::import($upgrader['file']);
-					$operations[CJTPlugin::DB_VERSION]['operations']['upgrade'] = CJTInstallerReflection::getInstance($upgrader['class'], 'CJTUpgradeNonTabledVersions')->getOperations();				
-				}
-				update_option(self::INSTALLATION_STATE, $operations);				
+		// Check if cached: Use only installer cache for 'current' CJT version.
+		if (!isset($operations[CJTPlugin::DB_VERSION])) {
+			// Import installer reflection!
+			cssJSToolbox::import('framework:installer:reflection.class.php');
+			// Get Installer operations.
+			cssJSToolbox::import('includes:installer:installer:installer.class.php');
+			$operations[CJTPlugin::DB_VERSION]['operations']['install'] = CJTInstallerReflection::getInstance('CJTInstaller', 'CJTInstaller')->getOperations();
+			if ($this->isUpgrade()) {
+				// Get upgrade operations , Also cache upgrader info for later use!
+				$operations[CJTPlugin::DB_VERSION]['upgrader'] = $upgrader = $this->getUpgrader();
+				cssJSToolbox::import($upgrader['file']);
+				$operations[CJTPlugin::DB_VERSION]['operations']['upgrade'] = CJTInstallerReflection::getInstance($upgrader['class'], 'CJTUpgradeNonTabledVersions')->getOperations();				
 			}
+			update_option(self::INSTALLATION_STATE, $operations);				
 		}
 		return $operations[CJTPlugin::DB_VERSION];
 	}
