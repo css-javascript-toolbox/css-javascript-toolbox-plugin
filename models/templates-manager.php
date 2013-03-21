@@ -107,11 +107,9 @@ class CJTTemplatesManagerModel {
 		$start = ($page - 1) * $itemsPerPage;
 		$limit = " LIMIT {$start},{$itemsPerPage}";	
 		// Order.
-		if (isset($this->inputs['orderby'])) {
-			$orderBy = " ORDER BY {$this->inputs['orderby']} {$this->inputs['order']}";
-		}
+		$orderBy = isset($this->inputs['orderby']) ? " ORDER BY {$this->inputs['orderby']} {$this->inputs['order']}" : '';
 		// final query.
-    $query = "{$select}{$queryBase['from']}{$queryBase['where']}{$queryBase['groupBy']}{$orderBy}{$limit}";
+    $query = "{$select}{$queryBase['from']}{$queryBase['where']}{$orderBy}{$limit}";
 		// Execute our query using MYSQL queue driver.
 		$result = cssJSToolbox::getInstance()->getDBDriver()->select($query);
 		return $result;
@@ -177,7 +175,7 @@ class CJTTemplatesManagerModel {
 	public function getItemsTotal() {
 		$queryBase = $this->getItemsQuery();
 		$select = 'SELECT count(*) Total';
-		$query = "{$select}{$queryBase['from']}{$queryBase['where']}{$queryBase['groupBy']}";
+		$query = "{$select}{$queryBase['from']}{$queryBase['where']}";
 		// Get items total.
 		$dbDriver = new CJTMYSQLQueueDriver($GLOBALS['wpdb']);
 		$result = $dbDriver->select($query);

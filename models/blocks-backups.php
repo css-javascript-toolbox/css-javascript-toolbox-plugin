@@ -62,7 +62,7 @@ class CJTBlocksBackupsModel {
 		$blocks['filters']['types'] = array('block', 'revision');
 		// Its important to get revision blocks at the end
 		// to create blocks id map.
-		$blocks['orderBy'] = array('type');
+		$blocks['orderby'] = array('type');
 		$blocks = $blocksModel->getBlocks(null, $blocks['filters'], $blocks['fields'], OBJECT_K, $blocks['orderby']);
 		// Prepare vars before copying.
 		$desBlockId = $blocksTable->getNextId();

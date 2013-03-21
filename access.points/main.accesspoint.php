@@ -51,9 +51,11 @@ class CJTMainAccessPoint extends CJTAccessPoint {
 	* 
 	*/
 	public function main() {
-		// Run the coupling!
-		$this->controllerName = 'blocks-coupling';
-		$this->route(false);
+		// Run the coupling only if installed!
+		if (CJTPlugin::getInstance()->isInstalled()) {
+			$this->controllerName = 'blocks-coupling';
+			$this->route(false);
+		}
 		// Run all the aother access points!
 		CJTPlugin::getInstance()->listen();
 	}

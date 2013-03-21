@@ -129,7 +129,7 @@ class CJTBlocksCreateMetaBoxView extends CJTView {
 	* 
 	*/
 	public function getOption($name) {
-		return $this->options->{$name};
+		return isset($this->options->{$name}) ? $this->options->{$name} : null;
 	}
 	
 	/**

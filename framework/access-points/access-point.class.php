@@ -95,7 +95,7 @@ abstract class CJTAccessPoint extends CJTHookableClass implements CJTIAccessPoin
 		// Initialize Hookable.
 		parent::__construct();
 		// Initialize!
-		$this->controllerName = $this->ongetdefaultcontrollername($_REQUEST['controller'] ? $_REQUEST['controller'] : $defaultController);
+		$this->controllerName = $this->ongetdefaultcontrollername(isset($_REQUEST['controller']) ? $_REQUEST['controller'] : $defaultController);
 	}
 	
 	/**

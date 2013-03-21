@@ -20,6 +20,8 @@ class CJTTemplatesManagerListTable extends WP_List_Table {
 	* 
 	*/
 	public function __construct() {
+		// Set hook suffix (E_ALL complain)!
+		$GLOBALS['hook_suffix'] = 'cjt';
 		// Table list arguments.
 		$args = array();
 		parent::__construct($args);

@@ -107,11 +107,18 @@ abstract class CJTController extends CJTHookableClass {
 		$this->request = $request ? $request : $_REQUEST;
 		// Create default model.
 		if (isset($this->controllerInfo['model'])) {
+			// E_ALL complain!
+			if (!isset($this->controllerInfo['model_file'])) {
+				$this->controllerInfo['model_file'] = null;
+			}
 			$this->model = CJTModel::create($this->controllerInfo['model'], array(), $this->controllerInfo['model_file']);
 		}
 		// Create default view.
 		if ($hasView === null) { // Default value for $hasView = true
-			$view = $this->ongetviewname($this->request['view'] ? $this->request['view'] : $this->controllerInfo['view']);
+			// Request/passed parameters has priority over controller default view!
+			$view = $this->ongetviewname(isset($this->request['view']) ? $this->request['view'] :
+																												(isset($this->controllerInfo['view']) ? $this->controllerInfo['view'] : null)
+			);
 			if ($view) {
 				$this->view  = self::getView($view)
 				// Push data into view.

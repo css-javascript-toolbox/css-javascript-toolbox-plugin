@@ -16,7 +16,7 @@ class CJTTemplateTypesField extends CJTListField {
 	* 
 	*/
 	protected function prepareItems() {
-		if ($this->options['result'] == 'fullList') {
+		if ((isset($this->options['result'])) && ($this->options['result'] == 'fullList')) {
 			$this->items['css']['text'] = cssJSToolbox::getText('css');
 			$this->items['javascript']['text'] = cssJSToolbox::getText('javascript');
 			$this->items['html']['text'] = cssJSToolbox::getText('html');

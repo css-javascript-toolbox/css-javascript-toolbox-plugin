@@ -171,14 +171,16 @@ abstract class CJTxTable extends CJTHookableClass {
 	* @param mixed $field
 	*/
 	public function get($field) {
-		return $this->ongetfield($this->item->{$field}, $field);
+		// Get the value of the field with E_ALL complain!
+		$value = (is_object($this->item) && property_exists($this->item, $field)) ? $this->item->{$field} : null;
+		return $this->ongetfield($value, $field);
 	}
 	
 	/**
 	* put your comment there...
 	* 
 	*/
-	public function &getData() {
+	public function getData() {
 		return $this->ongetdata($this->item);
 	}
 	
@@ -264,6 +266,7 @@ abstract class CJTxTable extends CJTHookableClass {
 	* @param mixed 
 	*/
 	public function load($query = null) {
+		$tableKey = null;
 		$key = null;
 		// Query might be an array of keys!
 		if (is_array($query)) {
@@ -337,12 +340,11 @@ abstract class CJTxTable extends CJTHookableClass {
 	*/
 	public function save($forceInsert = false) {
 		$keyFieldName = $this->key[0];
-		$id = $this->item->{$keyFieldName};
 		$item = (array) $this->item;
 		// Don't update id field.
 		$fieldsList = array_diff_key($item, array_flip($this->key));
 		$fieldsList = implode(',', $this->prepareQueryParameters($fieldsList));
-		if (!$forceInsert && $id) { // Update
+		if (!$forceInsert && $this->get($keyFieldName)) { // Update
 			// Where clause.
 			$condition = implode(' AND ', $this->prepareQueryParameters($this->getKey()));
 			$query = "UPDATE {$this->table()} SET {$fieldsList} WHERE {$condition}";

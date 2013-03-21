@@ -112,7 +112,7 @@ class CJTBlocksAjaxController extends CJTAjaxController {
 				$blockView->setBlock($block);
 				$response['view'] = $blockView->getTemplate('new');
 			}
-			$response['id'] = $id;	
+			$response['id'] = $blockId;	
 			// Set response object.
 			$this->response = $response;		
 		}
@@ -149,7 +149,7 @@ class CJTBlocksAjaxController extends CJTAjaxController {
 		  // Get view object.
 		  $view = CJTController::getView($viewName);
 		  // Push view variables.
-		  foreach ((array) $viewInfo['vars'] as $var) {
+		  foreach ((isset($viewInfo['vars']) ? $viewInfo['vars'] : array()) as $var) {
 		  	$view->$var = $_GET["view.{$var}"];
 			}
 			// Some views required custom pushing, this is can

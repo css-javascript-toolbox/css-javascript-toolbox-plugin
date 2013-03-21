@@ -80,8 +80,6 @@ class HTMLCheckboxList extends HTMLComponent {
 		$this->id = $id;
 		$this->className = $className;
 		$this->title = $title;
-		$this->itemClassName = $itemClassName;
-		$this->itemSelectedClassName = $itemClassName;
 		// Initialize default values.
 		$this->itemDefaults = (object) array(
 			'name' => $name,

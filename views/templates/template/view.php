@@ -57,6 +57,21 @@ class CJTTemplatesTemplateView extends CJTView {
 		if (!$this->isNew) {
 			$this->item = $this->getModel()->getItem();
 		}
+		else {
+			// E_ALL complain/Default values for new record if needed!
+			$this->item = (object) array(
+				'name' => '',
+				'type' => '',
+				'state' => '',
+				'code' => '',
+				'description' => '',
+				'keywords' => '',
+				'version' => '',
+				'developmentState' => '',
+				'changeLog' => '',
+				'id' => '',
+			);
+		}
 		$this->item = $this->onprepareitem($this->item, $this->isNew);
 		echo $this->getTemplate($tpl)	;
 	}

@@ -38,7 +38,7 @@ abstract class WPPagesListHelper {
 		if (is_taxonomy_hierarchical($taxonomy_name)) {
     		$db_fields = array( 'parent' => 'parent', 'id' => 'term_id' );
 		}
-		$walker = new cj_Walker_Nav_Menu_Checklist($db_fields, $blockId, 'categories', $selectedTaxonomies, $regionMetrics);
+		$walker = new cj_Walker_Nav_Menu_Checklist($db_fields, $blockId, 'categories', $selectedTaxonomies);
 		$args['walker'] = $walker;
 		echo walk_nav_menu_tree(array_map('wp_setup_nav_menu_item', $terms), 0, (object) $args);
 	}
@@ -71,7 +71,6 @@ abstract class WPPagesListHelper {
 			$db_fields = array( 'parent' => 'post_parent', 'id' => 'ID' );
 		}
 		$walker = new cj_Walker_Nav_Menu_Checklist($db_fields, $blockId, $name, $selectedPages);
-		$post_type_object = get_post_type_object($post_type_name);
 		$args['walker'] = $walker;
 		$checkbox_items = walk_nav_menu_tree(array_map('wp_setup_nav_menu_item', $posts), 0, (object) $args);
 		echo $checkbox_items;

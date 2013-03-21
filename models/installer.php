@@ -136,7 +136,7 @@ class CJTInstallerModel {
 		else {
 			// Install only if not installed!
 			$operation =& $vOperations['operations'][$type][$rOperation['name']];
-			if ($operation['state'] != self::OPERATION_STATE_INSTALLED) {
+			if ((!isset($operation['state'])) || ($operation['state'] != self::OPERATION_STATE_INSTALLED)) {
 				// Import installer and get installer object!
 				switch ($type) {
 					case 'install':

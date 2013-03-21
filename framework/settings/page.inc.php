@@ -60,7 +60,7 @@ abstract class CJTSettingsPage {
 	* @param mixed $property
 	*/
 	public function __get($property) {
-		return $this->settings->{$property};
+		return isset($this->settings->{$property}) ? $this->settings->{$property} : null;
 	}
 	
 	/**

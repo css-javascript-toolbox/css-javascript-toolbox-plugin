@@ -216,7 +216,7 @@ abstract class CJTEvents {
 			// Create subject object! and bind live events!
 			$subject = $this->subjects[$event['id']] = $this->createSubject($event);
 			// Live events!
-			$lives = (array) self::$live[$this->targetClass][$event['id']];
+			$lives = isset(self::$live[$this->targetClass][$event['id']]) ? self::$live[$this->targetClass][$event['id']] : array();
 			foreach ($lives as $live) {
 				$subject[] = $live['observer'];
 			}

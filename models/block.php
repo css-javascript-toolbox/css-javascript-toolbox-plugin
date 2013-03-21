@@ -143,9 +143,9 @@ class CJTBlockModel extends CJTModel {
 	* 
 	* @deprecated Use calculatePinpoint
 	*/
-	public static function calculateBlockPinPoint(&$block) {
+	public static function calculateBlockPinPoint(& $block) {
 		// Generate PinPoint Value.
-		if (is_array($block->pinPoint)) {
+		if (isset($block->pinPoint) && is_array($block->pinPoint)) {
 			$pinPoint = 0;
 			// Each item is a bit flag.
 			foreach ($block->pinPoint as $pin) {
@@ -153,7 +153,10 @@ class CJTBlockModel extends CJTModel {
 			}
 		}
 		else {
-			// If provided as integer.
+			// Provided as integer or not even provided!
+			if (!isset($block->pinPoint)) {
+				$block->pinPoint = 0;
+			}
 		  $pinPoint = (int) $block->pinPoint;
 		}
 		// Pin should be set only for not empty properties.

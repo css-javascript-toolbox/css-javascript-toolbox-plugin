@@ -342,7 +342,9 @@ abstract class CJTView extends CJTHookableClass {
 			preg_match($nameExp, $script, $scriptObject);
 			// [[2]Prefix], [4] name. Prefix may be not presented.
 			$name = "{$scriptObject[2]}{$scriptObject[4]}";
-			if (!$stack[$name]) {
+			$location = isset($scriptObject[7]) ? $scriptObject[7] : null;
+			$scriptParameters = isset($scriptObject[5]) ? $scriptObject[5] : '';
+			if (!isset($stack[$name])) {
 				// Any JS lib file should named the same as the parent folder with the extension added.
 				$libPath = ":{$scriptObject[4]}:{$scriptObject[4]}";
 				// Pass virtual path to getURI and resolvePath to
@@ -350,9 +352,9 @@ abstract class CJTView extends CJTHookableClass {
 				$jsFile = cssJSToolbox::getURI(preg_replace($nameExp, "{$libPath}.js", $script));
 				$localizationFile = cssJSToolbox::resolvePath(preg_replace($nameExp, "{$libPath}.localization.php", $script));
 				// Enqueue script file.
-				wp_enqueue_script($name, $jsFile, null, null, $scriptObject[7]);
+				wp_enqueue_script($name, $jsFile, null, null, $location);
 				// Set script parameters.
-				if (preg_match_all('/(\w+)=(\w+)/', $scriptObject[5], $params, PREG_SET_ORDER) ) {
+				if (preg_match_all('/(\w+)=(\w+)/', $scriptParameters, $params, PREG_SET_ORDER) ) {
 					// Set parameters.
 					foreach ($params as $param) {
 						$stack[$name]->cjt[$param[1]] = $param[2];
@@ -376,7 +378,7 @@ abstract class CJTView extends CJTHookableClass {
 			}
 			// Enqueue already registered scripts!
 			else {
-				wp_enqueue_script($name, $jsFile, null, null, $scriptObject[7]);
+				wp_enqueue_script($name, null, null, null, $location);
 			}
 		}
 	}
@@ -405,7 +407,7 @@ abstract class CJTView extends CJTHookableClass {
 			preg_match($nameExp, $style, $styleObject);
 			// [[2]Prefix], [4] name. Prefix may be not presented.
 			$name = "{$styleObject[2]}{$styleObject[4]}";
-			if (!$GLOBALS['wp_styles']->registered[$name]) {
+			if (!isset($GLOBALS['wp_styles']->registered[$name])) {
 				// Make all enqueued styles names unique from enqueued scripts.
 				// This is useful when merging styles & scripts is required.
 				$name = "CSS-{$name}";
@@ -418,7 +420,7 @@ abstract class CJTView extends CJTHookableClass {
 			}
 			else {
 				// Enqueue already registered styles.
-				wp_enqueue_style($name, $cssFile);	
+				wp_enqueue_style($name);
 			}
 		}
 	}

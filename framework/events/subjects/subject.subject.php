@@ -67,7 +67,7 @@ abstract class CJTEESubject implements CJTEEISubject, Countable, ArrayAccess {
 	* @param mixed $name
 	*/
 	public function getDefinition($name) {
-		return $this->definition[$name];
+		return isset($this->definition[$name]) ? $this->definition[$name] : null;
 	}
 	
 	/**

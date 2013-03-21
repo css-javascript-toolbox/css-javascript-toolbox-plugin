@@ -51,7 +51,7 @@ class CJTTemplatesManagerController extends CJTAjaxController {
 	*/
 	protected function displayAction() {
 		// Set default filters.
-		if (!$_REQUEST['filter_states']) {
+		if (!isset($_REQUEST['filter_states'])) {
 			$_REQUEST['filter_states'] = 'published';
 		}
 		// Save all filters!

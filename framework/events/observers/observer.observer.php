@@ -118,6 +118,10 @@ abstract class CJTObserver implements CJTIObserver {
 			$observer = $callback;
 		}
 		else {
+			// Define vars (E_ALL complain)!.
+			$name = null;
+			$filter = null;
+			$param = null;
 			// Short-hand array structure!
 			if (is_array($callback) && isset($callback['callback'])) {
 				// Get all params without callback

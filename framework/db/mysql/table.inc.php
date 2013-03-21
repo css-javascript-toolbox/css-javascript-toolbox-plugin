@@ -48,7 +48,6 @@ abstract class CJTTable {
 		// Set table name.
 		$this->dbDriver = $dbDriver;
 		$this->table = $this->dbDriver->getTableName($table);
-		$this->id = $id;
 		// Read table fields.
 		$this->fields = $this->dbDriver->getColumns($this->table);
 	}

@@ -16,7 +16,7 @@ class CJTTemplateDevelopmentStatesField extends CJTListField {
 	* 
 	*/
 	protected function prepareItems() {
-		if ($this->options['result'] == 'fullList') {
+		if ((isset($this->options['result'])) && ($this->options['result'] == 'fullList')) {
 			$this->items['release']['text'] = cssJSToolbox::getText('release');
 			$this->items['beta']['text'] = cssJSToolbox::getText('beta');
 			$this->items['alpha']['text'] = cssJSToolbox::getText('alpha');

@@ -17,7 +17,7 @@ defined('ABSPATH') or die("Access denied");
 		<input type="hidden" name="blocks[]" value="<?php echo $this->block->id ?>" />
 <?php
 		// Hidden fields.
-			$fields = array('name','state','location','scripts');
+			$fields = array('name', 'state','location');
 			foreach ($fields as $field) :
 ?>
 		<input type="hidden" name="cjtoolbox[<?php echo $this->block->id; ?>][<?php echo $field ?>]" value="<?php echo $this->block->$field ?>" />
@@ -30,23 +30,5 @@ defined('ABSPATH') or die("Access denied");
 					<div id="editor-<?php echo $this->block->id ?>" class="code-editor">
 					</div>					
 				</div>
-<?php
-			// Meta field.
-			foreach ((array) $this->block->meta as $module => $values) :
-  			foreach ($values as $metaName => $metaValue) :
-  			$isHidden = strpos($metaName, '_');
-  			if (($isHidden !== FALSE) && ($isHidden == 0)) {
-  				// Fields start with underscore is private to the modules.
-  				continue;
-				}
-				if (is_array($metaValue)) {
-					$metaValue = json_encode($metaValue);
-				}
-?>
-				<input type="hidden" class="meta-<?php echo $this->block->id ?>-<?php echo $module ?>" name="cjtoolbox[<?php echo $this->block->id ?>][meta][<?php echo $module ?>][<?php echo $metaName ?>]" value='<?php echo $metaValue ?>' />
-<?php
-				endforeach;
-			endforeach;
-?>
 			</div>
 		</div>

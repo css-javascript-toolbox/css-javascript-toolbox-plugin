@@ -94,7 +94,7 @@ class CJTListField extends CJTHTMLField {
 				 '__params__' => (object) array('className' => 'optional')))+ $this->items;
 		}
 		// Build HTML select.
-		$listName = ($this->options['standard'] == true)  ? "name='{$this->name}'" : '';
+		$listName = (isset($this->options['standard']) && ($this->options['standard'] == true))  ? "name='{$this->name}'" : '';
 		$list = "<select id='{$this->id}' {$listName} class='{$this->classesList}' {$this->moreIntoTag}>";
 		foreach ($this->items as $key => $item) {
 			// Standrize the use of object.
@@ -115,7 +115,7 @@ class CJTListField extends CJTHTMLField {
 		$list .= '</select>';
 		// If this is the first instance to be outputed for the current form output the control field.
 		$fieldKey = "{$this->form}-{$this->name}";
-		if (!$this->options['standard'] && !in_array($fieldKey, self::$instances)) {
+		if ((!isset($this->options['standard'])) && (!in_array($fieldKey, self::$instances))) {
 			// Output control fields.
 			$list .= "<input type='hidden' name='{$this->name}' value='{$this->value}' />";
 			// Mark form as instantiated!

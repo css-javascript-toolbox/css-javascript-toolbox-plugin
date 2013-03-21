@@ -81,7 +81,7 @@ class CJTBlocksModel {
 			$this->delete(array_shift($revisions)->id);
 		}
 		// Get block data.                                                    
-		$block['fields'] = array('lastModified', 'pinPoint', 'code', 'links', 'expressions');
+		$block['fields'] = array('id', 'lastModified', 'pinPoint', 'code', 'links', 'expressions');
 		// get() developed to return multiple blocks, fetch the first.
 		$block = array_shift($blocks->get($blockId, $block['fields']));
 		// Set other fields.

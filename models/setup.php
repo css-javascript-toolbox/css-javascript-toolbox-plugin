@@ -35,6 +35,10 @@ class CJTSetupModel {
 	public function __construct() {
 		// Read all cached licenses!
 		$this->licenses = get_option(self::LICENSES_CACHE);
+		// Make sure its array!
+		if (!is_array($this->licenses)) {
+			$this->licenses = array();
+		}
 	}
 	
 	/**
@@ -103,7 +107,7 @@ class CJTSetupModel {
 	* 
 	*/
 	public function & getLicenses() {
-		return $this->licenses ? $this->licenses : array();	
+		return $this->licenses;
 	}
 	
 	/**

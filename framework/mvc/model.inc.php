@@ -46,7 +46,7 @@ abstract class CJTModel {
 	* @param mixed $params
 	* @param mixed $file
 	*/
-	public static function & getInstance($model, $params = array(), $file = null) {
+	public static function getInstance($model, $params = array(), $file = null) {
 		return CJTController::getModel($model, $params, $file);
 	}
 	

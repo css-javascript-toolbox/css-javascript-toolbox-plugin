@@ -54,7 +54,7 @@ abstract class CJTInstallerBlock extends ArrayIterator {
 		$block['created'] = $block['lastModified'] = current_time('mysql');
 		$block['owner'] = get_current_user_id();
 		// Translate old assignment panel to use the new structure!
-		if ($srcBlock['category']) {
+		if (isset($srcBlock['category'])) {
 			$pins['categories'] = $srcBlock['category'];
 		}
 		// Translate named map from last versions to the value used in the new versions!

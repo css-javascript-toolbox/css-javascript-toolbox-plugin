@@ -69,16 +69,16 @@ class CJTBlocksTable extends CJTTable {
 			$where[] = " `id` IN ({$ids})";
 		}
 		// Filter by backup name.
-		$where[] = (($filters['backupId'] == null) ? ' `backupId` IS NULL' : " `backupId` = {$filters['backupId']}");
+		$where[] = (!isset($filters['backupId']) ? ' `backupId` IS NULL' : " `backupId` = {$filters['backupId']}");
 		unset($filters['backupId']);
 		// Filter by parent.
-		if ($filters['parent'] != null) {
+		if (isset($filters['parent'])) {
 			$filters['parent'] = implode(',', ((array) $filters['parent']));
 			$where[] = " `parent` IN ({$filters['parent']})";
 			unset($filters['parent']);
 		}
 		// Types filter.
-		if ($filters['types']) {
+		if (isset($filters['types'])) {
 			$types = '"' .  implode('", "', $filters['types']) . '"';
 			$where[] = " `type` IN ({$types})";
 			unset($filters['types']);
