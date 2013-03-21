@@ -28,7 +28,7 @@
 				CJTServer.send('installer', 'dismissNotice').success($.proxy(
 				   function() {
 				   	 // Hide notice!
-			   		 this.notice.fadeOut('slow').done(this.remove());
+			   		 this.notice.fadeOut('slow', function() {this.remove()});
 				   }, this)
 				);
 			}
