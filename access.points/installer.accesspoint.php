@@ -48,9 +48,7 @@ class CJTInstallerAccessPoint extends CJTAccessPoint {
 			// Set as connected object!
 			$this->connected();
 			// Set controller internal parameters.
-			$_REQUEST['view'] = 'installer/install';
-			// create controller.
-			return $this->route()
+			return $this->route(null, array('view' => 'installer/install'))
 			// Set Action
 			->setAction('install');
 		}
@@ -65,9 +63,7 @@ class CJTInstallerAccessPoint extends CJTAccessPoint {
 		// if there is no access point processed/connected the request
 		if (!$this->stopNotices)	{
 			// Set MVC request parameters.
-			$_REQUEST['view'] = 'installer/notice';
-			// Instantiate installer cotroller and fire notice action!
-			$this->route()
+			$this->route(null , array('view' => 'installer/notice'))
 			// Set action name.
 			->setAction('notInstalledNotice')
 			// Fire action!

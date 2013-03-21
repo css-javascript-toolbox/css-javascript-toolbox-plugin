@@ -53,7 +53,7 @@ class CJTMainAccessPoint extends CJTAccessPoint {
 	public function main() {
 		// Run the coupling!
 		$this->controllerName = 'blocks-coupling';
-		$this->route();
+		$this->route(false);
 		// Run all the aother access points!
 		CJTPlugin::getInstance()->listen();
 	}
@@ -67,7 +67,7 @@ class CJTMainAccessPoint extends CJTAccessPoint {
 		$mainAccessPointObject = self::$instance;
 		// Load default controller!
 		$mainAccessPointObject->controllerName = 'default';
-		$controller = $mainAccessPointObject->route()
+		$controller = $mainAccessPointObject->route(false)
 		// Fire uninstall action!
 		->setAction('uninstall')
 		->_doAction();

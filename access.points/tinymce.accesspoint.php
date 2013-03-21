@@ -41,7 +41,7 @@ class CJTTinymceAccessPoint extends CJTAccessPoint {
 	public function route($plugins) {
 		// Load tinymce/shortcodes view through default controller!
 		$this->controllerName = 'default';
-		parent::route(array('view' => 'tinymce/shortcodes'))
+		parent::route(null, array('view' => 'tinymce/shortcodes'))
 		// Display 
 		->setAction('display')
 		->_doAction();

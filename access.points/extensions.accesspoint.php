@@ -65,9 +65,7 @@ class CJTExtensionsAccessPoint extends CJTAccessPoint {
 		// Set as connected object!
 		$this->connected();
 		// Load extensions view throughjt the default controller!
-		$_REQUEST['view'] ='extensions/plugins-list';
-		// Create controller!
-		parent::route()
+		parent::route(null, array('view' => 'extensions/plugins-list'))
 		// Set Action name!
 		->setAction('extensions')
 		// Dispatch the call!

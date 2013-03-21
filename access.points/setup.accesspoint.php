@@ -58,9 +58,7 @@ class CJTSetupAccessPoint extends CJTPageAccessPoint {
 	*/
 	public function route() {
 		// Set MVC request parameters.
-		$_REQUEST['view'] = 'setup/setup';
-		// Instantiate installer cotroller and fire notice action!
-		parent::route()
+		parent::route(null, array('view' => 'setup/setup'))
 		// Set action name.
 		->setAction('setup');
 	}

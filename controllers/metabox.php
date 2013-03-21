@@ -25,7 +25,7 @@ class CJTMetaboxController extends CJTAjaxController {
 	* @return void
 	*/
 	public function __construct() {
-		parent::__construct();
+		parent::__construct(false);
 		// Instantiate model object.
 		$this->model = self::getModel('metabox', array($_GET['post']));
 		// Don't regiter Ajax actions unless AAP (Ajax Access Point) is loaded!

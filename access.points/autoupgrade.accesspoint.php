@@ -57,7 +57,7 @@ class CJTAutoUpgradeAccessPoint extends CJTAccessPoint {
 	public function route() {
 		// Load Auto Upgrade controller!
 		$this->controllerName = 'auto-upgrade';
-		parent::route()
+		parent::route(false)
 		// Set action name to autoUpgrade
 		->setAction('enable')
 		// fire action to enable automatic upgrade!
