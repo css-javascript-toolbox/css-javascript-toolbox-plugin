@@ -1,5 +1,7 @@
-Version 6.1.27.1:
-	- Fix: Don't break down the site if manual upgrade/downgrage process is incompleted! Allow user to revert back manually aor disable the Plugin.
+Version 6.0.33:
+	- Fix: E_ALL complain! Suppress all the notices when WP_DEBUG set to true, allow better development, fast performance and error handling.
+	- Fix: Conflict with other Plugins as sharing the same query string parameters!
+	- Fix: Don't break down the site if manual upgrade/downgrage process is incompleted! Allow user to revert back manually or disable the Plugin.
 	- Fix: Don't allow installation if the upgrade/downgrade version is not supported.
 	- Added: Support for upgrade from version 6.0 CE.
  
