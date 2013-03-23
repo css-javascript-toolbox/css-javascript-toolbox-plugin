@@ -95,6 +95,11 @@ class CJTInstallerModel {
 			if ($this->isUpgrade()) {
 				// Get upgrade operations , Also cache upgrader info for later use!
 				$operations[CJTPlugin::DB_VERSION]['upgrader'] = $upgrader = $this->getUpgrader();
+				// Check if upgrader exists!
+				if (!file_exists(cssJSToolbox::resolvePath($upgrader['file']))) {
+					throw new Exception("Could not find upgrade/downgrade agent for installer '{$this->installedDbVersion}'! Incompatible version numbers! Upgrader/Downgrwader is no being supported by current versions!!");
+				}
+				// Import upgrader + reflect its operations!
 				cssJSToolbox::import($upgrader['file']);
 				$operations[CJTPlugin::DB_VERSION]['operations']['upgrade'] = CJTInstallerReflection::getInstance($upgrader['class'], 'CJTUpgradeNonTabledVersions')->getOperations();				
 			}
