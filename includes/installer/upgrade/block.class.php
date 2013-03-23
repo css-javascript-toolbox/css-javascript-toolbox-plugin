@@ -64,7 +64,7 @@ abstract class CJTInstallerBlock extends ArrayIterator {
 			'allposts' => CJTBlockModel::PINS_POSTS_ALL_POSTS,
 			'frontpage' => CJTBlockModel::PINS_PAGES_FRONT_PAGE,
 		);
-		foreach (((array) $srcBlock['page']) as $assignedObject) {
+		foreach ((isset($srcBlock['page']) ? $srcBlock['page'] : array()) as $assignedObject) {
 			// Translate named pin to flag!
 			if (isset($namedPins[$assignedObject])) {
 				// Set pinPoint flags!
