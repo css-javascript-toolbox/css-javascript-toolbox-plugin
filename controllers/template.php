@@ -87,15 +87,10 @@ class CJTTemplateController extends CJTAjaxController {
 	* 	
 	*/
 	protected function saveAction() {
-		if (!$rawInput = file_get_contents('php://input')) {
-			throw new Exception('Could not read RAW input DATA!!!');
-		}
-		// Get RAW input for all text fields avoid magic_quotes and this poor stuff!
-		parse_str($rawInput, $rawInput);
-		// Filer inputs.
-		$rawInput = $this->onsave($rawInput);
+		// Read inputs
+		$item = filter_input(INPUT_POST, 'item', FILTER_UNSAFE_RAW, FILTER_REQUIRE_ARRAY);
 		// Posted template data is in the item array, the others is just for making the request!
-		$this->model->inputs['item'] = $rawInput['item'];
+		$this->model->inputs['item'] = $this->onsave($item);
 		if ($revision = $this->model->save()) {
 			$this->response = array('revision' => $revision);
 		}
