@@ -1,3 +1,9 @@
+Version 6.0.37:
+	- Fix: Upgrade version 0.8 missing operations issue.
+	- Fix: User error is not being displayed if the upgrade/downgrade agent is not exists.
+	- Fix: Extra slash added to template code when magic_quote_gpc is truned On!
+	- Enhancement: E_ALL complain! Suppress PHP notices when WP_DEBUG is set to true.
+	
 Version 6.0.33:
 	- Fix: E_ALL complain! Suppress all the notices when WP_DEBUG set to true, allow better development, fast performance and error handling.
 	- Fix: Conflict with other Plugins as sharing the same query string parameters!
