@@ -26,7 +26,7 @@ defined('ABSPATH') or die("Access denied");
 			<div class="cjcodeblock">
 <?php 	echo $this->getTemplate('editor-toolbox', array(), 'tmpl/templates'); ?>
 				<div class="datablock">
-					<textarea class="initCode" style="visibility:hidden"><?php echo $this->block->code ;?></textarea>
+					<textarea class="initCode" style="visibility:hidden"><?php echo htmlentities($this->block->code) ;?></textarea>
 					<div id="editor-<?php echo $this->block->id ?>" class="code-editor">
 					</div>					
 				</div>
