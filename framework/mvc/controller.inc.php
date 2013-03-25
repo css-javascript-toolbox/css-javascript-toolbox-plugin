@@ -104,7 +104,7 @@ abstract class CJTController extends CJTHookableClass {
 		// Initialize hookable!
 		parent::__construct();
 		// Read request parameters.
-		$this->request = $request ? $request : $_REQUEST;
+		$this->request = array_merge(((array) $_REQUEST), ((array) $request));
 		// Create default model.
 		if (isset($this->controllerInfo['model'])) {
 			// E_ALL complain!
