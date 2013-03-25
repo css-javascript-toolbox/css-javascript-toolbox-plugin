@@ -290,10 +290,6 @@ class CJTBlocksCouplingController extends CJTController {
 							if($matchedExpression = @preg_match("/{$expression}/", $expressionsRequestURL)) {
 							  break;
 							}
-							else if ($matchedExpression === false) { // Error
-								$message .= "<div style='background-color:red;font-size:20px;'>There are expression error in '{$block->name}' Block!! Expr=({$expression})</div>";
-								echo($message);
-							}
 						}
 					}
 					/**
