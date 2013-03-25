@@ -1,3 +1,7 @@
+Version 6.0.39:
+	- Enhancement: Don't show 'site' side error message when invalid regular expression is supplied by the admin.
+	- Fix: Textarea HTML tag break down the block code!
+	
 Version 6.0.37:
 	- Fix: Upgrade version 0.8 missing operations issue.
 	- Fix: User error is not being displayed if the upgrade/downgrade agent is not exists.
