@@ -83,7 +83,7 @@ class CJTTemplateModel extends CJTHookableClass {
 		$query = $this->onqueryitem($query);
 		// Build and query!
 		$query = "{$query['select']} {$query['from']} {$query['where']}";
-		$item = array_shift(cssJSToolbox::getInstance()->getDBDriver()->select($query));
+		$item = cssJSToolbox::getInstance()->getDBDriver()->getRow($query);
 		// Get code.
 		$code = file_get_contents(ABSPATH . "/{$item->file}");
 		// Decode if its a PHP template!
@@ -158,9 +158,9 @@ class CJTTemplateModel extends CJTHookableClass {
 		}
 		/// Always create new revision. ///
 		// Get last used Revision Number!
-		$lastRevisionNo = ((int) (array_shift($dbDriver->select("SELECT max(revisionNo) revisionNo
+		$lastRevisionNo = ((int) ($dbDriver->getRow("SELECT max(revisionNo) revisionNo
 																											FROM #__cjtoolbox_template_revisions
-																											WHERE templateId = {$template->get('id')}"))->revisionNo));
+																											WHERE templateId = {$template->get('id')}")->revisionNo));
 		// Checki if there is a previous revision and if there is changes!!
 		$lastRevision = CJTxTable::getInstance('template-revision', null, 
 			"SELECT * 

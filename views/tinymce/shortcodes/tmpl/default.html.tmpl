@@ -18,7 +18,7 @@ defined('ABSPATH') or die('Access denied');
 		// and therefore there is no security token generated!
 		$(function() {
 			if (!CJTServer.securityToken) {
-				CJTServer.securityToken = '<?php echo cssJSToolbox::getInstance()->getSecurityToken() ?>';
+				CJTServer.securityToken = '<?php echo cssJSToolbox::getSecurityToken() ?>';
 			}
 		});
 	})(jQuery);

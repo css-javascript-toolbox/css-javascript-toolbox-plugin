@@ -184,6 +184,22 @@ class CJTMYSQLQueueDriver extends CJTHookableClass {
 	/**
 	* put your comment there...
 	* 
+	* @param mixed $query
+	* @param mixed $returnType
+	* @param mixed $default
+	*/
+	public function getRow($query, $returnType = OBJECT_K, $default = null) {
+		$row = null;
+		// Fetch al result set!
+		$result = $this->select($query, $returnType);
+		if ($result) {
+			$row = reset($result);
+		}
+		return $row;
+	}
+	/**
+	* put your comment there...
+	* 
 	*/
 	public function getTableName($table) {
 		return "{$this->wpdb->prefix}{$table}";

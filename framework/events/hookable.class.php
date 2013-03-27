@@ -101,7 +101,7 @@ abstract class CJTHookableClass implements CJTIHookable {
 	 * @param mixed $typeName
 	 * @param mixed $observer
 	 */
-	 public function off($typeName, $observer) {
+	 public static function off($typeName, $observer) {
 	 	 return CJTWordpressEvents::off($typeName, $observer);
 	 }
 	 
@@ -111,7 +111,7 @@ abstract class CJTHookableClass implements CJTIHookable {
 	 * @param mixed $typeName
 	 * @param mixed $observer
 	 */
-	 public function on($typeName, $observer) {
+	 public static function on($typeName, $observer) {
 	 	 return CJTWordpressEvents::on($typeName, $observer);
 	 }
 	 
@@ -120,7 +120,7 @@ abstract class CJTHookableClass implements CJTIHookable {
 	 * 
 	 * @param mixed $type
 	 */
-	 public function trigger($typeName) {
+	 public static function trigger($typeName) {
 	 	 $events = (isset($this) && isset($this->events)) ? 
 	 	 												$this->events : 
 	 	 												CJTWordpressEvents::getTypeEvents($typeName, false);

@@ -28,7 +28,7 @@ class CJTTinymceAccessPoint extends CJTAccessPoint {
 		if (CJTPlugin::getInstance()->isInstalled()) {
 	   // Don't bother doing this stuff if the current user lacks permissions
 	   if ((current_user_can('edit_posts') || current_user_can('edit_pages')) && (get_user_option('rich_editing') == 'true')) {
-	   	 add_filter('mce_external_plugins', array($this, 'route'));
+	   	 add_filter('mce_external_plugins', array($this, 'registerButton'));
 	   }
 		}
 	}
@@ -38,10 +38,10 @@ class CJTTinymceAccessPoint extends CJTAccessPoint {
 	* 
 	* @param mixed $plugins
 	*/
-	public function route($plugins) {
+	public function registerButton($plugins) {
 		// Load tinymce/shortcodes view through default controller!
 		$this->controllerName = 'default';
-		parent::route(null, array('view' => 'tinymce/shortcodes'))
+		$this->route(null, array('view' => 'tinymce/shortcodes'))
 		// Display 
 		->setAction('display')
 		->_doAction();

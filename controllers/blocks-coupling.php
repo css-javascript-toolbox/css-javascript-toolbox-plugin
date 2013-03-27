@@ -395,7 +395,7 @@ class CJTBlocksCouplingController extends CJTController {
 	public function linkTemplates() {
 		$currentFilter = current_filter();
 		// Derived template Type from Wordpress filter.
-		$filterFor = array_pop(explode('_', $currentFilter));
+		$filterFor = explode('_', $currentFilter); $filterFor = array_pop($filterFor);
 		$type = CJTCouplingModel::$templateTypes[$filterFor];
 		// Following vars are referenced based on the current type.
 		$templates = isset($this->templates[$type]) ? $this->templates[$type] : array();
@@ -602,7 +602,7 @@ class CJTBlocksCouplingController extends CJTController {
 								*/
 								$queue = $this->model->getQueueObject($typeName);
 								if (!in_array($template->queueName, $queue->done)) {
-									if (!$queue->registered[$template->queueName]) {
+									if (!isset($queue->registered[$template->queueName])) {
 										$queue->add($template->queueName, "/{$template->file}", null, $template->version, 1);
 									}
 									// Enqueue template!

@@ -41,7 +41,9 @@ class CJTTemplatesManagerListTable extends WP_List_Table {
 				// Display cell value as regular.
 				$value  = "<span class='template-name'>{$item->{$name}}</span>";
 				// Show description. Truncate description/display breif desc.
-				$brief = implode(' ', array_shift(array_chunk(explode(' ', $item->description), 20)));
+				$tweentyChunks = array_chunk(explode(' ', $item->description), 20);
+				$brief = implode(' ', array_shift($tweentyChunks));
+				// Final text!
 				$value .= '<br />';
 				$value .= "<div class='description'><span>{$brief}</span>";
 				if (strlen($brief) < strlen($item->description)) {

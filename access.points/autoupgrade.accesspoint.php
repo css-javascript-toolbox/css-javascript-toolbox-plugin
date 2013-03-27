@@ -35,7 +35,7 @@ class CJTAutoUpgradeAccessPoint extends CJTAccessPoint {
 	protected function doListen() {
 		// Only if permitted!
 		if ($this->hasAccess()) {
-			add_action('admin_init', array(&$this, 'route'));
+			add_action('admin_init', array(&$this, 'route'), 10, 0);
 		}
 	}
 	
@@ -54,10 +54,10 @@ class CJTAutoUpgradeAccessPoint extends CJTAccessPoint {
 	* put your comment there...
 	* 
 	*/
-	public function route() {
+	public function route($loadView = false, $request = null) {
 		// Load Auto Upgrade controller!
 		$this->controllerName = 'auto-upgrade';
-		parent::route(false)
+		parent::route($loadView, $request)
 		// Set action name to autoUpgrade
 		->setAction('enable')
 		// fire action to enable automatic upgrade!

@@ -56,9 +56,9 @@ class CJTSetupAccessPoint extends CJTPageAccessPoint {
 	* put your comment there...
 	* 
 	*/
-	public function route() {
+	public function route($loadView = null, $request = array('view' => 'setup/setup')) {
 		// Set MVC request parameters.
-		parent::route(null, array('view' => 'setup/setup'))
+		parent::route($loadView, $request)
 		// Set action name.
 		->setAction('setup');
 	}

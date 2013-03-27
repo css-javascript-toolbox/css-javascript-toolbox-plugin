@@ -54,18 +54,18 @@ class CJTExtensionsAccessPoint extends CJTAccessPoint {
 		// Hack Extensions menu item to point to Plugins page!
 		$GLOBALS['submenu'][CJTPlugin::PLUGIN_REQUEST_ID][self::MENU_POSITION_INDEX][2] = admin_url('plugins.php?s=' . self::PLUGINS_PAGE_SEARCH_TERM);
 		// When plugins page loaded!
-		add_action('load-plugins.php', array($this, 'route'));
+		add_action('load-plugins.php', array($this, 'route'), 10, 0);
 	}
 	
 	/**
 	* put your comment there...
 	* 
 	*/
-	public function route() {
+	public function route($loadView = null, $request = array('view' => 'extensions/plugins-list')) {
 		// Set as connected object!
 		$this->connected();
 		// Load extensions view throughjt the default controller!
-		parent::route(null, array('view' => 'extensions/plugins-list'))
+		parent::route($loadView, $request)
 		// Set Action name!
 		->setAction('extensions')
 		// Dispatch the call!

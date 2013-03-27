@@ -137,6 +137,8 @@ abstract class CJTxTable extends CJTHookableClass {
 	public function __construct($dbDriver, $table, $key = array('id')) {
 		// Hookable!
 		parent::__construct();
+		// Reset intenal item object!
+		$this->setItem();
 		// Initialize!
 		$this->dbDriver =$dbDriver;
 		$this->name = "#__cjtoolbox_{$table}";
@@ -282,13 +284,13 @@ abstract class CJTxTable extends CJTHookableClass {
 				$query['where'] = 'WHERE ' . implode(' AND ', $this->prepareQueryParameters($key));
 				if ($query = $this->onconcatquery($query)) {
 					// Read DB  record!
-					$query = "{$query['select']} {$query['from']} {$query['where']}";				
-					$this->item = array_shift($this->dbDriver->select($this->onloadquery($query)));
+					$query = "{$query['select']} {$query['from']} {$query['where']}";
+					$this->setItem($this->dbDriver->getRow($this->onloadquery($query)));
 				}				
 			}
 		}
 		else {
-			$this->item = array_shift($this->dbDriver->select($this->onloadquery($query)));
+			$this->setItem($this->dbDriver->getRow($this->onloadquery($query)));
 		}
 		return $this;
 	}
@@ -319,15 +321,6 @@ abstract class CJTxTable extends CJTHookableClass {
 			}
 		}
 		return $prepared;
-	}
-	
-	/**
-	* put your comment there...
-	* 
-	*/
-	public function reset() {
-		$this->item = null;
-		return $this;	
 	}
 	
 	/**
@@ -386,9 +379,6 @@ abstract class CJTxTable extends CJTHookableClass {
 	public function setData($data) {
 		// Cast to array.
 		$data = (array) $data;
-		if (is_null($this->item)) {
-			$item = (object) array();
-		}
 		// Copy values!
 		foreach ($data as $name => $value) {
 			if ($value !== null) {
@@ -398,6 +388,23 @@ abstract class CJTxTable extends CJTHookableClass {
 		return $this;
 	}
 
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $item
+	* @return CJTxTable
+	*/
+	public function setItem($item = null) {
+		// If NULL create empty stdClass, if array cast to stdClass!
+		if (!is_object($item)) {
+			$item = is_array($item) ? (object) $item : new stdClass();
+		}
+		// Set internal item object!
+		$this->item = $item;
+		// Chaining!
+		return $this;	
+	}
+	
 	/**
 	* put your comment there...
 	* 

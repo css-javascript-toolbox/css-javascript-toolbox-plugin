@@ -137,7 +137,7 @@ class cssJSToolbox extends CJTHookableClass {
 	* put your comment there...
 	* 
 	*/
-	public function getCJTWebSiteURL($path = null) {
+	public static function getCJTWebSiteURL($path = null) {
 		$domain = self::CJT_WEB_SITE_DOMAIN;	
 		return "http://{$domain}/{$path}";
 	}
@@ -166,7 +166,7 @@ class cssJSToolbox extends CJTHookableClass {
 	* put your comment there...
 	* 
 	*/
-	public function getSecurityToken() {
+	public static function getSecurityToken() {
 		return wp_create_nonce(CJTController::NONCE_ACTION);
 	}
 	
@@ -175,7 +175,7 @@ class cssJSToolbox extends CJTHookableClass {
 	* 
 	* @param mixed $text
 	*/
-	public function getText($text) {
+	public static function getText($text) {
 		// Make sure to don't use $this while calling!
 		// $this might be an object other than CssJSToolbox!
 		return self::__callStatic('cssJSToolbox.ongettext', array(__($text, CJTOOLBOX_TEXT_DOMAIN)));

@@ -35,7 +35,7 @@ class cj_Walker_Nav_Menu_Checklist extends Walker_Nav_Menu  {
 	* @param mixed $output
 	* @param mixed $depth
 	*/
-	function start_lvl( &$output, $depth ) {
+	function start_lvl( &$output, $depth = 0, $args = array() ) {
 		$indent = str_repeat( "\t", $depth );
 		$output .= "\n$indent<ul class='children'>\n";
 	}
@@ -46,7 +46,7 @@ class cj_Walker_Nav_Menu_Checklist extends Walker_Nav_Menu  {
 	* @param mixed $output
 	* @param mixed $depth
 	*/
-	function end_lvl( &$output, $depth ) {
+	function end_lvl( &$output, $depth = 0, $args = array() ) {
 		$indent = str_repeat( "\t", $depth );
 		$output .= "\n$indent</ul>";
 	}
@@ -60,7 +60,7 @@ class cj_Walker_Nav_Menu_Checklist extends Walker_Nav_Menu  {
 	 * @param int $depth Depth of menu item. Used for padding.
 	 * @param object $args
 	 */
-	function start_el(&$output, $item, $depth, $args) {
+	function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
 		$possible_object_id =  $item->object_id;
 		$indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
 		$output .= $indent . '<li>';

@@ -30,7 +30,7 @@ class CJTMetaboxAccessPoint extends CJTAccessPoint {
 		// Only if permitted!
 		if ($this->hasAccess()) {
 			// Add CJT Block metabox!
-			add_action("add_meta_boxes", array(&$this, 'route'));
+			add_action("add_meta_boxes", array(&$this, 'route'), 10, 0);
 		}
 	}
 	
@@ -38,7 +38,7 @@ class CJTMetaboxAccessPoint extends CJTAccessPoint {
 	* put your comment there...
 	* 
 	*/
-	public function route() {
+	public function route($loadView = null, $request = null) {
 		$controller = false;
 		// Veil access point unless CJT installed!
 		if (CJTPlugin::getInstance()->isInstalled()) {
@@ -49,7 +49,7 @@ class CJTMetaboxAccessPoint extends CJTAccessPoint {
 				// Load metabox controller!
 				$this->controllerName = 'metabox';
 				// Do Work!
-				$controller = parent::route();
+				$controller = parent::route($loadView, $request);
 			}
 		}
 		return $controller;

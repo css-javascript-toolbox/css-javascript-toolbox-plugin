@@ -189,14 +189,5 @@ class CJTBlockModel extends CJTModel {
 		// Return only pinPoint.
 		return $pinPoint;
 	}
-	
-	/**
-	* put your comment there...
-	* 
-	* @param mixed $values
-	*/
-	public static function getInstance($values) {
-		return new CJTBlockModel($values);
-	}
-	
+
 } // End class.

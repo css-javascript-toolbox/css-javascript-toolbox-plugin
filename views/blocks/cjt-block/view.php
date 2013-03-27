@@ -80,7 +80,7 @@ class CJTBlocksCjtBlockView extends CJTView {
 	* put your comment there...
 	* 
 	*/
-	public function getBlockView() {
+	public function & getBlockView() {
 		return $this->blockView;	
 	}
 	

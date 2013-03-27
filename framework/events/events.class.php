@@ -230,7 +230,7 @@ abstract class CJTEvents {
 	* @param mixed $type
 	* @return CJTWordpressEvents
 	*/
-	public function getTypeEvents($typeName, $typePrefixed = true) {
+	public static function getTypeEvents($typeName, $typePrefixed = true) {
 	 $type = self::parseEventType($typeName, $typePrefixed);
 	 if (!self::$classes[$type->class]) {
 		 throw new Exception("Type not found!! Could not find {$typeName}!");
@@ -262,7 +262,7 @@ abstract class CJTEvents {
 	* @param mixed $typeName
 	* @param mixed $observer
 	*/
-	public function on($typeName, $observer) {
+	public static function on($typeName, $observer) {
 		$type = self::parseEventType($typeName, false);
 		// Create live event!
 		$on = array();
@@ -275,7 +275,7 @@ abstract class CJTEvents {
 	* 
 	* @param mixed $type
 	*/
-	public function parseEventType($type, $typePrefixed = true) {
+	public static function parseEventType($type, $typePrefixed = true) {
 		$separator = '.';
 		$prefix = 'on';
 		// CLASS.TYPE

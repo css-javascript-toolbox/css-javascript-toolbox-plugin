@@ -56,7 +56,8 @@ class CJTInstallerBlocks03 extends CJTInstallerBlock {
 		$id = false;
 		// If its a normal block just get the id from the KEY!
 		if ($this->type == self::BLOCK_TYPE_BACKUP) {
-			$blocksTable = new CJTBlocksTable(cssJSToolbox::getInstance()->getDBDriver());
+			$dbDriver = cssJSToolbox::getInstance()->getDBDriver();
+			$blocksTable = new CJTBlocksTable($dbDriver);
 			$id = $blocksTable->getNextId();
 		}
 		else { // If backup block generate new ID!

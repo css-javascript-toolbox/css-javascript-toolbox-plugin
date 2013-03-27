@@ -28,14 +28,14 @@ class CJTAjaxAccessPoint extends CJTAccessPoint {
 	*/
 	protected function doListen() {
 		// Define CJT AJAX access point!
-		add_action("wp_ajax_{$this->pageId}_api", array(&$this, 'route'));
+		add_action("wp_ajax_{$this->pageId}_api", array(&$this, 'route'), 10, 0);
 	}
 	
 	/**
 	* put your comment there...
 	* 
 	*/
-	public function route() {
+	public function route($loadView = null, $request = null) {
 		// Initializing!
 		$controller = false;
 		// Controllers allowed to be Loaded if not installed
@@ -45,7 +45,7 @@ class CJTAjaxAccessPoint extends CJTAccessPoint {
 			// Connected!
 			$this->connected();
 			// Instantiate controller.
-			$controller = parent::route();
+			$controller = parent::route($loadView, $request);
 			// Dispatch the call as its originally requested from ajax action!
 			$action = "wp_ajax_{$this->pageId}_{$_REQUEST['CJTAjaxAction']}";
 			// Fire Ajax action.

@@ -83,7 +83,8 @@ class CJTBlocksModel {
 		// Get block data.                                                    
 		$block['fields'] = array('id', 'lastModified', 'pinPoint', 'code', 'links', 'expressions');
 		// get() developed to return multiple blocks, fetch the first.
-		$block = array_shift($blocks->get($blockId, $block['fields']));
+		$result = $blocks->get($blockId, $block['fields']);
+		$block = reset($result);
 		// Set other fields.
 		$block->location = $block->state = '';
 		$block->parent = $blockId;
