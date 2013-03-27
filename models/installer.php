@@ -85,6 +85,9 @@ class CJTInstallerModel {
 	* @return array Operations list metadata.
 	*/
 	public function getOperations() {
+		// Read all install/upgrade operations for all versions!
+		$operations = get_option(self::INSTALLATION_STATE);
+		$operations = is_array($operations) ? $operations : array();
 		// Check if cached: Use only installer cache for 'current' CJT version.
 		if (!isset($operations[CJTPlugin::DB_VERSION])) {
 			// Import installer reflection!
