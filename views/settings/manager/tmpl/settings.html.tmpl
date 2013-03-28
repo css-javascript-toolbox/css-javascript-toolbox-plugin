@@ -20,8 +20,15 @@ defined('ABSPATH') or die("Access denied");
 					<ul class="navigator">
 <?php
 						foreach ($this->pages as $page) :
+							// Tab for each page!
+							// Hidden field to always have somthing submitted in the server side,
+							// if nothing submitted not save loop will processed, and therefor
+							// cannot save empty list of checkboxes as in the case wityh metabox!
 ?>
-							<li><a href="#<?php echo $page['name'] ?>"><?php echo cssJSToolbox::getText($page['displayName']) ?></a></li>
+							<li>
+								<a href="#<?php echo $page['name'] ?>"><?php echo cssJSToolbox::getText($page['displayName']) ?></a>
+								<input type="hidden" name="settings[<?php echo $page['name'] ?>][page_info][name]" value="<?php echo $page['name'] ?>" />
+							</li>
 <?php
 						endforeach;
 ?>
