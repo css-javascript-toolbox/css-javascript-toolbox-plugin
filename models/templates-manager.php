@@ -158,9 +158,7 @@ class CJTTemplatesManagerModel {
 				if (!is_numeric($value)) {
 					$value = "'{$value}'";
 				}
-				if ($field['table']) {
-					$field['table'] .= '.';
-				}
+				$field['table'] = isset($field['table']) ? "{$field['table']}." : '';
 				$where[] = "{$field['table']}{$field['name']} = {$value} ";
 			}
 		}
