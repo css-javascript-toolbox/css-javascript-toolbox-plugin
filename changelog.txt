@@ -1,3 +1,9 @@
+Version 6.0.43:
+	- Fix: Couldn't uncheck all Post types under Settings:Metabox Tab!
+	- Fix: Add PHP worker for ACE Editor as it was missing.
+	- Fix: Installer operations state is cleared after the install/upgrade is interrupted, cause the repeats/re-executes of the install/upgrade operations.
+	- Enhancement: Suppress PHP errors displayed under STRICT PHP configuration like PHP >= 5.4.x and therefor boost performance, increase result and security reliability!
+
 Version 6.0.39:
 	- Enhancement: Don't show 'site' side error message when invalid regular expression is supplied by the admin.
 	- Fix: Textarea HTML tag break down the block code!

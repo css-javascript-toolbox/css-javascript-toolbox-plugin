@@ -1,9 +1,9 @@
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-#   Date: March 25, 2013
+#   Date: March 29, 2013
 #   Product Name: CSS & Javascript Toolbox V6
 #   Description: Easily add custom CSS and JavaScript code to individual Pages, Posts, Categories, and URLs.
 #   Type: WordPress Plugin, Premium
-#   Product Version: 6.0.39
+#   Product Version: 6.0.43
 #   Author: http://wipeoutmedia.com
 #   Original package file: css-javascript-toolbox.zip
 #   Web Site: http://css-javascript-toolbox.com/
