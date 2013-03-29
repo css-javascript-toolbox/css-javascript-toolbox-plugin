@@ -1,0 +1,12 @@
+ul li{padding-left: 10px;}
+.cjt-installer-view {padding: 8px 8px;}
+.installation-bottom-list {margin-top: -6px;}
+ul.installation-list li.progress,
+ul.installation-list li.installed  {margin-left: 32px; padding-left: 0px;}
+ul.installation-list li.progress .text,
+ul.installation-list li.installed .text{top: -3px; position: relative;}
+ul.installation-list li.progress {list-style-image: url('../images/progress.gif');}
+ul.installation-list li.installed {margin-left: 34px; list-style-image: url('../images/installed.png');}
+
+input[name="install"] {width: 79px;}
+.error {font-size: 20px}

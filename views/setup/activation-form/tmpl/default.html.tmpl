@@ -1,0 +1,54 @@
+<?php
+/**
+* 
+*/
+
+// Disallow direct access.
+defined('ABSPATH') or die("Access denied");
+
+// Allow view to enqueue scripts and styles.
+do_action('admin_print_scripts');
+do_action('admin_print_styles');
+?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+<?php wp_print_head_scripts() ?>
+<?php wp_print_styles() ?>
+	</head>
+	<body>
+		<div id="cjtoolbox_popup">
+		  <form id="cjt-setup-activation-form-view" class="cjt-form">
+		  	<input type="hidden" id="cjt-securityToken" value="<?php echo $this->securityToken ?>" />
+		  	<input type="hidden" name="component[name]" value="<?php echo $this->component['name'] ?>" />
+		  	<input type="hidden" name="component[pluginBase]" value="<?php echo $this->component['pluginBase'] ?>" />
+  			<fieldset>
+  				<strong><?php echo cssJSToolbox::getText('License Key') ?> <span class="component-name">&quot;<?php echo $this->component['name'] ?>&quot;</span></strong>
+  				<p>
+  					<?php echo cssJSToolbox::getText('In order to get the benefits from the premium services we provide you\'ve to obtain your license key from') ?>
+  					<a target="_blank" href="<?php echo $this->cjtWebSite ?>"> <?php echo cssJSToolbox::getText('CSS & Javascript Toolbox') ?> </a><?php  echo cssJSToolbox::getText('web site') ?>.
+  				</p>
+  				<ul class="fields-list">
+  				<li>
+  					<label for="license-name"><?php echo cssJSToolbox::getText('Your Name') ?> <sub>*</sub></label>
+  					<br>
+  					<input type="text" id="license-name" name="license[name]" value="<?php echo $this->license['name'] ?>">
+  				</li>
+  					<li>
+  						<label for="license-key"><?php echo cssJSToolbox::getText('Key') ?> <sub>*</sub></label>
+  						<br>
+  						<input type="text" id="license-key" name="license[key]" value="<?php echo $this->license['key'] ?>">
+  						<span id="license-state"></span>
+  						<br>
+  						<span id="request-state"></span>
+  					</li>
+  					<li>
+  						<input type="submit" id="action-button" name="" />
+  						<input type="submit" id="check-button" name="check" value="<?php echo cssJSToolbox::getText('Check') ?>" />
+  					</li>
+  				</ul>
+  			</fieldset>
+		  </form>
+<?php print_footer_scripts() ?>
+		</div>
+	</body>
+</html>

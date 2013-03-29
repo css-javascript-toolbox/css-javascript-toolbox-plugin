@@ -1,0 +1,12 @@
+				<div id="backups">
+					<p id="no-backups"<?php if (!empty($this->backups)) : ?> style="display:none"<?php endif; ?>>
+						<?php echo cssJSToolbox::getText('There is no backups available! You can start creating new backups from the form above.') ?>
+					</p>
+					<ul id="backups-list">
+<?php
+						foreach($this->backups as $index => $this->currentBackup) {
+							echo $this->getTemplate('single-backup', array('rowIndex' => $index));
+						}
+?>
+					</ul>
+				</div>

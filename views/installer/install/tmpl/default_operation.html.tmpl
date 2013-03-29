@@ -1,0 +1,14 @@
+<?php
+/**
+* 
+*/
+
+// Disallow direct access.
+defined('ABSPATH') or die("Access denied");
+?>
+<li class="<?php echo $operation['name'] ?><?php if (isset($operation['state'])) echo " {$operation['state']}";  ?>">
+<?php if (!isset($operation['state']) || ($operation['state'] != CJTInstallerModel::OPERATION_STATE_INSTALLED)) : ?>
+	<input type="checkbox" checked="checked" <?php echo (isset($operation['attributes']['optional']) ? 'class="optional"' : 'disabled="disabled"') ?> value="1" /> 
+<?php endif; ?>
+	<span class="text"><?php echo $operation['text'] ?></span>
+</li>

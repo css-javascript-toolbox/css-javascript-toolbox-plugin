@@ -1,0 +1,12 @@
+<?php
+/**
+* 
+*/
+
+// Disallow direct access.
+defined('ABSPATH') or die("Access denied");
+
+// Return operatrions!
+return array(
+	'blocks' => array('text' => cssJSToolbox::getText('Transfer blocks to the new blocks table. Old versions doesn\'t use a specific blocks table!')),
+);

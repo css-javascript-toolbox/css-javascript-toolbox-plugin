@@ -1,0 +1,33 @@
+<?php
+/**
+* 
+*/
+
+// Disallow direct access.
+defined('ABSPATH') or die("Access denied");
+?>
+		<div class="cjt-toolbox edit-block-name">
+			<input type="text" class="block-name" value="">
+			<div class="icons-group">
+				<a class="cjt-tb-link cancel" title="<?php echo cssJSToolbox::getText('Cancel editing code block title') ?>"></a>
+				<a class="cjt-tb-link save" title="<?php echo cssJSToolbox::getText('Save code block title') ?>"></a>
+	    </div>
+		</div>
+<?php echo $this->getTemplate('toolbox', array(), 'tmpl/templates') ?>
+		<input type="hidden" name="blocks[]" value="<?php echo $this->block->id ?>" />
+<?php
+		// Hidden fields.
+			$fields = array('name', 'state','location');
+			foreach ($fields as $field) :
+?>
+		<input type="hidden" name="cjtoolbox[<?php echo $this->block->id; ?>][<?php echo $field ?>]" value="<?php echo $this->block->$field ?>" />
+<?php endforeach; ?>
+		<div class="cjcontainer">
+			<div class="cjcodeblock">
+				<div class="datablock">
+					<textarea class="initCode" style="visibility:hidden"><?php echo htmlentities($this->block->code) ;?></textarea>
+					<div id="editor-<?php echo $this->block->id ?>" class="code-editor">
+					</div>					
+				</div>
+			</div>
+		</div>

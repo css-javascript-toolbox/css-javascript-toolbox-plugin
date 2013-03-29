@@ -1,0 +1,22 @@
+/* CJT Iframe Common form styles overrides*/
+.cjt-form ul li input[type="text"]{min-width: 256px}
+#cjt-setup-activation-form-view fieldset strong {background-color: white;}
+ul.fields-list {}
+
+/* Headers */
+.component-name {background-color: #EFEFEF;}
+
+/* Request State */
+#request-state{font-size: 12px; font-weight: bold; color: rgb(206, 190, 190); margin-top: 5px; margin-left: 2px; visibility: hidden; }
+
+/* License state */
+#license-state {width: 16px; height: 18px; display: inline-block; position: relative; top: 3px;	visibility: hidden;}
+#license-state.activate {background : url('../images/activate.png')  no-repeat;}
+#license-state.deactivate {background : url('../images/deactivate.png')  no-repeat;}
+#license-state.valid {background : url('../images/valid.png')  no-repeat;}
+#license-state.invalid{background : url('../images/invalid.png')  no-repeat;}
+#license-state.reset{background : url('../images/reset.png')  no-repeat;}
+#license-state.error{background : url('../images/error.png')  no-repeat;}
+
+/*  Action buttons */
+#action-button {visibility: hidden;}

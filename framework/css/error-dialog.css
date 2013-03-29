@@ -1,0 +1,13 @@
+.cjt-error-dialog {display:none}
+.cjt-error-list {color: #A5581B; }
+.cjt-error-list li {margin-bottom: 13px;}
+.cjt-error-list li .name {font-weight: bold; color: black;}
+.cjt-error-list li .msg {font-style: italic;}
+.cjt-error-dialog-icon {
+	float: left;
+	height: 88%;
+	width: 64px;
+	background-image: url('images/dialog-error.png');
+	background-repeat: no-repeat;
+	margin-top: 10px;
+}

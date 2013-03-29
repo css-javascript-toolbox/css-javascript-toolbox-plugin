@@ -1,0 +1,15 @@
+body {font-size: 14px; font-family: serif;}
+p.field-note {font-size: 13px; color: #9F9F9F;}
+.cjt-form fieldset{border: none;}
+.cjt-form label {display: inline-block; width: 200px;}
+.cjt-form ul {margin: 0; padding: 0}
+.cjt-form ul li {list-style: none; margin-bottom: 5px}
+.cjt-form ul li.last {margin-top: 60px; text-align: right;}
+.cjt-form ul li.last .cjt-button {min-width: 70px;}
+.cjt-form ul li input[type=button],
+.cjt-form ul li input[type=submit] {background-color: white}
+.cjt-form ul li input[type=text],
+.cjt-form ul li select {min-width: 200px;}
+.loading {background : url('images/loading.gif') center no-repeat;}
+.link-loading {display: inline-block; height: 20px;background : url('images/loading.gif') center no-repeat; }
+input[type="submit"].cjt-submit {float: right;}

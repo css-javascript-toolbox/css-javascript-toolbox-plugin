@@ -1,0 +1,39 @@
+<div class="cjt-toolbox cjt-toolbox-blocks cjtb-position-<?php echo $location ?>">
+	<div class="icons-group left-bar">
+		<a class="cjt-tb-link l-127x23 textButton cjttbl-add-block" title="<?php echo cssJSToolbox::getText('Add new code block') ?>"><?php echo cssJSToolbox::getText('New Code Block') ?></a>
+		<a class="cjt-tb-link l-127x23 textButton cjttbl-save-changes" title="<?php echo cssJSToolbox::getText('Save changes to all code blocks') ?>"><?php echo cssJSToolbox::getText('Save All Changes') ?></a>
+		<a class="cjt-tb-link l-127x23 textButton cjttbl-cancel-restore" title="<?php echo cssJSToolbox::getText('Cancel backup restoring') ?>"><?php echo cssJSToolbox::getText('Cancel Restore') ?></a>
+		<a class="cjt-tb-link l-127x23 textButton cjttbl-restore" title="<?php echo cssJSToolbox::getText('Save restored Backup') ?>"><?php echo cssJSToolbox::getText('Restore') ?></a>
+	</div>
+	<div class="icons-group tools-menu">
+		<a class="cjt-tb-link cjttbl-state-tools" title="<?php echo cssJSToolbox::getText('Tools for block state (batch)') ?>"></a>
+		<div class="popup-menu state-tools" style="display:none">
+			<a class="cjt-tb-link cjt-tb-text-link cjttbl-activate-all" title="<?php echo cssJSToolbox::getText('Activate (turn on) all code blocks') ?>"><?php echo cssJSToolbox::getText('Activate All') ?></a>
+			<br />
+			<a class="cjt-tb-link cjt-tb-text-link cjttbl-deactivate-all" title="<?php echo cssJSToolbox::getText('Deactivate (turn off) all code blocks') ?>"><?php echo cssJSToolbox::getText('Deactivate All') ?></a>
+			<br />
+			<a class="cjt-tb-link cjt-tb-text-link cjttbl-revert-state" title="<?php echo cssJSToolbox::getText('Switch current state for all code blocks') ?>"><?php echo cssJSToolbox::getText('Revert State') ?></a>
+		</div>
+		
+		<a class="cjt-tb-link cjttbl-location-tools" title="<?php echo cssJSToolbox::getText('Tools for location hook (batch)') ?>"></a>
+		<div class="popup-menu location-tools" style="display:none">
+			<a class="cjt-tb-link cjt-tb-text-link cjttbl-footer-all" title="<?php echo cssJSToolbox::getText('Set output location hook to footer for all code blocks') ?>"><?php echo cssJSToolbox::getText('Footer all') ?></a>
+			<br />
+			<a class="cjt-tb-link cjt-tb-text-link cjttbl-header-all" title="<?php echo cssJSToolbox::getText('Set output location hook to header for all code blocks') ?>"><?php echo cssJSToolbox::getText('Header all') ?></a>
+		</div>
+		
+		<div class="divider"></div>
+		<a class="cjt-tb-link cjttbl-admin-tools" title="<?php echo cssJSToolbox::getText('Tools for block cleanup and backup') ?>"></a>
+		<div class="popup-menu admin-tools" style="display:none">
+			<a class="cjt-tb-link cjt-tb-text-link cjttbl-delete-all" title="<?php echo cssJSToolbox::getText('Delete all code blocks') ?>"><?php echo cssJSToolbox::getText('Delete all') ?></a>
+			<br />
+			<a class="cjt-tb-link cjt-tb-text-link cjttbl-delete-empty" title="<?php echo cssJSToolbox::getText('Delete only empty code blocks') ?>"><?php echo cssJSToolbox::getText('Delete Empty') ?></a>
+			<br />
+			<a class="cjt-tb-link cjt-tb-text-link cjttbl-manage-backups" title="<?php echo cssJSToolbox::getText('Backup Manager - Create, restore, or delete backups') ?>"><?php echo cssJSToolbox::getText('Backups') ?></a>
+		</div>
+
+		<div class="divider"></div>
+		<a class="cjt-tb-link cjttbl-open-all" title="<?php echo cssJSToolbox::getText('Maximise all code blocks') ?>"></a>
+		<a class="cjt-tb-link cjttbl-close-all" title="<?php echo cssJSToolbox::getText('Minimise all code blocks') ?>"></a>
+	</div>
+</div>

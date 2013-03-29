@@ -1,0 +1,46 @@
+<?php
+/**
+* 
+*/
+
+// Diallow direct access.
+defined('ABSPATH') or die("Access denied");
+?>
+<div id="cjtoolbox-admin" class="wrap">
+	<div id="custom-icon" class="icon32 blocks-icon32"></div>
+	<h2><?php echo cssJSToolbox::getText('CSS & Javascript Toolbox V6 CE') ?></h2>
+	<div id="cjt-banner-bar">
+		<span class="cjt-banner-link"><?php echo cssJSToolbox::getText('Need Help?') ?>&nbsp;&nbsp;&nbsp;<a target="_blank" href="http://<?php echo cssJSToolbox::CJT_WEB_SITE_DOMAIN ?>/css-javascript-toolbox-free/"><?php echo cssJSToolbox::getText('CJT V6 CE User Manual') ?></a></span>
+		<br>
+		<span class="cjt-banner-link">
+			<a target="_blank" href="http://<?php echo cssJSToolbox::CJT_WEB_SITE_DOMAIN ?>/category/scripts/"><?php echo cssJSToolbox::getText('Script Examples') ?></a>
+			&nbsp;&nbsp;|&nbsp;&nbsp;
+			<a target="_blank" href="http://<?php echo cssJSToolbox::CJT_WEB_SITE_DOMAIN ?>/submit-a-script/"><?php echo cssJSToolbox::getText('Submit a Script') ?></a>
+		</span>
+	</div>
+	<form id="cjtoolbox-blocks-page-form" method="post">
+		<?php wp_nonce_field('cjtoolbox'); ?>
+		<?php wp_nonce_field('closedpostboxes', 'closedpostboxesnonce', false); ?>
+		<?php wp_nonce_field('meta-box-order', 'meta-box-order-nonce', false); ?>
+		<input type="hidden" id="cjt-hasBlocks" value="<?php echo $this->hasBlocks ? 'true' : 'false' ?>" />
+		<input type="hidden" id="cjt-securityToken" value="<?php echo $this->securityToken ?>" />
+		<div id="poststuff" class="metabox-holder">
+			<div id="post-body">
+<?php if ($this->backupId) : ?>
+				<p id="cjt-info"><?php  echo cssJSToolbox::getText('You have now restored the code blocks from the current backup. Nothing is saved until you click "Restore" button. To revert back to the previous code blocks and discard this action, simply click the "Cancel Restore" button.') ?></p>
+<?php endif; ?>
+<?php 	echo $this->getTemplate('toolbox', array('location' => 'top'));	?>
+<?php		do_meta_boxes($this->pageHook, 'normal', null); ?>
+				<div id="cjt-noblocks-intro"<?php if ($this->hasBlocks) : ?> style="display:none"<?php endif; ?>>
+<?php		echo $this->getTemplate('intro', array(), 'tmpl/help') ?>
+				</div>
+<?php 	echo $this->getTemplate('toolbox', array('location' => 'bottom'));	?>
+			</div>
+		</div>
+	</form>
+	<div id="cjtoolbox-tips">
+		<ul>
+			<li><span style="font-weight:bold"><?php echo cssJSToolbox::getText('Warning!') ?></span>  <?php echo cssJSToolbox::getText('Please make sure to validate added CSS &amp; JavaScript codes, the plugin doesn\'t do that for you!') ?></li>
+		</ul>
+	</div>
+</div>

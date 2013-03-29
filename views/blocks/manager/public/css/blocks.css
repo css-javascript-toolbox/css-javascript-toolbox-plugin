@@ -1,0 +1,97 @@
+/** CSS &amp; Javascript Toolkit - blocks page CSS **/
+/* Wordpress Page */
+.wrap { position: relative; }
+#cjt-banner-bar {right: 0px;position: absolute;top: 2px;}
+#cjt-banner-bar .cjt-banner-link {float: right; margin-bottom: 6px;}
+#cjt-banner-bar .cjt-banner-link a, .cjt-banner-bar a:hover, .cjt-banner-bar a:visited{color: #A5581B;}
+.blocks-icon32 { background: transparent url('../images/CSS_JS_Toolbox_Icon.png') no-repeat; }
+#post-body{ display: none; min-width:700px; }
+/* Give extra space for the last Block Code-Auto-Completion dialog */
+#wpbody-content {margin-bottom: 129px; overflow: visible !important;}
+.postbox {}
+#cjt-noblocks-intro{padding-left: 14px;}
+#cjtoolbox_form { clear:both; }
+#cjt-info {
+  background-color: #EFE;
+  font-family: sans-serif;
+  font-size: 18px;
+  text-align: center;
+  line-height: 1.3;
+  padding: 14px 0px;
+}
+/* Blocks loader */
+#cjt-blocks-loader { width: 100%; text-align: center; vertical-align: middle; }
+#cjt-blocks-loader p.loading-text{ padding-left: 20px; font-weight: bold; font-size: 14px;}
+/* Footer Tips */
+#cjtoolbox-tips { padding:20px; }
+#cjtoolbox-tips ul li { list-style-type:square; }
+/* Blocks  Page toolbox */
+.cjt-toolbox-blocks {
+	height: 27px;
+	margin-bottom: 20px;
+	background: #f3f3f3;
+	border: solid #ccc; 
+	border-width: 1px; 
+	padding: 4px 4px 4px 0px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-radius: 6px; 
+	clear: both;
+	visibility: hidden;
+}
+.cjt-toolbox-blocks .cjt-tb-link.cjttbl-admin-tools {position: relative; top:1px}
+.cjt-toolbox-blocks .icons-group.left-bar {
+	margin-left: 5px;
+}
+.cjt-toolbox-blocks .tools-menu {
+	float:right;
+	margin-right:26px;
+}
+.cjt-toolbox-blocks a.textButton {
+	background-position: left top !important;
+	text-decoration: none;
+	padding-left: 23px;
+	padding-top: 3px;
+	margin-top: 2px;
+	position: relative;
+}
+/* Links */
+.cjt-toolbox-blocks a.cjttbl-state-tools {width: 28px !important; background: url(../images/toolbox/activate-all.png) no-repeat;}
+.cjt-toolbox-blocks a.cjttbl-location-tools { background: url(../images/toolbox/header-all.png) no-repeat; }
+.cjt-toolbox-blocks a.cjttbl-admin-tools { background: url(../images/toolbox/admin-tools.png) no-repeat; }
+.cjt-toolbox-blocks a.cjttbl-save-changes { background: url(../images/toolbox/save-changes.png) no-repeat; }
+.cjt-toolbox-blocks a.cjttbl-save-changes.cjttbs-disabled {background: url(../images/toolbox/save-changes-inactive.png) no-repeat;}
+.cjt-toolbox-blocks a.cjttbl-add-block { background: url(../images/toolbox/add-new.png)  no-repeat; }
+.cjt-toolbox-blocks a.cjttbl-cancel-restore {
+	background: url(../images/toolbox/cancel-restore.png)  no-repeat; 
+	padding-left: 29px !important;
+}
+.cjt-toolbox-blocks a.cjttbl-restore { 
+	background: url(../images/toolbox/restore.png) no-repeat; 
+	padding-left: 43px !important;
+}
+.cjt-toolbox-blocks a.cjttbl-restore.cjttbs-disabled {
+	height: 10px !important;
+	margin-left: 40px;
+}
+.cjt-toolbox-blocks a.cjttbl-delete-all { background: url(../images/toolbox/delete-all.png) no-repeat; }
+.cjt-toolbox-blocks a.cjttbl-delete-empty { background: url(../images/toolbox/delete-empty.png)  no-repeat; }
+.cjt-toolbox-blocks a.cjttbl-manage-backups { background: url(../images/toolbox/backup.png)  no-repeat; }
+.cjt-toolbox-blocks a.cjttbl-footer-all { background: url(../images/toolbox/footer-all.png) no-repeat; }
+.cjt-toolbox-blocks a.cjttbl-header-all { background: url(../images/toolbox/header-all.png) no-repeat; }
+.cjt-toolbox-blocks a.cjttbl-activate-all { background: url(../images/toolbox/activate-all.png)  no-repeat; }
+.cjt-toolbox-blocks a.cjttbl-deactivate-all { background: url(../images/toolbox/deactivate-all.png)  no-repeat; }
+.cjt-toolbox-blocks a.cjttbl-revert-state { background: url(../images/toolbox/revert-state.png)  no-repeat; }
+.cjt-toolbox-blocks a.cjttbl-close-all { background: url(../images/toolbox/close-all.png)  no-repeat; }
+.cjt-toolbox-blocks a.cjttbl-open-all { background: url(../images/toolbox/open-all.png)  no-repeat; }
+
+#templates-lookup-form {height: 330px;}
+
+.hide { display: none }
+.cjt-block-scripts ul{ list-style: none; margin: 0px; padding: 5px 5px 5px 5px; height: 450px; overflow: auto; }
+.cjt-block-scripts ul li{ display: inline-block; background: none; width: 200px; }
+.marked-text{ color: #bf6b19; }
+
+/* No Blocks Intro Help text */
+cjt-noblocks-intro h2 {font-weight: bold; margin: 4px 0px;}
+cjt-noblocks-intro h4 {font-weight: bold; font-size: 15px;}

@@ -1,0 +1,10 @@
+<div class="block-info">
+	<ul>
+		<li><span style="font-weight:bold"><?php echo cssJSToolbox::getText('ID') ?>:</span> #<?php echo $this->info->id ?></li>
+		<li><span style="font-weight:bold"><?php echo cssJSToolbox::getText('Name') ?>:</span> <?php echo $this->info->name ?></li>
+		<li><span style="font-weight:bold"><?php echo cssJSToolbox::getText('Author') ?>:</span> <?php echo $this->info->owner->display_name ?></li>
+		<li><span style="font-weight:bold"><?php echo cssJSToolbox::getText('Date Created') ?>:</span> <?php echo $this->info->created ?></li>
+		<li><span style="font-weight:bold"><?php echo cssJSToolbox::getText('Last Modified') ?>:</span> <?php echo $this->info->lastModified ?></li>
+		<li style="background-color:#EFEFEF"><span style="font-weight:bold"><?php echo cssJSToolbox::getText('Shortcode') ?>: </span><?php echo $this->info->shortcode ?></li>
+	</ul>
+</div>

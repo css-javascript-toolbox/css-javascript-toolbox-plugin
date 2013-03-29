@@ -1,0 +1,25 @@
+<?php
+/**
+* 
+*/
+
+// No direct access.
+defined('ABSPATH') or die('Access denied');
+
+// We need a security token in case thatt he tinymce
+// is running on a page dosn't has metabox or create-metabox
+// views embedded to it!
+?>
+<script type="text/javascript">
+	(function($) {
+		// If CJTServer is not running yet then
+		// pass a seucritt token as it run on footer!
+		// runs of footer mean there is no Block metabox for current post type
+		// and therefore there is no security token generated!
+		$(function() {
+			if (!CJTServer.securityToken) {
+				CJTServer.securityToken = '<?php echo cssJSToolbox::getSecurityToken() ?>';
+			}
+		});
+	})(jQuery);
+</script>

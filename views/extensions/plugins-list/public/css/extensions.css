@@ -1,0 +1,8 @@
+/* Hide few elements! */
+.add-new-h2,
+.subtitle,
+.search-box,
+.subsubsub {display: none;}
+.wrap h2 {visibility: hidden;}
+
+#icon-cjtoolbox {background: url('../images/extensions/icon32.png') no-repeat;}

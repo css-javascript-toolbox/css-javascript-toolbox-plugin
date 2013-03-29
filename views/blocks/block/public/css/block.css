@@ -1,0 +1,153 @@
+/* 
+	cjt-block is just a new added class so don't confuse about it
+	sometimes we need to use it instead of postbox class
+	like affecting only block box while running as Metabox inside edit post page!
+*/
+.cjt-block {min-width: 750px;}
+
+#cjtoolbox-admin div.postbox {
+	display:none 
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-radius: 6px; 
+	border-color: #cccccc;
+}
+/* Use 6px radius instead of 3px */
+#cjtoolbox-admin .postbox .hndle {
+	-moz-border-top-left-radius: 6px;
+	-moz-border-top-right-radius: 6px;
+	-webkit-border-top-left-radius: 6px;
+	-webkit-border-top-right-radius: 6px;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+	border-bottom-color: #cccccc;
+}
+#cjtoolbox-admin #poststuff h3, .metabox-holder h3 {padding: 8px 10px;}
+/* Editor langauges list */
+.editor-langs {
+	position: absolute;  
+	z-index: 2;    
+	width: 200px;
+	overflow: hidden;
+	margin-top: -2px;
+	/* Border */
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+	border-right-style: solid;
+	border-right-width: 1px;
+	border-color: inactiveborder;
+	margin-left: 33px;
+}
+.editor-langs select {
+	height: 70px;
+	width: 114px;
+}
+/** Toolbox **/
+.block-toolbox { 
+	height: 30px;
+	position: absolute;
+	right: 30px;
+	top: 0px; 
+}
+.block-toolbox .icons-group {
+	display: inline-block;
+}
+/* Push all icons by 1 pixel down  Put not  the info icon */
+.block-toolbox .icons-group.big-bar .cjt-tb-link{position: relative; top:1px}
+.block-toolbox .icons-group.big-bar .cjttbl-info{position: static;}
+.block-toolbox .icons-group a.cjt-tb-link {
+	width: 24px;
+	height: 24px;
+	display: inline-block;
+	/* margin-top: 3px; */
+	cursor: pointer;
+}
+.block-toolbox .icons-group a.il-60x23 {
+	width: 60px;
+	height: 23px;
+}
+.cjt-toolbox .icons-group .popup-menu.templates-lookup { /* Override default for Templates Lookup*/
+	background-color: #EFEFEF;
+	border: 1px solid #bbb;
+	width: 346px;
+	height: 357px;
+	left: 80px;
+	top: 31px;
+	margin-top: 2px;
+	margin-left: 1px;
+}
+/** Toolbox buttons **/
+
+/* Editor languages classes */
+.block-toolbox a.cjttbl-switch-editor-language{}
+.block-toolbox a.cjttbl-editor-language-css { background: url(../images/toolbox/editor-languages/css.png); }
+.block-toolbox a.cjttbl-editor-language-html { background: url(../images/toolbox/editor-languages/html.png); }
+.block-toolbox a.cjttbl-editor-language-javascript { background: url(../images/toolbox/editor-languages/javascript.png); }
+.block-toolbox a.cjttbl-editor-language-php { background: url(../images/toolbox/editor-languages/php.png); }
+/* Other buttons */
+.block-toolbox a.state-active { background: url(../images/toolbox/active.png); }
+.block-toolbox a.state-inactive { background-image: url(../images/toolbox/inactive.png); }
+.block-toolbox a.cjttbl-save {
+	background: url(../images/toolbox/save.png);
+	background-position: left top !important;
+	text-decoration: none;
+	padding-left: 23px;
+	padding-top: 5px;
+	position: relative;
+	top: -9px;
+	width: 37px !important;
+	height: 18px !important;
+}
+.block-toolbox a.cjttbl-save.cjttbs-loading {
+	top: -2px;
+	background-position: center center;
+}
+.block-toolbox a.cjttbl-save.cjttbs-disabled {background: url(../images/toolbox/save-inactive.png); }
+.block-toolbox a.cjttbl-revisions { background-image: url(../images/toolbox/revisions.png); }
+.block-toolbox a.cjttbl-delete { background-image: url(../images/toolbox/delete.png); }
+.block-toolbox a.location-header { background-image: url(../images/toolbox/header-hook.png); }
+.block-toolbox a.location-footer { background-image: url(../images/toolbox/footer-hook.png); }
+.block-toolbox a.cjttbl-get-shortcode { background-image: url(../images/toolbox/shortcode.png); }
+.block-toolbox a.cjttbl-edit-name { background-image: url(../images/toolbox/edit-name.png); }
+.block-toolbox a.cjttbl-info { background-image: url(../images/toolbox/info.png); }
+
+/* Edit block name */
+.edit-block-name {
+  position: absolute;
+  height: 30px;
+  top: 0px;
+  display: none;
+}
+.edit-block-name .icons-group {
+	display: inline-block;
+	margin-left: 0px;
+	position: relative;
+	top: 3px;
+}
+.edit-block-name input.block-name {
+  width: 200px;
+  margin-right: 10px;
+  height: 24px;
+  background-color: #F1F1F1;
+  position: relative;
+  top: -6px;
+  margin-left: -3px;
+}
+span.block-name {
+	cursor: pointer;
+}
+.edit-block-name .cancel { background-image: url(../images/edit-block-name/cancel.png); }
+.edit-block-name .save { background-image: url(../images/edit-block-name/save.png); }
+
+.cjcodeblock { margin-right:30px; }
+.cjcontainer {min-width:700px;}
+.datablock {padding-top: 14px;}
+.datablock .code-editor { position: relative; width:auto; height:352px; }
+ a.button-secondary { float:left; }
+.linklist textarea { width:245px; font-size:11px; height:190px; }
+.cjtitle { float:left; width:245px; }
+.cssblock select { width:150px; }
+.jsblock select { width:155px; }
+.cjbutton { width:116px; height:24px; float:left; }
+.cjbutton a { height:24px; width:24px; text-indent:-999em; display:block; float:left; }
+.cjexample { clear:left; float:left; padding:5px 0 0; }

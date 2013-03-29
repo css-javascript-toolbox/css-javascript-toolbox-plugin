@@ -1,0 +1,18 @@
+div.checkbox-list {
+	height: 200px;
+	max-height: 200px;
+	overflow: auto;
+}
+div.checkbox-list ul.checkboxes {
+	margin: 0;
+	padding: 0;
+}
+div.checkbox-list ul.checkboxes li {
+	list-style-type: none;
+}
+div.checkbox-list ul.checkboxes li input[type="checkbox"].checkbox-list-item {
+	
+}
+div.checkbox-list ul.checkboxes li input[type="checkbox"].checkbox-list-selected-item {
+	
+}

@@ -1,0 +1,20 @@
+<?php
+					/* 
+						Getting backup row class. 
+						Class can be "alt-backup-row" for odd index row or "backup-row" for even index row. 
+					*/
+					// Deinfe Classes.
+					$CSSClasses = array(
+						0 => 'backup-row',
+						1 => 'alt-backup-row',
+					);
+					// Select row class based on index.
+					$rowClassIndex = $rowIndex & 0x01; // $rowIndex passed throught getTemplates $params.
+					$rowClass = " {$CSSClasses[$rowClassIndex]}";
+?>
+					<li id="backup-row-<?php echo $this->currentBackup->id ?>" class="backup-row<?php echo $rowClass ?>">
+						<span class="backup-name"><?php echo $this->currentBackup->name ?></span> <?php echo cssJSToolbox::getText('By') ?> <?php echo $this->currentBackup->owner->display_name ?> @ <?php echo $this->currentBackup->created ?> 
+						<span class="backup-tasks">
+							<a class="restore" href="#<?php echo $this->currentBackup->id ?>">Restore</a> | <a class="delete" href="#<?php echo $this->currentBackup->id ?>">Delete</a>
+						</span>
+					</li>

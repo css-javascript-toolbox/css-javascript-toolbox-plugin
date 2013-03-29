@@ -1,0 +1,56 @@
+<?php
+/**
+* 
+*/
+
+// Disallow direct access.
+defined('ABSPATH') or die("Access denied");
+// Set vars based on detected installed version number!
+if ($this->upgrade) {
+	$title = 'Upgrading CJT Plugin';
+	$installButtonTitle = 'Upgrade';
+}
+else {
+	$title = 'Installing CJT Plugin';
+	$installButtonTitle = 'Install';
+}
+?>
+<div class="cjt-installer-view">
+<?php if (!$this->error) : ?>
+	<form name="installation-form" action="">
+		<input type="hidden" id="cjt-securityToken" value="<?php echo $this->securityToken ?>" />
+		<h1><?php echo cssJSToolbox::getText($title) ?></h1>
+		<p>
+			<?php echo cssJSToolbox::getText('In order to start using CJT Plugin you need first to install the Plugin.') ?>
+			<?php echo cssJSToolbox::getText('The installation process will create CJT database tables, build-it Database records.') ?>
+			<?php echo cssJSToolbox::getText('Check for previous version and if the upgrade process is needed.') ?>
+			<?php echo cssJSToolbox::getText('The Plugin is in disable state untill the  installation process took place!') ?>
+			<?php echo cssJSToolbox::getText('To utilize from the CJT functionality you must install the Plugin first!!') ?>
+		</p>
+		<h3><?php echo cssJSToolbox::getText('Installing Version ') . CJTPlugin::VERSION ?></h3>
+		<p><?php echo cssJSToolbox::getText('When you install a new version of CJT for the first time or even upgrading from old versions, a number of processes will happen, which will take approximately 1 to 2 minutes. These processes include') ?></p>
+		<ul class="installation-list install">
+<?php 
+		// Print installation operations (to be executed in the same order below).
+		echo $this->getTemplate('default_operations_list', array(
+			'type' => 'install',
+			'operations' => array(
+				'database' => array('text' => cssJSToolbox::getText('Create database tables.')),
+				'finalize' => array('text' => cssJSToolbox::getText('Finalize Installation.')),
+			))
+		);
+?>
+		</ul>
+<?php
+		// Print upgrade operations (to be executed in the same order below).
+		if ($this->upgrade) {
+			echo $this->getTemplate('upgrade', array(), 'tmpl/upgrades');
+		}
+?>
+		<input type="button" name="install" value="<?php echo cssJSToolbox::getText($installButtonTitle) ?>" />
+<?php else : ?>
+<div class="error"><p><?php echo $this->error->getMessage() ?></p></div>
+<br>
+<?php endif ?>
+	</form>
+</div>

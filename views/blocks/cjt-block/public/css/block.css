@@ -1,0 +1,64 @@
+/** reserve Objects Panel space */
+.cjcodeblock {margin-right:317px;}
+/*  Pages Panel */
+.cjpageblock {width: 315px; height: 100%; position: absolute; right: 3px;}
+.pagelist {padding:10px; height: 251px; overflow:auto; background:#fff; border:1px solid #ccc;}
+/* Wrap long text */
+.pagelist a{color: black; text-decoration: none;}
+.select-childs {position: relative; left: 2px; top: 2px; margin-left:-12px !important; margin-right: 1px !important; margin-top: 0px !important;}
+.select-childs-checkbox-overlay {background-color: #bb5300; position: relative; width: 12px; height: 12px; opacity: 0.3; filter: alpha(opacity = 30); display: inline-block; top: 3px; z-index: 1; left: 3px;}
+.select-childs-checkbox-overlay:hover {opacity: 0.5; filter: alpha(opacity = 50);}
+.pagelist a:hover{color: #B06D38; font-weight: bold;}
+.pagelist>li>span {width: 203px;overflow: hidden; display: inline-block; height: 21px; vertical-align: middle;}
+.pagelist li { line-height:19px; word-wrap:break-word; margin:0; padding:0; }
+.pagelist li .sub-list {font-weight: bold; font-size: 13px;text-decoration: underline;}
+.pagelist li .list-error {font-size: 12px;text-align: center;margin-top: 41px;text-decoration: underline;}
+.pagelist li .list-error .message{font-weight: bold;}
+.pagelist ul { margin-left:15px; }
+
+/**
+* Advanced TAB Accordion menu.
+*/
+.advanced-accordion {margin-top: 6px;}
+.advanced-accordion textarea {
+	height: 211px;
+	width: 282px;
+	max-width: 282px;
+	margin-top: 4px;
+	overflow: auto;
+	white-space: nowrap;
+	text-decoration: underline;
+}
+.advanced-accordion a.acc-header {display: block;}
+.advanced-accordion a.acc-header,
+.advanced-accordion  a.acc-header:hover,
+.advanced-accordion a.acc-header:visited {
+	text-decoration: none;
+	font-family: Helvetica;
+	color: #AFAFAF;
+	font-weight: bold;
+	font-size: 16px;
+	padding: 7px 4px;
+}
+.advanced-accordion .ui-accordion-content {height: 218px;}
+.advanced-accordion .ui-accordion-header-active {color: #a5581b !important;}
+/*
+ * jQuery UI Tabs 1.8.16
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Tabs#theming
+ */
+.cjpageblock .ui-tabs { position: relative; zoom: 1; height: 100%; } /* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
+.cjpageblock .ui-tabs-active a, .cjpageblock ui-state-active a {color: #A5581B !important;}
+.cjpageblock .ui-tabs .ui-tabs-nav { margin: 0;}
+.cjpageblock .ui-tabs .ui-tabs-nav li { list-style: none; top: 1px; margin: 0 .2em 1px 0; padding: 0; white-space: nowrap; }
+.cjpageblock .ui-tabs .ui-tabs-nav li a { background:#F1F1F1; color:#999999; border-color:#DFDFDF #DFDFDF #CCCCCC; height:18px;margin:5px 5px 0 0;float:right;cursor:pointer;border-width:1px;border-style:solid;-moz-border-radius:3px 3px 0 0;-webkit-border-top-right-radius:3px;-webkit-border-top-left-radius:3px;-khtml-border-top-right-radius:3px;-khtml-border-top-left-radius:3px;border-top-right-radius:3px;border-top-left-radius:3px; border-bottom: 0 !important; }
+.cjpageblock .ui-tabs .ui-tabs-nav li a { float: left; padding: .5em 1.6em; text-decoration: none; }
+.cjpageblock .ui-tabs .ui-tabs-nav li.ui-tabs-selected { margin-bottom: 0; padding-bottom: 1px; }
+.cjpageblock .ui-tabs .ui-tabs-nav li.ui-tabs-selected a, .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .ui-tabs .ui-tabs-nav li.ui-state-processing a { cursor: text; background:#E9E9E9; border-color:#CCCCCC #CCCCCC #E9E9E9; color:#333333; }
+.cjpageblock .ui-tabs .ui-tabs-nav li a, .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a { cursor: pointer; } /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
+.cjpageblock .ui-tabs .ui-tabs-panel {height: 290px; display: block; padding: 0px 7px; background: #EFEFEF; border-color:#CCCCCC; border-style:solid;border-width:1px;border-collapse:separate;-moz-border-radius:3px 3px 0 0;-webkit-border-top-right-radius:3px;-webkit-border-top-left-radius:3px;-khtml-border-top-right-radius:3px;-khtml-border-top-left-radius:3px;border-top-right-radius:3px;border-top-left-radius:3px; clear:both }
+.cjpageblock .ui-tabs .ui-tabs-hide { display: none !important; }

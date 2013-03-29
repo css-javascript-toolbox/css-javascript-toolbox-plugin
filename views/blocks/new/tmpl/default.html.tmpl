@@ -1,0 +1,75 @@
+<?php
+/**
+* 
+*/
+
+// Disallow direct access.
+defined('ABSPATH') or die("Access denied");
+
+// Allow view to enqueue scripts and styles.
+do_action('admin_print_scripts');
+do_action('admin_print_styles');
+?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+<?php wp_print_head_scripts() ?>
+<?php wp_print_styles() ?>
+	</head>
+	<body>
+		<div id="cjtoolbox_popup">
+		  <form id="cjtoolbox_new_block_form" class="cjt-form">
+  			<fieldset>
+  				<ul>
+  					<li>
+  						<label for="cjt-new-block-name" title="<?php echo cssJSToolbox::getText('Name or title of code block  (must be unique and cannot be left blank)') ?>"><?php echo cssJSToolbox::getText('Name') ?>*</label>
+  						<input type="text" id="cjt-new-block-name" name="name" maxlength="50" value="" />
+  					</li>
+  					<li>
+  						<label for="cjt-new-block-state" title="<?php echo cssJSToolbox::getText('Tick the checkbox to Activate (turn on) code block') ?>"><?php echo cssJSToolbox::getText('Activate') ?></label>
+  						<input type="checkbox" id="cjt-new-block-state" name="state" value="active" checked="checked" />
+  					</li>
+  					<li>
+  						<label for="cjt-new-block-hook" title="<?php echo cssJSToolbox::getText('Set location hook for code block output to: Header or Footer') ?>"><?php echo cssJSToolbox::getText('Location Hook') ?></label>
+  						<select name="location" id="cjt-new-block-hook">
+<?php
+							$locations = array(
+  							'header' => cssJSToolbox::getText('Header'),
+  							'footer' => cssJSToolbox::getText('Footer'),
+							);
+							foreach ($locations as $key => $displayName) :
+?>
+							<option value="<?php echo $key ?>"><?php echo $displayName ?></option>
+<?php
+  						endforeach;
+?>
+							</select>
+  					</li>
+  					<li>
+  						<label for="cjt-new-block-position" title="<?php echo cssJSToolbox::getText('Set initial code block position to: First Block or Last Block') ?>"><?php echo cssJSToolbox::getText('Initial Block Position') ?></label>
+  						<select name="position" id="cjt-new-block-position">
+<?php
+							// Static locations.
+							$positions = array(
+  							'top' => cssJSToolbox::getText('First Block'),
+  							'bottom' => cssJSToolbox::getText('Last Block'),
+							);
+							// Display locations list.
+							foreach ($positions as $position => $displayName) :
+?>
+							<option value="<?php echo $position ?>"<?php if ($this->position == $position) : ?> selected="selected"<?php endif; ?>><?php echo $displayName ?></option>
+<?php
+  						endforeach;
+?>
+							</select>
+  					</li>
+  					<li class="last">
+  						<input class="cjt-button cancel" type="button" value="<?php echo cssJSToolbox::getText('Cancel') ?>" />
+					    <input class="cjt-button save" type="submit" name="submit" value="<?php echo cssJSToolbox::getText('Create') ?>" />
+  					</li>
+  				</ul>
+  			</fieldset>
+		  </form>
+<?php print_footer_scripts() ?>
+		</div>
+	</body>
+</html>

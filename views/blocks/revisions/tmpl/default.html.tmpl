@@ -1,0 +1,38 @@
+<?php
+/**
+* 
+*/
+
+// Disallow direct access.
+defined('ABSPATH') or die("Access denied");
+?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+<?php wp_print_head_scripts() ?>
+<?php wp_print_styles() ?>
+	</head>
+	<body>
+		<div id="cjtoolbox_popup">
+			<form id="block-revisions-form" class="cjt-form">
+				<input type="hidden" id="blockId" value="<?php echo $this->blockId ?>" />
+<?php		if (empty($this->revisions)) : // No revisions ?>
+				<p><?php echo cssJSToolbox::getText('No revisions!') ?></p>
+<?php		else : // Revisions available ?>
+				<ul>
+<?php
+					foreach ($this->revisions as $revision) :
+?>
+						<li>
+							<span><?php echo $revision->created ?> <?php echo cssJSToolbox::getText('by') ?> <?php echo get_userdata($revision->owner)->display_name ?></span> | 
+							<a class="restore-link" href="#<?php echo $revision->id ?>"><?php echo cssJSToolbox::getText('Restore') ?></a>
+						</li>
+<?php
+						endforeach;
+?>
+				</ul>
+<?php		endif; ?>
+			</form>
+<?php wp_print_footer_scripts() ?>
+		</div>		
+	</body>
+</html>

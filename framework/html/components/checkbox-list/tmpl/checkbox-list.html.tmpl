@@ -1,0 +1,24 @@
+<?php
+/**
+* 
+*/
+
+// No direct access allowed.
+defined('ABSPATH') or die("Access denied");
+?>
+<div id="<?php echo $this->getId() ?>" class="<?php echo $this->getClassName() ?> ui-widget ui-widget-content ui-corner-all">
+	<h3 class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all"><?php echo $this->title ?></h3>
+	<ul class="checkboxes">
+<?php
+		foreach ($this->list as $item) :
+			$className = $item->checked ? $item->selectedClassName : $item->className;
+			$checked = $item->checked ? 'checked="checked"' : '';
+?>
+		<li class="ui-state-default ui-corner-top">
+			<input type="checkbox" name="<?php echo $item->name ?>" value="<?php echo $item->value ?>" class="<?php echo $className ?>" <?php echo $checked ?> /> <?php echo $item->text ?>
+		</li>
+<?php
+		endforeach;
+?>
+	</ul>
+</div>

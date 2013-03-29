@@ -1,0 +1,9 @@
+<?php
+/**
+* 
+*/
+
+/**
+* 
+*/
+interface CJTIHookable {}
