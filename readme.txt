@@ -7,12 +7,14 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.3
 Tested up to: 3.5.1
-Stable tag: 6.0.9
+Stable tag: 6.0.11
 
 Easily add custom CSS, JavaScript, HTML and PHP code to unique CJT code blocks and assign them wherever you want.
 
 == Description ==
 CSS & JavaScript Toolbox (or CJT) is a powerful and flexible plugin, which allows you to contribute to your WordPress installation code via an easy-to-use web interface. You will be able to modify or extend your site functionality and appearance by adding custom code directly into CJT code blocks and assign them to pages, posts, custom posts, categories, URLs, expressions, and loads more!
+
+If you like to know more about the development state, issues and to tracke future versions code please follow us on [GitHub Plugin repository](https://github.com/css-javascript-toolbox/css-javascript-toolbox-plugin).
 
 = Who is this plugin for? =
 The CJT plugin was created to help website authors write their own code. Basically, if love writing code, then you will love CJT. Designed and developed from the ground-up, CJT will suit novice users to seasoned website developers alike. You can also use it as a training tool, and learn step-by-step how to write and apply scripts yourself!  In fact, you will find useful script examples on the CJT website.
@@ -122,6 +124,10 @@ Sometimes a bug decides to rear its ugly head and when this happens, this is whe
 2. CJT Shortcode button
 
 == Changelog ==
+
+= 6.0.11 =
+* Fix:  Add ACE Editor PHP Worker as it was missing.
+* Enhancement: List only Public Custom Posts that can be accessed through Wordpress URL under Assignment Panel Custom Posts Tab. Therefor enhance performance for sites that has 'Log' custom post that might has hundreds or records read for every code block.
 
 = 6.0.9 =
 * Enhancement: Suppress PHP errors displayed under STRICT PHP configuration like PHP >= 5.4.x and therefor boost performance, increase result and security reliability!
