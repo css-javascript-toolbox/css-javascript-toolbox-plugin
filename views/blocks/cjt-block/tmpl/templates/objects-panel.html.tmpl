@@ -28,16 +28,12 @@
 				<div id="tabs-<?php echo $block->id; ?>-custom-posts">
 					<ul class="pagelist">
 <?php
-						/** For every registered custom post
-						* display a list of checkboxes listed under
-						* the Custom Post Label!
-						*/
-						// Get only custom posts.
-						$wordpressBuildInTypes = array_flip(array('attachment', 'post', 'page', 'revision', 'nav_menu_item'));
-						$postTypes = array_diff_key($GLOBALS['wp_post_types'], $wordpressBuildInTypes);
+						// Initialize custom posts tab vars.
 						$NoCustomPosts = true;
-						foreach ($postTypes as $type => $postType) :
-							// Get list markups into memory!
+						// List all (not-builtin, public) custom posts.
+						$customPosts = get_post_types(array('public' => 1, '_builtin' => false), 'objects');
+						foreach ($customPosts as $type => $postType) :
+							// Get list markups into interanl buffer!
 							ob_start();
 							WPPagesListHelper::show_pages_with_checkbox($block->id, $block->posts, $type, 'posts'); 
 							$list = ob_get_clean();
