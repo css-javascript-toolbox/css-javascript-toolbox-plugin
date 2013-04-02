@@ -55,7 +55,7 @@ class CJTMetaboxAccessPoint extends CJTAccessPoint {
 				// Ajax uses 'post' parameter as postId!
 				$post = $post->ID;
 				// Dispatch controller!
-				$controller = $this->route(false, compact('postType', 'post'));
+				$controller = $this->route(null, compact('postType', 'post'));
 			}
 		}
 		return $controller;

@@ -24,9 +24,9 @@ class CJTMetaboxController extends CJTAjaxController {
 	* 
 	* @return void
 	*/
-	public function __construct($hasView = null, $request = null) {
+	public function __construct($_unused_hasView = null, $request = null) {
 		// Initialize parent.
-		parent::__construct($hasView, $request);
+		parent::__construct(false, $request);
 		// Initialize.
 		$postId = $this->getRequestParameter('post');
 		// Instantiate model object.
