@@ -243,7 +243,7 @@ abstract class CJTController extends CJTHookableClass {
 	* @param mixed $name
 	*/
 	public function getRequestParameter($name) {
-		return $this->request;	
+		return isset($this->request[$name]) ? $this->request[$name] : null;	
 	}
 	
 	/**

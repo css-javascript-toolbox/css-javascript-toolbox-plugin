@@ -200,7 +200,7 @@ abstract class CJTView extends CJTHookableClass {
 	* @param mixed $value
 	*/
 	public function getRequestParameter($name) {
-		return $this->request[$name];
+		return isset($this->request[$name]) ? $this->request[$name] : null;
 	}
 	
 	/**

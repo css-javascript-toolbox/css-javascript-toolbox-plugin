@@ -30,15 +30,18 @@ class CJTMetaboxAccessPoint extends CJTAccessPoint {
 		// Only if permitted!
 		if ($this->hasAccess()) {
 			// Add CJT Block metabox!
-			add_action("add_meta_boxes", array(&$this, 'route'), 10, 0);
+			add_action("add_meta_boxes", array(&$this, 'postsMetabox'), 10, 2);
 		}
 	}
 	
 	/**
 	* put your comment there...
 	* 
+	* @param mixed $postType
+	* @param mixed $post
 	*/
-	public function route($loadView = null, $request = null) {
+	public function postsMetabox($postType, $post) {
+		// Initialize.
 		$controller = false;
 		// Veil access point unless CJT installed!
 		if (CJTPlugin::getInstance()->isInstalled()) {
@@ -48,8 +51,11 @@ class CJTMetaboxAccessPoint extends CJTAccessPoint {
 				$this->connected();
 				// Load metabox controller!
 				$this->controllerName = 'metabox';
-				// Do Work!
-				$controller = parent::route($loadView, $request);
+				// Standarize calling the controller with Ajax requests!
+				// Ajax uses 'post' parameter as postId!
+				$post = $post->ID;
+				// Dispatch controller!
+				$controller = $this->route(false, compact('postType', 'post'));
 			}
 		}
 		return $controller;

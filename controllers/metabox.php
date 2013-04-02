@@ -24,10 +24,13 @@ class CJTMetaboxController extends CJTAjaxController {
 	* 
 	* @return void
 	*/
-	public function __construct() {
-		parent::__construct(false);
+	public function __construct($hasView = null, $request = null) {
+		// Initialize parent.
+		parent::__construct($hasView, $request);
+		// Initialize.
+		$postId = $this->getRequestParameter('post');
 		// Instantiate model object.
-		$this->model = self::getModel('metabox', array($_GET['post']));
+		$this->model = self::getModel('metabox', array($postId));
 		// Don't regiter Ajax actions unless AAP (Ajax Access Point) is loaded!
 		$connectedObject =& CJTAccessPoint::isConnected();
 		if ($connectedObject && ($connectedObject->getName() == 'ajax')) {
