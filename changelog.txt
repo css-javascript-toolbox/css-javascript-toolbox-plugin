@@ -1,3 +1,8 @@
+Version 6.0.46:
+	- Fix: List only Public Custom Posts that can be accessed through Wordpress URL under Assignment Panel Custom Posts Tab. Therefor enhance performance for sites that has 'Log' custom post that might has hundreds or records read for every code block.
+	- Fix: For Settings->Metabox settings form section, list only Posts that has a Public Access and Administrator User Interface.
+	- Fix: 'Undefined index "post"' Notice displayed when 'Adding New Post' while PHP in debug mode (E_NOTICE is set).
+	
 Version 6.0.43:
 	- Fix: Couldn't uncheck all Post types under Settings:Metabox Tab!
 	- Fix: Add PHP worker for ACE Editor as it was missing.
