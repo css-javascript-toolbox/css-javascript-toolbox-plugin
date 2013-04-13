@@ -466,7 +466,7 @@ class CJTBlocksCouplingController extends CJTController {
 				switch ($attributes['op']) {
 					case 'get': 
 						// Import dependecies.
-						cssJSToolbox::import('framework:db:mysql:xtable.inc.php');
+						cssJSToolbox::import('framework:db:mysql:xtable.inc.php', 'framework:php:evaluator:evaluator.inc.php');
 						// Output block if 'force="true" or only if it wasn't already in the header/footer!
 						if ((((isset($attributes['force'])) && ($attributes['force'] == "true")) || !in_array($attributes['id'], $this->onActionIds))) {
 							// Id is being used!
@@ -481,7 +481,8 @@ class CJTBlocksCouplingController extends CJTController {
 							if ($block->get('state') != 'active') {
 								return;
 							}
-							$replacement = $block->get('code');
+							// Get block code, execute it as PHP!
+							$replacement = CJTPHPCodeEvaluator::getInstance($block->getData())->exec()->getOutput();
 						}
 					break;
 				}
