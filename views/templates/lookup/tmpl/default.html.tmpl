@@ -39,10 +39,8 @@ defined('ABSPATH') or die("Access denied");
 <?php if ($template->linked) : ?>
 				  							 | <a href="#unlink(<?php echo $id ?>)" class="template-action unlink-template"><?php echo cssJSToolbox::getText('Unlink') ?></a>
 <?php else : ?>
-<?php 	if (($type =='javascript') || ($type =='css')) : // Allow linking only for javascript and css types only! ?>
                          | <a href="#link(<?php echo $id ?>)" class="template-action link-template"><?php echo cssJSToolbox::getText('Link') ?></a>
 <?php   endif; ?>
-<?php endif; ?>
 											</span>
 										</li>
 <?php 						endforeach;	?>

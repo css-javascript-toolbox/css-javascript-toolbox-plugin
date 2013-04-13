@@ -300,8 +300,9 @@ class CJTBlocksCouplingController extends CJTController {
 						continue;
 					}
 				}
+				// Import Executable (PHP and HTML) templates.
+				$block->code = $block->code . $this->model->getExecTemplatesCode($block->id);
 				// For every location store blocks code into single string
-				/** @todo  Use method other data:// wrapper, its only available in Hight version of PHP (5.3 or so!) */
 				$evaluatedCode = CJTPHPCodeEvaluator::getInstance($block)->exec()->getOutput();
 				/** @todo Include Debuging info only if we're in debuging mode! */
 				if (1) {
@@ -589,8 +590,11 @@ class CJTBlocksCouplingController extends CJTController {
 							if ($block->get('state') != 'active') {
 								return;
 							}
+							// Import Executable (PHP and HTML) templates.
+							$block = $block->getData();
+							$block->code = $block->code . $this->model->getExecTemplatesCode($block->id);
 							// Get block code, execute it as PHP!
-							$replacement = CJTPHPCodeEvaluator::getInstance($block->getData())->exec()->getOutput();
+							$replacement = CJTPHPCodeEvaluator::getInstance($block)->exec()->getOutput();
 							// Get linked templates.
 							$templates = $this->model->getLinkedTemplates($attributes['id']);
 							$reverseTypes = array_flip(CJTCouplingModel::$templateTypes);
