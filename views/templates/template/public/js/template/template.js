@@ -116,7 +116,10 @@
 					server.send('template', 'save', data, 'post')
 					.success($.proxy(
 						function(response) {
-							window.parent.location.reload();
+							// Refresh only if not running on the main CJT manager page!
+							if (window.parent.CJTBlocksPage === undefined) {
+								window.parent.location.reload();
+							}
 							this.close();
 						}, this)
 					);

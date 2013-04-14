@@ -41,6 +41,7 @@ defined('ABSPATH') or die("Access denied");
 <?php else : ?>
                          | <a href="#link(<?php echo $id ?>)" class="template-action link-template"><?php echo cssJSToolbox::getText('Link') ?></a>
 <?php   endif; ?>
+	                       | <a href="#edit(<?php echo $id ?>)" class="template-action edit-template"><?php echo cssJSToolbox::getText('Edit') ?></a>
 											</span>
 										</li>
 <?php 						endforeach;	?>
