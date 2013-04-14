@@ -596,23 +596,42 @@ class CJTBlocksCouplingController extends CJTController {
 							// Get block code, execute it as PHP!
 							$replacement = CJTPHPCodeEvaluator::getInstance($block)->exec()->getOutput();
 							// Get linked templates.
+							$linkedStylesheets = '';
 							$templates = $this->model->getLinkedTemplates($attributes['id']);
 							$reverseTypes = array_flip(CJTCouplingModel::$templateTypes);
-							// Enqueue all in footer.
+							// Enqueue all scripts & Direct Output for all Style Sheets!
 							foreach ($templates as $template) {
-								// Get Template type name.
-								$typeName = $reverseTypes[$template->type];
-								/**
-								* @var WP_Dependencies
-								*/
-								$queue = $this->model->getQueueObject($typeName);
-								if (!in_array($template->queueName, $queue->done)) {
-									if (!isset($queue->registered[$template->queueName])) {
-										$queue->add($template->queueName, "/{$template->file}", null, $template->version, 1);
+								// Enqueue Javascripts.
+								if ($template->type == 'javascript') {
+									// Get Template type name.
+									$typeName = $reverseTypes[$template->type];
+									/**
+									* @var WP_Dependencies
+									*/
+									$queue = $this->model->getQueueObject($typeName);
+									if (!in_array($template->queueName, $queue->done)) {
+										if (!isset($queue->registered[$template->queueName])) {
+											$queue->add($template->queueName, "/{$template->file}", null, $template->version, 1);
+										}
+										// Enqueue template!
+										$queue->enqueue($template->queueName);
 									}
-									// Enqueue template!
-									$queue->enqueue($template->queueName);
 								}
+								// Concat all linked style sheet to be returned along with the replacment.
+								else {
+									// Get Template object important in order to read the code from revision file.
+									if (!isset($templateModel)) {
+										$templateModel = CJTModel::getInstance('template');	
+									}
+									$templateModel->inputs['id'] = $template->id;
+									$template = $templateModel->getItem();
+									// Concat!
+									$linkedStylesheets .= $template->code;
+								}
+							}
+							// Prepend linked Stylesheets to the replacement.
+							if (isset($linkedStylesheets)) {
+								$replacement = "<style type='text/css'>{$linkedStylesheets}</style>{$replacement}";
 							}
 						}
 					break;
