@@ -6,7 +6,7 @@
 .cjt-block {min-width: 750px;}
 
 #cjtoolbox-admin div.postbox {
-	display:none 
+	display:none;
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
 	border-radius: 6px; 
@@ -71,7 +71,7 @@
 	border: 1px solid #bbb;
 	width: 346px;
 	height: 357px;
-	left: 80px;
+	left: 156px;
 	top: 31px;
 	margin-top: 2px;
 	margin-left: 1px;
@@ -111,6 +111,7 @@
 .block-toolbox a.cjttbl-edit-name { background-image: url(../images/toolbox/edit-name.png); }
 .block-toolbox a.cjttbl-info { background-image: url(../images/toolbox/info.png); }
 .block-toolbox a.cjttbl-templates-lookup { background-image: url(../images/toolbox/templates-lookup.png); }
+.block-toolbox a.cjttbl-link-external { background-image: url(../images/toolbox/link-external.png); }
 
 /** Editor Toolbox */
 .cjt-toolbox.editor-toolbox {

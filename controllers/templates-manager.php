@@ -43,6 +43,7 @@ class CJTTemplatesManagerController extends CJTAjaxController {
 		$this->registryAction('display');
 		$this->registryAction('delete');
 		$this->registryAction('changeState');
+		$this->registryAction('linkExternal');
 	}
 	
 	/**
@@ -92,4 +93,65 @@ class CJTTemplatesManagerController extends CJTAjaxController {
 		$this->response['changes'] = $this->model->inputs['ids'];
 	}
 	
+	/**
+	* Link external Resources (CSS, HTML, JS and PHP)
+	* 
+	* The action is to create external link as CJT template
+	* and link it to the target block.
+	*/
+	protected function linkExternalAction() {
+		// List of all the external templates records to create!
+		$externalTemplates = array();
+		// Map extensions to template types.
+		$templateTypes2ExtensionsMap = array();
+		foreach (cssJSToolbox::$config->templates->types as $type => $data) {
+			$templateTypes2ExtensionsMap[$data->extension] = $type;
+		}
+		// Read inputs.
+		$externals = explode(',', $_REQUEST['externals']);
+		$blockId = (int) $_REQUEST['blockId'];
+		// Add as templates.
+		foreach ($externals as $externalResourceURI) {
+			// Use URI base name as Template Name and the extension as Template Type.
+			$externalPathInfo = pathinfo($externalResourceURI);
+			// Template Item.
+			$item = array();
+			$item['template']['name'] = $externalPathInfo['basename'];
+			$item['template']['type'] = $templateTypes2ExtensionsMap[$externalPathInfo['extension']];
+			$item['template']['state'] = 'published';
+			// Get external URI code!
+			$externalResponse = wp_remote_get($externalResourceURI);
+			if ($error = $externalResponse instanceof WP_Error) {
+				$this->response = true;				
+				break;
+			}
+			else {
+				// Read code content.
+				$item['revision']['code'] = wp_remote_retrieve_body($externalResponse);
+				// Add to the save list!
+				$externalTemplates[] = $item;
+			}
+		}
+		// Return status. Only successed retrieved templates 
+		// is added to the list!
+		$this->response = !empty($externalTemplates);
+		// Save all templates if no error occured
+		// Single error will halt all the linked externals! They all added as  a single transaction.
+		if ($this->response) {
+			// Instantiate Template Models.
+			$modelLookup = CJTModel::getInstance('templates-lookup');
+			$modelTemplate = CJTModel::getInstance('template');
+			// Add all templates.
+			foreach ($externalTemplates as $item) {
+				// Create template.
+				$modelTemplate->inputs['item'] = $item;
+				$item = (array) $modelTemplate->save();
+				// Link template to the block.
+				$modelLookup->inputs['templateId'] = $item['templateId'];
+				$modelLookup->inputs['blockId'] = $blockId;
+				$modelLookup->link();
+			}
+		}		
+	}
+
 } // End class.

@@ -111,7 +111,7 @@
 						TB_iframe : true
 					};
 					var uri = parent.CJTBlocksPage.server.getRequestURL('template', actionInfo[1], request);
-					parent.tb_show('xxx', uri);
+					parent.tb_show(CJT_TEMPLATESLookupI18N.editTemplateFormTitle, uri);
 				break;
 				default : // Template-Block relation actions (TBRA)!
 					// Get block object model instance refernce!

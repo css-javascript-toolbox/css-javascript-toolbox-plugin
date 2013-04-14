@@ -1,11 +1,18 @@
 		<div class="cjt-toolbox block-toolbox">
 			<div class="icons-group">
+				<a href="#" class="cjt-tb-link cjttbl-link-external" title="<?php echo cssJSToolbox::getText('Link external') ?>"></a>				
+			</div>
+			
+			<div class="divider"></div>
+			
+			<div class="icons-group">
 				<a href="#" class="cjt-tb-link cjttbl-state-switch state-<?php echo $this->block->state ?>" title="<?php echo $this->localization["state_{$this->block->state}Title"] ?>"></a>
 				<a href="#" class="cjt-tb-link cjttbl-location-switch location-<?php echo $this->block->location ?>" title="<?php echo $this->localization["location_{$this->block->location}Title"] ?>"></a>
 			</div>
-			<div class="divider"></div>
-			<div class="icons-group big-bar">
 			
+			<div class="divider"></div>
+			
+			<div class="icons-group big-bar">
 				<a href="#" class="cjt-tb-link cjttbl-templates-lookup" title="<?php echo cssJSToolbox::getText('Template Lookup - Embed or link templates to code blocks') ?>"></a>				
 				<iframe src="" class="popup-menu templates-lookup" NOBORDER="1" style="display:none"></iframe>
 				
@@ -23,7 +30,9 @@
 				<a href="#" class="cjt-tb-link cjttbl-revisions" title="<?php echo cssJSToolbox::getText('View and restore code block revisions') ?>"></a>
 				<a href="#" class="cjt-tb-link cjttbl-delete" title="<?php echo cssJSToolbox::getText('Delete code block') ?>"></a>
 			</div>
+			
 			<div class="divider"></div>
+			
 			<div class="icons-group">
 				<a href="#" class="cjt-tb-link cjttbl-save il-60x23" title="<?php echo cssJSToolbox::getText('Save changes to code block') ?>"><?php echo cssJSToolbox::getText('Save') ?></a>
 			</div>

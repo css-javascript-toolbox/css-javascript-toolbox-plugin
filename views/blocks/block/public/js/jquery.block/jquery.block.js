@@ -325,6 +325,36 @@
 		}
 		
 		/**
+		* Quickely link external resource (CSS, JS, HTML or PHP)!
+		* 
+		* The method is to fetch external content and add it as CJT template.
+		*/
+		this._onlinkexternal = function() {
+			// Read URLs from user inputs.
+			var externals = prompt(CJTJqueryBlockI18N.linkExternalMessage);
+			var linkExternalButton =  this.toolbox.buttons['link-external'];
+			if (externals) {
+				// Show progress.
+				linkExternalButton.loading(true);
+				// Request server to link the external resources.
+				var request = {externals : externals, blockId : this.block.get('id')};
+				CJTBlocksPage.server.send('templatesManager', 'linkExternal', request)
+				.success($.proxy(
+					function(staus) {
+						if (!status) {
+							alert(CJTJqueryBlockI18N.couldNotLinkExternals);
+						}
+					}, this)
+				).complete($.proxy(
+					function() {
+						// Stop progress.
+						linkExternalButton.loading(false);
+					}, this)
+				);
+			}
+		}
+
+		/**
 		* 
 		*/
 		this._onlookuptemplates = function(targetElement, tbButton) {
@@ -668,6 +698,7 @@
 							}
 						}
 					},
+					'link-external' : {callback : this._onlinkexternal},
 					'editor-language-css' : {callback : this._onswitcheditorlang, params : {lang : 'css'}},
 					'editor-language-html' : {callback : this._onswitcheditorlang, params : {lang : 'html'}},
 					'editor-language-javascript' : {callback : this._onswitcheditorlang, params : {lang : 'javascript'}},
