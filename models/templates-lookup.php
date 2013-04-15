@@ -49,7 +49,7 @@ class CJTTemplatesLookupModel {
 		foreach (cssJSToolbox::$config->templates->types as $typeId => $object) {
 			$arrangedItems[$typeId] = array();
 		}
-		$query = "SELECT 		t.id, t.type, t.name, t.description,
+		$query = "SELECT 		t.id, t.type, t.name, t.description, (t.attributes & 1) systemTemplate,
 																							a.name author,
 																							bt.blockId linked
 																							FROM 	#__cjtoolbox_templates t

@@ -41,7 +41,9 @@ defined('ABSPATH') or die("Access denied");
 <?php else : ?>
                          | <a href="#link(<?php echo $id ?>)" class="template-action link-template"><?php echo cssJSToolbox::getText('Link') ?></a>
 <?php   endif; ?>
+<?php if (!$template->systemTemplate) : // Allow editing noo-system templates only ?>
 	                       | <a href="#edit(<?php echo $id ?>)" class="template-action edit-template"><?php echo cssJSToolbox::getText('Edit') ?></a>
+<?php endif; ?>
 											</span>
 										</li>
 <?php 						endforeach;	?>
