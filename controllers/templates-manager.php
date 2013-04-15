@@ -100,6 +100,8 @@ class CJTTemplatesManagerController extends CJTAjaxController {
 	* and link it to the target block.
 	*/
 	protected function linkExternalAction() {
+		// Initialize response as successed until error occured!
+		$this->response = array('code' => 0, 'message' => '');
 		// List of all the external templates records to create!
 		$externalTemplates = array();
 		// Map extensions to template types.
@@ -122,7 +124,9 @@ class CJTTemplatesManagerController extends CJTAjaxController {
 			// Get external URI code!
 			$externalResponse = wp_remote_get($externalResourceURI);
 			if ($error = $externalResponse instanceof WP_Error) {
-				$this->response = true;				
+				// State an error!
+				$this->response['code'] = $externalResponse->get_error_code();
+				$this->response['message'] = $externalResponse->get_error_message($this->response['code']);
 				break;
 			}
 			else {
@@ -132,24 +136,34 @@ class CJTTemplatesManagerController extends CJTAjaxController {
 				$externalTemplates[] = $item;
 			}
 		}
-		// Return status. Only successed retrieved templates 
-		// is added to the list!
-		$this->response = !empty($externalTemplates);
 		// Save all templates if no error occured
 		// Single error will halt all the linked externals! They all added as  a single transaction.
-		if ($this->response) {
+		if (!$this->response['code']) {
 			// Instantiate Template Models.
 			$modelLookup = CJTModel::getInstance('templates-lookup');
 			$modelTemplate = CJTModel::getInstance('template');
+			$modelBlockTemplates  = CJTModel::getInstance('block-templates');
 			// Add all templates.
 			foreach ($externalTemplates as $item) {
-				// Create template.
-				$modelTemplate->inputs['item'] = $item;
-				$item = (array) $modelTemplate->save();
-				// Link template to the block.
-				$modelLookup->inputs['templateId'] = $item['templateId'];
-				$modelLookup->inputs['blockId'] = $blockId;
-				$modelLookup->link();
+				// Check existance.
+				$modelTemplate->inputs['filter']['field'] = 'name';
+				$modelTemplate->inputs['filter']['value'] = $item['template']['name'];
+				if (!($existsItem = $modelTemplate->getTemplateBy()) || !property_exists($existsItem, 'id') || !$existsItem->id) {
+					// Create template.
+					$modelTemplate->inputs['item'] = $item;
+					$item = (array) $modelTemplate->save();
+				}
+				else {
+					// The returned item has 'id' field not 'templateId'!!
+					$item = array('templateId' => $existsItem->id);
+				}
+				// Link only if not already linked!
+				if (!$modelBlockTemplates->isLinked($blockId, $item['templateId'])) {
+					// Link template to the block.
+					$modelLookup->inputs['templateId'] = $item['templateId'];
+					$modelLookup->inputs['blockId'] = $blockId;
+					$modelLookup->link();
+				}
 			}
 		}		
 	}

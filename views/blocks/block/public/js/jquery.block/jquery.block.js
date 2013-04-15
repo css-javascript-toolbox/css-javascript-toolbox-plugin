@@ -340,9 +340,9 @@
 				var request = {externals : externals, blockId : this.block.get('id')};
 				CJTBlocksPage.server.send('templatesManager', 'linkExternal', request)
 				.success($.proxy(
-					function(staus) {
-						if (!status) {
-							alert(CJTJqueryBlockI18N.couldNotLinkExternals);
+					function(state) {
+						if (state.code) {
+							alert(CJTJqueryBlockI18N.couldNotLinkExternals + state.message);
 						}
 					}, this)
 				).complete($.proxy(
