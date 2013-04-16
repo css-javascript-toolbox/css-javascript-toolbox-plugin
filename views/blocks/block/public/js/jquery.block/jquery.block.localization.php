@@ -20,4 +20,6 @@ return array(
 	'screenmode_fullscreenTitle' => cssJSToolbox::getText('Revert code editor to default mode'),
 	'screenmode_Title' => cssJSToolbox::getText('Switch code editor to fullscreen mode'),
 	'nameCantBeEmpty' => cssJSToolbox::getText('Block name cannot be empty!'),
+	'linkExternalMessage' => cssJSToolbox::getText('Please enter a list of the external URLs you want to link separated by comma!'),
+	'couldNotLinkExternals' => cssJSToolbox::getText('Couldn\'t link the externals URI you requested!! Reason:'),
 );

@@ -14,4 +14,5 @@ return array(
 																								"\n" .
 																							 	cssJSToolbox::getText('Would you like to UNLINK all linked templates?'),
 	'allTemplatesHasBeenUnlinkedSuccessful' => cssJSToolbox::getText('All Templates has been unlinked sucessfully!'),
+	'editTemplateFormTitle' => cssJSToolbox::getText('Lookup Quick Template Edit Form'),
 );

@@ -98,32 +98,52 @@
 		_ontemplateaction : function(event) {
 			// Get author name from the clicked link.
 			var actionInfo = event.target.href.match(/#(\w+)\((\d+)\)/);
-			var block = templatesLookupFormNS.inputs.block;
-			var popupButton = templatesLookupFormNS.inputs.button;
-			var request = {templateId : actionInfo[2], blockId : block.get('id')};
-			this.server.send('templatesLookup', actionInfo[1], request)
-			.success(
-				function(response) {
-					// Special actions
-					switch (actionInfo[1]) {
-						case 'embedded':
-							// Insert template at cursor.
-							block.aceEditor.getSession().replace(block.aceEditor.getSelectionRange(), response.code);
-						break;
-					}
-					// If the changes required reflect a state.
-					var newState = response.newState;
-					if (newState) {
-						$(event.target).text(newState.text)
-																						.prop('href', '#' + newState.action + '(' + request.templateId  + ')')
-																						.get(0).className = newState.className;
-					}
-					// Close the Popup after completing!
-					//popupButton.close();
-					// Set focus to ace editor.
-					//block.aceEditor.focus();
-				}
-			)
+			var request;
+			// Do specific actions.!
+			switch (actionInfo[1]) {
+				case 'edit': // Allow editing template.
+					// Template edit form parameters.
+					request = {
+						id : actionInfo[2],
+						view : 'templates/template',
+						width : 800,
+						height : 571,
+						TB_iframe : true
+					};
+					var uri = parent.CJTBlocksPage.server.getRequestURL('template', actionInfo[1], request);
+					parent.tb_show(CJT_TEMPLATESLookupI18N.editTemplateFormTitle, uri);
+				break;
+				default : // Template-Block relation actions (TBRA)!
+					// Get block object model instance refernce!
+					var block = templatesLookupFormNS.inputs.block;
+					// Initialize request parameters.
+					request = {templateId : actionInfo[2], blockId : block.get('id')};
+					// Do action!
+					this.server.send('templatesLookup', actionInfo[1], request)
+					.success(
+						function(response) {
+							// Special actions
+							switch (actionInfo[1]) {
+								case 'embedded':
+									// Insert template at cursor.
+									block.aceEditor.getSession().replace(block.aceEditor.getSelectionRange(), response.code);
+								break;
+							}
+							// If the changes required reflect a state.
+							var newState = response.newState;
+							if (newState) {
+								$(event.target).text(newState.text)
+																								.prop('href', '#' + newState.action + '(' + request.templateId  + ')')
+																								.get(0).className = newState.className;
+							}
+							// Close the Popup after completing!
+							//popupButton.close();
+							// Set focus to ace editor.
+							//block.aceEditor.focus();
+						}
+					);
+				break;
+			}
 		},
 		
 		/**

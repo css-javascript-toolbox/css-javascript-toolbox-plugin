@@ -39,9 +39,10 @@ defined('ABSPATH') or die("Access denied");
 <?php if ($template->linked) : ?>
 				  							 | <a href="#unlink(<?php echo $id ?>)" class="template-action unlink-template"><?php echo cssJSToolbox::getText('Unlink') ?></a>
 <?php else : ?>
-<?php 	if (($type =='javascript') || ($type =='css')) : // Allow linking only for javascript and css types only! ?>
                          | <a href="#link(<?php echo $id ?>)" class="template-action link-template"><?php echo cssJSToolbox::getText('Link') ?></a>
 <?php   endif; ?>
+<?php if (!$template->systemTemplate) : // Allow editing noo-system templates only ?>
+	                       | <a href="#edit(<?php echo $id ?>)" class="template-action edit-template"><?php echo cssJSToolbox::getText('Edit') ?></a>
 <?php endif; ?>
 											</span>
 										</li>

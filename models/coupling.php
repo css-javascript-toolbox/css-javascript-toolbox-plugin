@@ -62,6 +62,31 @@ class CJTCouplingModel extends CJTHookableClass {
 	/**
 	* put your comment there...
 	* 
+	* @param mixed $blockId
+	*/
+	public function getExecTemplatesCode($blockId) {
+		// Initialize.
+		$code = '';
+		// Get all HTML and PHP templates linked to the block.
+		$templates = $this->getLinkedTemplates($blockId, array('php', 'html'));
+		if (!empty($templates))	{
+			// Instantiate template model.
+			$templateModel = CJTModel::getInstance('template');
+			// Concat their codes.
+			foreach ($templates as $template) {
+				// Fetch template record with code loaded from file and decrypted if PHP!
+				$templateModel->inputs['id'] = $template->id;
+				$template = $templateModel->getItem();
+				// Concat
+				$code .= $template->code;
+			}
+		}
+		return $code;
+	}
+
+	/**
+	* put your comment there...
+	* 
 	*/
 	public function getOrder() {
 		return $this->ongetorder(get_option('meta-box-order_cjtoolbox'));
@@ -98,8 +123,9 @@ class CJTCouplingModel extends CJTHookableClass {
 	* put your comment there...
 	* 
 	* @param mixed $blocks
+	* @param mixed $types
 	*/
-	public function getLinkedTemplates($blocks) {
+	public function getLinkedTemplates($blocks, $types = array('javascript', 'css')) {
 		// Accept single id too!
 		$blocks = (array) $blocks;
 		// Import dependencies!
@@ -111,10 +137,15 @@ class CJTCouplingModel extends CJTHookableClass {
 																				ON bt.templateId = t.id
 																				LEFT JOIN #__cjtoolbox_template_revisions r
 																				ON bt.templateId = r.templateId';
-		// Where clause.
+		// Filter by blocks ids and getting the last revision of the template!
 		$query['where']['blocks'] = implode(',', $blocks);
 		$query['where']['attributes'] = CJTTemplateRevisionTable::FLAG_LAST_REVISION;
-		$query['where'] = "WHERE bt.blockId IN ({$query['where']['blocks']}) AND (r.attributes & {$query['where']['attributes']})";
+		// Filter by type.
+		$query['where']['types'] = '"' . implode('","', $types) . '"';
+		// Where clause.
+		$query['where'] = "WHERE bt.blockId IN ({$query['where']['blocks']}) AND 
+																	(r.attributes & {$query['where']['attributes']}) AND 
+																	t.type IN ({$query['where']['types']})";
 		// Filering!
 		$query = $this->onquerylinkedtemplates($query);
 		$query = "{$query['select']} {$query['from']} {$query['where']}";
