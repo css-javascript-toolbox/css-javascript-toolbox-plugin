@@ -182,7 +182,7 @@ abstract class CJTController extends CJTHookableClass {
 	*/
 	protected function displayAction() {
 		// Get view layout!
-		$layout = isset($_REQUEST['layout']) ? $_REQUEST['layout'] : 'default';
+		$layout = isset($this->request['layout']) ? $this->request['layout'] : 'default';
 		ob_start();
 		$this->view->display($layout);
 		$content = ob_get_clean();

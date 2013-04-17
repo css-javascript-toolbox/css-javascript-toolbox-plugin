@@ -72,6 +72,13 @@ class CJTBlocksController extends CJTController {
 	* 
 	*/
 	protected function installAction() {
+		// Initialize.
+		$model = $this->getModel('installer');
+		// Do fresh installation if the installed version and the 
+		// current version doesn't share the same release and edition signs.
+		if ($model->isUpgrade() && $model->isCommonRelease()) {
+			$this->request['layout'] = 'upgrade';
+		}
 		echo parent::displayAction();
 	}
 	
