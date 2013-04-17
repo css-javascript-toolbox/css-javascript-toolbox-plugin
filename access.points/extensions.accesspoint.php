@@ -14,7 +14,7 @@ class CJTExtensionsAccessPoint extends CJTAccessPoint {
 	/**
 	* 
 	*/
-	const MENU_POSITION_INDEX = 2;
+	const MENU_POSITION_INDEX = 3;
 	
 	/**
 	* 
@@ -40,7 +40,7 @@ class CJTExtensionsAccessPoint extends CJTAccessPoint {
 		// Only if permitted!
 		if ($this->hasAccess()) {
 			// Add menu pages.
-			add_action('admin_menu', array(&$this, 'menu'), 12);
+			add_action('admin_menu', array(&$this, 'menu'), 13);
 		}
 	}
 	

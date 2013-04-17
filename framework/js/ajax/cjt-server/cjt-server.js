@@ -50,7 +50,9 @@ var CJTServer;
 			metabox : 'metabox',
 			installer : 'installer',
 			setup : 'setup',
-			tinymceBlocks : 'tinymce-blocks'
+			tinymceBlocks : 'tinymce-blocks',
+			packages : 'packages',
+			packageFile : 'package-file'
 		},
 		
 		/*

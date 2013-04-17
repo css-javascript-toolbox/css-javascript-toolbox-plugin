@@ -1,0 +1,6 @@
+form {margin: 0;}
+input[type="button"]{padding: 2px 24px 2px 24px;}
+#item-form label {vertical-align: top;}
+
+.buttons {text-align: right; margin-top: 37px; padding-right: 12px;}
+input[type=file] {background-color: gray;}

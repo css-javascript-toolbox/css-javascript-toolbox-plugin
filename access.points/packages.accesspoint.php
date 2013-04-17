@@ -9,8 +9,8 @@ defined('ABSPATH') or die("Access denied");
 /**
 * 
 */
-class CJTSetupAccessPoint extends CJTPageAccessPoint {
-	
+class CJTPackagesAccessPoint extends CJTPageAccessPoint {
+
 	/**
 	* put your comment there...
 	* 
@@ -19,7 +19,7 @@ class CJTSetupAccessPoint extends CJTPageAccessPoint {
 		// Initialize Access Point base!
 		parent::__construct();
 		// Set access point name!
-		$this->name = 'setup';
+		$this->name = 'packages-manager';
 	}
 
 	/**
@@ -30,7 +30,7 @@ class CJTSetupAccessPoint extends CJTPageAccessPoint {
 		// Only if permitted!
 		if ($this->hasAccess()) {
 			// Add menu page.
-			add_action('admin_menu', array(&$this, 'menu'), 12);
+			add_action('admin_menu', array(&$this, 'menu'), 11);
 		}
 	}
 	
@@ -42,10 +42,10 @@ class CJTSetupAccessPoint extends CJTPageAccessPoint {
 		// Setup Page.
 		$pageHookId = add_submenu_page(
 			CJTPlugin::PLUGIN_REQUEST_ID, 
-			cssJSToolbox::getText('CSS & Javascript Toolbox - Setup'), 
-			cssJSToolbox::getText('Setup'), 
+			cssJSToolbox::getText('CJT Manage - Packages'),
+			cssJSToolbox::getText('Packages'),
 			'administrator', 
-			CJTPlugin::PLUGIN_REQUEST_ID . '-setup', 
+			CJTPlugin::PLUGIN_REQUEST_ID . '-packages', 
 			array(&$this->controller, '_doAction')
 		);
 		// Process when its installed!!
@@ -56,14 +56,16 @@ class CJTSetupAccessPoint extends CJTPageAccessPoint {
 	* put your comment there...
 	* 
 	*/
-	public function route($loadView = null, $request = array('view' => 'setup/setup')) {
+	public function route($loadView = null, $request = array('view' => 'packages/manager')) {
+		// Load package manager view  through the default controller.
+		$this->controllerName = 'default';
 		// Set MVC request parameters.
 		parent::route($loadView, $request)
-		// Set action name.
-		->setAction('setup');
+		// Fire 'display' action.
+		->setAction('display');
 	}
 	
 } // End class.
 
 // Hookable!
-CJTSetupAccessPoint::define('CJTSetupAccessPoint', array('hookType' => CJTWordpressEvents::HOOK_FILTER));
+CJTPackagesAccessPoint::define('CJTPackagesAccessPoint', array('hookType' => CJTWordpressEvents::HOOK_FILTER));
