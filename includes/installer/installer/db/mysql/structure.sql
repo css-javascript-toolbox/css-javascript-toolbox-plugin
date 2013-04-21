@@ -150,6 +150,6 @@ CREATE TABLE IF NOT EXISTS`#__cjtoolbox_packages` (
 CREATE TABLE IF NOT EXISTS `#__cjtoolbox_package_objects` (
 	`packageId` INT UNSIGNED NOT NULL,
 	`objectId` INT UNSIGNED NOT NULL,
-	`objectType` TINYINT(1) NOT NULL,
+	`objectType` VARCHAR(8) NOT NULL,
 	PRIMARY KEY (`packageId`, `objectId`, `objectType`)
 )
