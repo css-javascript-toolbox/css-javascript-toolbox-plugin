@@ -100,15 +100,12 @@ class CJTTemplatesManagerController extends CJTAjaxController {
 	* and link it to the target block.
 	*/
 	protected function linkExternalAction() {
+		// Import dependencies.
+		cssJSToolbox::import('includes:templates:templates.class.php');
 		// Initialize response as successed until error occured!
 		$this->response = array('code' => 0, 'message' => '');
 		// List of all the external templates records to create!
-		$externalTemplates = array();
-		// Map extensions to template types.
-		$templateTypes2ExtensionsMap = array();
-		foreach (cssJSToolbox::$config->templates->types as $type => $data) {
-			$templateTypes2ExtensionsMap[$data->extension] = $type;
-		}
+		$externalTemplates = array();		
 		// Read inputs.
 		$externals = explode(',', $_REQUEST['externals']);
 		$blockId = (int) $_REQUEST['blockId'];
@@ -119,7 +116,7 @@ class CJTTemplatesManagerController extends CJTAjaxController {
 			// Template Item.
 			$item = array();
 			$item['template']['name'] = $externalPathInfo['basename'];
-			$item['template']['type'] = $templateTypes2ExtensionsMap[$externalPathInfo['extension']];
+			$item['template']['type'] = CJTTemplates::getExtensionType($externalPathInfo['extension']);
 			$item['template']['state'] = 'published';
 			// Get external URI code!
 			$externalResponse = wp_remote_get($externalResourceURI);
