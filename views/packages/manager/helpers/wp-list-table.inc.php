@@ -47,7 +47,7 @@ class CJTPackagesManagerListTable extends WP_List_Table {
 				$value .= '</div>';
 				// Display row actions underneath template name column.
 				$actions = array();
-				$actions['info'] = "<a href='#info({$item->id})'>" . cssJSToolbox::getText('Info') . '</a>';
+				// ----$actions['info'] = "<a href='#info({$item->id})'>" . cssJSToolbox::getText('Info') . '</a>';
 				$actions['uninstall'] = "<a href='#delete({$item->id})'>" . cssJSToolbox::getText('Uninstall') . '</a>';	
 				// Show actions row underneath template name!!
 				$value .= $this->row_actions($actions, false);
