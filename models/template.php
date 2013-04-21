@@ -61,6 +61,20 @@ class CJTTemplateModel extends CJTHookableClass {
 	/**
 	* put your comment there...
 	* 
+	* @param mixed $name
+	*/
+	public function exists($name) {
+		// Find by name.
+		$this->inputs['filter']['field'] = 'name';
+		$this->inputs['filter']['value'] = $name;
+		// Template object if exists with E_ALL complain!
+		return (($existsItem = $this->getTemplateBy()) && property_exists($existsItem, 'id') && $existsItem->id) ?
+									$existsItem : FALSE;
+	}
+	
+	/**
+	* put your comment there...
+	* 
 	*/
 	public function getItem() {
 		$tManager = CJTModel::create('templates-manager');
@@ -107,7 +121,7 @@ class CJTTemplateModel extends CJTHookableClass {
 		->load(array($this->inputs['filter']['field']))
 		->getData();
 	}
-	
+
 	/**
 	* put your comment there...
 	* 

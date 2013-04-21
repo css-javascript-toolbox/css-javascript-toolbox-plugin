@@ -64,8 +64,8 @@ class CJTPackagesManagerView extends CJTView {
 		$model = $this->getModel('packages');
 		// Cache view vars.
 		$this->itemsTotal = $model->getItemsTotal();
-		$this->itemsPerPage = $this->getModel()->getItemsPerPage();
-		$this->items = $this->items;
+		$this->itemsPerPage = $model->getItemsPerPage();
+		$this->items = $model->getItems();
 		$this->securityToken = cssJSToolbox::getSecurityToken();
 		// Display view.
 		echo $this->getTemplate($tpl);

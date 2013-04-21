@@ -48,8 +48,7 @@ class CJTPackagesManagerListTable extends WP_List_Table {
 				// Display row actions underneath template name column.
 				$actions = array();
 				$actions['info'] = "<a href='#info({$item->id})'>" . cssJSToolbox::getText('Info') . '</a>';
-				$actions['edit'] = "<a href='#edit({$item->id})'>" . cssJSToolbox::getText('Edit') . '</a>';
-				$actions['delete'] = "<a href='#delete({$item->id})'>" . cssJSToolbox::getText('Uninstall') . '</a>';	
+				$actions['uninstall'] = "<a href='#delete({$item->id})'>" . cssJSToolbox::getText('Uninstall') . '</a>';	
 				// Show actions row underneath template name!!
 				$value .= $this->row_actions($actions, false);
 			break;
@@ -91,8 +90,8 @@ class CJTPackagesManagerListTable extends WP_List_Table {
 			'_selection_' => '<input type="checkbox" class="select-all" />',
 			'name' => cssJSToolbox::getText('Name'),
 			'author' => cssJSToolbox::getText('Author'),
+			'authorMail' => cssJSToolbox::getText('Author'),
 			'uri' => cssJSToolbox::getText('URI'),
-			'objectsCount' => cssJSToolbox::getText('Object Count'),
 			'id' => cssJSToolbox::getText('ID'),
 		);
 	}

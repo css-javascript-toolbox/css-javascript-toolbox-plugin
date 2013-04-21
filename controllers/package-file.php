@@ -43,7 +43,24 @@ class CJTPackageFileController extends CJTAjaxController {
 	* 
 	*/
 	protected function installAction() {
-		
+		// Initialize.
+		$model =& $this->model;
+		// Unzip and Parse package file when uploaded.
+		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+			// Get uploaded file.
+			$file = $_FILES['fileToUpload'];
+			try {
+				// Parse/Unzip+Parse definition the package file.
+				$package = $model->parse($file['name'], $file['tmp_name']);
+				// Install package
+				$packageId = $model->install($package);
+			}
+			catch (Exception $exception) {
+				$this->model->setState('error', array('msg' => $exception->getMessage()));
+			}
+		}
+		// Display uploader!
+		parent::displayAction();
 	}
 
 } // End class.

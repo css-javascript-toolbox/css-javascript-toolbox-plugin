@@ -111,7 +111,7 @@ abstract class CJTController extends CJTHookableClass {
 			if (!isset($this->controllerInfo['model_file'])) {
 				$this->controllerInfo['model_file'] = null;
 			}
-			$this->model = CJTModel::create($this->controllerInfo['model'], array(), $this->controllerInfo['model_file']);
+			$this->model = CJTModel::create($this->controllerInfo['model'], $this->request, $this->controllerInfo['model_file']);
 		}
 		// Create default view.
 		if ($hasView === null) { // Default value for $hasView = true
