@@ -53,7 +53,16 @@ class CJTPackageModel extends CJTHookableClass {
 			}
 		}
 	}
-	
+
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $packageId
+	*/
+	public function uninstall($packageId) {
+		
+	}
+
 } // End class.
 
 // Hookable!

@@ -36,6 +36,15 @@ class CJTPackagesController extends CJTAjaxController {
 		parent::__construct();
 		// Add actions.
 		$this->registryAction('display');
+		$this->registryAction('uninstall');
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	protected function uninstallAction() {
+		
 	}
 
 } // End class.
