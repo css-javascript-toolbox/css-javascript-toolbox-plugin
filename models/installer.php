@@ -131,6 +131,8 @@ class CJTInstallerModel {
 	* @return void
 	*/
 	public function install() {
+		// Initialize.
+		$result = FALSE;
 		// Read input!
 		$rOperation = $this->input['operation'];
 		$type = $rOperation['type'];
@@ -163,10 +165,12 @@ class CJTInstallerModel {
 					// Update operations cache to reflect the new state!
 					update_option(self::INSTALLATION_STATE, $operations);
 					// Say OK!
-					$this->response = array('state' => self::OPERATION_STATE_INSTALLED);
+					$result = array('state' => self::OPERATION_STATE_INSTALLED);
 				}
 			}
 		}
+		// Returns.
+		return $result;
 	}
 	
 	/**
