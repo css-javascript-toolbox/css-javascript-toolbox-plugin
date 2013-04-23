@@ -7,7 +7,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.3
 Tested up to: 3.5.1
-Stable tag: 6.0.12
+Stable tag: 6.0.13
 
 Easily add custom CSS, JavaScript, HTML and PHP code to unique CJT code blocks and assign them wherever you want.
 
@@ -127,8 +127,11 @@ Sometimes a bug decides to rear its ugly head and when this happens, this is whe
 
 == Changelog ==
 
+= 6.0.13 =
+* Fix: CJT hijacks Plugins page after activate or deactivate a Plugin.
+
 = 6.0.12 =
-Fix: PHP code is not getting evaluated when CJT code Block delegated using Shortcode.
+* Fix: PHP code is not getting evaluated when CJT code Block delegated using Shortcode.
 
 = 6.0.11 =
 * Fix:  Add ACE Editor PHP Worker as it was missing.
