@@ -113,8 +113,8 @@ class CJTPackageFile {
 		// Package info is all the child elements except 'objects' element.
 		$childs = $object->children();
 		foreach ($childs as $field => $childObject) {
-			// Remove child elements that has childs!
-			if (!$childObject->count()) {
+			// Discard child elements that has childs!
+			if (!count($childObject->children())) {
 				$info[$field] = (string) $childObject;
 			}
 		}
