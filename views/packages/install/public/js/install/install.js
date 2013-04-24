@@ -39,7 +39,7 @@
 		* 
 		*/
 		_onsuccess : function()	{
-			alert('Success');
+			alert(CJTInstallI18N.installationSuccessed);
 		},
 		
 		/**

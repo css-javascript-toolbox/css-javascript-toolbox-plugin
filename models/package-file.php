@@ -105,6 +105,10 @@ class CJTPackageFileModel extends CJTHookableClass {
 							$tableBlockTemplate->set('blockId', $objectId)
 																								 ->set('templateId', $template->id)
 																								 ->save();
+							// Add only LINKED objects to the package objects map table!
+							if (!key_exists($template->id, $addedObjects['template'])) {
+								$addedObjects['template'][$template->id] = array('objectId' => $template->id, 'relType' => 'link');
+							}
 						}
 					}
 				break;
@@ -115,7 +119,7 @@ class CJTPackageFileModel extends CJTHookableClass {
 			// Add (associate with the package) last objectId only if the object is added
 			// as a part of the package.
 			if ($objectId) {
-				$addedObjects[$objectType][] = $objectId;
+				$addedObjects[$objectType][$objectId] = array('objectId' => $objectId);
 			}
 		}
 		// Add package to database!

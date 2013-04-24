@@ -36,15 +36,30 @@ class CJTPackagesController extends CJTAjaxController {
 		parent::__construct();
 		// Add actions.
 		$this->registryAction('display');
-		$this->registryAction('uninstall');
+		$this->registryAction('delete');
 	}
 	
 	/**
 	* put your comment there...
 	* 
 	*/
-	protected function uninstallAction() {
-		
+	protected function deleteAction() {
+		// Initialize.
+		$model = $this->getModel('package');
+		// Read inputs.
+		$ids = $this->getRequestParameter('ids');
+		// Process!
+		if (is_array($ids) && count($ids)) {
+			// Initialize response object.
+			$this->response = array();
+			// Delete all passed Ids!
+			foreach ($ids as $id) {
+				// Delete package.
+				$model->delete($id);
+				// List all the deleted packages!
+				$this->response[] = $id;
+			}
+		}
 	}
 
 } // End class.

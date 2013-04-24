@@ -9,4 +9,7 @@
 * 
 * Localization text for backups script.
 */
-return array();
+return array(
+	'confirmDelete' => (cssJSToolbox::getText('This operation is permanent and cannot be reverted!') . "\n" .  cssJSToolbox::getText('Would you like to delete the selected packages?')),
+	'installPackageFormTitle' => cssJSToolbox::getText('Install Package File'),
+);

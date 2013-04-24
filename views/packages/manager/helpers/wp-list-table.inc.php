@@ -48,7 +48,7 @@ class CJTPackagesManagerListTable extends WP_List_Table {
 				// Display row actions underneath template name column.
 				$actions = array();
 				// ----$actions['info'] = "<a href='#info({$item->id})'>" . cssJSToolbox::getText('Info') . '</a>';
-				$actions['uninstall'] = "<a href='#delete({$item->id})'>" . cssJSToolbox::getText('Uninstall') . '</a>';	
+				$actions['delete'] = "<a href='#delete({$item->id})'>" . cssJSToolbox::getText('Delete') . '</a>';
 				// Show actions row underneath template name!!
 				$value .= $this->row_actions($actions, false);
 			break;
@@ -69,7 +69,7 @@ class CJTPackagesManagerListTable extends WP_List_Table {
 	public function get_bulk_actions() {
 		// Bulk ations.
 		$actions = array(
-			'uninstall' => cssJSToolbox::getText('Uninstall'),
+			'delete' => cssJSToolbox::getText('Delete'),
 		);
 		// Return actions!
 		return $actions;

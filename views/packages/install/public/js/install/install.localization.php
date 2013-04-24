@@ -9,4 +9,6 @@
 * 
 * Localization text for backups script.
 */
-return array();
+return array(
+	'installationSuccessed' => cssJSToolbox::getText('Package successfuly installed!'),
+);

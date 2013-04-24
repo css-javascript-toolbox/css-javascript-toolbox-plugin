@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS`#__cjtoolbox_packages` (
 CREATE TABLE IF NOT EXISTS `#__cjtoolbox_package_objects` (
 	`packageId` INT UNSIGNED NOT NULL,
 	`objectId` INT UNSIGNED NOT NULL,
-	`objectType` VARCHAR(8) NOT NULL,
+	`objectType` ENUM('block','template') NOT NULL,
+	`relType` ENUM('add','link') NOT NULL DEFAULT 'add',
 	PRIMARY KEY (`packageId`, `objectId`, `objectType`)
 )

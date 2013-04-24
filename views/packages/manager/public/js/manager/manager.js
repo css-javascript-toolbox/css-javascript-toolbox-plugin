@@ -20,7 +20,7 @@
 			var actionInfo = actionList.val().match(/^(\w+)(::(\w+))?$/);
 			if (actionInfo) { // Only if action selected.
 				var selectedPackagesId = $('input:checkbox[name="id[]"]').serializeObject();
-				this.bulkAction(actionInfo[1], selectedPackagesId['id[]'], actionInfo[3]);
+				this.bulkAction(actionInfo[1], selectedPackagesId['id[]']);
 			}
 			// Dont do the regular submission!
 			event.preventDefault();
@@ -32,7 +32,14 @@
 		* @param event
 		*/
 		_onrowaction : function(event) {
-			
+			var actionInfo = event.target.href.match(/#(\w+)\((\d+)\)/);
+			var action = actionInfo[1];
+			var packageId = actionInfo[2];
+			switch (action) {
+				case 'delete':
+					this.deletePackages(action, packageId);
+				break;
+			}
 		},
 		
 		/**
@@ -57,6 +64,22 @@
 		/**
 		* put your comment there...
 		* 
+		* @param actionName
+		* @param id
+		*/
+		deletePackages : function(actionName, ids) {
+			// Fake Ajax object in case deletion is not confirmed.
+			var promised = CJTServer.getDeferredObject();
+			var confirmed = confirm(CJT_PACKAGESManagerI18N.confirmDelete);
+			if (confirmed) {
+				promised = this.bulkAction(actionName, ids);
+			}
+			return promised;
+		},
+		
+		/**
+		* put your comment there...
+		* 
 		*/
 		installPackage : function (templateId) {
 			var query = {
@@ -66,7 +89,7 @@
 				TB_iframe : true
 			};
 			var uri = CJTServer.getRequestURL('packages', 'display', query);
-			tb_show('Install Package File', uri);
+			tb_show(CJT_PACKAGESManagerI18N.installPackageFormTitle, uri);
 		},
 		
 		/**
@@ -75,14 +98,14 @@
 		* @param action
 		* @param ids
 		*/
-		bulkAction : function(action, ids, params) {
+		bulkAction : function(action, ids) {
 			// Action and Ids must be valid!
 			if (action && ids) {
 				// Allow passing single id!
 				if (!$.isArray(ids)) {
 					ids = [ids];
 				}
-				return CJTServer.send('packagesManager', action, {ids : ids, params: params})
+				return CJTServer.send('packages', action, {ids : ids})
 				.success($.proxy(function() {
 					// Refresh the list!
 					window.location.reload();
