@@ -10,11 +10,12 @@
 /* Packages holder table */
 CREATE TABLE IF NOT EXISTS`#__cjtoolbox_packages` (
 	`name` VARCHAR(100) NOT NULL,
-	`author` VARCHAR(60) NOT NULL,
-	`authorMail` VARCHAR(60) NOT NULL,
-	`uri` VARCHAR(150) NOT NULL,
-	`description` VARCHAR(500) NOT NULL,
-	`id` INT AUTO_INCREMENT NOT NULL,
+	`author` VARCHAR(150) NOT NULL,
+	`webSite` VARCHAR(300) NOT NULL,
+	`description` TEXT NOT NULL,
+	`license` TEXT NOT NULL,
+	`readme` TEXT NOT NULL,
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	PRIMARY KEY (`id`)
 );
 

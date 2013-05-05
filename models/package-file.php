@@ -39,8 +39,9 @@ class CJTPackageFileModel extends CJTHookableClass {
 		$model = null; // Current model for the element under the loop!
 		$item = array(); // Object Item array to be inserted in the database.
 		$addedObjects = array(); // All the added objects mapped by object 'TYPE'.
-		// Fetch package information header.
-		$packageInfo = $package->getInfo();
+		// Fetch package information with all readme and license tags locatted if
+		// bundled with external files!
+		$packageInfo = $package->getItem(null, array('readme' => 'readme.txt', 'license' => 'license.txt'));
 		// Install only if the package record if not exists.
 		$modelPackage = CJTModel::getInstance('package');
 		if ($modelPackage->exists($packageInfo['name'])) {
@@ -54,8 +55,8 @@ class CJTPackageFileModel extends CJTHookableClass {
 		$objectModels = array('template' => 'template', 'block' => 'blocks');
 		// Read all objects defined by the package.
 		foreach ($package->document()->objects->object as $object) {
-			// Convert object child elements values to array.
-			$codeFileName = $package->fetchProperty($object, 'code');
+			// Prepare object + getting item to be saved into database.
+			$item = $package->getItem($object);
 			// Get current object type name.
 			$objectType = (string) $object->attributes()->type;
 			// Instantiate template model if not previously instantiated.
@@ -64,7 +65,6 @@ class CJTPackageFileModel extends CJTHookableClass {
 			}
 			// Referencing the model for current object type.
 			$model = $objectModels[$objectType];
-			$item = $package->getInfo($object);
 			$objectId = 0; // Always reset -- to don't map to package if nothing added!
 			// Handle different object types.
 			switch ($objectType) {
@@ -78,9 +78,23 @@ class CJTPackageFileModel extends CJTHookableClass {
 						unset($item['code']);
 						// Set template main data.
 						$model->inputs['item']['template'] = $item;
-						// Get template type from file extension.
-						$fileComponent = pathinfo($codeFileName);
-						$model->inputs['item']['template']['type'] = CJTTemplates::getExtensionType($fileComponent['extension']);
+						 /** Get template Type!
+					  * Get type from external file extension if
+						* the template code was linked to file.
+						* If the template code were inline
+						* then the type must be provided under
+						* TYPE element!
+						*/
+						// If no type specified get it from the external file extension
+						if (!isset($model->inputs['item']['template']['type'])) {
+							// @WARNING: Get locatted file!
+							$codeFileName = (string) $object->code->attributes()->locatted;
+							if ($codeFileName) {
+								// Get type from extension.
+								$fileComponent = pathinfo($codeFileName);
+								$model->inputs['item']['template']['type'] = CJTTemplates::getExtensionType($fileComponent['extension']);	
+							}
+						}
 						// Add template.
 						$addedTemplate = $model->save();
 						// Expose Object ID to be added to the addedObjects List.
@@ -88,6 +102,9 @@ class CJTPackageFileModel extends CJTHookableClass {
 					}
 				break;
 				case 'block';
+					// Set other block internal data.
+					$item['created'] = $item['lastModified'] = current_time('mysql');
+					$item['owner'] = get_current_user_id();
 					// Insert block into database.
 					$objectId = $model->add($item);
 					$model->save();
@@ -152,6 +169,18 @@ class CJTPackageFileModel extends CJTHookableClass {
 		return $package;
 	}
 	
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $property
+	* @param mixed $state
+	*/
+	public function setState($property, $state) {
+		// Set State!
+		$this->state[$property] = $state;
+		// Chaining.
+		return $this;
+	}
 } // End class.
 
 // Hookable!

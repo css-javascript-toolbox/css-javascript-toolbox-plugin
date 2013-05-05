@@ -32,6 +32,9 @@ class CJTPackagesManagerListTable extends WP_List_Table {
 	protected function column_default($item, $name) {
 		$value = null;
 		switch ($name) {
+			case '_selection_':
+				echo "<input type='checkbox' name='id[]' value='{$item->id}' />";
+			break;
 			case 'name':
 				// Display cell value as regular.
 				$value  = "<span class='package-name'>{$item->{$name}}</span>";
@@ -52,8 +55,20 @@ class CJTPackagesManagerListTable extends WP_List_Table {
 				// Show actions row underneath template name!!
 				$value .= $this->row_actions($actions, false);
 			break;
-			case '_selection_':
-				echo "<input type='checkbox' name='id[]' value='{$item->id}' />";
+			case 'webSite':
+				$value = "<a target='_blank' href='{$item->$name}'>{$item->$name}</a>";
+			break;
+			case 'license':
+			case 'readme':
+				if ($item->$name) {
+					// Upper casxe first letter.
+					$fileName = ucfirst($name);
+					// Generate view file link for each file name (readmem license)!
+					$value = "<a class='view-package-file' href='#get{$fileName}File({$item->id})'>" . cssJSToolbox::getText('View') . "</a>";
+				}
+				else {
+					$value = cssJSToolbox::getText('N/A');
+				}
 			break;
 			default;
 				$value = $item->{$name};
@@ -90,8 +105,9 @@ class CJTPackagesManagerListTable extends WP_List_Table {
 			'_selection_' => '<input type="checkbox" class="select-all" />',
 			'name' => cssJSToolbox::getText('Name'),
 			'author' => cssJSToolbox::getText('Author'),
-			'authorMail' => cssJSToolbox::getText('Author'),
-			'uri' => cssJSToolbox::getText('URI'),
+			'webSite' => cssJSToolbox::getText('Website'),
+			'license' => cssJSToolbox::getText('License'),
+			'readme' => cssJSToolbox::getText('Readme'),
 			'id' => cssJSToolbox::getText('ID'),
 		);
 	}

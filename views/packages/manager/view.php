@@ -79,6 +79,7 @@ class CJTPackagesManagerView extends CJTView {
 		// Import dependencies scripts!
 		self::useScripts(__CLASS__,
 			'jquery',
+			'jquery-serialize-object',
 			'framework:js:ajax:{CJT-}cjt-server',
 			'thickbox',
 			'views:packages:manager:public:js:{CJT_PACKAGES-}manager'

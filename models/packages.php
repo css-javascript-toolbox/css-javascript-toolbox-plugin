@@ -10,45 +10,6 @@ defined('ABSPATH') or die('Access denied');
 * 
 */
 class CJTPackagesModel {
-	
-	/**
-	* put your comment there...
-	* 
-	* @var mixed
-	*/
-	protected $params = array();
-	
-	/**
-	* put your comment there...
-	* 
-	* @param mixed $params
-	* @return CJTPackagesModel
-	*/
-	public function __construct($params = array()) {
-		$this->params = $params;
-	}
-
-	/**
-	* put your comment there...
-	* 
-	* @param mixed $method
-	* @return CJTPackagesModel
-	*/
-	public function call($method) {
-		// Get old params copy.
-		$tParams = $this->params;
-		// Get passed parameters.
-		$params = func_get_args();
-		array_shift($params); // Remove method name.
-		// Store parameters is private store!
-		$this->params = $params;
-		// Call method.
-		$result = $this->{$method}();
-		// Clear store.
-		$this->params = $params;
-		// Return method call returned value.
-		return $result;
-	}
 
 	/**
 	* put your comment there...
@@ -56,14 +17,12 @@ class CJTPackagesModel {
 	*/
 	public function getItems() {
 		// Build query.
-		$select = 'SELECT p.id, p.name, p.description,  p.author, p.authorMail,  p.uri';
+		$select = 'SELECT p.id, p.name, p.description, p.author,  p.webSite, p.license, p.readme';
 		$queryBase = $this->getItemsQuery();
 		// Paging.
 		$itemsPerPage = $this->getItemsPerPage();
 		// Get page no#.
-		if (!$page = $this->getParam('paged')) {
-			$page = 1;
-		}
+		$page = !isset($_REQUEST['paged']) ? 1 : $_REQUEST['paged'];
 		// Calculate start offset.
 		$start = ($page - 1) * $itemsPerPage;
 		$limit = " LIMIT {$start},{$itemsPerPage}";	
@@ -104,15 +63,6 @@ class CJTPackagesModel {
 		$dbDriver = new CJTMYSQLQueueDriver($GLOBALS['wpdb']);
 		$result = $dbDriver->select($query);
 		return reset($result)->Total;
-	}
-	
-	/**
-	* put your comment there...
-	* 
-	* @param mixed $name
-	*/
-	public function getParam($name) {
-		 return isset($this->params[$name]) ? $this->params[$name] : null;
 	}
 	
 } // End class.

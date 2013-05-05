@@ -51,7 +51,7 @@ class CJTPackageFile {
 	public function document() {
 		return $this->definition;
 	}
-
+	
 	/**
 	* Fetch specific object property that might required
 	* specific wrapper (read file, read from external resources,
@@ -62,30 +62,39 @@ class CJTPackageFile {
 	* 
 	* @param SimpleXMLElement  Object to fetch the property from.
 	* @param String Property name.
-	* @return mixed Return old value before located or FALSE if not located.
+	* @param Array TRansporter info array
+	* @return CJTPackageFile Returning $this.
 	*/
-	public function fetchProperty($object, $propertyName) {
+	public function fetchProperty($object, $propertyName, $transportersInfo = array()) {
 		// Initialize.
-		$oldValue = FALSE;
 		$attributes = $object->$propertyName->attributes();
 		// Tarnsporter.
 		$transporter = (string) $attributes->locate;
-		// TRansporters.
-		switch ($transporter) {
-			case 'file':
+		// Do transport only if one specified!
+		if ($transporter) {
+			// Get value to be transported.
+			$oldValue = (string) $object->$propertyName;
+			// TRansporters.
+			switch ($transporter) {
 				// Read from file.
-				$oldValue = (string) $object->$propertyName;
-				$content = file_get_contents("{$this->packageDirectory}/{$oldValue}");
-			break;
-			default:
-				throw new Exception('Invalid transported! Transporter is not supported');
-			break;
+				case 'file':
+					// If no file name (old value) is given use transporters Info parameter
+					// for getting the file name.
+					$fileName = $oldValue ? $oldValue : $transportersInfo[$propertyName];
+					$content = file_get_contents("{$this->packageDirectory}/{$fileName}");
+					// Save locatted file path in 'locatted' attribute.
+					$object->$propertyName->addAttribute('locatted', $fileName);
+				break;
+				default:
+					throw new Exception('Transported is not being supported!');
+				break;
+			}
+			// Replace placeholder with real content so it can be read
+			// by the caller!
+			$object->$propertyName = $content;
 		}
-		// Replace placeholder with real content so it can be read
-		// by the caller!
-		$object->$propertyName = $content;
-		// Return old value replaced by the resolvedlocated one!
-		return $oldValue;
+		// Chaining!
+		return $this;
 	}
 
 	/**
@@ -97,15 +106,14 @@ class CJTPackageFile {
 	}
 
 	/**
-	* Get only child elements with Text nodes within it.
+	* put your comment there...
 	* 
-	* Ignore all child containers (with childs too!) elements.
-	* 
-	* @param mixed $object
+	* @param SimpleXMLElement $object
+	* @param mixed $transportersInfo
 	*/
-	public function getInfo($object = null) {
+	public function getItem($object = null, $transportersInfo = array()) {
 		// Initialize.
-		$info = array();
+		$item = array();
 		// Defaut object is the package object.
 		if (!$object) {
 			$object = $this->document();
@@ -115,11 +123,19 @@ class CJTPackageFile {
 		foreach ($childs as $field => $childObject) {
 			// Discard child elements that has childs!
 			if (!count($childObject->children())) {
-				$info[$field] = (string) $childObject;
+				// Fetch item properties that need to be transported from
+				// other resource (e.g file).
+				// Items that need to have transported would have
+				// 'locate' attributes in its XML element.
+				if (((string) $childObject->attributes()->locate)) {
+					$this->fetchProperty($object, $field, $transportersInfo);
+				}
+				// Add item name to list.
+				$item[$field] = (string) $childObject;
 			}
 		}
 		// This is it!
-		return $info;
+		return $item;
 	}
 
 	/**

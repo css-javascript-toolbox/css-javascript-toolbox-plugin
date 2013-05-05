@@ -52,7 +52,8 @@ var CJTServer;
 			setup : 'setup',
 			tinymceBlocks : 'tinymce-blocks',
 			packages : 'packages',
-			packageFile : 'package-file'
+			packageFile : 'package-file',
+			'package' : 'package',
 		},
 		
 		/*

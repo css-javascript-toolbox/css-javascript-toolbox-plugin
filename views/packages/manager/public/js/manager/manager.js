@@ -39,6 +39,21 @@
 				case 'delete':
 					this.deletePackages(action, packageId);
 				break;
+				 // View package file in new window.
+				case 'getLicenseFile':
+				case 'getReadmeFile':
+					// Initialize request params!
+					var requestParams = {packageId : packageId, view : 'packages/raw-file'};
+					// Get file content from server.
+					CJTServer.send('package', action, requestParams, 'get', 'html')
+					.success($.proxy(
+						function(content) {
+							// Open in new window.
+							var wndFile = window.open('', '', 'menubar=0,status=0,toolbar=0');
+							wndFile.document.write(content);
+						}, this)
+					)
+				break;
 			}
 		},
 		
@@ -117,15 +132,6 @@
 		/**
 		* put your comment there...
 		* 
-		* @param ids
-		*/
-		uninstallPackage : function(action, ids) {
-			
-		},
-		
-		/**
-		* put your comment there...
-		* 
 		*/
 		init : function() {
 			// Create new Template.
@@ -133,8 +139,9 @@
 					this.installPackage();
 				}, this)
 			);
-			// Single row actions.
-			$('.row-actions span a').click($.proxy(this._onrowaction, this));
+			// Single row actions mixed with regular actions
+			// plus view packages file action!
+			$('.row-actions span a, .view-package-file').click($.proxy(this._onrowaction, this));
 			// Because we're using 'action' query variable for Controller Request purposes
 			// bulk actions lists should use name='action' name!
 			// Set Id instead of name so value can be retrieved too!
