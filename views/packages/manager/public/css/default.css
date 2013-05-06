@@ -1,7 +1,6 @@
 table.wp-list-table tbody tr td input[type="checkbox"] {margin-left: 8px;}
 table tr th {text-align: center;}
 
-th#_selection_ {width: 40px;}
 td.name.column-name .description{
 	margin-left: 6px;
 	font-weight: bold;
@@ -10,6 +9,11 @@ td.name.column-name .description{
 	margin-top: 6px;
 	min-width: 280px;
 }
+th#_selection_ {width: 19px;}
+th#webSite {width: 250px;}
+th#readme,
+th#license {width: 66px;}
+th#id {width: 40px;}
 
 #packages-manager {padding-top:  10px;}
 

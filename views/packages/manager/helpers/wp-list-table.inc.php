@@ -36,18 +36,10 @@ class CJTPackagesManagerListTable extends WP_List_Table {
 				echo "<input type='checkbox' name='id[]' value='{$item->id}' />";
 			break;
 			case 'name':
-				// Display cell value as regular.
+				// Package name!
 				$value  = "<span class='package-name'>{$item->{$name}}</span>";
-				// Show description. Truncate description/display breif desc.
-				$tweentyChunks = array_chunk(explode(' ', $item->description), 20);
-				$brief = implode(' ', array_shift($tweentyChunks));
-				// Final text!
-				$value .= '<br />';
-				$value .= "<div class='description'><span>{$brief}</span>";
-				if (strlen($brief) < strlen($item->description)) {
-					$value .= '.... ';
-				}
-				$value .= '</div>';
+				// Description underneath the name!
+				$value .= "<br /><div class='description'><span>{$item->description}</span></div>";
 				// Display row actions underneath template name column.
 				$actions = array();
 				// ----$actions['info'] = "<a href='#info({$item->id})'>" . cssJSToolbox::getText('Info') . '</a>';

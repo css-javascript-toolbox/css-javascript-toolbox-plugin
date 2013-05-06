@@ -39,7 +39,10 @@
 		* 
 		*/
 		_onsuccess : function()	{
+			// Notify!
 			alert(CJTInstallI18N.installationSuccessed);
+			// Parent refresh.
+			parent.parent.location.reload();
 		},
 		
 		/**
