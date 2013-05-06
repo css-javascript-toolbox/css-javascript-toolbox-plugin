@@ -48,6 +48,13 @@ class CJTBlocksCouplingController extends CJTController {
 	* 
 	* @var mixed
 	*/
+	protected static $instance = null;
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	private $onActionIds = array();
 	
 	/**
@@ -211,6 +218,12 @@ class CJTBlocksCouplingController extends CJTController {
 	* @return void
 	*/
 	public function __construct() {
+		// Only one instance is allowed.
+		if (self::$instance) {
+			throw new Exception('Trying to instantiate multiple coupling instances!!');
+		}
+		// Hold the single instance we've!
+		self::$instance = $this;
 		// Initialize controller.
 		parent::__construct(false);
 		// Import related libraries
@@ -225,6 +238,15 @@ class CJTBlocksCouplingController extends CJTController {
 		add_shortcode('cjtoolbox', array(&$this, 'shortcode'));
 	}
 	
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $id
+	*/
+	public function addOnActionIds($id) {
+		$this->onActionIds[] = $id;
+	}
+
 	/**
 	* put your comment there...
 	* 
@@ -310,7 +332,7 @@ class CJTBlocksCouplingController extends CJTController {
 				}
 				$this->blocks['code'][$block->location] .= $this->onappendcode($evaluatedCode);
 				// Store all used Ids in the CORRECT ORDER.
-				$this->onActionIds[] = $blockId;
+				$this->addOnActionIds($blockId);
 			}
 		}
 		$templates = $this->onActionIds ? $this->model->getLinkedTemplates($this->onActionIds) : array();
@@ -340,7 +362,15 @@ class CJTBlocksCouplingController extends CJTController {
 	public function getFilters() {
 		return $this->ongetfilters($this->filters);	
 	}
-	
+
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function getOnActionIds() {
+		return $this->onActionIds;
+	}
+
 	/**
 	* put your comment there...
 	* 
@@ -356,6 +386,14 @@ class CJTBlocksCouplingController extends CJTController {
 		// Final URL.
 		$url = "{$protocol}{$host}{$port}{$requestURI}";
 		return $url;
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function hasOnActionIds() {
+		return !empty($this->onActionIds);
 	}
 	
 	/**
@@ -555,93 +593,31 @@ class CJTBlocksCouplingController extends CJTController {
 	}
 	
 	/**
-	* put your comment there...
+	* Wordpress do shortcode callback for
+	* CJT Shortcodes ([cjtoolbox ....])! 
+	* 
+	* This method role is to load the shortcode routines
+	* in order to handle the request.
+	* 
+	* It doesn't do anything except deferring the shortcode
+	* codes from loaded until shortcode is really used!
 	* 
 	* @param mixed $attributes
 	*/
 	public function shortcode($attributes) {
-		// Initialize vars.
-		$replacement = '';
-		// Default Class.
-		if (!isset($attributes['class'])) {
-			$class =	'block';
-		}
-		switch ($class) {
-			case 'block':
-				// Get is the default "operation"!
-				if (!isset($attributes['op'])) {
-					$attributes['op'] = 'get';
-				}
-				switch ($attributes['op']) {
-					case 'get': 
-						// Import dependecies.
-						cssJSToolbox::import('framework:db:mysql:xtable.inc.php', 'framework:php:evaluator:evaluator.inc.php');
-						// Output block if 'force="true" or only if it wasn't already in the header/footer!
-						if ((((isset($attributes['force'])) && ($attributes['force'] == "true")) || !in_array($attributes['id'], $this->onActionIds))) {
-							// Id is being used!
-							if ((isset($attributes['force'])) && ($attributes['force'] != 'true')) {
-								$this->onActionIds[] = (int) $attributes['id'];
-							}
-							// Get block code.
-							$block = CJTxTable::getInstance('block')
-																						->set('id', $attributes['id'])
-																						->load();
-							// Only ACTIVE blocks!
-							if ($block->get('state') != 'active') {
-								return;
-							}
-							// Import Executable (PHP and HTML) templates.
-							$block = $block->getData();
-							$block->code = $block->code . $this->model->getExecTemplatesCode($block->id);
-							// Get block code, execute it as PHP!
-							$replacement = CJTPHPCodeEvaluator::getInstance($block)->exec()->getOutput();
-							// Get linked templates.
-							$linkedStylesheets = '';
-							$templates = $this->model->getLinkedTemplates($attributes['id']);
-							$reverseTypes = array_flip(CJTCouplingModel::$templateTypes);
-							// Enqueue all scripts & Direct Output for all Style Sheets!
-							foreach ($templates as $template) {
-								// Enqueue Javascripts.
-								if ($template->type == 'javascript') {
-									// Get Template type name.
-									$typeName = $reverseTypes[$template->type];
-									/**
-									* @var WP_Dependencies
-									*/
-									$queue = $this->model->getQueueObject($typeName);
-									if (!in_array($template->queueName, $queue->done)) {
-										if (!isset($queue->registered[$template->queueName])) {
-											$queue->add($template->queueName, "/{$template->file}", null, $template->version, 1);
-										}
-										// Enqueue template!
-										$queue->enqueue($template->queueName);
-									}
-								}
-								// Concat all linked style sheet to be returned along with the replacment.
-								else {
-									// Get Template object important in order to read the code from revision file.
-									if (!isset($templateModel)) {
-										$templateModel = CJTModel::getInstance('template');	
-									}
-									$templateModel->inputs['id'] = $template->id;
-									$template = $templateModel->getItem();
-									// Concat!
-									$linkedStylesheets .= $template->code;
-								}
-							}
-							// Prepend linked Stylesheets to the replacement.
-							if (isset($linkedStylesheets)) {
-								$replacement = "<style type='text/css'>{$linkedStylesheets}</style>{$replacement}";
-							}
-						}
-					break;
-				}
-			break;
-			default:
-				$replacement = cssJSToolbox::getText('Shortcode Type is not supported!! Only (block) type is currently available!!!');
-			break;
-		}
-		return $replacement;
+		// Instantiate Shortcode handler class.
+		cssJSToolbox::import('controllers:coupling:shortcode:shortcode.php');
+		$shortcode = new CJT_Controllers_Coupling_Shortcode($attributes);
+		// Return Shortcode replacement!
+		return ((string) $shortcode);
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	public static function & theInstance() {
+		return self::$instance;
 	}
 	
 } // End class.
