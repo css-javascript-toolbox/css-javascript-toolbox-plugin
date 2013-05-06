@@ -38,7 +38,7 @@ class CJTPackageFileModel extends CJTHookableClass {
 		// Initialize.
 		$model = null; // Current model for the element under the loop!
 		$item = array(); // Object Item array to be inserted in the database.
-		$addedObjects = array(); // All the added objects mapped by object 'TYPE'.
+		$addedObjects = array('template' => array(), 'block' => array()); // All the added objects mapped by object 'TYPE'.
 		// Fetch package information with all readme and license tags locatted if
 		// bundled with external files!
 		$packageInfo = $package->getItem(null, array('readme' => 'readme.txt', 'license' => 'license.txt'));
