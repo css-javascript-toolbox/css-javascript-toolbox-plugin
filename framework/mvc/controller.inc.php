@@ -111,7 +111,7 @@ abstract class CJTController extends CJTHookableClass {
 			if (!isset($this->controllerInfo['model_file'])) {
 				$this->controllerInfo['model_file'] = null;
 			}
-			$this->model = CJTModel::create($this->controllerInfo['model'], array(), $this->controllerInfo['model_file']);
+			$this->model = CJTModel::create($this->controllerInfo['model'], $this->request, $this->controllerInfo['model_file']);
 		}
 		// Create default view.
 		if ($hasView === null) { // Default value for $hasView = true
@@ -182,7 +182,7 @@ abstract class CJTController extends CJTHookableClass {
 	*/
 	protected function displayAction() {
 		// Get view layout!
-		$layout = isset($_REQUEST['layout']) ? $_REQUEST['layout'] : 'default';
+		$layout = isset($this->request['layout']) ? $this->request['layout'] : 'default';
 		ob_start();
 		$this->view->display($layout);
 		$content = ob_get_clean();

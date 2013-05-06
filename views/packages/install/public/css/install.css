@@ -1,0 +1,9 @@
+form {margin: 0;}
+input[type="button"]{padding: 2px 24px 2px 24px;}
+#item-form label {vertical-align: top;}
+
+.buttons {text-align: right; margin-top: 37px; padding-right: 12px;}
+
+#fileUploader {height: 26px; width: 237px; background-color: #EFEFEF}
+
+.cjt-form ul li {margin-bottom: -5px;}

@@ -1,5 +1,5 @@
 /*
-* CJT Database Version 2.0 structure.
+* CJT Database Version 1.1 structure.
 *
 * Owner: css-javascript-toolbox.com
 * Author: Ahmed Said
@@ -131,4 +131,27 @@ CREATE TABLE IF NOT EXISTS `#__cjtoolbox_template_revisions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`),
   UNIQUE KEY `templateid-revisionNo` (`revisionNo`,`templateId`)
+);
+
+/* VERSION 1.1 */
+
+/* Packages holder table */
+CREATE TABLE IF NOT EXISTS`#__cjtoolbox_packages` (
+	`name` VARCHAR(100) NOT NULL,
+	`author` VARCHAR(150) NOT NULL,
+	`webSite` VARCHAR(300) NOT NULL,
+	`description` TEXT NOT NULL,
+	`license` TEXT NOT NULL,
+	`readme` TEXT NOT NULL,
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	PRIMARY KEY (`id`)
+);
+
+/* Package objects map */
+CREATE TABLE IF NOT EXISTS `#__cjtoolbox_package_objects` (
+	`packageId` INT UNSIGNED NOT NULL,
+	`objectId` INT UNSIGNED NOT NULL,
+	`objectType` ENUM('block','template') NOT NULL,
+	`relType` ENUM('add','link') NOT NULL DEFAULT 'add',
+	PRIMARY KEY (`packageId`, `objectId`, `objectType`)
 )

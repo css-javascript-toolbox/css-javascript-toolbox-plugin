@@ -1,0 +1,29 @@
+<?php
+/**
+* 
+*/
+
+// Disallow direct access.
+defined('ABSPATH') or die("Access denied");
+
+// Import list table class used for displaying templates list.
+$this->importHelper('wp-list-table');
+?>
+<form id="packages-manager" class="cjt-form" method="post">
+	<input type="hidden" id="cjt-securityToken" value="<?php echo $this->securityToken ?>">
+	<div class="toolbar">
+		<input type="button" id="install-package" class="button-secondary action" value="<?php echo cssJSToolbox::getText('Install Package') ?>">
+	</div>
+<?php
+	$listTable = new CJTPackagesManagerListTable();
+	// Push items into table list.
+	$listTable->items = $this->items;
+	// Pagintion.
+	$listTable->set_pagination_args(array(
+		'per_page' => $this->itemsPerPage, 
+		'total_items' => $this->itemsTotal,
+	));
+	// Output list table
+	$listTable->display();
+?>
+</form>
