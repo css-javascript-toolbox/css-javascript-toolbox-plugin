@@ -113,18 +113,24 @@ class CJTPackageFileModel extends CJTHookableClass {
 					// Link block templates.
 					$links = $object->links->link ? $object->links->link : array();
 					foreach ($links as $link) {
-						// Get template by name!
-						$toLinkTemplateName = (string) $link->attributes()->name;
-						if ($template = $modelTemplate->exists($toLinkTemplateName)) {
+						// Get template object to link.
+						$templateToLinkAttributes = (array) $link->attributes();
+						$templateToLinkAttributes = $templateToLinkAttributes['@attributes'];
+						$tblTemplate = CJTxTable::getInstance('template')
+																										  ->setData($templateToLinkAttributes) // Query by the given attributes.
+																										  ->load(array_keys($templateToLinkAttributes));
+						if ($tblTemplate->get('id')) {
+							// Cache template id.
+							$templateId = $tblTemplate->get('id');
 							// Always link as the block should be newely added
 							// and in the normal cases its impossible to be alread linked!
 							$tableBlockTemplate = CJTxTable::getInstance('block-template');
 							$tableBlockTemplate->set('blockId', $objectId)
-																								 ->set('templateId', $template->id)
+																								 ->set('templateId', $templateId)
 																								 ->save();
 							// Add only LINKED objects to the package objects map table!
-							if (!key_exists($template->id, $addedObjects['template'])) {
-								$addedObjects['template'][$template->id] = array('objectId' => $template->id, 'relType' => 'link');
+							if (!key_exists($templateId, $addedObjects['template'])) {
+								$addedObjects['template'][$templateId] = array('objectId' => $templateId, 'relType' => 'link');
 							}
 						}
 					}
