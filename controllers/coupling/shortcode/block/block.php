@@ -113,6 +113,9 @@ class CJT_Controllers_Coupling_Shortcode_Block extends CJTHookableClass {
 				}
 			}
 		}
+		else { // Invalid Shortcode block query!
+			$replacement = cssJSToolbox::getText('Could not find block specified! Please check out the Shortcode parameters.');
+		}
 		// Return shortcode replacement string.
 		return $replacement;
 	}
