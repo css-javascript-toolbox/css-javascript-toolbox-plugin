@@ -132,7 +132,7 @@ class CJTInstallerModel {
 	*/
 	public function install() {
 		// Initialize.
-		$result = FALSE:
+		$result = FALSE;
 		// Read input!
 		$rOperation = $this->input['operation'];
 		$type = $rOperation['type'];
