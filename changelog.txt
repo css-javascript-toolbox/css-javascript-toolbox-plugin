@@ -1,43 +1,43 @@
-Version 6.0.46:
-	- Fix: List only Public Custom Posts that can be accessed through Wordpress URL under Assignment Panel Custom Posts Tab. Therefor enhance performance for sites that has 'Log' custom post that might has hundreds or records read for every code block.
-	- Fix: For Settings->Metabox settings form section, list only Posts that has a Public Access and Administrator User Interface.
-	- Fix: 'Undefined index "post"' Notice displayed when 'Adding New Post' while PHP in debug mode (E_NOTICE is set).
+= 6.0.46 =
+	* Fix: List only Public Custom Posts that can be accessed through Wordpress URL under Assignment Panel Custom Posts Tab. Therefor enhance performance for sites that has 'Log' custom post that might has hundreds or records read for every code block.
+	* Fix: For Settings->Metabox settings form section, list only Posts that has a Public Access and Administrator User Interface.
+	* Fix: 'Undefined index "post"' Notice displayed when 'Adding New Post' while PHP in debug mode (E_NOTICE is set).
 	
-Version 6.0.43:
-	- Fix: Couldn't uncheck all Post types under Settings:Metabox Tab!
-	- Fix: Add PHP worker for ACE Editor as it was missing.
-	- Fix: Installer operations state is cleared after the install/upgrade is interrupted, cause the repeats/re-executes of the install/upgrade operations.
-	- Enhancement: Suppress PHP errors displayed under STRICT PHP configuration like PHP >= 5.4.x and therefor boost performance, increase result and security reliability!
+= 6.0.43 =
+	* Fix: Couldn't uncheck all Post types under Settings:Metabox Tab!
+	* Fix: Add PHP worker for ACE Editor as it was missing.
+	* Fix: Installer operations state is cleared after the install/upgrade is interrupted, cause the repeats/re-executes of the install/upgrade operations.
+	* Enhancement: Suppress PHP errors displayed under STRICT PHP configuration like PHP >= 5.4.x and therefor boost performance, increase result and security reliability!
 
-Version 6.0.39:
-	- Enhancement: Don't show 'site' side error message when invalid regular expression is supplied by the admin.
-	- Fix: Textarea HTML tag break down the block code!
+= 6.0.39 =
+	* Enhancement: Don't show 'site' side error message when invalid regular expression is supplied by the admin.
+	* Fix: Textarea HTML tag break down the block code!
 	
-Version 6.0.37:
-	- Fix: Upgrade version 0.8 missing operations issue.
-	- Fix: User error is not being displayed if the upgrade/downgrade agent is not exists.
-	- Fix: Extra slash added to template code when magic_quote_gpc is truned On!
-	- Enhancement: E_ALL complain! Suppress PHP notices when WP_DEBUG is set to true.
+= 6.0.37 =
+	* Fix: Upgrade version 0.8 missing operations issue.
+	* Fix: User error is not being displayed if the upgrade/downgrade agent is not exists.
+	* Fix: Extra slash added to template code when magic_quote_gpc is truned On!
+	* Enhancement: E_ALL complain! Suppress PHP notices when WP_DEBUG is set to true.
 	
-Version 6.0.33:
-	- Fix: E_ALL complain! Suppress all the notices when WP_DEBUG set to true, allow better development, fast performance and error handling.
-	- Fix: Conflict with other Plugins as sharing the same query string parameters!
-	- Fix: Don't break down the site if manual upgrade/downgrage process is incompleted! Allow user to revert back manually or disable the Plugin.
-	- Fix: Don't allow installation if the upgrade/downgrade version is not supported.
-	- Added: Support for upgrade from version 6.0 CE.
+= 6.0.33 =
+	* Fix: E_ALL complain! Suppress all the notices when WP_DEBUG set to true, allow better development, fast performance and error handling.
+	* Fix: Conflict with other Plugins as sharing the same query string parameters!
+	* Fix: Don't break down the site if manual upgrade/downgrage process is incompleted! Allow user to revert back manually or disable the Plugin.
+	* Fix: Don't allow installation if the upgrade/downgrade version is not supported.
+	* Added: Support for upgrade from version 6.0 CE.
  
-Version 6.0.25.1:
- - Upgrade ACE Editor from version 0.2.0 to 1.0.0
- - Fix all Template Types is being decrypted when retrieved. Only PHP template is now decrypted!
+= 6.0.25.1 =
+ * Upgrade ACE Editor from version 0.2.0 to 1.0.0
+ * Fix all Template Types is being decrypted when retrieved. Only PHP template is now decrypted!
  
-Version 6.0.17.1:
-	- Improve PHP execution compatibility with different PHP configuration by using PHP.
-	- Adding more security to ALL requests that can be made to CJT through AJAX or directly from user interactions to allow only 'administrators' to take actions.
-	- Fixing Block 'Assignment Panel' not correctly displayed when opening through Chrome browser under height screen resolution.
-	- Encrypting and Hiding PHP template files so it cannot be accessed/read/executed by public/foreign users requests.
-	- Fixing saving order issue after adding new block without pressing 'save all changed' button.
-	- Add uninstaller to wipe out all CJT Blocks user data!
-	- Fix CREATE and DELETE CJT-Blocks Metaboxes for Wordpress Posts that may occurred if there is a conflict with other Plugins
+= 6.0.17.1 =
+	* Improve PHP execution compatibility with different PHP configuration by using PHP.
+	* Adding more security to ALL requests that can be made to CJT through AJAX or directly from user interactions to allow only 'administrators' to take actions.
+	* Fixing Block 'Assignment Panel' not correctly displayed when opening through Chrome browser under height screen resolution.
+	* Encrypting and Hiding PHP template files so it cannot be accessed/read/executed by public/foreign users requests.
+	* Fixing saving order issue after adding new block without pressing 'save all changed' button.
+	* Add uninstaller to wipe out all CJT Blocks user data!
+	* Fix CREATE and DELETE CJT-Blocks Metaboxes for Wordpress Posts that may occurred if there is a conflict with other Plugins
 
-Version 6.0:
-	- First Release.
+= 6.0 =
+	* First Release.
