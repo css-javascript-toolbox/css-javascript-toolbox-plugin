@@ -8,6 +8,9 @@ DROP TABLE IF EXISTS #__cjtoolbox_block_pins;
 DROP TABLE IF EXISTS #__cjtoolbox_block_templates;
 DROP TABLE IF EXISTS #__cjtoolbox_templates;
 DROP TABLE IF EXISTS #__cjtoolbox_template_revisions;
+/* Added Version 1.1 */
+DROP TABLE IF EXISTS #__cjtoolbox_packages;
+DROP TABLE IF EXISTS #__cjtoolbox_package_objects;
 
 /*  Database version number (By this option CJT Plugin detect installation state!) */
 DELETE FROM  #__wordpress_options where option_name = 'cjtoolbox_db_version';
