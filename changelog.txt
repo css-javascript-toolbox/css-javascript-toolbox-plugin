@@ -1,3 +1,13 @@
+= 6.1 =
+	* Fix: PHP code is not executed when delegating block using its Shortcode.
+	* Fix: Linked CSS template has no effect when block is delegated using its Shortcode.
+	* Fix: Hijack Wordpress Plugins page whenever a Plugin is activated or deactivated.
+	* Enhancement: Using block name instead of ID when using Shortcodes.
+	* Add: Ability to link PHP and HTML templates.
+	* Add: Allow of editing template from templates lookup form.
+	* Add: Link external (BETA).
+	* Add: Packages Management System (BETA).
+	
 = 6.0.46 =
 	* Fix: List only Public Custom Posts that can be accessed through Wordpress URL under Assignment Panel Custom Posts Tab. Therefor enhance performance for sites that has 'Log' custom post that might has hundreds or records read for every code block.
 	* Fix: For Settings->Metabox settings form section, list only Posts that has a Public Access and Administrator User Interface.
