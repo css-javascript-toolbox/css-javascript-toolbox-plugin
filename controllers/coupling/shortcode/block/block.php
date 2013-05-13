@@ -23,19 +23,28 @@ class CJT_Controllers_Coupling_Shortcode_Block extends CJTHookableClass {
 	* 
 	* @var mixed
 	*/
+	protected $content = null;
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	protected $options = array('force' => 'false');
 	
 	/**
 	* put your comment there...
 	* 
 	* @param mixed $attributes
+	* @param mixed $content
 	* @return CJT_Controllers_Coupling_Shortcode_Block
 	*/
-	public function __construct($attributes) {
+	public function __construct($attributes, $content) {
 		// Hookable initiaization.
 		parent::__construct();
 		// Initialize.
 		$this->attributes = $attributes;
+		$this->content = $content;
 	}
 
 	/**
@@ -70,8 +79,15 @@ class CJT_Controllers_Coupling_Shortcode_Block extends CJTHookableClass {
 					}
 					// Import Executable (PHP and HTML) templates.
 					$block->code = $block->code . $model->getExecTemplatesCode($block->id);
+					// Generate shortcode unique identifier to be passed along with the PHP code.
+					$bsid = md5(microtime()) ; // Block Shortcode ID.
+					// CJT Block Standard Parameters.
+					$stack = array('cb' => ((object) array('blk' => $block, 'bsid' => $bsid)));
 					// Get block code, execute it as PHP!
-					$replacement = CJTPHPCodeEvaluator::getInstance($block)->exec()->getOutput();
+					$blockCode = CJTPHPCodeEvaluator::getInstance($block)->exec($stack)->getOutput();
+					// CJT Shortcode markup interface (CSMI)!
+					// CSMI is HTML markup to identify the CJT block Shortcode replacement.
+					$replacement = "<span id='csmi-{$bsid}' class='csmi csmi-bid-{$block->id} csmi-{$block->name}'>{$this->content}{$blockCode}</span>";
 					// Get linked templates.
 					$linkedStylesheets = '';
 					$templates = $model->getLinkedTemplates($block->id);
