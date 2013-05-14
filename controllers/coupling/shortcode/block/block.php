@@ -35,6 +35,13 @@ class CJT_Controllers_Coupling_Shortcode_Block extends CJTHookableClass {
 	/**
 	* put your comment there...
 	* 
+	* @var mixed
+	*/
+	protected $parameters = array();
+	
+	/**
+	* put your comment there...
+	* 
 	* @param mixed $attributes
 	* @param mixed $content
 	* @return CJT_Controllers_Coupling_Shortcode_Block
@@ -57,6 +64,8 @@ class CJT_Controllers_Coupling_Shortcode_Block extends CJTHookableClass {
 		$model = CJTModel::getInstance('coupling');
 		// Get shortcode options.
 		$this->options = array_merge($this->options, array_intersect_key($this->attributes, $this->options));
+		// Get shortcode parameters.
+		$this->readParameters();
 		// Get Block fields to be used to query the block.
 		$blockQueryFields = array_diff_key($this->attributes, $this->options);
 		$coupling =& CJTBlocksCouplingController::theInstance();
@@ -79,13 +88,18 @@ class CJT_Controllers_Coupling_Shortcode_Block extends CJTHookableClass {
 					$block->code = $block->code . $model->getExecTemplatesCode($block->id);
 					// Generate shortcode unique identifier to be passed along with the PHP code.
 					$bsid = md5(microtime()) ; // Block Shortcode ID.
-					// CJT Block Standard Parameters.
-					$stack = array('cb' => ((object) array('blk' => $block, 'bsid' => $bsid)));
+					// CJT Block Standard Parameters object.
+					$spi = ((object) array(
+						'containerElementId' => "csmi-{$bsid}",
+						'blk' => $block,
+						'bcid' => $bsid, // Block Container ID.
+						'p' => (object) $this->parameters,
+					));
 					// Get block code, execute it as PHP!
-					$blockCode = CJTPHPCodeEvaluator::getInstance($block)->exec($stack)->getOutput();
+					$blockCode = CJTPHPCodeEvaluator::getInstance($block)->exec(array('cb' => $spi))->getOutput();
 					// CJT Shortcode markup interface (CSMI)!
 					// CSMI is HTML markup to identify the CJT block Shortcode replacement.
-					$replacement = "<span id='csmi-{$bsid}' class='csmi csmi-bid-{$block->id} csmi-{$block->name}'>{$this->content}{$blockCode}</span>";
+					$replacement = "<span id='{$spi->containerElementId}' class='csmi csmi-bid-{$block->id} csmi-{$block->name}'>{$this->content}{$blockCode}</span>";
 					// Get linked templates.
 					$linkedStylesheets = '';
 					$templates = $model->getLinkedTemplates($block->id);
@@ -132,6 +146,29 @@ class CJT_Controllers_Coupling_Shortcode_Block extends CJTHookableClass {
 		}
 		// Return shortcode replacement string.
 		return $replacement;
+	}
+
+	/**
+	* put your comment there...
+	* 
+	*/
+	protected function readParameters() {
+		// Initialize.
+		$paramPrefix = '_';
+		// Parameter name is prefixed with underscore character (_PARAM="....", etc...)!
+		foreach ($this->attributes as $attName => $value) {
+			// Parameter found!
+			if (strpos($attName, $paramPrefix) === 0) {
+				// Remove underscore at the begning.
+				$name = substr($attName, strlen($paramPrefix));
+				// Add parameter to list.
+				$this->parameters[$name] = $value;
+				// Remove attribute from attributes list.
+				unset($this->attributes[$attName]);
+			}
+		}
+		// Chaining.
+		return $this;
 	}
 
 } // End class.
