@@ -244,7 +244,12 @@ class CJTBlocksCouplingController extends CJTController {
 	* @param mixed $id
 	*/
 	public function addOnActionIds($id) {
-		$this->onActionIds[] = $id;
+		// Add ID is not exists.
+		if (!in_array($id, $this->onActionIds)) {
+			$this->onActionIds[] = $id;	
+		}
+		// Chaining.
+		return $this;
 	}
 
 	/**

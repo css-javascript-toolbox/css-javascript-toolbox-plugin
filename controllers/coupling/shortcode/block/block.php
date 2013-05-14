@@ -30,7 +30,7 @@ class CJT_Controllers_Coupling_Shortcode_Block extends CJTHookableClass {
 	* 
 	* @var mixed
 	*/
-	protected $options = array('force' => 'false');
+	protected $options = array('force' => 'true');
 	
 	/**
 	* put your comment there...
@@ -74,9 +74,7 @@ class CJT_Controllers_Coupling_Shortcode_Block extends CJTHookableClass {
 				// Output block if 'force="true" or only if it wasn't already in the header/footer!
 				if (($this->options['force'] == 'true') || !in_array($block->id, $coupling->getOnActionIds())) {
 					// Id is being used!
-					if ($this->options['force'] != 'true') {
-						$coupling->addOnActionIds((int) $block->id);
-					}
+					$coupling->addOnActionIds((int) $block->id);
 					// Import Executable (PHP and HTML) templates.
 					$block->code = $block->code . $model->getExecTemplatesCode($block->id);
 					// Generate shortcode unique identifier to be passed along with the PHP code.
