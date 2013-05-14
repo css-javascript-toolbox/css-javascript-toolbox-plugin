@@ -106,32 +106,18 @@ class CJT_Controllers_Coupling_Shortcode_Block extends CJTHookableClass {
 					$reverseTypes = array_flip(CJTCouplingModel::$templateTypes);
 					// Enqueue all scripts & Direct Output for all Style Sheets!
 					foreach ($templates as $template) {
-						// Enqueue Javascripts.
-						if ($template->type == 'javascript') {
-							// Get Template type name.
-							$typeName = $reverseTypes[$template->type];
-							/**
-							* @var WP_Dependencies
-							*/
-							$queue = $model->getQueueObject($typeName);
-							if (!in_array($template->queueName, $queue->done)) {
-								if (!isset($queue->registered[$template->queueName])) {
-									$queue->add($template->queueName, "/{$template->file}", null, $template->version, 1);
-								}
-								// Enqueue template!
-								$queue->enqueue($template->queueName);
+						// Get Template type name.
+						$typeName = $reverseTypes[$template->type];
+						/**
+						* @var WP_Dependencies
+						*/
+						$queue = $model->getQueueObject($typeName);
+						if (!in_array($template->queueName, $queue->done)) {
+							if (!isset($queue->registered[$template->queueName])) {
+								$queue->add($template->queueName, "/{$template->file}", null, $template->version, 1);
 							}
-						}
-						// Concat all linked style sheet to be returned along with the replacment.
-						else {
-							// Get Template object important in order to read the code from revision file.
-							if (!isset($templateModel)) {
-								$templateModel = CJTModel::getInstance('template');	
-							}
-							$templateModel->inputs['id'] = $template->id;
-							$template = $templateModel->getItem();
-							// Concat!
-							$linkedStylesheets .= $template->code;
+							// Enqueue template!
+							$queue->enqueue($template->queueName);
 						}
 					}
 					// Prepend linked Stylesheets to the replacement.
