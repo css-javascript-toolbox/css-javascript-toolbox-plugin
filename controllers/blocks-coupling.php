@@ -444,13 +444,16 @@ class CJTBlocksCouplingController extends CJTController {
 		$styles = array();
 		// Get queued style sheets!
 		global $wp_styles;
-		$queuedStyles = $wp_styles->queue;
+		$queuedStyles =& $wp_styles->queue;
 		// Process only 'cjt' templates,
-		foreach ($queuedStyles as $styleName) {
+		foreach ($queuedStyles as $index => $styleName) {
 			if (strpos($styleName, 'cjt-css-template-') === 0) {
 				// Get style name src file, prepend to Wordpress absolute path.
 				$style = $wp_styles->registered[$styleName];
 				$styles[] = home_url($style->src);
+				// Stop Wordpress from output <link> tag outside head tag
+				// as it has no effect.
+				unset($queuedStyles[$index]);
 			}
 		}
 		// Enqueue Style Sheet loader javascript if there is any
