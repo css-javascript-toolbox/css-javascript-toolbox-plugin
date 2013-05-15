@@ -44,7 +44,12 @@ class CJT_Framework_Developer_Lib_Template {
 		$mdlTemplate->inputs['id'] = $tblTemplate->get('id');
 		$template = $mdlTemplate->getItem();
 		// Link Style sheet.
-		wp_enqueue_style($template->queueName, "/{$template->file}");
+		$queueObject = CJTModel::getInstance('coupling')
+																						 ->getQueueObject('styles');
+		$queueObject->add($template->queueName, "/{$template->file}");
+		$queueObject->enqueue($template->queueName);
+		// Chaining.
+		return $this;
 	}
 
 } // End class.
