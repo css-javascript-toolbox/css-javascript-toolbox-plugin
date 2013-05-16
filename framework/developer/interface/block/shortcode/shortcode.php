@@ -49,7 +49,8 @@ class CJT_Framework_Developer_Interface_Block_Shortcode {
 	public function __construct($block, $parameters) {
 		// Initialize.
 		$this->block = $block;
-		$this->parameters = (object) $parameters;
+		cssJSToolbox::import('framework:developer:interface:block:parameters:parameters.php');
+		$this->parameters = new CJT_Framework_Developer_Interface_Block_Parameters($parameters);
 		// Generate Shortcode block container id.
 		$this->bcid = md5(microtime());
 		// Build block container element id.
