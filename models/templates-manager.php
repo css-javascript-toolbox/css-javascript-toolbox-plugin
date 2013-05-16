@@ -38,7 +38,10 @@ class CJTTemplatesManagerModel {
 	* 
 	*/
 	public function delete() {
+		// Initialize.
+		WP_Filesystem();
 		// initialize vars.
+		$wpFileSystem =& $GLOBALS['wp_filesystem'];
 		$ids = array();
 		$dbDriver = cssJSToolbox::getInstance()->getDBDriver();
 		$fsConfig = cssJSToolbox::$config->fileSystem;
@@ -58,15 +61,8 @@ class CJTTemplatesManagerModel {
 			foreach ($templates as $template) {
 				// Absolute path to template directory!
 				$templateDirectoryAbsPath = WP_CONTENT_DIR . "/{$fsConfig->contentDir}/{$fsConfig->templatesDir}/{$template->directory}";
-				// Delete all files inside the directory!
-				$revisionFiles = new DirectoryIterator($templateDirectoryAbsPath);
-				foreach ($revisionFiles as $file) {
-					if (!$file->isDot()) {
-						unlink($file->getPathname());
-					}
-				}
-				// Delete template directory!
-				rmdir($templateDirectoryAbsPath);
+				// Delete template directory RECUSIVLY!
+				$wpFileSystem->rmdir($templateDirectoryAbsPath, true);
 			}
 			// Get templates IDs to delete.
 			$ids = implode(', ', array_keys($templates));
