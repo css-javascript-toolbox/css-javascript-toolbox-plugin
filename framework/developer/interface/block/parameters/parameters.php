@@ -44,7 +44,9 @@ class CJT_Framework_Developer_Interface_Block_Parameters {
 	*/
 	public function add($name, $type, $default = null) {
 		// Add to params definition list.
-		$this->params[$name] = array('name' => $name, 'type' => $type, 'default' => $default);
+		// Use lower case for ket as Wordpress shortcode parameters
+		// is always transformed to lowercase.
+		$this->params[strtolower($name)] = array('name' => $name, 'type' => $type, 'default' => $default);
 		// Chaining.
 		return $this;
 	}
@@ -77,11 +79,13 @@ class CJT_Framework_Developer_Interface_Block_Parameters {
 	/**
 	* put your comment there...
 	* 
+	* @param mixed $excludes
+	* @return CJT_Framework_Developer_Interface_Block_Parameters_Transform_Json
 	*/
-	public function json() {
+	public function json($excludes = null) {
 		// Internal json trnsformer object caching!
 		cssJSToolbox::import('framework:developer:interface:block:parameters:transform:json:json.php');
-		return new CJT_Framework_Developer_Interface_Block_Parameters_Transform_Json($this);
+		return new CJT_Framework_Developer_Interface_Block_Parameters_Transform_Json($this, $excludes);
 	}
 
 	/**

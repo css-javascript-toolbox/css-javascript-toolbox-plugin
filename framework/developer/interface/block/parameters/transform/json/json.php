@@ -14,6 +14,13 @@ class CJT_Framework_Developer_Interface_Block_Parameters_Transform_Json {
 	/**
 	* put your comment there...
 	* 
+	* @var mixed
+	*/
+	protected $excludes = null;
+	
+	/**
+	* put your comment there...
+	* 
 	* @var CJT_Framework_Developer_Interface_Block_Parameters
 	*/
 	protected $params = null;
@@ -24,8 +31,10 @@ class CJT_Framework_Developer_Interface_Block_Parameters_Transform_Json {
 	* @param CJT_Framework_Developer_Interface_Block_Parameters $params
 	* @return CJT_Framework_Developer_Interface_Block_Parameters_Transform_Json
 	*/
-	public function __construct($params) {
+	public function __construct($params, $excludes) {
+		// Initialize.
 		$this->params = $params;
+		$this->excludes = explode(',', $excludes);
 	}
 
 	/**
@@ -34,12 +43,13 @@ class CJT_Framework_Developer_Interface_Block_Parameters_Transform_Json {
 	*/
 	public function __toString() {
 		// Initialize.
-		$json = '';
+		$params = array();
 		// Get all passed parameters as array!
-		$params =& $this->params->getArray();
+		// Remove excluded list.
+		$uParams = array_diff_key($this->params->getArray(), array_flip($this->excludes));
 		$definition =& $this->params->getDefinition();
 		// Get values for all parameters required to be represented as json object.
-		foreach ($params as $name => & $value) {
+		foreach ($uParams as $name => & $value) {
 			// Cast to the correct type.
 			$type = $definition[$name]['type'];
 			// Get JSON for both array and objec data types.
@@ -49,6 +59,10 @@ class CJT_Framework_Developer_Interface_Block_Parameters_Transform_Json {
 			else { // Cast.
 				settype($value, $type);
 			}
+			// Use Character case as defined in the parameters
+			// definition other than the user passed parameter name.
+			// User parameter read in lowercase other than the original.
+			$params[$definition[$name]['name']] = $value;
 		}
 		// Javascript Object Notation.
 		return json_encode((object) $params);
