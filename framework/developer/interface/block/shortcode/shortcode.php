@@ -37,6 +37,13 @@ class CJT_Framework_Developer_Interface_Block_Shortcode {
 	* 
 	* @var mixed
 	*/
+	protected $content = null;
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	protected $parameters = null;
 	
 	/**
@@ -44,13 +51,15 @@ class CJT_Framework_Developer_Interface_Block_Shortcode {
 	* 
 	* @param mixed $block
 	* @param mixed $parameters
-	* @return CJT_Framework_Developer_Block_Shortcode
+	* @param mixed $content
+	* @return CJT_Framework_Developer_Interface_Block_Shortcode
 	*/
-	public function __construct($block, $parameters) {
+	public function __construct($block, $parameters, & $content) {
 		// Initialize.
 		$this->block = $block;
 		cssJSToolbox::import('framework:developer:interface:block:parameters:parameters.php');
 		$this->parameters = new CJT_Framework_Developer_Interface_Block_Parameters($parameters);
+		$this->content =& $content;
 		// Generate Shortcode block container id.
 		$this->bcid = md5(microtime());
 		// Build block container element id.
@@ -79,6 +88,22 @@ class CJT_Framework_Developer_Interface_Block_Shortcode {
 	*/
 	public function containerElementId() {
 		return $this->containerElementId;
+	}
+
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $new
+	*/
+	public function content($value = null) {
+		// Return content until its a __setter_.
+		$result = $this->content;
+		// Set value if apssed.
+		if ($value !== null) {
+			$this->content = $value;
+			$result = $this;
+		}
+		return $result;
 	}
 
 	/**
