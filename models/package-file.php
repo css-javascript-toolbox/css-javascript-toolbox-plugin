@@ -113,11 +113,18 @@ class CJTPackageFileModel extends CJTHookableClass {
 								// Process <folder> tag.
 								foreach ($folders as $folder) {
 									// Folder absolute path.
-									$folderPath =  (string) $folder->attributes()->path;
+									if ($detinationName = (string) $folder->attributes()->destination) {
+										$folderPath =  $detinationName;	
+									}
+									else {
+										$folderPath = $folder->attributes()->path;
+									}
 									$folderAbsPath = $package->getDirectory() . "/{$foldersPath}/{$folderPath}";
 									// Create destination path.
 									$folderDestinationPath = "{$templateDirectory}/{$folderPath}";
-									mkdir($folderDestinationPath, 0775);
+									if (!file_exists($folderDestinationPath)) {
+										mkdir($folderDestinationPath, 0775);	
+									}
 									// Copy files (FLAT)!!.
 									foreach (new DirectoryIterator($folderAbsPath) as $file) {
 										if (!$file->isDot() && $file->isFile()) {
