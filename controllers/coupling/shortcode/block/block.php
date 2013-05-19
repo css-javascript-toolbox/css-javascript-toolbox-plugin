@@ -30,7 +30,7 @@ class CJT_Controllers_Coupling_Shortcode_Block extends CJTHookableClass {
 	* 
 	* @var mixed
 	*/
-	protected $options = array('force' => 'true');
+	protected $options = array('force' => 'true', 'tag' => 'span');
 	
 	/**
 	* put your comment there...
@@ -93,7 +93,7 @@ class CJT_Controllers_Coupling_Shortcode_Block extends CJTHookableClass {
 					$blockCode = CJTPHPCodeEvaluator::getInstance($block)->exec(array('cb' => $spi))->getOutput();
 					// CJT Shortcode markup interface (CSMI)!
 					// CSMI is HTML markup to identify the CJT block Shortcode replacement.
-					$replacement = "<span id='{$spi->containerElementId()}' class='csmi csmi-bid-{$block->id} csmi-{$block->name}'>{$this->content}{$blockCode}</span>";
+					$replacement = "<{$this->options['tag']} id='{$spi->containerElementId()}' class='csmi csmi-bid-{$block->id} csmi-{$block->name}'>{$this->content}{$blockCode}</{$this->options['tag']}>";
 					// Get linked templates.
 					$linkedStylesheets = '';
 					$templates = $model->getLinkedTemplates($block->id);
