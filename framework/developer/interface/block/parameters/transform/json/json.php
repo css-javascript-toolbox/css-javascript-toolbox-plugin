@@ -50,15 +50,6 @@ class CJT_Framework_Developer_Interface_Block_Parameters_Transform_Json {
 		$definition =& $this->params->getDefinition();
 		// Get values for all parameters required to be represented as json object.
 		foreach ($uParams as $name => & $value) {
-			// Cast to the correct type.
-			$type = $definition[$name]['type'];
-			// Get JSON for both array and objec data types.
-			if (($type == 'array') || ($type == 'object')) {
-				$value = json_decode($value);
-			}
-			else { // Cast.
-				settype($value, $type);
-			}
 			// Use Character case as defined in the parameters
 			// definition other than the user passed parameter name.
 			// User parameter read in lowercase other than the original.

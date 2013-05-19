@@ -57,7 +57,9 @@ class CJT_Framework_Developer_Interface_Block_Parameters {
 	* @param mixed $name
 	*/
 	public function get($name) {
-		return $this->uParams[$name];
+		// Allow writing it in the original case inside the code
+		// however its only retrived by the lowercvase letter.
+		return $this->uParams[strtolower($name)];
 	}
 
 	/**
@@ -96,13 +98,33 @@ class CJT_Framework_Developer_Interface_Block_Parameters {
 		// Get params definition copy!
 		$dParams = $this->params;
 		// Validate passed parameters agianst the definition.
-		foreach ($this->uParams as $name => $value) {
+		foreach ($this->uParams as $name => & $value) {
 			// Check parameter existance.
 			if (!isset($this->params[$name])) {
 				// Warn user that the parameter is not exists!
 				echo cssJSToolbox::getText("Invalid Block Shortcode parameters [{$name}]");
 				// Remove from list.
 				unset($this->uParams[$name]);
+			}
+			// Get parameter type.
+			$type = $dParams[$name]['type'];
+			// Cast to correct type.
+			switch ($type) {
+				case 'array':
+				case 'object':
+					// Convert CJT JSON Array and Object to JSON object.
+					$value = str_replace(array('{A', '{O', 'A}', 'O}'), array('[', '[', ']', ']'), $value);
+					// Get PHP var for JSON text!
+					$value = json_decode($value);				
+				break;
+				case 'boolean':
+					// Case boolean from string.
+					$value = ($value == "true") ? true: false;
+				break;
+				default:
+					// PHP native cast.
+				  settype($value, $type);
+				break;
 			}
 			// As the parameter is passed by user don't need the default.
 			unset($dParams[$name]);
