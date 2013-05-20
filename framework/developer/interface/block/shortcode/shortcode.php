@@ -128,4 +128,18 @@ class CJT_Framework_Developer_Interface_Block_Shortcode {
 		return $this->parameters;
 	}
 
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function fixedContent() {
+		// Shortcode content.
+		$content = $this->content();
+		// Strip <BR /> tags added by Wordpress.
+		$content = str_replace("<br />\n", "\n", $content);
+		// Remove first and last.
+		$content = preg_replace(array('/^\xA/', '/\xA$/'), '', $content);;
+		return $content;
+	}
+
 } // End class.
