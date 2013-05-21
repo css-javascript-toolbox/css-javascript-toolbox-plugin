@@ -65,9 +65,9 @@ class CJT_Controllers_Coupling_Shortcode_Block extends CJTHookableClass {
 		// Get shortcode options.
 		$this->options = array_merge($this->options, array_intersect_key($this->attributes, $this->options));
 		// Get shortcode parameters.
-		$this->readParameters();
+		$this->parameters = array_diff_key($this->attributes, array_flip(array('force', 'tag', 'name', 'id')));
 		// Get Block fields to be used to query the block.
-		$blockQueryFields = array_diff_key($this->attributes, $this->options);
+		$blockQueryFields = array_intersect_key($this->attributes, array_flip(array('id', 'name')));
 		$coupling =& CJTBlocksCouplingController::theInstance();
 		// Import dependecies.
 		cssJSToolbox::import('framework:db:mysql:xtable.inc.php', 'framework:php:evaluator:evaluator.inc.php');
@@ -126,29 +126,6 @@ class CJT_Controllers_Coupling_Shortcode_Block extends CJTHookableClass {
 		}
 		// Return shortcode replacement string.
 		return $replacement;
-	}
-
-	/**
-	* put your comment there...
-	* 
-	*/
-	protected function readParameters() {
-		// Initialize.
-		$paramPrefix = '_';
-		// Parameter name is prefixed with underscore character (_PARAM="....", etc...)!
-		foreach ($this->attributes as $attName => $value) {
-			// Parameter found!
-			if (strpos($attName, $paramPrefix) === 0) {
-				// Remove underscore at the begning.
-				$name = substr($attName, strlen($paramPrefix));
-				// Add parameter to list.
-				$this->parameters[$name] = $value;
-				// Remove attribute from attributes list.
-				unset($this->attributes[$attName]);
-			}
-		}
-		// Chaining.
-		return $this;
 	}
 
 } // End class.
