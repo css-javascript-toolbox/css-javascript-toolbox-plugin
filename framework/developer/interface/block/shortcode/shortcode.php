@@ -49,6 +49,13 @@ class CJT_Framework_Developer_Interface_Block_Shortcode {
 	/**
 	* put your comment there...
 	* 
+	* @var CJT_Framework_Developer_Interface_Block_Shortcode_Segments
+	*/
+	protected $segments = null;
+	
+	/**
+	* put your comment there...
+	* 
 	* @param mixed $block
 	* @param mixed $parameters
 	* @param mixed $content
@@ -57,9 +64,11 @@ class CJT_Framework_Developer_Interface_Block_Shortcode {
 	public function __construct($block, $parameters, & $content) {
 		// Initialize.
 		$this->block = $block;
+		$this->content =& $content;
 		cssJSToolbox::import('framework:developer:interface:block:parameters:parameters.php');
 		$this->parameters = new CJT_Framework_Developer_Interface_Block_Parameters($parameters);
-		$this->content =& $content;
+		cssJSToolbox::import('framework:developer:interface:block:shortcode:segments:segments.php');
+		$this->segments = new CJT_Framework_Developer_Interface_Block_Shortcode_Segments($this->cleanContent());
 		// Generate Shortcode block container id.
 		$this->bcid = md5(microtime());
 		// Build block container element id.
@@ -80,6 +89,20 @@ class CJT_Framework_Developer_Interface_Block_Shortcode {
 	*/
 	public function block() {
 		return $this->block;
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function & cleanContent() {
+		// Shortcode content.
+		$content = $this->content();
+		// Strip <BR /> tags added by Wordpress.
+		$content = str_replace("<br />\n", "\n", $content);
+		// Remove first and last.
+		$content = preg_replace(array('/^\xA/', '/\xA$/'), '', $content);;
+		return $content;
 	}
 	
 	/**
@@ -127,19 +150,28 @@ class CJT_Framework_Developer_Interface_Block_Shortcode {
 	public function params() {
 		return $this->parameters;
 	}
-
+	
 	/**
 	* put your comment there...
 	* 
 	*/
-	public function fixedContent() {
-		// Shortcode content.
-		$content = $this->content();
-		// Strip <BR /> tags added by Wordpress.
-		$content = str_replace("<br />\n", "\n", $content);
-		// Remove first and last.
-		$content = preg_replace(array('/^\xA/', '/\xA$/'), '', $content);;
-		return $content;
+	public function segments() {
+		return $this->segments;
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $done
+	*/
+	public function write($done = null) {
+		if ($done) {
+			$this->content(ob_get_clean());
+		}
+		else {
+			ob_start();
+		}
+		return $this;
 	}
 
 } // End class.
