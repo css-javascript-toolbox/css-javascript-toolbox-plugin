@@ -25,14 +25,23 @@ class CJT_Controllers_Coupling_Shortcode extends CJTHookableClass {
 	/**
 	* put your comment there...
 	* 
-	* @param mixed $class
+	* @var mixed
+	*/
+	protected $content = null;
+
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $attributes
+	* @param mixed $content
 	* @return CJT_Controllers_Coupling_Shortcode
 	*/
-	public function __construct($attributes) {
+	public function __construct($attributes, $content) {
 		// Hookable initialization!
 		parent::__construct();
 		// Initialize.
 		$this->attributes = $attributes;
+		$this->content = $content;
 	}
 	
 	/**
@@ -56,7 +65,7 @@ class CJT_Controllers_Coupling_Shortcode extends CJTHookableClass {
 		// Import class.
 		$className = "CJT_Controllers_Coupling_Shortcode_{$shortcodeClass}";
 		// Load shortcode 'CLASS' handler.
-		$shortcode = new $className($this->attributes);
+		$shortcode = new $className($this->attributes, $this->content);
 		// Return Shortcode replacements.
 		return ((string) $shortcode);
 	}

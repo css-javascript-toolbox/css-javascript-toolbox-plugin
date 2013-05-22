@@ -53,6 +53,9 @@ class CJTPackageFileModel extends CJTHookableClass {
 		// Map definition xml TYPE attribute to CJT Model object to handle addding
 		// objecs types.
 		$objectModels = array('template' => 'template', 'block' => 'blocks');
+		// Initialize Wordpress file system object.
+		WP_Filesystem();
+		$fileSystem =& $GLOBALS['wp_filesystem'];
 		// Read all objects defined by the package.
 		foreach ($package->document()->objects->object as $object) {
 			// Prepare object + getting item to be saved into database.
@@ -99,6 +102,38 @@ class CJTPackageFileModel extends CJTHookableClass {
 						$addedTemplate = $model->save();
 						// Expose Object ID to be added to the addedObjects List.
 						$objectId = $addedTemplate->templateId;
+						// Copy template folders.
+						if ($foldersCollection = $object->folders) {
+							// Get absolute path to template directory!
+							$templateDirectory = ABSPATH . dirname($addedTemplate->file);
+							// Process all <folders> tags!
+							foreach ($foldersCollection as $folders) {
+								// Get <folders> tag common path.
+								$foldersPath = (string) $folders->attributes()->path;
+								// Process <folder> tag.
+								foreach ($folders as $folder) {
+									// Folder absolute path.
+									if ($detinationName = (string) $folder->attributes()->destination) {
+										$folderPath =  $detinationName;	
+									}
+									else {
+										$folderPath = $folder->attributes()->path;
+									}
+									$folderAbsPath = $package->getDirectory() . "/{$foldersPath}/{$folderPath}";
+									// Create destination path.
+									$folderDestinationPath = "{$templateDirectory}/{$folderPath}";
+									if (!file_exists($folderDestinationPath)) {
+										mkdir($folderDestinationPath, 0775);	
+									}
+									// Copy files (FLAT)!!.
+									foreach (new DirectoryIterator($folderAbsPath) as $file) {
+										if (!$file->isDot() && $file->isFile()) {
+											$fileSystem->copy($file->getPathName(), "{$folderDestinationPath}/{$file->getFileName()}");
+										}
+									}
+								}
+							}
+						}
 					}
 				break;
 				case 'block';

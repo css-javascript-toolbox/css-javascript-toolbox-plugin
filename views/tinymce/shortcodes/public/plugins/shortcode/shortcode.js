@@ -33,7 +33,7 @@
 		// Read selected block!
 		var block = this;
 		// Build shortcode!
-		var shortcode = '[cjtoolbox name="' + block.name + '"]';
+		var shortcode = '[cjtoolbox name="' + block.name + '"][/cjtoolbox]';
 		// Insert shortcode at current cursor position.
 		editor.selection.setContent(shortcode);
 		editor.focus();

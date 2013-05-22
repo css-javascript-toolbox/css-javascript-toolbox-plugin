@@ -244,7 +244,12 @@ class CJTBlocksCouplingController extends CJTController {
 	* @param mixed $id
 	*/
 	public function addOnActionIds($id) {
-		$this->onActionIds[] = $id;
+		// Add ID is not exists.
+		if (!in_array($id, $this->onActionIds)) {
+			$this->onActionIds[] = $id;	
+		}
+		// Chaining.
+		return $this;
 	}
 
 	/**
@@ -407,11 +412,12 @@ class CJTBlocksCouplingController extends CJTController {
 		if (!is_admin() && !$GLOBALS['wp_query']) {
 		  return;
 		}
+		// Get current application hook prefix.
+		$actionsPrefix = is_admin() ? 'admin'	: 'wp';
 		// Get cache or get blocks if not cached.
 		// If there is no cache or no blocks for output
 		// do nothing.
 		if ($this->getCached() || $this->getBlocks()) {
-			$actionsPrefix = is_admin() ? 'admin'	: 'wp';
 			// Output blocks on various locations!
 			add_action("{$actionsPrefix}_head", array(&$this, 'outputBlocks'), 30);
 		  add_action("{$actionsPrefix}_footer", array(&$this, 'outputBlocks'), 30);
@@ -419,6 +425,8 @@ class CJTBlocksCouplingController extends CJTController {
 		  add_action("{$actionsPrefix}_enqueue_scripts", array(&$this, 'linkTemplates'), 30);
 		  add_action("{$actionsPrefix}_print_styles", array(&$this, 'linkTemplates'), 30);
 		}
+		// Link style sheet in footer required custom implementation.
+		add_action("{$actionsPrefix}_print_footer_scripts", array(&$this, 'linkFooterStyleSheets'), 9);
 		// Make sure this is executed only once.
 		// Sometimes wp hook run on backend and sometimes its not.
 		// This method handle both front and backend requests.
@@ -427,6 +435,40 @@ class CJTBlocksCouplingController extends CJTController {
 		remove_action('admin_init', array(&$this, 'initCoupling'));
 	}
 	
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function linkFooterStyleSheets() {
+		// Initialize.
+		$styles = array();
+		// Get queued style sheets!
+		global $wp_styles;
+		$queuedStyles =& $wp_styles->queue;
+		// Process only 'cjt' templates,
+		foreach ($queuedStyles as $index => $styleName) {
+			if (strpos($styleName, 'cjt-css-template-') === 0) {
+				// Get style name src file, prepend to Wordpress absolute path.
+				$style = $wp_styles->registered[$styleName];
+				$styles[] = home_url($style->src);
+				// Stop Wordpress from output <link> tag outside head tag
+				// as it has no effect.
+				unset($queuedStyles[$index]);
+			}
+		}
+		// Enqueue Style Sheet loader javascript if there is any
+		// styles need to be loaded.
+		if (!empty($styles)) {
+			// jQuery is dpendency object required by the loader.
+			wp_enqueue_script('jquery');
+			// Enqueue footer style sheet loader.
+			wp_enqueue_script('cjt-coupling-footer-css-loader', cssJSToolbox::getURI('controllers:coupling:js:footer-stylesheet-loader.js'));
+			// Output Javascript array to be filled with the styles!
+			$jsStyleSheetsList = json_encode($styles);
+			require cssJSToolbox::resolvePath('controllers:coupling:html:load-footer-style.html.php');
+		}
+	}
+
 	/**
 	* put your comment there...
 	* 
@@ -604,10 +646,10 @@ class CJTBlocksCouplingController extends CJTController {
 	* 
 	* @param mixed $attributes
 	*/
-	public function shortcode($attributes) {
+	public function shortcode($attributes, $content) {
 		// Instantiate Shortcode handler class.
 		cssJSToolbox::import('controllers:coupling:shortcode:shortcode.php');
-		$shortcode = new CJT_Controllers_Coupling_Shortcode($attributes);
+		$shortcode = new CJT_Controllers_Coupling_Shortcode($attributes, $content);
 		// Return Shortcode replacement!
 		return ((string) $shortcode);
 	}

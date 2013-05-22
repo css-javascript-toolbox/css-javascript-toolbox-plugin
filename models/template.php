@@ -80,6 +80,7 @@ class CJTTemplateModel extends CJTHookableClass {
 		$tManager = CJTModel::create('templates-manager');
 		$query = $tManager->getItemsQuery();
 		$query['select'] = 'SELECT t.id, 
+																					t.queueName,
 																					t.name, 
 																					t.type, 
 																					t.description, 
