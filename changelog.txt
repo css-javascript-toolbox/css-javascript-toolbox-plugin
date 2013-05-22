@@ -1,3 +1,11 @@
+= 6.1.1 =
+* Add: Allow bundling out template images along with the package.
+* Add: Accept Shortcode parameters and segments. Provide PHP framework for code blocks to define, validate and reading Shortcode parameters.
+* Add: Build up a BETA framework for interacting with the request and other CJT objects (dynamically loading template/theme).
+* Enhance: Embedded Shortcode with its closing tag as the Shortcode content is now being used by the handler blocks.
+* Enahnce: Load Shortcode linked CSS templates using dyanmic creating of <link> tag using Javascript instead of auto-embedding in the server side. So now linked CSS templates would has <link> tag even if its linked in the footer (through Shortcode).
+* Enhance: Revert block Shortcode 'force' parameter default value to 'true' therefoe allow using multiple Shortcode for the same block without setting 'force' attribute.
+
 = 6.1 =
 	* Fix: PHP code is not executed when delegating block using its Shortcode.
 	* Fix: Linked CSS template has no effect when block is delegated using its Shortcode.
