@@ -27,7 +27,7 @@ class CJTPackagesRawFileView extends CJTView {
 		// Get model.
 		$model =& $this->model;
 		// Get raw content for the requested file.
-		$this->rawContent = $model->getFileContent();
+		$this->rawContent = nl2br(htmlentities($model->getFileContent()));
 		// Display!
 		echo $this->getTemplate($tpl);
 	}

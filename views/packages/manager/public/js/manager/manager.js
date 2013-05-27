@@ -49,7 +49,7 @@
 					.success($.proxy(
 						function(content) {
 							// Open in new window.
-							var wndFile = window.open('', '', 'menubar=0,status=0,toolbar=0');
+							var wndFile = window.open('', '', 'width=700, height=550, left=160');
 							wndFile.document.write(content);
 						}, this)
 					)
