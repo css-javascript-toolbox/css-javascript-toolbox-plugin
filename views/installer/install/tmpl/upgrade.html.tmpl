@@ -1,0 +1,22 @@
+<?php
+/**
+* 
+*/
+
+// Disallow direct access.
+defined('ABSPATH') or die("Access denied");
+?>
+<div class="cjt-installer-view">
+<?php if (!$this->error) : ?>
+	<form name="installation-form" action="">
+		<input type="hidden" id="cjt-securityToken" value="<?php echo $this->securityToken ?>" />
+		<h1><?php echo cssJSToolbox::getText('Upgrading CJT Plugin') ?></h1>
+		<p><?php echo cssJSToolbox::getText('Please wait while we upgrading CJT Plugin installation! This process would take only a few seconds!') ?></p>
+<?php echo $this->getTemplate('upgrade', array('noHeaderMessage' => true), 'tmpl/upgrades'); ?>
+		<input type="button" name="install" value="<?php echo cssJSToolbox::getText('Upgrade') ?>" />
+<?php else : ?>
+<div class="error"><p><?php echo $this->error->getMessage() ?></p></div>
+<br>
+<?php endif ?>
+	</form>
+</div>

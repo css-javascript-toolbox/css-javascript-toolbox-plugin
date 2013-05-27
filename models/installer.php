@@ -177,6 +177,27 @@ class CJTInstallerModel {
 	* put your comment there...
 	* 
 	*/
+	public function isCommonRelease() {
+		// Check weather the current installed version is in the same
+		// release with the running version.
+		// Get instaleled version components.
+		$ivComponent = explode('.', str_replace('-', '.', $this->getInstalledDbVersion()));
+		$nvComponent = explode('.', str_replace('-', '.', CJTPlugin::DB_VERSION));
+		// Use PE-Edition sign if not sign used!
+		if (!isset($ivComponent[2])) {
+			$ivComponent[2] = 'PE';
+		}
+		if (!isset($nvComponent[2])) {
+			$nvComponent[2] = 'PE';
+		}
+		// TRUE if same, FALSE otherwise.
+		return (($ivComponent[0] == $nvComponent[0]) && ($ivComponent[2] == $nvComponent[2]));
+	}
+
+	/**
+	* put your comment there...
+	* 
+	*/
 	public function isUpgrade() {
 		// If the version is not the same and not equal to current version then its upgrading!
 		$isUpgrade = (($this->installedDbVersion != CJTPlugin::DB_VERSION) && ($this->installedDbVersion != ''));
