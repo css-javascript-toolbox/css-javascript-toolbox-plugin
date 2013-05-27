@@ -25,7 +25,7 @@ defined('ABSPATH') or die("Access denied");
 		<div class="cjcontainer">
 			<div class="cjcodeblock">
 				<div class="datablock">
-					<textarea class="initCode" style="visibility:hidden"><?php echo htmlentities($this->block->code) ;?></textarea>
+					<textarea class="initCode" style="visibility:hidden"><?php echo htmlentities($this->block->code, null, 'UTF-8') ;?></textarea>
 					<div id="editor-<?php echo $this->block->id ?>" class="code-editor">
 					</div>					
 				</div>
