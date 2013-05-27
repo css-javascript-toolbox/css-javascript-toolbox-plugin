@@ -1,3 +1,8 @@
+= 6.1.1.1 =
+* Enhance: Set package raw file view content alignment to left so it can readable when viewing readme file, however its done for license too.
+* Enhance: Initialize package raw file viewer window to have 700 pixels for width, 500 pixels for height and initially 160 pixels from left.
+* Enhance: Display readme and license without allowing HTML tags being injected therefor allow demonstrating HTML examples inside the readme files.
+
 = 6.1.1 =
 * Add: Allow bundling out template images along with the package.
 * Add: Accept Shortcode parameters and segments. Provide PHP framework for code blocks to define, validate and reading Shortcode parameters.
