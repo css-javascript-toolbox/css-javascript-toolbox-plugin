@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `#__cjtoolbox_backups` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-);
+) CHARACTER SET = utf8, COLLATE=utf8_general_ci;
 
 /*
 * Blocks Table Structure!
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `#__cjtoolbox_blocks` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`,`backupId`),
   KEY `pinPoint` (`pinPoint`,`state`,`location`,`type`,`parent`)
-);
+) CHARACTER SET = utf8, COLLATE=utf8_general_ci;
 
 /*
 * Blocks Pins table Structure!
@@ -57,4 +57,4 @@ CREATE TABLE IF NOT EXISTS `#__cjtoolbox_block_pins` (
   `value` int(11) NOT NULL,
   `attributes` int(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`blockId`,`pin`,`value`)
-)
+) CHARACTER SET = utf8, COLLATE=utf8_general_ci
