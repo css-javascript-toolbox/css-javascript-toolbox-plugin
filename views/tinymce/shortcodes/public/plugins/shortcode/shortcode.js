@@ -33,7 +33,7 @@
 		// Read selected block!
 		var block = this;
 		// Build shortcode!
-		var shortcode = '[cjtoolbox id="' + block.id + '"]';
+		var shortcode = '[cjtoolbox name="' + block.name + '"][/cjtoolbox]';
 		// Insert shortcode at current cursor position.
 		editor.selection.setContent(shortcode);
 		editor.focus();
@@ -77,6 +77,8 @@
 									function(id, block) {
 										// Bind to select event!
 										block.onclick = this._onselectblock;
+										// Get a copy of  block original name.
+										block.name = block.title;
 										// Prepend ID to block title!
 										block.title = '#' + id + ': ' + block.title;
 										// Add item!

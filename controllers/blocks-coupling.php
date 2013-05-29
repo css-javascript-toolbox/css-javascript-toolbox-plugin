@@ -195,7 +195,12 @@ class CJTBlocksCouplingController extends CJTController {
 	* @param mixed $id
 	*/
 	public function addOnActionIds($id) {
-		$this->onActionIds[] = $id;
+		// Add ID is not exists.
+		if (!in_array($id, $this->onActionIds)) {
+			$this->onActionIds[] = $id;	
+		}
+		// Chaining.
+		return $this;
 	}
 
 	/**
@@ -494,10 +499,10 @@ class CJTBlocksCouplingController extends CJTController {
 	* 
 	* @param mixed $attributes
 	*/
-	public function shortcode($attributes) {
+	public function shortcode($attributes, $content) {
 		// Instantiate Shortcode handler class.
 		cssJSToolbox::import('controllers:coupling:shortcode:shortcode.php');
-		$shortcode = new CJT_Controllers_Coupling_Shortcode($attributes);
+		$shortcode = new CJT_Controllers_Coupling_Shortcode($attributes, $content);
 		// Return Shortcode replacement!
 		return ((string) $shortcode);
 	}

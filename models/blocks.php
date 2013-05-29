@@ -192,7 +192,7 @@ class CJTBlocksModel {
 		$info = reset($info);
 		$info->owner = get_userdata($info->owner);
 		// Set shortcode name.
-		$info->shortcode = "[cjtoolbox id='{$info->id}']";
+		$info->shortcode = "[cjtoolbox name='{$info->name}']";
 		return $info;
 	}
 	
