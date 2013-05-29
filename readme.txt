@@ -7,7 +7,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.3
 Tested up to: 3.5.1
-Stable tag: 6.0.13
+Stable tag: 6.0.14
 
 Easily add custom CSS, JavaScript, HTML and PHP code to unique CJT code blocks and assign them wherever you want.
 
@@ -126,6 +126,14 @@ Sometimes a bug decides to rear its ugly head and when this happens, this is whe
 2. CJT Shortcode button
 
 == Changelog ==
+
+= 6.0.14 =
+* Add: Accept Shortcode parameters and segments. Provide PHP framework for code blocks to define, validate and reading Shortcode parameters.
+* Add: Allow using block 'name' in additional to 'id' when using Shortcodes.
+* Fix: Failed to work with non-ascii (e.g Arabic) characters.
+* Enhance: Viewing block info is now showing Shortcode using block 'name' instead of 'id'.
+* Enhance: Embedded Shortcode with its closing tag as the Shortcode content is now being used by the handler blocks.
+* Enhance: Revert block Shortcode 'force' parameter default value to 'true' therefoe allow using multiple Shortcode for the same block without setting 'force' attribute.
 
 = 6.0.13 =
 * Fix: CJT hijacks Plugins page after activate or deactivate a Plugin.
