@@ -9,14 +9,26 @@ defined('ABSPATH') or die("Access denied");
 <div id="cjtoolbox-admin" class="wrap">
 	<div id="custom-icon" class="icon32 blocks-icon32"></div>
 	<h2><?php echo cssJSToolbox::getText('CSS & Javascript Toolbox V6 CE') ?></h2>
-	<div id="cjt-banner-bar">
-		<span class="cjt-banner-link"><?php echo cssJSToolbox::getText('Need Help?') ?>&nbsp;&nbsp;&nbsp;<a target="_blank" href="http://<?php echo cssJSToolbox::CJT_WEB_SITE_DOMAIN ?>/css-javascript-toolbox-free/"><?php echo cssJSToolbox::getText('CJT V6 CE User Manual') ?></a></span>
-		<br>
+	<div id="cjt-banner-bar-left" class="cjt-banner-bar ">
 		<span class="cjt-banner-link">
-			<a target="_blank" href="http://<?php echo cssJSToolbox::CJT_WEB_SITE_DOMAIN ?>/category/scripts/"><?php echo cssJSToolbox::getText('Script Examples') ?></a>
-			&nbsp;&nbsp;|&nbsp;&nbsp;
-			<a target="_blank" href="http://<?php echo cssJSToolbox::CJT_WEB_SITE_DOMAIN ?>/submit-a-script/"><?php echo cssJSToolbox::getText('Submit a Script') ?></a>
+<?php echo cssJSToolbox::getText('Upgrade To') ?>:&nbsp;&nbsp;
+			<a target="_blank" href="http://<?php echo cssJSToolbox::CJT_WEB_SITE_DOMAIN ?>/css-javascript-toolbox-v6/"><?php echo cssJSToolbox::getText('CJT V6 Premium') ?></a>
 		</span>
+		<span id="get-packages" class="cjt-banner-link">
+			<span id="get-packages-icon"></span>
+			<a target="_blank" href="http://<?php echo cssJSToolbox::CJT_WEB_SITE_DOMAIN ?>/category/scripts/"><?php echo cssJSToolbox::getText('Get Script Packages') ?></a>
+		</span>
+	</div>
+	<div id="cjt-banner-bar-right" class="cjt-banner-bar ">
+		<span class="cjt-banner-link">
+<?php echo cssJSToolbox::getText('Support Us?') ?>&nbsp;&nbsp;&nbsp;
+			<a target="_blank" href="http://wordpress.org/support/view/plugin-reviews/css-javascript-toolbox#postform">
+<?php echo cssJSToolbox::getText('Rate & Review') ?>
+				<span id="review-icon"></span>
+			</a>
+		</span>
+		<br>
+		<span class="cjt-banner-link"><?php echo cssJSToolbox::getText('Need Help?') ?>&nbsp;&nbsp;&nbsp;<a target="_blank" href="http://<?php echo cssJSToolbox::CJT_WEB_SITE_DOMAIN ?>/css-javascript-toolbox-free/"><?php echo cssJSToolbox::getText('CJT V6 CE User Manual') ?></a></span>
 	</div>
 	<form id="cjtoolbox-blocks-page-form" method="post">
 		<?php wp_nonce_field('cjtoolbox'); ?>
