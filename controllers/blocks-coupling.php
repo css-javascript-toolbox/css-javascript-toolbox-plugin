@@ -48,6 +48,13 @@ class CJTBlocksCouplingController extends CJTController {
 	* 
 	* @var mixed
 	*/
+	protected $hasRun = false;
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	protected static $instance = null;
 	
 	/**
@@ -347,23 +354,22 @@ class CJTBlocksCouplingController extends CJTController {
 		// The wrong call won't has $wp_query object set,
 		// but this is only valid at Front end.
 		if (!is_admin() && !$GLOBALS['wp_query']) {
-		  return;
+			return;
 		}
-		// Get cache or get blocks if not cached.
-		// If there is no cache or no blocks for output
-		// do nothing.
-		if ($this->getCached() || $this->getBlocks()) {
-			$actionsPrefix = is_admin() ? 'admin'	: 'wp';
-			// Output blocks on various locations!
-			add_action("{$actionsPrefix}_head", array(&$this, 'outputBlocks'), 30);
-		  add_action("{$actionsPrefix}_footer", array(&$this, 'outputBlocks'), 30);
+		// Don't run twice!
+		if (!$this->hasRun) {
+			// Stop running it again!
+			$this->hasRun = true;
+			// Get cache or get blocks if not cached.
+			// If there is no cache or no blocks for output
+			// do nothing.
+			if ($this->getCached() || $this->getBlocks()) {
+				$actionsPrefix = is_admin() ? 'admin'	: 'wp';
+				// Output blocks on various locations!
+				add_action("{$actionsPrefix}_head", array(&$this, 'outputBlocks'), 30);
+			  add_action("{$actionsPrefix}_footer", array(&$this, 'outputBlocks'), 30);
+			}
 		}
-		// Make sure this is executed only once.
-		// Sometimes wp hook run on backend and sometimes its not.
-		// This method handle both front and backend requests.
-		// Simply remove all hooks to ensure its run only one time.
-		remove_action('wp', array(&$this, 'initCoupling'));
-		remove_action('admin_init', array(&$this, 'initCoupling'));
 	}
 	
 	/**
