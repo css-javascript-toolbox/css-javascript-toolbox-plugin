@@ -1,7 +1,7 @@
 = 6.1.1.2 =
 * Fix: Add version 6.0.14 CE upgrader.
-* Enhance: Uninstaller is now configurable so that admin can specify the actions to take while uninstalling the Plugin.
 * Fix: Failed to work with non-ascii (e.g Arabic) characters
+* Enhance: Uninstaller is now configurable so that admin can specify the actions to take while uninstalling the Plugin.
 
 = 6.1.1.1 =
 * Enhance: Set package raw file view content alignment to left so it can readable when viewing readme file, however its done for license too.
