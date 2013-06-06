@@ -9,7 +9,7 @@ defined('ABSPATH') or die("Access denied");
 /**
 * 
 */
-class CJTV10Upgrade {
+class CJTV11Upgrade {
 	
 	/**
 	* put your comment there...
@@ -18,7 +18,7 @@ class CJTV10Upgrade {
 	public function database() {
 		// Upgrade database tables.
 		cssJSToolbox::import('framework:installer:dbfile.class.php');
-		CJTDBFileInstaller::getInstance(cssJSToolbox::resolvePath('includes:installer:upgrade:1.0:db:mysql:structure.sql'))->exec();
+		CJTDBFileInstaller::getInstance(cssJSToolbox::resolvePath('includes:installer:upgrade:1.1:db:mysql:structure.sql'))->exec();
 		// Chaining.
 		return $this;
 	}

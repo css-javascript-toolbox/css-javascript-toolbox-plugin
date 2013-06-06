@@ -1,5 +1,5 @@
 /*
-* CJT Database Version 1.1 structure.
+* CJT Database Version 1.2 structure.
 *
 * Owner: css-javascript-toolbox.com
 * Author: Ahmed Said
@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `#__cjtoolbox_authors` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `guid` (`guid`),
   KEY `name` (`name`)
-);
+) CHARACTER SET = utf8, COLLATE=utf8_general_ci;
 
 /* 
 * CJT Backups Header Table Structure.
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `#__cjtoolbox_backups` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-);
+) CHARACTER SET = utf8, COLLATE=utf8_general_ci;
 
 /*
 * Blocks Table Structure!
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `#__cjtoolbox_blocks` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`,`backupId`),
   KEY `pinPoint` (`pinPoint`,`state`,`location`,`type`,`parent`)
-);
+) CHARACTER SET = utf8, COLLATE=utf8_general_ci;
 
 /*
 * Blocks Pins table Structure!
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `#__cjtoolbox_block_pins` (
   `value` int(11) NOT NULL,
   `attributes` int(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`blockId`,`pin`,`value`)
-);
+) CHARACTER SET = utf8, COLLATE=utf8_general_ci;
 
 /*
 * Block Associated/Linked templates table structure! 
@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `#__cjtoolbox_block_templates` (
   `blockId` int(11) NOT NULL,
   `templateId` int(11) NOT NULL,
   PRIMARY KEY (`blockId`,`templateId`)
-);
+) CHARACTER SET = utf8, COLLATE=utf8_general_ci;
 
 /*
 * Templates Table structure!
@@ -113,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `#__cjtoolbox_templates` (
   KEY `author` (`authorId`),
   KEY `type` (`type`),
   KEY `attributes` (`attributes`)
-);
+) CHARACTER SET = utf8, COLLATE=utf8_general_ci;
 
 /*
 * Template revisions table!
@@ -131,9 +131,7 @@ CREATE TABLE IF NOT EXISTS `#__cjtoolbox_template_revisions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`),
   UNIQUE KEY `templateid-revisionNo` (`revisionNo`,`templateId`)
-);
-
-/* VERSION 1.1 */
+) CHARACTER SET = utf8, COLLATE=utf8_general_ci;
 
 /* Packages holder table */
 CREATE TABLE IF NOT EXISTS`#__cjtoolbox_packages` (
@@ -145,7 +143,7 @@ CREATE TABLE IF NOT EXISTS`#__cjtoolbox_packages` (
 	`readme` TEXT NOT NULL,
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	PRIMARY KEY (`id`)
-);
+) CHARACTER SET = utf8, COLLATE=utf8_general_ci;
 
 /* Package objects map */
 CREATE TABLE IF NOT EXISTS `#__cjtoolbox_package_objects` (
@@ -154,4 +152,4 @@ CREATE TABLE IF NOT EXISTS `#__cjtoolbox_package_objects` (
 	`objectType` ENUM('block','template') NOT NULL,
 	`relType` ENUM('add','link') NOT NULL DEFAULT 'add',
 	PRIMARY KEY (`packageId`, `objectId`, `objectType`)
-)
+) CHARACTER SET = utf8, COLLATE=utf8_general_ci
