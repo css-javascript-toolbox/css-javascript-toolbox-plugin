@@ -53,7 +53,7 @@ $coreFieldsState = $this->isNew ? '' : 'disabled="disabled"';
 												<li>
 													<label for="code" title="<?php echo cssJSToolbox::getText('Enter code for the template in the large text ﬁeld and click Save when done') ?>"><?php echo cssJSToolbox::getText('Code') ?></label>
 													<div class="ace-wrap">
-														<div  id="code" name="item[revision][code]"><?php echo htmlentities($this->item->code) ?></div>
+														<div  id="code" name="item[revision][code]"><?php echo htmlentities($this->item->code, null, 'UTF-8') ?></div>
 													</div>
 												</li>
 											</ul>
