@@ -66,7 +66,7 @@ class CJTMainAccessPoint extends CJTAccessPoint {
 	*/
 	public static function uninstall() {
 		// For the uninstaller to be run eraseData setting must be enabled.
-		cssJSToolbox::import('models:settings:general');
+		cssJSToolbox::import('models:settings:uninstall.php');
 		$settings = new CJTSettingsGeneralPage();
 		if ($settings->eraseData) {
 			// Get the only instance we've for the main access point!

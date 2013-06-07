@@ -33,7 +33,7 @@ class CJTSettingsManagerView extends CJTView {
 		parent::__construct($info);
 		// Define setting pages.
 		$this->pages = array(
-			array('name' => 'general', 'displayName' => cssJSToolbox::getText('General')),
+			array('name' => 'uninstall', 'displayName' => cssJSToolbox::getText('Uninstall')),
 			array('name' => 'metabox', 'displayName' => cssJSToolbox::getText('MetaBox')),
 		);
 		// Enqueue external resources.
@@ -43,6 +43,7 @@ class CJTSettingsManagerView extends CJTView {
 	
 	/**
 	* put your comment there...
+	* 
 	* 
 	*/
 	protected function enqueueScripts() {

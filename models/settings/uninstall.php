@@ -7,7 +7,7 @@ require_once CJTOOLBOX_FRAMEWORK . '/settings/page.inc.php';
 /**
 * 
 */
-class CJTSettingsGeneralPage extends CJTSettingsPage {
+class CJTSettingsUninstallPage extends CJTSettingsPage {
 	
 	/**
 	* put your comment there...
