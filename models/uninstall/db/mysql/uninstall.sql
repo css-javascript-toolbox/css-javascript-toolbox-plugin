@@ -31,6 +31,7 @@ DELETE FROM #__wordpress_usermeta where meta_key = 'closedpostboxes_cjtoolbox';
 
 /* User Settings */
 DELETE FROM #__wordpress_options where option_name = 'cjt-settings.CJTSettingsMetaboxPage';
+DELETE FROM #__wordpress_options where option_name = 'cjt-settings.CJTSettingsUninstallPage';
 
 /*  Posts Metabox blocks */
 DELETE FROM #__wordpress_postmeta where meta_key = '__CJT-BLOCK-ID';
