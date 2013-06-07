@@ -3,4 +3,5 @@
 * 
 */
 ?>
-ZZ
+<input type="checkbox" id="uninstall-erase" name="settings[general][eraseData]" value="1" <?php if ($settings->eraseData) echo "checked='checked'"; ?> /> 
+<label for="uninstall-erase"><?php echo cssJSToolbox::getText('Erase data when Uninstall') ?></label>

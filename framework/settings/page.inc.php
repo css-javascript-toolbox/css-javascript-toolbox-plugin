@@ -104,12 +104,6 @@ abstract class CJTSettingsPage {
 	/**
 	* put your comment there...
 	* 
-	*/
-	public abstract function resetDefault();
-	
-	/**
-	* put your comment there...
-	* 
 	* @param mixed $data
 	*/
 	public function set($data) {

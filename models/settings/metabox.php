@@ -35,13 +35,5 @@ class CJTSettingsMetaboxPage extends CJTSettingsPage {
 		}
 		return $value;
 	}
-	
-	/**
-	* put your comment there...
-	* 
-	*/
-	public function resetDefault() {
-		
-	}
-	
+
 } // End class.
