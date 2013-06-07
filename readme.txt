@@ -7,7 +7,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.3
 Tested up to: 3.5.1
-Stable tag: 6.0.14
+Stable tag: 6.0.15
 
 Easily add custom CSS, JavaScript, HTML and PHP code to unique CJT code blocks and assign them wherever you want.
 
@@ -126,6 +126,8 @@ Sometimes a bug decides to rear its ugly head and when this happens, this is whe
 2. CJT Shortcode button
 
 == Changelog ==
+= 6.0.15 =
+* Enhance: Uninstaller is now configurable so that admin can specify is to wipeout the data or not! This is really great for manual upgrade to the PE versions!
 
 = 6.0.14 =
 * Add: Accept Shortcode parameters and segments. Provide PHP framework for code blocks to define, validate and reading Shortcode parameters.
