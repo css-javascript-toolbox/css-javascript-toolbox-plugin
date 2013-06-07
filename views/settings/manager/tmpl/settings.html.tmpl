@@ -1,0 +1,60 @@
+<?php
+/**
+* 
+*/
+
+// No direct access allowed.
+defined('ABSPATH') or die("Access denied");
+?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="<?php echo CJTOOLBOX_HTML_CONPONENTS_URL ?>/checkbox-list/public/css/checkbox-list.css" />
+<?php wp_print_head_scripts() ?>
+<?php wp_print_styles() ?>
+	</head>
+	<body>
+		<div id="cjtoolbox_popup">
+			<form id="settings-page">
+				<div id="settings-tabs">
+					<ul class="navigator">
+<?php
+						foreach ($this->pages as $page) :
+							// Tab for each page!
+							// Hidden field to always have somthing submitted in the server side,
+							// if nothing submitted not save loop will processed, and therefor
+							// cannot save empty list of checkboxes as in the case wityh metabox!
+?>
+							<li>
+								<a href="#<?php echo $page['name'] ?>"><?php echo cssJSToolbox::getText($page['displayName']) ?></a>
+								<input type="hidden" name="settings[<?php echo $page['name'] ?>][page_info][name]" value="<?php echo $page['name'] ?>" />
+							</li>
+<?php
+						endforeach;
+?>
+					</ul>
+					<div class="tabs">
+<?php
+						foreach ($this->pages as $page) :
+							$pageTemplateParams = array(
+								'settings' => $this->settings->loadPage($page['name']),
+								'page' => $page,
+							);
+?>
+							<div id="<?php echo $page['name'] ?>">
+								<h3><?php echo $page['displayName'] ?></h3>
+								<div class="settings-page-content">
+<?php 						echo $this->getPage($page['name'], $pageTemplateParams) ?>
+								</div>
+							</div>
+<?php
+					endforeach;
+?>
+					</div>
+				</div>
+				<input type="submit" name="" value="Submit" class="cjt-submit" />
+			</form>
+		</div>
+<?php wp_print_footer_scripts() ?>
+	</body>
+</html>

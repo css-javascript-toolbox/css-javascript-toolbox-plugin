@@ -319,6 +319,16 @@ var CJTBlocksPage;
 		* put your comment there...
 		* 
 		*/
+		_onmanagesettings : function() {
+			var params = {width: 700, height: 600,TB_iframe : true};
+			var settingsFormURL = CJTBlocksPage.server.getRequestURL('settings', 'manageForm', params);
+			tb_show(CJTBlocksPageI18N.settingsFormTitle, settingsFormURL);
+		},
+
+		/**
+		* put your comment there...
+		* 
+		*/
 		_onrestore : function() {
 			// Confirm restore.
 			var doRestore = confirm(CJTBlocksPageI18N.confirmRestoreBlocks);

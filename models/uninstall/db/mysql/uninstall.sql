@@ -23,4 +23,5 @@ DELETE FROM #__wordpress_options where option_name = 'meta-box-order_cjtoolbox';
 DELETE FROM #__wordpress_usermeta where meta_key = 'closedpostboxes_cjtoolbox';
 
 /* User Settings */
+DELETE FROM #__wordpress_options where option_name = 'cjt-settings.CJTSettingsUninstallPage';
 DELETE FROM #__wordpress_options where option_name = 'cjt-settings.CJTSettingsMetaboxPage';

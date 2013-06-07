@@ -65,15 +65,19 @@ class CJTMainAccessPoint extends CJTAccessPoint {
 	* 
 	*/
 	public static function uninstall() {
-		// Get the only instance we've for the main access point!
-		$mainAccessPointObject = self::$instance;
-		// Load default controller!
-		$mainAccessPointObject->controllerName = 'default';
-		$controller = $mainAccessPointObject->route(false)
-		// Fire uninstall action!
-		->setAction('uninstall')
-		->_doAction();
-		return $controller;
+		// For the uninstaller to be run eraseData setting must be enabled.
+		cssJSToolbox::import('models:settings:uninstall.php');
+		$settings = new CJTSettingsUninstallPage();
+		if ($settings->eraseData) {
+			// Get the only instance we've for the main access point!
+			$mainAccessPointObject = self::$instance;
+			// Load default controller!
+			$mainAccessPointObject->controllerName = 'default';
+			$controller = $mainAccessPointObject->route(false)
+			// Fire uninstall action!
+			->setAction('uninstall')
+			->_doAction();
+		}
 	}
 	
 } // End class.
