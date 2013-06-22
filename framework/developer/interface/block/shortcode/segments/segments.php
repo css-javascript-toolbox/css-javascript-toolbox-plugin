@@ -9,7 +9,8 @@ defined('ABSPATH') or die("Access denied");
 /**
 * 
 */
-class CJT_Framework_Developer_Interface_Block_Shortcode_Segments extends CJT_Framework_Developer_Interface_Block_Parameters {
+class CJT_Framework_Developer_Interface_Block_Shortcode_Segments_Segments 
+	extends CJT_Framework_Developer_Interface_Block_Parameters_Parameters {
 	
 	/**
 	* put your comment there...

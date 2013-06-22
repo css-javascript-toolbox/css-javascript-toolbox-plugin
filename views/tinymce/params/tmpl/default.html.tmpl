@@ -1,0 +1,29 @@
+<?php
+/**
+* 
+*/
+
+// Disallow direct access.
+defined('ABSPATH') or die("Access denied");
+
+// Allow view to enqueue scripts and styles.
+do_action('admin_print_scripts');
+do_action('admin_print_styles');
+?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+<?php wp_print_head_scripts() ?>
+<?php wp_print_styles() ?>
+	</head>
+	<body>
+		<div id="cjtoolbox_popup">
+		  <form id="shortcode-params-form" class="cjt-form">
+		  	<?php echo $this->grouper ?>
+		  	<input type="button" id="btn-close" value="<?php echo cssJSToolbox::getText('Close') ?>">
+		  	<input type="button" id="btn-done" value="<?php echo cssJSToolbox::getText('Done') ?>">
+		  	<input type="hidden" name="blockId" value="<?php echo $this->getParam('blockId') ?>">
+		  </form>
+<?php print_footer_scripts() ?>
+		</div>
+	</body>
+</html>

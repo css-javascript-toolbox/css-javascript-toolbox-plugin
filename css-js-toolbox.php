@@ -3,7 +3,7 @@
 Plugin Name: CSS & JavaScript Toolbox
 Plugin URI: http://css-javascript-toolbox.com/css-javascript-toolbox-v6/
 Description: CJT Plugin for WordPress to easily add custom CSS and JavaScript to individual pages
-Version: 6.2-Alpha
+Version: 6.2-alpha
 Author: Wipeout Media 
 Author URI: http://css-javascript-toolbox.com
 License:
@@ -44,11 +44,7 @@ define('CJTOOLBOX_ACCESS_POINTS', CJTOOLBOX_PATH . '/access.points');
 define('CJTOOLBOX_FRAMEWORK', CJTOOLBOX_INCLUDE_PATH); // Alias to include path!
 
 // Class Autoload Added @since 6.2.
-// NOTE: NOT ALL CLASSED IS AUTOLOADED YET! ONLY FEW CLASSES
-// IS AUTOLOADED AND CAN BE DETERMINDED BY THE PATH MAP OF THE NAME
-// LIKE AUTOLOAD CLASS IN THE LINE BELOW!
-require_once CJTOOLBOX_FRAMEWORK . '/autoload/loader.php';
-CJT_Framework_Autoload_Loader::autoLoad('CJT', CJTOOLBOX_PATH);
+require 'autoload.inc.php';
 
 // Import dependencies
 require_once CJTOOLBOX_FRAMEWORK . '/php/includes.class.php';

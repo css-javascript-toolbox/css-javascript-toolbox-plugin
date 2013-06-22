@@ -19,6 +19,13 @@ class CJT_Framework_Autoload_Loader {
 	* 
 	* @var mixed
 	*/
+	protected $map;
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	protected $path = null;
 
 	/**
@@ -39,6 +46,7 @@ class CJT_Framework_Autoload_Loader {
 		// Initialize.
 		$this->prefix = $prefix;
 		$this->path = $path;
+		$this->map = new ArrayObject(array());
 		// Resgister SPL auto load function.
 		spl_autoload_register(array($this, 'loadClass'));
 	}
@@ -58,21 +66,6 @@ class CJT_Framework_Autoload_Loader {
 			$instances[$prefix] = new CJT_Framework_Autoload_Loader($prefix, $path);
 		}
 		return $instances[$prefix];
-	}
-
-	/**
-	* put your comment there...
-	* 
-	* @param mixed $class
-	*/
-	public function loadClass($class) {
-		// Any class start with our prefix should be auto loaded!
-		if (strpos($class, "{$this->prefix}_") === 0) {
-			// Get class paths.
-			$classFile = $this->getClassAbsolutePath($this->getClassComponent($class));
-			// Import class file.
-			require $classFile;
-		}
 	}
 	
 	/**
@@ -114,4 +107,47 @@ class CJT_Framework_Autoload_Loader {
 		return $fullPath;
 	}
 
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $name
+	*/
+	public function getClassFile($name, $file) {
+		// Get class component.
+		$component = $this->getClassComponent($name);
+		// Get class absolute path.
+		$path = $this->path . DIRECTORY_SEPARATOR . $component->path;
+		return $path . DIRECTORY_SEPARATOR . $file;
+	}
+
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $class
+	*/
+	public function loadClass($class) {
+		// First, check the map!
+		if ($this->map()->offsetExists($class)) {
+			$classMappedPath = $this->map()->offsetGet($class);
+			$classFile = $this->path . DIRECTORY_SEPARATOR . $classMappedPath;
+		}
+		// Any class start with our prefix should be auto loaded!
+		else if (strpos($class, "{$this->prefix}_") === 0) {
+			// Get class paths.
+			$classFile = $this->getClassAbsolutePath($this->getClassComponent($class));
+		}
+		// Whatever a class file is set, import it!
+		if ($classFile) {
+			require $classFile;	
+		}
+	}
+  
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function map() {
+		return $this->map;
+	}
+	
 } // End class.

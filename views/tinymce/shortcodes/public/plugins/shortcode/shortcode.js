@@ -2,6 +2,10 @@
 * 
 */
 
+if (CJT === undefined) {
+	var CJT = {};
+}
+
 /**
 * TinyMCE Plugin for inserting CJT Block Shortcode
 * into Wordpress TinyMCE Editor!
@@ -32,11 +36,28 @@
 	_onselectblock : function() {
 		// Read selected block!
 		var block = this;
-		// Build shortcode!
-		var shortcode = '[cjtoolbox name="' + block.name + '"][/cjtoolbox]';
-		// Insert shortcode at current cursor position.
-		editor.selection.setContent(shortcode);
-		editor.focus();
+		var requestStruct = {blockId : block.id};
+		// Request Shortcode from server!
+		CJTServer.send('tinymceBlocks', 'getShortcode', requestStruct)
+		.success($.proxy(
+			function(response) {
+					switch (response.state) {
+						case 'shortcode-notation':
+							// Insert shortcode at current cursor position.
+							editor.selection.setContent(response.content);
+							editor.focus();
+						break;
+						case 'show-form':
+							// Show in IFRAME window!
+							requestStruct.width = 700;
+							requestStruct.height = 600;
+							requestStruct.TB_iframe = true;
+							// @TODO: Localize Form Title!
+							tb_show('CJT Block Parameters - Form', CJTServer.getRequestURL('tinymceBlocks', 'getBlockParametersForm', requestStruct))
+						break;
+					}
+			}, this)
+		);
 	},
 	
 	/**
@@ -126,7 +147,7 @@
 	init : function(ed, url) {
 		// Initialize!
 		pluginURL = url;
-		editor = ed;
+		CJT.codeEditor = editor = ed;
 		// Load CSS!
 		tinymce.DOM.loadCSS(pluginURL + '/css/shortcode.css');
 	}
