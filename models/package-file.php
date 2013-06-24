@@ -33,8 +33,6 @@ class CJTPackageFileModel extends CJTHookableClass {
 	* @param CJTPackageFile
 	*/
 	public function install($package) {
-		// Import dependencies.
-		cssJSToolbox::import('framework:db:mysql:xtable.inc.php');
 		// Initialize.
 		$model = null; // Current model for the element under the loop!
 		$item = array(); // Object Item array to be inserted in the database.
@@ -171,9 +169,11 @@ class CJTPackageFileModel extends CJTHookableClass {
 					}
 				break;
 				default:
-					throw new Exception('Invalid object type specified!');
+					//throw new Exception('Invalid object type specified!');
 				break;
 			}
+			// Support pluggable nodes that will parsed only when it really used.
+			$this->pluggables($object, $objectId);
 			// Add (associate with the package) last objectId only if the object is added
 			// as a part of the package.
 			if ($objectId) {
@@ -209,7 +209,31 @@ class CJTPackageFileModel extends CJTHookableClass {
 		}
 		return $package;
 	}
-	
+
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $node
+	* @param mixed $objectId
+	* @return CJTPackageFileModel
+	*/
+	public function pluggables($node, $objectId) {
+		// Get packages definition xml factory.
+		$factory = new CJT_Models_Package_Xml_Factory('models/package/xml/definition/objects');
+		// Based on the object type get instance of the object
+		// parser with the object node passed.
+		// call plug method so the object would start parsing the
+		// and plug the child elements.
+		$object = $factory->create(null, (string) $node->attributes()->type, $node); // OBJECT CONSTR&UCTED HERE!
+		// Set object id!
+		$object->register()->offsetSet('id', $objectId);
+		// Plug it!
+		$object->transit()
+								->processInners();
+		// Chaining.
+		return $this;
+	}
+
 	/**
 	* put your comment there...
 	* 

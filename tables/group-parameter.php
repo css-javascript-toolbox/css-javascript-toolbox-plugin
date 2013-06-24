@@ -13,7 +13,7 @@ defined('ABSPATH') or die("Access denied");
 * @author ??
 * @version ??
 */
-class CJTFormTable extends CJTxTable {
+class CJTGroupParameterTable extends CJTxTable {
 	
 	/**
 	* put your comment there...
@@ -23,9 +23,7 @@ class CJTFormTable extends CJTxTable {
 	*/
 	public function __construct($dbDriver) {
 		// Initialize parent.
-		parent::__construct($dbDriver, 'forms');
-		// Set table key.
-		$this->setTableKey(array('blockId'));
+		parent::__construct($dbDriver, 'form_group_parameters');
 	}
 	
 } // End class.
