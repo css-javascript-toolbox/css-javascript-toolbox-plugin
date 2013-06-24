@@ -159,6 +159,14 @@ class CJTExtensions extends CJTHookableClass {
 	/**
 	* put your comment there...
 	* 
+	*/
+	public function __destruct() {
+		spl_autoload_unregister(array($this, '__autoload'));
+	}
+	
+	/**
+	* put your comment there...
+	* 
 	* @param mixed $reload
 	* @return CJTExtensions
 	*/
@@ -243,9 +251,6 @@ class CJTExtensions extends CJTHookableClass {
 				}
 			}
 		}
-		// Added version 6.2 as auto load will be widely used!
-		// Unresigery ay registered auto load except only one!
-		spl_autoload_unregister(array($this, '__autoload'));
 	}
 	
 	/**
