@@ -170,6 +170,17 @@ abstract class CJTxTable extends CJTHookableClass {
 	/**
 	* put your comment there...
 	* 
+	*/
+	public function fetchAll() {
+		// Get query.
+		$query = $this->getLoadQuery();
+		// Return all result.
+		return $this->dbDriver->select($query, ARRAY_A);
+	}
+
+	/**
+	* put your comment there...
+	* 
 	* @param mixed $field
 	*/
 	public function get($field) {
@@ -210,6 +221,35 @@ abstract class CJTxTable extends CJTHookableClass {
 		return $table;
 	}
 	
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $query
+	*/
+	protected function getLoadQuery($query = null) {
+		$tableKey = null;
+		$key = null;
+		// Query might be an array of keys!
+		if (is_array($query)) {
+			$tableKey = $query;
+			$query = null;
+		}
+		if (!$query) {
+			$item = (array) $this->item;
+			$query['select'] = 'SELECT *';
+			$query['from'] = "FROM {$this->table()}";
+			// Load only if key is not NULL!
+			if ($key = $this->isValidKey($tableKey)) {
+				$query['where'] = 'WHERE ' . implode(' AND ', $this->prepareQueryParameters($key));
+				if ($query = $this->onconcatquery($query)) {
+					// Read DB  record!
+					$query = "{$query['select']} {$query['from']} {$query['where']}";
+				}				
+			}
+		}
+		return $query;
+	}
+
 	/**
 	* put your comment there...
 	* 
@@ -262,36 +302,19 @@ abstract class CJTxTable extends CJTHookableClass {
 		return $isValid;
 	}
 	
+
+
 	/**
 	* Load record into table!
 	* 	
 	* @param mixed 
 	*/
 	public function load($query = null) {
-		$tableKey = null;
-		$key = null;
-		// Query might be an array of keys!
-		if (is_array($query)) {
-			$tableKey = $query;
-			$query = null;
-		}
-		if (!$query) {
-			$item = (array) $this->item;
-			$query['select'] = 'SELECT *';
-			$query['from'] = "FROM {$this->table()}";
-			// Load only if key is not NULL!
-			if ($key = $this->isValidKey($tableKey)) {
-				$query['where'] = 'WHERE ' . implode(' AND ', $this->prepareQueryParameters($key));
-				if ($query = $this->onconcatquery($query)) {
-					// Read DB  record!
-					$query = "{$query['select']} {$query['from']} {$query['where']}";
-					$this->setItem($this->dbDriver->getRow($this->onloadquery($query)));
-				}				
-			}
-		}
-		else {
-			$this->setItem($this->dbDriver->getRow($this->onloadquery($query)));
-		}
+		// Get query to load!
+		$query = $this->getLoadQuery($query);
+		// Set the returned item.
+		$this->setItem($this->dbDriver->getRow($this->onloadquery($query)));
+		// Chaining.
 		return $this;
 	}
 	

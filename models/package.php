@@ -50,12 +50,6 @@ class CJTPackageModel extends CJTHookableClass {
 			CJTModel::getInstance('blocks')
 		 								->delete($blockIds)
 										->save();
-			// Unlink only-linked-templates!
-			// Block doesn't unlink templates linked to it!
-			// Delete all the templates linked to our block!
-			$linkedOnlyTemplatesQuery = 'DELETE FROM #__cjtoolbox_block_templates
-																												 WHERE blockId IN(%s)';
-			$dbd->exec(sprintf($linkedOnlyTemplatesQuery, implode(',', $blockIds)));
 		}
 		// Delete templates.
 		$modelTemplates->inputs['ids'] = array_keys($dbd->select(sprintf($assoObjectsQueryTmp, $id, 'template', 'add')));
