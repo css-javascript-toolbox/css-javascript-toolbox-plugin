@@ -10,11 +10,18 @@ class CJT_Models_Package_Xml_Definition_Objects_Template
 extends CJT_Models_Package_Xml_Definition_Abstract {
 	
 	/**
-	* put your comment there...
+	* Do nothing!
+	* 
+	*/
+	public function processInners() {
+		return $this;
+	}
+
+	/**
+	* Do nothing!
 	* 
 	*/
 	public function transit() {
-		// Do nothing!
 		return $this;
 	}
 	

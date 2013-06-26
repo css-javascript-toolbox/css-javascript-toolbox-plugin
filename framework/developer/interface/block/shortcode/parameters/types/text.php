@@ -17,7 +17,7 @@ extends CJT_Framework_Developer_Interface_Block_Shortcode_Parameters_Base_Scalar
 	* 
 	*/
 	protected function getShortcodeValue() {
-		return '"' . $this->getValue() . "'";
+		return "'" . $this->getValue() . "'";
 	}
 	
 } // End class.
