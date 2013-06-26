@@ -12,7 +12,7 @@ interface CJT_Framework_Developer_Interface_Block_Parameters_Types_Interface_Typ
 	* put your comment there...
 	* 
 	*/
-	public function getValue();
+	public function getValue($useRealNames = null);
 	
 	/**
 	* put your comment there...

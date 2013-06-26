@@ -40,7 +40,7 @@ class CJT_Framework_View_Block_Parameter_Grouper_Tab_Tab {
  	* 
  	*/
  	public function enqueueScripts() {
-		
+ 		return array('jquery', 'jquery-ui-tabs');
  	}
  	
  	/**
@@ -48,7 +48,7 @@ class CJT_Framework_View_Block_Parameter_Grouper_Tab_Tab {
  	* 
  	*/
  	public function enqueueStyles() {
-		
+		return array('framework:css:jquery-ui-1.8.21.custom');
  	}
  	
  	/**

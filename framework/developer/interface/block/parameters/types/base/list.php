@@ -53,12 +53,19 @@ extends CJT_Framework_Developer_Interface_Block_Parameters_Types_Base_Abstract {
 	* put your comment there...
 	* 
 	*/
-	public function getValue() {
+	public function getValue($useRealNames = null) {
+		// Defaults.
+		if ($useRealNames === null) {
+			$useRealNames = false;
+		}
 		// Initialize value array.
 		$value = array();
 		// Get all values from all child parameters.
-		foreach ($this->params as $name => $param) {
-			$value[$name] = $param->getValue();
+		foreach ($this->params as $key => $param) {
+			// Get name.
+			$name = $useRealNames ? $param->getDefinition()->getName() : $key;
+			// Set Value!
+			$value[$name] = $param->getValue($useRealNames);
 		}
 		return $value;
 	}

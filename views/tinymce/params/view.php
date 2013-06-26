@@ -18,18 +18,38 @@ class CJTTinymceParamsView extends CJTView {
 	/**
 	* put your comment there...
 	* 
+	* @var mixed
+	*/
+	protected $groups = null;
+	
+	/**
+	* put your comment there...
+	* 
 	* @param mixed $viewInfo
 	* @return CJTTinymceParamsView
 	*/
 	public function __construct($viewInfo, $params)  {
 		// Parent procedure!
 		parent::__construct($viewInfo, $params);
+		// Prepare groups from the passed parameters.
+		foreach ($params['params'] as $param) {
+			// Initialize.
+			$groupName = $param->getDefinition()->getGroupName();
+			// Identifiy group by key.
+			$groupKey = strtolower(str_replace(array(' '), '-', $groupName));
+			if (!isset($this->groups[$groupKey])) {
+				// Initialize group info array.
+				$this->groups[$groupKey] 	= array('name' => $groupName, 'params' => array());
+			}
+			// Add parameter under its group!
+			$this->groups[$groupKey]['params'][] = $param;
+		}
 		// Instantiate grouper.
 		// Only tab grouper is supported for now!
 		$grouperFactory = new CJT_Framework_View_Block_Parameter_Grouper_Factory();
 		$this->grouper = $grouperFactory->create(
 			$params['form']->groupType, 
-			$params['params']
+			$this->groups
 		);
 		// Scripts and Styles.
 		self::enqueueScripts();
@@ -42,13 +62,17 @@ class CJTTinymceParamsView extends CJTView {
 	* @return void
 	*/
 	public function enqueueScripts() {
-		// Use related scripts.
-		self::useScripts(__CLASS__, 
+		// Scripts required by the form to run.
+		$scripts = array(
 			'jquery',
 			'jquery-serialize-object',
 			'views:tinymce:params:public:js:{CJT_TINYMCE_PARAMS-}form',
-			'framework:js:misc:{CJT-}simple-error-dialog'
+			'framework:js:misc:{CJT-}simple-error-dialog'		
 		);
+		// Scripts required by the grouper.
+		$scripts = array_merge($scripts, $this->getGrouper()->enqueueScripts());
+		// Use related scripts.
+		self::useScripts(__CLASS__, $scripts);
 	}
 	
 	/**
@@ -57,12 +81,24 @@ class CJTTinymceParamsView extends CJTView {
 	* @return void
 	*/
 	public function enqueueStyles() {
-		// Use related styles.
-		self::useStyles(__CLASS__,
+		// Styles required by the params form.
+		$styles = array(
 			'framework:css:{CJT-}forms',
 			'framework:css:{CJT-}error-dialog',
 			'views:tinymce:params:public:css:{CJT_TINY_MCE_PARAMS_FORM-}style'
 		);
+		// Groupe styles.
+		$styles = array_merge($styles, $this->getGrouper()->enqueueStyles());
+		// Use related styles.
+		self::useStyles(__CLASS__, $styles);
+	}
+
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function getGrouper() {
+		return $this->grouper;
 	}
 
 } // End class.

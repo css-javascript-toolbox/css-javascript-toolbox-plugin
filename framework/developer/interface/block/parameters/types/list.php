@@ -16,9 +16,9 @@ class CJT_Framework_Developer_Interface_Block_Parameters_Types_List
 	* put your comment there...
 	* 
 	*/
-	public function getValue() {
+	public function getValue($useRealNames = null) {
 		// Get associative array!
-		$assocArray = parent::getValue();
+		$assocArray = parent::getValue($useRealNames);
 		// Get indexed array!
 		return array_values($assocArray);
 	}

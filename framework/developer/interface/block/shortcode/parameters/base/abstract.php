@@ -56,7 +56,7 @@ CJT_Framework_Developer_Interface_Block_Shortcode_Parameters_Interface_Type {
 	* put your comment there...
 	* 
 	*/
-	protected function getDefinition() {
+	public function getDefinition() {
 		return $this->getTypeObject()->getDefinition();
 	}
 
@@ -88,8 +88,8 @@ CJT_Framework_Developer_Interface_Block_Shortcode_Parameters_Interface_Type {
 	* put your comment there...
 	* 
 	*/
-	public function getValue() {
-		return $this->getTypeObject()->getValue();
+	public function getValue($useRealNames = null) {
+		return $this->getTypeObject()->getValue($useRealNames);
 	}
 	
 	/**

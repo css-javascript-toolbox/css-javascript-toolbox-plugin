@@ -15,9 +15,19 @@ extends CJT_Framework_Developer_Interface_Block_Parameters_Parameters {
 	* @param mixed $name
 	*/
 	public function get($name) {
+		// Initialize.
+		$value = NULL;
+		// Get param key from the given name.
+		$key = strtolower($name);
+		if (!isset($this->params[$key])) {
+			echo cssJSToolbox::getText("Parameter {$name} is not found!");
+		}
+		else {
+			$value = $this->params[$key]->getValue();
+		}
 		// Allow writing it in the original case inside the code
 		// however its only retrived by the lowercvase letter.
-		return $this->params[strtolower($name)]->getValue();
+		return $value;
 	}
 
 	/**
@@ -54,6 +64,32 @@ extends CJT_Framework_Developer_Interface_Block_Parameters_Parameters {
 			echo cssJSToolbox::getText("Invalid Shortcode parameter(s) has been passed! Please check parameters name.");
 		}
 		return $this;
+	}
+
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $excludes
+	*/
+	public function json($excludes = null) {
+		// Initialize.
+		$params = array();
+		$json = '';
+		// Build exclude list.
+		$excludes = explode(',', $excludes);
+		// Get all parameters.
+		foreach ($this->getParams() as $name => $param) {
+			// Process only parameters not in the eexclude list.
+			if (!in_array($name, $excludes)) {
+				// Get parameter real name.
+				$realName = $param->getDefinition()->getName();
+				$params[$realName] = $param->getValue(true);
+			}
+		}
+		// Get JSON.
+		$json = json_encode($params);
+		// Returns.
+		return $json;
 	}
 
 	/**

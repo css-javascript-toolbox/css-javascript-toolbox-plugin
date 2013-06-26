@@ -23,7 +23,7 @@ abstract class CJT_Framework_Developer_Interface_Block_Parameters_Types_Base_Sca
 	* put your comment there...
 	* 
 	*/
-	public function getValue() {
+	public function getValue($useRealNames = null) {
 		return $this->value;
 	}
 

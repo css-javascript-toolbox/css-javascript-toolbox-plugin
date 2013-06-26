@@ -12,6 +12,12 @@
 	var CJTTinymceParamsView = {
 		
 		/**
+		* put your comment there...
+		* 
+		*/
+		tb_position : parent.tb_position,
+		
+		/**
 		* 
 		*/
 		_onclose : function() {
@@ -35,7 +41,6 @@
 						case 'shortcode-notation':
 							// @TODO :Wrap Shortcode content string with a span element for later references when updating is in need. Generate dynamic ID for the span too.
 							var shortcodeInstance = response.content;
-							alert(shortcodeInstance);
 							// Get CJT editor instance.
 							var editor = parent.CJT.codeEditor;
 							// Place Shortcode string.
@@ -53,12 +58,25 @@
 		* put your comment there...
 		* 
 		*/
+		_onunload : function() {
+			// Restore tb_position.
+			parent.tb_position = this.tb_position;
+		},
+
+		/**
+		* put your comment there...
+		* 
+		*/
 		init : function() {
 			// Initialize.
 			this.form = $('#shortcode-params-form');
 			// Bind events!
 			$('#btn-close').click($.proxy(this._onclose, this));
 			$('#btn-done').click($.proxy(this._ondone, this));
+			// Don't allow form resizing!
+			parent.tb_position = function() {};
+			// Restore tb_position whe unload
+			window.addEventListener('unload', $.proxy(this._onunload, this));
 		}
 		
 	} // End view class.
