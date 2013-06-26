@@ -34,12 +34,17 @@ class CJTTinymceParamsView extends CJTView {
 		// Prepare groups from the passed parameters.
 		foreach ($params['params'] as $param) {
 			// Initialize.
-			$groupName = $param->getDefinition()->getGroupName();
+			$paramDef = $param->getDefinition();
+			$groupName = $paramDef->getGroupName();
 			// Identifiy group by key.
 			$groupKey = strtolower(str_replace(array(' '), '-', $groupName));
 			if (!isset($this->groups[$groupKey])) {
 				// Initialize group info array.
-				$this->groups[$groupKey] 	= array('name' => $groupName, 'params' => array());
+				$this->groups[$groupKey] 	= array(
+					'name' => $groupName,
+					'description' => $paramDef->getGroupDescription(),
+					'params' => array()
+				);
 			}
 			// Add parameter under its group!
 			$this->groups[$groupKey]['params'][] = $param;

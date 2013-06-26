@@ -89,7 +89,7 @@ extends CJT_Models_Block_Parameters_Parameter {
 	* put your comment there...
 	* 
 	*/
-	public function getGroupDesciption() {
+	public function getGroupDescription() {
 		return $this->groupDescription;
 	}
 
