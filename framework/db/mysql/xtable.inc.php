@@ -244,7 +244,10 @@ abstract class CJTxTable extends CJTHookableClass {
 				if ($query = $this->onconcatquery($query)) {
 					// Read DB  record!
 					$query = "{$query['select']} {$query['from']} {$query['where']}";
-				}				
+				}
+			}
+			else {
+				throw new CJT_Framework_DB_Mysql_Driver_Exception_Invalidkey($key);
 			}
 		}
 		return $query;
@@ -310,10 +313,16 @@ abstract class CJTxTable extends CJTHookableClass {
 	* @param mixed 
 	*/
 	public function load($query = null) {
-		// Get query to load!
-		$query = $this->getLoadQuery($query);
-		// Set the returned item.
-		$this->setItem($this->dbDriver->getRow($this->onloadquery($query)));
+		try {
+			// Get query to load!
+			$query = $this->getLoadQuery($query);
+			// Set the returned item.
+			$this->setItem($this->dbDriver->getRow($this->onloadquery($query)));
+		}
+		catch (CJT_Framework_DB_Mysql_Driver_Exception_Invalidkey $exception) {
+			// Backword compatibility to don't show any error.
+			// This is how the old code procedure was!
+		}
 		// Chaining.
 		return $this;
 	}
