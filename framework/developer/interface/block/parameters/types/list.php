@@ -19,8 +19,10 @@ class CJT_Framework_Developer_Interface_Block_Parameters_Types_List
 	public function getValue($useRealNames = null) {
 		// Get associative array!
 		$assocArray = parent::getValue($useRealNames);
-		// Get indexed array!
-		return array_values($assocArray);
+		// As Wordpress Shortcode cannot understand [ and ] brackets
+		// being in the attribute value we need to use Javascript object instead of array
+		// by casting to object.
+		return (object) array_values($assocArray);;
 	}
 
 	/**
