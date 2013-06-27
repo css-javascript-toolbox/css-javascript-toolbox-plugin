@@ -81,9 +81,31 @@ extends CJT_Framework_Developer_Interface_Block_Parameters_Parameters {
 		foreach ($this->getParams() as $name => $param) {
 			// Process only parameters not in the eexclude list.
 			if (!in_array($name, $excludes)) {
+				$definition = $param->getDefinition();
 				// Get parameter real name.
-				$realName = $param->getDefinition()->getName();
-				$params[$realName] = $param->getValue(true);
+				$realName = $definition->getName();
+				// Don't use optional parameters with no values passed.
+				$value = $param->getValue(true);
+				$isOptional = !$definition->getRequired();
+				if ($isOptional) {
+					$stack = array($value);
+					do {
+						// Get current value.
+						$current = array_shift($stack);
+						// Add to process later.
+						if (!is_scalar($current)) {
+							$stack += (array) $current;
+						}
+						// Once a non-empty value is found use it!
+						else if ($current) {
+							$params[$realName] = $value;
+							break; // Exit the loop!
+						}
+					} while (!empty($stack));
+				}
+				else {
+					$params[$realName] = $value;
+				}
 			}
 		}
 		// Get JSON.
