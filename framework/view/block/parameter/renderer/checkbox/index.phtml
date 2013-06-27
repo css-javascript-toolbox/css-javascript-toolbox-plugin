@@ -3,7 +3,7 @@
 * 
 */
 $definition = $this->getDefinition();
-$checked = $this->getValue() ? ' checked="checked' : '';
+$checked = $this->getValue() ? ' checked="checked"' : '';
 ?>
 <label for="" title="<?php echo $definition->getDescription() ?>"><?php echo $definition->getName() ?></label>
 <input type="checkbox" name="<?php echo $this->getName() ?>" value="1" <?php echo $checked; ?> />
