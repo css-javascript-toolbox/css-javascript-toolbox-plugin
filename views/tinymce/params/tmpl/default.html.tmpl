@@ -9,6 +9,13 @@ defined('ABSPATH') or die("Access denied");
 // Allow view to enqueue scripts and styles.
 do_action('admin_print_scripts');
 do_action('admin_print_styles');
+
+// Initialize.
+$blockId = $this->getParam('blockId');
+
+// Block Package info.
+$packageInfo = new CJT_Models_Package_Block($blockId);
+$packageInfo = $packageInfo->getPackageInfo();
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
@@ -21,7 +28,12 @@ do_action('admin_print_styles');
 		  	<?php echo $this->grouper ?>
 		  	<input type="button" id="btn-close" value="<?php echo cssJSToolbox::getText('Close') ?>">
 		  	<input type="button" id="btn-done" value="<?php echo cssJSToolbox::getText('Done') ?>">
-		  	<input type="hidden" name="blockId" value="<?php echo $this->getParam('blockId') ?>">
+		  	<input type="hidden" name="blockId" value="<?php echo $blockId ?>">
+				<?php if ($packageInfo) : ?>
+					<span class="packag-info">
+						<?php echo cssJSToolbox::getText('By') ?>: <a target="_blank" href="<?php echo $packageInfo['webSite'] ?>"><?php echo $packageInfo['author'] ?></a>
+					</span>
+				<?php endif; ?>
 		  </form>
 <?php print_footer_scripts() ?>
 		</div>
@@ -33,6 +45,8 @@ do_action('admin_print_styles');
 				parent.jQuery('#TB_window').css(size);
 				size.height -= 10;
 				parent.jQuery('#TB_iframeContent').css(size);
+				// Tab size.
+				$('#cjt-grouper-tab-navigator').tabs().css({height: '527px'});
 			});
 		</script>
 	</body>

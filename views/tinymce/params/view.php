@@ -25,6 +25,13 @@ class CJTTinymceParamsView extends CJTView {
 	/**
 	* put your comment there...
 	* 
+	* @var mixed
+	*/
+	protected $packageInfo = null;
+	
+	/**
+	* put your comment there...
+	* 
 	* @param mixed $viewInfo
 	* @return CJTTinymceParamsView
 	*/
