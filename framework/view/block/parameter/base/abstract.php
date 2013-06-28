@@ -54,6 +54,18 @@ CJT_Framework_View_Block_Parameter_Interface_Type {
 	* put your comment there...
 	* 
 	*/
+	protected function getElementId() {
+		// Get element name.
+		$name = $this->getName();
+		// Replace all [ and ] to dashes!
+		$id = str_replace(array('[', ']'), '-', $name);
+		return $id;
+	}
+
+	/**
+	* put your comment there...
+	* 
+	*/
 	public function getName() {
 		// Initialize.
 		$name = '';

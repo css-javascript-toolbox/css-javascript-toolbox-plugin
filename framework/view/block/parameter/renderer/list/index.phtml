@@ -8,9 +8,10 @@ $definition = $this->getDefinition();
 
 // All values to be displayed in the list.
 $values = $definition->getValues();
+$elementId = $this->getElementId();
 ?>
-<label for="" title="<?php echo $definition->getDescription() ?>"><?php echo $definition->getName() ?></label>
-<select id="" name="<?php echo $this->getName() ?>" size="2">
+<label for="<?php echo $elementId ?>" title="<?php echo $definition->getDescription() ?>"><?php echo $definition->getName() ?></label>
+<select id="<?php echo $elementId ?>" name="<?php echo $this->getName() ?>" size="2">
 <?php
 foreach ($values as $value) :
 	$selected = ($this->getValue() == $value->getValue()) ? ' selected="selected"' : '';

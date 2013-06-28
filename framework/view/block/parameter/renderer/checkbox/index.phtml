@@ -4,6 +4,8 @@
 */
 $definition = $this->getDefinition();
 $checked = $this->getValue() ? ' checked="checked"' : '';
+// Element id.
+$elementId = $this->getElementId();
 ?>
-<label for="" title="<?php echo $definition->getDescription() ?>"><?php echo $definition->getName() ?></label>
-<input type="checkbox" name="<?php echo $this->getName() ?>" value="1" <?php echo $checked; ?> />
+<label for="<?php echo $elementId; ?>" title="<?php echo $definition->getDescription() ?>"><?php echo $definition->getName() ?></label>
+<input type="checkbox" id="<?php echo $elementId; ?>" name="<?php echo $this->getName() ?>" value="1" <?php echo $checked; ?> />
