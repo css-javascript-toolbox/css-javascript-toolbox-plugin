@@ -36,8 +36,8 @@ class CJT_Models_Package_Block {
 		// Query package info for the current block.
 		$query = "SELECT p.id, p.author, p.webSite
 											FROM #__cjtoolbox_packages p RIGHT JOIN #__cjtoolbox_package_objects o
-											ON p.id = o.objectId
-											WHERE ((o.objectType = 'block') AND (o.objectId = {$this->id}));";
+											ON p.id = o.packageId AND o.objectType = 'block'
+											WHERE o.objectId = {$this->id};";
 		// Exec!
 		$packageInfo = $driver->getRow($query, ARRAY_A);
 		return $packageInfo;
