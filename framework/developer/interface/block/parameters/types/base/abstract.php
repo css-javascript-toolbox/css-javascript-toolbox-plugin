@@ -44,7 +44,6 @@ implements CJT_Framework_Developer_Interface_Block_Parameters_Types_Interface_Ty
 		// Initialize.
 		$this->definition = $definition;
 		$this->factory = $factory;
-		$this->parent = $parent;
 		// Set Default value!
 		$this->setDefault();
 	}

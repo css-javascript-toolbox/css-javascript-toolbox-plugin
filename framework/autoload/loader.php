@@ -126,6 +126,7 @@ class CJT_Framework_Autoload_Loader {
 	* @param mixed $class
 	*/
 	public function loadClass($class) {
+		$classFile = '';
 		// First, check the map!
 		if ($this->map()->offsetExists($class)) {
 			$classMappedPath = $this->map()->offsetGet($class);
