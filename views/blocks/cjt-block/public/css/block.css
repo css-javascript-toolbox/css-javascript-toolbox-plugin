@@ -17,9 +17,31 @@
 .pagelist ul { margin-left:15px; }
 
 /**
-* Advanced TAB Accordion menu.
+* jQuery Accordions
 */
-.advanced-accordion {margin-top: 6px;}
+.ui-accordion {margin-top: 6px;}
+a.acc-header {display: block;}
+a.acc-header,
+a.acc-header:hover,
+a.acc-header:visited {
+	text-decoration: none;
+	font-family: Helvetica;
+	color: #AFAFAF;
+	font-weight: bold;
+}
+
+/**
+* Custom Posts jQuery Accordion
+*/
+.cjt-tab-item-custom-posts {overflow: auto; background-color: white !important;}
+.custom-posts-accordion .ui-accordion-content {height: 211px;}
+.custom-posts-accordion .pagelist {height: 205px; padding: 0px; margin-left: 4px; margin-top: 2px;}
+.custom-posts-accordion a.acc-header {padding-left: 5px;}
+/**
+* Advanced Tab jQuery Accordion
+*/
+.advanced-accordion .ui-accordion-content {height: 218px;}
+.ui-accordion-header-active {color: #a5581b !important;}
 .advanced-accordion textarea {
 	height: 211px;
 	width: 282px;
@@ -29,19 +51,7 @@
 	white-space: nowrap;
 	text-decoration: underline;
 }
-.advanced-accordion a.acc-header {display: block;}
-.advanced-accordion a.acc-header,
-.advanced-accordion  a.acc-header:hover,
-.advanced-accordion a.acc-header:visited {
-	text-decoration: none;
-	font-family: Helvetica;
-	color: #AFAFAF;
-	font-weight: bold;
-	font-size: 16px;
-	padding: 7px 4px;
-}
-.advanced-accordion .ui-accordion-content {height: 218px;}
-.advanced-accordion .ui-accordion-header-active {color: #a5581b !important;}
+.advanced-accordion a.acc-header {padding: 7px 4px;}
 /*
  * jQuery UI Tabs 1.8.16
  *

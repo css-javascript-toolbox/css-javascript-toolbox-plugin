@@ -1,0 +1,42 @@
+<?php
+// Create tabs for every custom post under the custom posts tab.
+// Get all registered custom posts.
+$customPosts = get_post_types(array('public' => 1, '_builtin' => false), 'objects');
+// Get refernce to custom posts tab.
+$accordionItems = array();
+// Add tab for every custom post.
+foreach ($customPosts as $typeName => $customPost) {
+	$accordionItems[$typeName] = array(
+		'title' => $customPost->labels->name,
+		'renderer' => 'objects-list',
+		'type' => array('postType' => $typeName, 'objectType' => 'post')
+	);
+}
+// If there is no custom posts registered show message
+//, otherwise create the custom-posts accordion
+if (!empty($accordionItems)) :
+?>
+	<div id="custom-posts-accordion-<?php echo $block->id ?>" class="custom-posts-accordion">
+<?php foreach ($accordionItems as $item) : ?>
+		<a href="#" class="acc-header"><?php echo $item['title'] ?></a>
+		<div class="custom-post-list">
+<?php
+				// Get item 'renderer' (every tab has template to render.) template.
+				$tabViewTmpl = $item['renderer'];
+				// Use template view for rendering the tab.
+				echo $this->getTemplate($tabViewTmpl,
+					array('tab' => $item, 'block' => $block),
+					'tmpl/templates/assign-panel/templates'
+					);
+?>
+		</div>
+<?php endforeach; ?>
+	</div>
+<?php else : ?>
+	<div class="list-error">
+		<span class="message"><?php echo cssJSToolbox::getText('There are no Custom Posts Defined yet!') ?></span>
+		<br />
+		<br />
+		<span class="desc">This message is displayed if there is no Custom Post types defined or there is no Posts Added under Custom Post types!</span>
+	</div>
+<?php endif; ?>

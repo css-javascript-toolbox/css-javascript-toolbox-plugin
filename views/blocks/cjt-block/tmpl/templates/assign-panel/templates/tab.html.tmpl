@@ -1,0 +1,27 @@
+			<div id="<?php echo $tab['tab']['id'] ?>-<?php echo $block->id; ?>" class="<?php echo $tab['tab']['class'] ?>">
+				<ul>
+<?php
+					/// Create TAB navigator
+					foreach ($tab['tabs'] as $name => & $item): 
+						// Cache item tab ID.
+						$item['tabId'] = "{$tab['tab']['id']}-{$block->id}-{$name}";
+?>
+						<li><a href="#<?php echo $item['tabId'] ?>"><?php echo $item['title'] ?></a></li>
+<?php 		endforeach; ?>
+				</ul>
+<?php
+				/// Create TAB Views.
+				foreach ($tab['tabs'] as $name => & $item):
+					// Get item 'renderer' (every tab has template to render.) template.
+					$tabViewTmpl = $item['renderer'];
+?>
+					<div id="<?php echo $item['tabId'] ?>" class="cjt-tab-item-<?php echo $name ?>">
+<?php // Use template view for rendering the tab.
+						echo $this->getTemplate($tabViewTmpl,
+							array('tab' => $item, 'block' => $block),
+							'tmpl/templates/assign-panel/templates'
+						);
+?>					
+					</div>
+<?php		endforeach; ?>
+			</div>
