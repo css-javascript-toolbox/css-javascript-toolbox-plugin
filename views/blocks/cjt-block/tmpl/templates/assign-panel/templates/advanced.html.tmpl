@@ -1,0 +1,10 @@
+<div id="advanced-accordion-<?php echo $block->id ?>" class="advanced-accordion">
+	<a class="acc-header" href="#" title="<?php echo cssJSToolbox::getText('One URL per line') ?>"><?php echo cssJSToolbox::getText('URLs') ?></a>
+	<div class="linklist">
+		<textarea cols="31" rows="9" name="cjtoolbox[<?php echo $block->id; ?>][links]" id="cjcode-links-<?php echo $block->id; ?>"><?php echo $block->links; ?></textarea>
+	</div>
+	<a class="acc-header" href="#" title="<?php  echo cssJSToolbox::getText('One Expression per line') ?>"><?php echo cssJSToolbox::getText('Expressions') ?></a>
+	<div class="linklist">
+		<textarea cols="31" rows="9" name="cjtoolbox[<?php echo $block->id; ?>][expressions]" id="cjcode-expressions-<?php echo $block->id; ?>"><?php echo $block->expressions; ?></textarea>
+	</div>
+</div>

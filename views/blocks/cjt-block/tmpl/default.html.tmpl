@@ -11,5 +11,5 @@ $blockView = $this->getBlockView();
 $blockContent = $blockView->getTemplate($blockView->templateName);
 
 // Put the Objects Panel at the begning of the block content.
-echo $this->getTemplate('objects-panel', array('block' => $blockView->getBlock()), 'tmpl/templates');
+echo $this->getTemplate('default', array('block' => $blockView->getBlock()), 'tmpl/templates/assign-panel');
 echo $blockContent;

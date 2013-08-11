@@ -18,31 +18,7 @@
 		/**
 		* 
 		*/
-		this._onadvancedaccordionchanged = function(event, ui) {
-			// Activate textarea under the current selected item content!
-			ui.newContent.find('textarea').focus();
-		}
-		
-		/**
-		* 
-		*/
-		this._onselectchilds = function(event) {
-			// Initialize vars.
-			var overlay = $(event.target);
-			var checkbox = overlay.parent().find('.select-childs');
-			var state = checkbox.prop('checked') ? '' : 'checked';
-			// Work only if select-child checkbox is interactive!
-			if (checkbox.attr('disabled') != 'disabled') {
-				// Revert checkbox state.
-				checkbox.prop('checked', state);
-				// Clone state to parent checkbox.
-				checkbox.parent().find('label>input:checkbox').prop('checked', state).trigger('change');
-				//Clone state to all child checkboxes
-				checkbox.parent().find('.children input:checkbox').prop('checked', state).trigger('change');
-			}
-			// For link to behave inactive.
-			return false;
-		}
+		this.pagesPanel = null;
 		
 		/**
 		*
@@ -98,31 +74,24 @@
 			// For link to behave inactive.
 			return false;
 		}
-		
 		// Initialize parent class.
 		this.initCJTPluginBase(node, args);
-		// Activate objects panel!
-		var pagesPanel = this.block.box.find('.cjt-pages-tab').tabs();	
+		// Plug the assigment panel, get the jQuery ELement for it
+		var assigmentPanelElement = this.block.box.find('#tabs-' + this.block.get('id'));
+		this.pagesPanel = assigmentPanelElement.CJTBlockAssignmentPanel({block : this});
 		// Add toolbox button.
 		var tbIconsGroup = this.block.box.find('.editor-toolbox .icons-group')
 		tbIconsGroup.children().first().after('<a href="#" class="cjt-tb-link cjttbl-toggle-objects-panel"></a>')
 		var toggler = this.editorToolbox.add('toggle-objects-panel', {callback : this._ontogglepagespanel});
 		// Close it if it were closed.
 		this._ontogglepagespanel({target : toggler.jButton}, this.block.get('pagesPanelToggleState', ''));
-		// Accordion menu for Advanced TAB.
-		this.block.box.find('#advanced-accordion-' + this.block.get('id')).accordion({
-				change : this._onadvancedaccordionchanged,
-				header: '.acc-header'
-			}
-		);
-		// Put select-childs checkboxes in action!
-		pagesPanel.find('.select-childs-checkbox-overlay').click($.proxy(this._onselectchilds, this));
+		
 		// More to Dock with Fullscreen mode!
 		this.extraDocks = [
-			{element : pagesPanel.find('.ui-tabs-panel'), pixels : 89},
-			{element : pagesPanel.find('.ui-tabs-panel .pagelist'), pixels : 132},
-			{element : pagesPanel.find('.advanced-accordion .ui-accordion-content'), pixels : 169},
-			{element : pagesPanel.find('.advanced-accordion .ui-accordion-content textarea'), pixels : 177}
+			{element : assigmentPanelElement.find('.ui-tabs-panel'), pixels : 89},
+			{element : assigmentPanelElement.find('.ui-tabs-panel .pagelist'), pixels : 132},
+			{element : assigmentPanelElement.find('.advanced-accordion .ui-accordion-content'), pixels : 169},
+			{element : assigmentPanelElement.find('.advanced-accordion .ui-accordion-content textarea'), pixels : 177}
 		];
 	} // End class.
 	
