@@ -33,15 +33,19 @@ a.acc-header:visited {
 /**
 * Custom Posts jQuery Accordion
 */
-.cjt-tab-item-custom-posts {overflow: auto; background-color: white !important;}
+.cjt-tab-item-custom-posts {overflow: auto;}
 .custom-posts-accordion .ui-accordion-content {height: 211px;}
-.custom-posts-accordion .pagelist {height: 205px; padding: 0px; margin-left: 4px; margin-top: 2px;}
-.custom-posts-accordion a.acc-header {padding-left: 5px;}
+.custom-posts-accordion .pagelist {height: 205px; padding: 0px; margin-top: 2px;}
+.custom-posts-accordion a.acc-header {
+	text-decoration: underline;
+	margin-bottom: 2px;
+	padding-left: 5px;
+}
 /**
 * Advanced Tab jQuery Accordion
 */
 .advanced-accordion .ui-accordion-content {height: 218px;}
-.ui-accordion-header-active {color: #a5581b !important;}
+.advanced-accordion .ui-accordion-header-active {color: #a5581b !important;}
 .advanced-accordion textarea {
 	height: 211px;
 	width: 282px;

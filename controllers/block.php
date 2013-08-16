@@ -49,4 +49,13 @@ class CJTBlockController extends CJTAjaxController {
 		$this->response = array_intersect_key((array) $this->model->getBlockBy(), $returns);
 	}
 	
+	/**
+	* Fetch block pins page.
+	* 
+	*/
+	public function getPinsPage() {
+		// Read inputs.
+		$startFrom = 
+	}
+
 } //  End class.

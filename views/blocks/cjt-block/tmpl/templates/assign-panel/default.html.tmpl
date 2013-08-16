@@ -6,17 +6,23 @@ $tabs = array(
 		'pages' => array(
 			'title' => cssJSToolbox::getText('Pages'),
 			'renderer' => 'objects-list',
-			'type' => array('postType' => 'page', 'objectType' => 'post')
+			'type' => array('postType' => 'page',
+											'group' => 'pages', 
+											'targetType' => 'post')
 		),
 		'posts' => array(
 			'title' => cssJSToolbox::getText('Posts'),
 			'renderer' => 'objects-list',
-			'type' => array('postType' => 'post', 'objectType' => 'post')
+			'type' => array('postType' => 'post',
+											'group' => 'posts',
+											'targetType' => 'post')
 		),
 		'categories' => array(
 			'title' => cssJSToolbox::getText('Categories'),
 			'renderer' => 'objects-list',
-			'type' => array('postType' => 'post', 'objectType' => 'taxonomy')
+			'type' => array('postType' => 'category', 
+											'group' => 'categoies', 
+											'targetType' => 'taxonomy')
 		),
 		'custom-posts' => array(
 			'title' => cssJSToolbox::getText('Custom Posts'),

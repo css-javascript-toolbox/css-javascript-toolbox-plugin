@@ -9,19 +9,24 @@ foreach ($customPosts as $typeName => $customPost) {
 	$accordionItems[$typeName] = array(
 		'title' => $customPost->labels->name,
 		'renderer' => 'objects-list',
-		'type' => array('postType' => $typeName, 'objectType' => 'post')
+		'type' => array('postType' => $typeName,
+										'group' => 'posts',
+										'targetType' => 'post')
 	);
 }
 // If there is no custom posts registered show message
 //, otherwise create the custom-posts accordion
 if (!empty($accordionItems)) :
 ?>
-	<div id="custom-posts-accordion-<?php echo $block->id ?>" class="custom-posts-accordion">
+	<div id="accordion-custom-posts-<?php echo $block->id ?>" class="custom-posts-accordion">
 <?php foreach ($accordionItems as $item) : ?>
-		<a href="#" class="acc-header"><?php echo $item['title'] ?></a>
+		<span class="objects-list-button">
+<?php	echo $this->getTemplate('inputs-list', array('item' => $item), 'tmpl/templates/assign-panel/templates') ?>
+			<a href="#" class="acc-header"><?php echo $item['title'] ?></a>
+		</span>
 		<div class="custom-post-list">
 <?php
-				// Get item 'renderer' (every tab has template to render.) template.
+				// Get item 'renderer' (every tab has template to render) template.
 				$tabViewTmpl = $item['renderer'];
 				// Use template view for rendering the tab.
 				echo $this->getTemplate($tabViewTmpl,
