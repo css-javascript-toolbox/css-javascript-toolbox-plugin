@@ -1,0 +1,11 @@
+<?php
+// Extra type item would be sent as FLAT hidden elements
+// Its very stricted but serves the current requiremenets
+// without the need for bundling JSON string-2-object converter.
+// Make sure that the type array is set.
+$type = isset($item['type']) ? $item['type'] : array();
+// For every element add 'hidden-element'.
+foreach ($type as $typeName => $typeValue) :
+?>
+	<input type="hidden" name="<?php echo $typeName ?>" value="<?php echo $typeValue ?>" />
+<?php endforeach; ?>

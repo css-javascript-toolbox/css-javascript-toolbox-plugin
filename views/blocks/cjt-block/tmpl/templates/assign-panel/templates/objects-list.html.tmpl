@@ -1,1 +1,5 @@
-<ul class="pagelist"></ul>
+<ul id="objects-list-<?php echo $tab['type']['postType'] ?>-<?php echo $block->id ?>" class="pagelist">
+<?php for ($x = 0; $x < rand(20, 40); $x++) : ?>
+	<li><?php echo "item-{$x}" ?></li>
+<?php endfor; ?>
+</ul>
