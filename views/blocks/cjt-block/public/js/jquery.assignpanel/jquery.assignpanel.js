@@ -249,8 +249,8 @@
 						var list = $(this);
 						// Get pins parameters.
 						var typeParams = list.data('params')
-						// Get the loaded pins count.
-						var loadedPinsCount = list.children().length;
+						// Get the cached loaded pins count.
+						var loadedPinsCount = list.data('loadedCount');
 						// Load next page.
 						var promise = getAPOP(loadedPinsCount, typeParams).success($.proxy(
 							// Add the new items to the list.
@@ -259,6 +259,8 @@
 								var mdlBlock = assignPanel.block.block;
 								// New items to add to the list.
 								var items = response.items;
+								// Update loaded count.
+								list.data('loadedCount', (loadedPinsCount + items.length));
 								// Add items to list using
 								$.each(items, $.proxy(
 									function(index, item) {
@@ -331,6 +333,8 @@
 							// Get objects-list DOM node.
 							listElementId = '#objects-list-' + listParams.type + '-' + mdlBlock.get('id') + '-0';
 							listElement = this.jElement.find(listElementId).eq(0);
+							// Initialize data register.
+							listElement.data('loadedCount', 0);
 							// Push all input field values to the list.
 							listElement.data('params', listParams)
 							// Set objects-list for later use.
