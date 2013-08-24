@@ -8,6 +8,17 @@
 (function($) {
 	
 	/**
+	* Hold the items per page to load
+	* at a time.
+	* 
+	* The variable is set the first time
+	* getIPerPage method is called.
+	* 
+	* @
+	*/
+	var iPerPage = null;
+					
+	/**
 	* jQuery namespace.
 	*/
 	$.fn.CJTBlockAssignmentPanel = function(options) {
@@ -19,7 +30,7 @@
 			if (assigmentPanelElement.CJTBlockAssignmentPanel === undefined) {
 				// Define assigment panel plugin.
 				assigmentPanelElement.CJTBlockAssignmentPanel = new function() {
-										
+					
 					/**
 					* put your comment there...
 					* 
@@ -36,6 +47,27 @@
 					* 
 					*/
 					this.pins = {};
+					
+					/**
+					* Hold reference for 'this' object to
+					* be accessed by 'private' methods when called
+					* from DOM element event handler.
+					* 					
+					*/
+					var assignPanel = this;
+					
+					/**
+					* put your comment there...
+					* 
+					* @type Object
+					*/
+					var map = {pages : [], posts : [], categories : []};
+					
+					/**
+					* put your comment there...
+					* 
+					*/
+					var mdlBlock = this.block.block;
 					
 					/**
 					* 
@@ -60,7 +92,7 @@
 						// If the ScrollValue = ScrollZone
 						// then we need to load a new page.
 						if (scrollValue == scrollZone) {
-							list.fetchBlockPins();
+							list.getCJTBlockAPOP();
 						}
 					};
 
@@ -81,7 +113,7 @@
 								// In order to load the first page we need to get 'list' DOM node.
 								var list = item.data('list');
 								// Load first page.
-								list.get(0).fetchBlockPins().success($.proxy(
+								list.get(0).getCJTBlockAPOP().success($.proxy(
 									function() {
 										// Mark item as activated after the page
 										// is successfully loaded.
@@ -91,58 +123,34 @@
 							}
 						}
 					};
-		
+
 					/**
 					* put your comment there...
 					* 
+					* @param event
 					*/
-					var fetchBlockPins = function() {
+					var _onobjectstatechanged = function(event) {
 						// Initialize.
-						var list = $(this);
-						// Get pins parameters.
-						var params = list.data('params')
-						// Get the loaded pins count.
-						var loadedPinsCount = list.length;
-						// Load next page.
-						fetchObjects(loadedPinsCount, params.objectType, params.postType).success($proxy(
-							// Add the new items to the list.
-							function(newItems) {
-								
-							}, this)
-						)
-					}
+						var checkbox = event.targetElement;
+						var groupName = '';
+						var objectId = '';
+						var item;
+						// Change value directly for 'synced'
+						// pins. Add new map if locally added,
+						// delete local unchecked
+						switch (checkbox) {
+							
+						}
+					};
 
 					/**
 					* put your comment there...
 					* 
-					* @param index
-					* @param objType
-					* @param type
-					*/
-					var fetchObjects = function(index, objType, type) {
-						// Initialize.
-						var server = CJTBlocksPage.server;
-						var requestData = {index : index, objectType : objType, postType : postType};
-						// Send request to server.
-						var promise = server.send('controller', 'action', requestData).success($.proxy(
-							function(response) {
-								
-							}, this)
-						);
-						// Return
-						return ;
-					}
-
-					/**
-					* put your comment there...
+					* @param event
 					* 
+					* @returns {Boolean}
 					*/
-					var readAssignedPins = function () {
-						
-					}
-
-					/*
-					this._onselectchilds = function(event) {
+					var _onselectchilds = function(event) {
 						// Initialize vars.
 						var overlay = $(event.target);
 						var checkbox = overlay.parent().find('.select-childs');
@@ -158,15 +166,152 @@
 						}
 						// For link to behave inactive.
 						return false;
-					}
-					// Put select-childs checkboxes in action!
-					this.jElement.find('.select-childs-checkbox-overlay').click($.proxy(this._onselectchilds, this));
+					};
+
+					/**
+					* put your comment there...
+					* 
+					* @param index
+					* @param objType
+					* @param type
 					*/
+					var getAPOP = function(index, typeParams) {
+						// Initialize.
+						var server = CJTBlocksPage.server;
+						var requestData = {
+							block : assignPanel.block.block.get('id'),
+							index : index,
+							iPerPage : getIPerPage(),
+							typeParams : typeParams
+						};
+						// Send request to server.
+						var promise = server.send('block', 'getAPOP', requestData).success($.proxy(
+							// User Interface Component Independent Routines
+							function(response) {
+								// Initialize.
+								var items = response.items;
+								// Create Assigment Panel objects MAP used for saving
+								// the assigned pins.
+								$.each(items, $.proxy(
+									function(index, item) {
+										// Cache only 'assigned' items.
+										if (item.assigned === true) {
+											map[typeParams.group][item.id] = {value : true, sync : true};
+										}										
+									}, this)
+								);
+							}, this)
+						);
+						// Return
+						return promise;
+					};
+
+					/**
+					* Get items count to load per
+					* page.
+					* 
+					* The items to load per page is calculated by
+					* determing the maximum height that the objects-list element
+					* can reach divided by the single item height.
+					* 
+					* The maximum objects-list height is determined by
+					* the available screen-height - the other elements
+					* (TAB Nav, margins, padding, etc...).
+					* above and bottom the objects-list.
+					* 
+					*/
+					var getIPerPage = function() {
+						// Calculate iPerPage only if not calculated.
+						if (iPerPage === null) {
+							// Initialize.
+							var screenHeight = screen.availHeight;
+							var listItemHeight = 21;
+							// BLK_HEADER + NAV(MENU + (SPACE * 2)) + LIST((PAD * 10) + BORDER + (MARGIN * 2)) + BUTTOM-SPACE.
+							var reserved = 33 + (62 + (5 * 2)) + ((10 * 2) + 1 + (12 * 2)) + 14;
+							// Get the maximum objects-list height.
+							var maxListHeight = screenHeight - reserved;
+							// Divide the max height by the item height.
+							// and always add 5 items for makr the full screen
+							// mode scrolled too.
+							// Scrollbar must be available in all cases
+							// as long as there is items not loaded yet.
+							iPerPage = parseInt(maxListHeight / listItemHeight) + 5;
+						}
+						return iPerPage;
+					};
+
+					/**
+					* APOP -- Assigment Pabel Objects page
+					* 
+					*/
+					var list_GetAPOP = function() {
+						// Initialize.
+						var list = $(this);
+						// Get pins parameters.
+						var typeParams = list.data('params')
+						// Get the loaded pins count.
+						var loadedPinsCount = list.children().length;
+						// Load next page.
+						var promise = getAPOP(loadedPinsCount, typeParams).success($.proxy(
+							// Add the new items to the list.
+							function(response) {
+								// Initialize.
+								var mdlBlock = assignPanel.block.block;
+								// New items to add to the list.
+								var items = response.items;
+								// Add items to list using
+								$.each(items, $.proxy(
+									function(index, item) {
+										// Get parent list DOM Node.
+										var listId = '#objects-list-' + typeParams.type + '-' + mdlBlock.get('id') + '-' + item.parent;
+										var targetList = assignPanel.jElement.find(listId);
+										// Item list LI element.
+										var itemLi = $('<li></li>').appendTo(targetList);
+										// Item assignment panel checkbox.
+										var checkbox = $('<input type="checkbox" />')
+																		 // Set name
+																		.prop('name', 'cjtoolbox[' + mdlBlock.get('id') + '][' + typeParams.group + '][]')
+																		 // Submit object-ID when saving.
+																		.val(item.id)
+																		 // Update the map once the assigned pin checkbox
+																		 // checked value changed.
+																		.change($.proxy(_onobjectstatechanged, this))
+																		.prop('checked', item.assigned)
+																		.appendTo($('<label></label>').appendTo(itemLi));
+										// Checkbox title container.
+										var title = $('<span><span>')
+																.attr('title', item.title)
+																.appendTo(itemLi);
+										// Checkbox title and link
+										$('<a href="' + item.link + '" target="_blank">' + item.title + '</a>').appendTo(title);
+										// In case that the current item has child items,
+										// Add DOM Nodes to server child items.
+										if (item.hasChilds) {
+											// Add 'select childs' checkbox just before te title container element.
+											var link = $('<a href="#" class="select-childs-checkbox-overlay"></a>')
+											.click($.proxy(_onselectchilds, this))
+											.insertBefore(title);
+											// Overlay checkbox.
+											link.after('<input type="checkbox" class="select-childs">');
+											// Add child items list below the title container.
+											$('<ul class="children"></ul>')
+											.prop('id', ('objects-list-' + typeParams.type + '-' + mdlBlock.get('id') + '-' + item.id))
+											.insertAfter(title);
+										}
+									}, this)
+								);
+							}, this)
+						);
+						return promise;
+					};
 					
-					// Initialize.
-					var mdlBlock = this.block.block;
-					// Read all pins associated with the block.
-					readAssignedPins();
+					/**
+					* 
+					*/
+					this.getMap = function() {
+						return map;						
+					}
+
 					// Initialize all 'objects-list'
 					this.jElement.find('.objects-list-button').each(
 						$.proxy(function(index, objectListEle) {
@@ -184,7 +329,7 @@
 								})
 							);
 							// Get objects-list DOM node.
-							listElementId = '#objects-list-' + listParams.postType + '-' + mdlBlock.get('id');
+							listElementId = '#objects-list-' + listParams.type + '-' + mdlBlock.get('id') + '-0';
 							listElement = this.jElement.find(listElementId).eq(0);
 							// Push all input field values to the list.
 							listElement.data('params', listParams)
@@ -192,13 +337,13 @@
 							objectListEle.data('list', listElement)
 							// In order for the item to be processed on the 'activate' event
 							// the item should be signed for that so it can determind
-							// later!
+							// later when the activate event got fired!
 							.data('objectListButton', true);
 							// Delete those extra input fields from DOM tree.
 							inputFields.remove();
 							// Add fetchBlockPins and Detect Scrolling event handler method to the list object.
 							listElementNode = listElement.get(0);
-							listElementNode.fetchBlockPins = fetchBlockPins;
+							listElementNode.getCJTBlockAPOP = list_GetAPOP;
 							listElementNode._ondetectlistscroll = _ondetectlistscroll;
 							// Fetch objects from server with list scrolls event.
 							listElement.scroll(listElementNode._ondetectlistscroll);
@@ -211,7 +356,9 @@
 							ui.item = ui.newTab;
 							// Trigger real event handler.
 							_onobjectlistactivate(event, ui);
-						}
+						},
+						active : false,
+						collapsible : true,
 					})
 					// Initialize custom posts accordion.
 					.find('#accordion-custom-posts-' + mdlBlock.get('id')).accordion({
@@ -221,6 +368,7 @@
 							// Trigger real event handler.
 							_onobjectlistactivate(event, ui);
 						},
+						active : false,
 						collapsible : true
 					});
 					// Initialize Advanced tab accordion.
@@ -229,10 +377,6 @@
 							header: '.acc-header'
 						}
 					);
-					// Load 'pages' tab as its selected when the block is initialized.
-					// In the future we might save the selected tab but for now the initial state is the first (pages) tab
-					var defaultTab = 'pages';
-					
 				}
 			}
 		})

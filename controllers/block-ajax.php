@@ -33,8 +33,20 @@ class CJTBlockAjaxController extends CJTAjaxController {
 		add_action('wp_ajax_cjtoolbox_get_revisions', array(&$this, '_doAction'));
 		// Redirects
 		$this->registryAction('getBlockBy');
+		$this->registryAction('getAPOP');
 	}
+
 	
+	/**
+	* put your comment there...
+	* 
+	* @deprecated this is just a redirect to the CJTBlockContoller::getAction().
+	*/
+	protected function getAPOPAction() {
+		// Pass to CJTBlockController!
+		$this->redirect('block');
+	}
+
 	/**
 	* put your comment there...
 	* 

@@ -11,6 +11,9 @@ $CJTAutoLoad = CJT_Framework_Autoload_Loader::autoLoad('CJT', CJTOOLBOX_PATH);
 
 // Old class maps.
 // Only commonly-used classed will be mapped here.
+$map = $CJTAutoLoad->map();
 
 // xTable class
-$CJTAutoLoad->map()->offsetSet('CJTxTable', 'framework/db/mysql/xtable.inc.php');
+$map->offsetSet('CJTxTable', 'framework/db/mysql/xtable.inc.php');
+$map->offsetSet('CJTTable', 'framework/db/mysql/table.inc.php');
+$map->offsetSet('CJTBlockPinsTable', 'tables/block-pins.php');
