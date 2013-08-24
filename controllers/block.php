@@ -33,6 +33,7 @@ class CJTBlockController extends CJTAjaxController {
 		parent::__construct();
 		// Actions!
 		$this->registryAction('getBlockBy');
+		$this->registryAction('getAPOP');
 	}
 	
 	/**
@@ -50,12 +51,33 @@ class CJTBlockController extends CJTAjaxController {
 	}
 	
 	/**
-	* Fetch block pins page.
+	* Get assigment panel objects page.
 	* 
 	*/
-	public function getPinsPage() {
+	public function getAPOPAction() {
 		// Read inputs.
-		$startFrom = 
+		$iPerPage = (int) $_GET['iPerPage'];
+		$blockId = (int) $_GET['block'];
+		$oTypeParams = $_GET['typeParams'];
+		$offset = $_GET['index'];
+		// Get the corresponding type object
+		// for handling the request.
+		$typeName = $oTypeParams['targetType'];
+		/**
+		* put your comment there...
+		* 
+		* @var CJT_Models_Block_Assignmentpanel_Base
+		*/
+		$typeObject = CJT_Models_Block_Assignmentpanel_Base
+								::getInstance($typeName,
+															$offset, 
+															$iPerPage, 
+															$blockId, 
+															$oTypeParams);
+		// Fetch next page.
+		$items = $typeObject->getItems();
+		// Return result
+		$this->response['items'] = $items;
 	}
 
 } //  End class.

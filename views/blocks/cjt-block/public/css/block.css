@@ -13,6 +13,7 @@
 .select-childs-checkbox-overlay:hover {opacity: 0.5; filter: alpha(opacity = 50);}
 .pagelist a:hover{color: #B06D38; font-weight: bold;}
 .pagelist>li>span {width: 203px;overflow: hidden; display: inline-block; height: 21px; vertical-align: middle;}
+.pagelist li span>a {margin-left: 4px;}
 .pagelist li { line-height:19px; word-wrap:break-word; margin:0; padding:0; }
 .pagelist li .sub-list {font-weight: bold; font-size: 13px;text-decoration: underline;}
 .pagelist li .list-error {font-size: 12px;text-align: center;margin-top: 41px;text-decoration: underline;}
@@ -41,7 +42,7 @@ a.acc-header:visited {
 */
 .cjt-tab-item-custom-posts {overflow: auto;}
 .custom-posts-accordion .ui-accordion-content {height: 211px;}
-.custom-posts-accordion .pagelist {height: 205px; padding: 0px; margin-top: 2px;}
+.custom-posts-accordion .pagelist {height: 180px; margin-top: 2px;}
 .custom-posts-accordion a.acc-header {
 	text-decoration: underline;
 	margin-bottom: 2px;

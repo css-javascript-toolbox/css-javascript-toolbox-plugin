@@ -90,6 +90,8 @@
 		this.extraDocks = [
 			{element : assigmentPanelElement.find('.ui-tabs-panel'), pixels : 89},
 			{element : assigmentPanelElement.find('.ui-tabs-panel .pagelist'), pixels : 132},
+			{element : assigmentPanelElement.find('.custom-post-list.ui-accordion-content'), pixels : 122},
+			{element : assigmentPanelElement.find('.custom-post-list.ui-accordion-content .pagelist'), pixels : 160},
 			{element : assigmentPanelElement.find('.advanced-accordion .ui-accordion-content'), pixels : 169},
 			{element : assigmentPanelElement.find('.advanced-accordion .ui-accordion-content textarea'), pixels : 177}
 		];

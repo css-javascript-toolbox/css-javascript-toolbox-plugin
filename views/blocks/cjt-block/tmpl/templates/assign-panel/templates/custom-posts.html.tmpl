@@ -9,7 +9,7 @@ foreach ($customPosts as $typeName => $customPost) {
 	$accordionItems[$typeName] = array(
 		'title' => $customPost->labels->name,
 		'renderer' => 'objects-list',
-		'type' => array('postType' => $typeName,
+		'type' => array('type' => $typeName,
 										'group' => 'posts',
 										'targetType' => 'post')
 	);
@@ -20,10 +20,10 @@ if (!empty($accordionItems)) :
 ?>
 	<div id="accordion-custom-posts-<?php echo $block->id ?>" class="custom-posts-accordion">
 <?php foreach ($accordionItems as $item) : ?>
-		<span class="objects-list-button">
+		<div class="objects-list-button">
 <?php	echo $this->getTemplate('inputs-list', array('item' => $item), 'tmpl/templates/assign-panel/templates') ?>
 			<a href="#" class="acc-header"><?php echo $item['title'] ?></a>
-		</span>
+		</div>
 		<div class="custom-post-list">
 <?php
 				// Get item 'renderer' (every tab has template to render) template.

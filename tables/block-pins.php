@@ -8,9 +8,6 @@
 */
 defined('ABSPATH') or die("Access denied");
 
-// CJTTable class.
-require_once CJTOOLBOX_FRAMEWORK . '/db/mysql/table.inc.php';
-
 /**
 * 
 */
@@ -44,14 +41,25 @@ class CJTBlockPinsTable extends CJTTable {
 	* put your comment there...
 	* 
 	* @param mixed $ids
+	* @param mixed $condition
 	*/
-	public function get($ids = array()) {
-		$where = '';
-		$ids = (array) $ids; // May be single integer.
+	public function get($ids = array(), $condition = null) {
+		// Initialize.
+		$where = array();
+		// May be single integer.
+		$ids = (array) $ids;
+		// Retrieve specific list of IDs.
 		if (!empty($ids)) {
 			$ids = implode(',', $ids);
-			$where = " WHERE `blockId` IN ({$ids})";
+			$where[] = "`blockId` IN ({$ids})";
 		}
+		// Get CONDITIONS expression.
+		if ($condition !== null) {
+			$where = array_merge($where, $this->prepareQueryParameters($condition));
+		}
+		// Use WHERE CLAUSE only if there is Ids or Condition specified.
+		$where = !empty($where) ? (' WHERE ' . implode(' AND ', $where)) : '';
+		// Get result.
 		$query = "SELECT * FROM {$this->table}{$where};";
 		return $this->dbDriver->select($query, OBJECT);
 	}
