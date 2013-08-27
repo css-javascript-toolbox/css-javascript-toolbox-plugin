@@ -77,6 +77,7 @@ class CJTBlockController extends CJTAjaxController {
 		// Fetch next page.
 		$items = $typeObject->getItems();
 		// Return result
+		$this->response['count'] = count($items);
 		$this->response['items'] = $items;
 	}
 

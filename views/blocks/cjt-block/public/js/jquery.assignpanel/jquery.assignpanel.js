@@ -85,13 +85,16 @@
 					var _ondetectlistscroll = function(event) {
 						// Initialize.
 						var list = this;
+						var jList = $(list);
+						// Prevent multiple requests at the same time.
+						var isLoading = jList.data('cjt_isObjectListLoading');
 						// Scroll value.
 						var scrollValue = list.scrollTop;
 						// The hidden zone!
-						var scrollZone = list.scrollHeight - $(list).innerHeight();
+						var scrollZone = list.scrollHeight - jList.innerHeight();
 						// If the ScrollValue = ScrollZone
 						// then we need to load a new page.
-						if (scrollValue == scrollZone) {
+						if ((scrollValue == scrollZone) && (isLoading === false)) {
 							list.getCJTBlockAPOP();
 						}
 					};
@@ -251,6 +254,8 @@
 						var typeParams = list.data('params')
 						// Get the cached loaded pins count.
 						var loadedPinsCount = list.data('loadedCount');
+						// Flag that the list is in 'loading' state.
+						list.data('cjt_isObjectListLoading', true);
 						// Load next page.
 						var promise = getAPOP(loadedPinsCount, typeParams).success($.proxy(
 							// Add the new items to the list.
@@ -259,8 +264,16 @@
 								var mdlBlock = assignPanel.block.block;
 								// New items to add to the list.
 								var items = response.items;
+								// If there is no more items to load then exit
+								// and don't try to load data for this list anymore.
+								if (response.count == 0) {
+									// Remove scroll event that handle the dynamic loading.
+									list.unbind('scroll.cjt');
+									// Exit as there is nothing to process.
+									return;
+								}
 								// Update loaded count.
-								list.data('loadedCount', (loadedPinsCount + items.length));
+								list.data('loadedCount', (loadedPinsCount + response.count));
 								// Add items to list using
 								$.each(items, $.proxy(
 									function(index, item) {
@@ -302,6 +315,11 @@
 										}
 									}, this)
 								);
+							}, this)
+						).complete($.proxy(
+							function() {
+								// Flag that the list is in 'not-loading' state.
+								list.data('cjt_isObjectListLoading', false);
 							}, this)
 						);
 						return promise;
@@ -350,7 +368,7 @@
 							listElementNode.getCJTBlockAPOP = list_GetAPOP;
 							listElementNode._ondetectlistscroll = _ondetectlistscroll;
 							// Fetch objects from server with list scrolls event.
-							listElement.scroll(listElementNode._ondetectlistscroll);
+							listElement.bind('scroll.cjt', listElementNode._ondetectlistscroll);
 						}, this)
 					);
 					// Initialize Assigment Panel tab.
