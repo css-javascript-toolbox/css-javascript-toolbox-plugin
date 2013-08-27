@@ -98,6 +98,18 @@ abstract class CJT_Models_Block_Assignmentpanel_Base {
 			// Set if item is assigned to the block!
 			$item['assigned'] = isset($pinsMap[$item['id']]);
 		}
+		// In case the object type is Hierarchical
+		// Pass the items list to the filter.
+		if ($this->isHierarchical()) {
+			// Hierarchical filter.
+			$hierarchicalFilter = new CJT_Models_Block_Assignmentpanel_Helpers_Hierarchical(
+				$this->getOffset(), 
+				$this->getIPerPage(),
+				$items
+			);
+			// Get items with childs in the correct order!
+			$items = $hierarchicalFilter->getItems();
+		}
 		// Return items list.
 		return $items;
 	}
@@ -136,14 +148,23 @@ abstract class CJT_Models_Block_Assignmentpanel_Base {
 
 	/**
 	* put your comment there...
+	*
+	* @return Boolean 
+	*/
+	protected abstract function isHierarchical();
+
+	/**
+	* put your comment there...
 	* 
-	* @param mixed $rawItem
+	* @param mixed $item
+	* @return void
 	*/
 	protected abstract function prepareItem(& $item);
 
 	/**
 	* put your comment there...
 	* 
+	* @return Array Items list.
 	*/
 	protected abstract function queryItems();
 	

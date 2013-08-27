@@ -23,13 +23,24 @@ extends CJT_Models_Block_Assignmentpanel_Base {
 	);
 	
 	/**
+	* put your comment there...
+	* 
+	*/
+	protected function isHierarchical() {
+		// Initialize.
+		$typeParams =& $this->getTypeParams();
+		// Check if post_type hierarchical.
+		return is_post_type_hierarchical($typeParams['type']);
+	}
+
+	/**
 	* Get only item ID, Title, Link.
 	* 
 	* @param mixed $item
 	*/
 	protected function prepareItem(& $item) {
 		// Initialize.
-		$typeParams = $this->getTypeParams();
+		$typeParams =& $this->getTypeParams();
 		// Get only 'ID' and 'Title', 'parent' fields.
 		$preItem['id'] = $item->ID;
 		$preItem['title'] = $item->post_title;
@@ -57,10 +68,17 @@ extends CJT_Models_Block_Assignmentpanel_Base {
   protected function queryItems() {
 		// Initialize.
 		$args = $this->args;
-		$params = $this->getTypeParams();
+		$params =& $this->getTypeParams();
 		// Set User passed parameters used to query 'posts'
-		$args['offset'] = $this->getOffset();
-		$args['numberposts'] = $this->getIPerPage();
+		if ($this->isHierarchical()) {
+			// Fetch all for Hierarchical posts.
+			$args['offset'] = 0;
+			$args['numberposts'] = -1;
+		}
+		else {
+			$args['offset'] = $this->getOffset();
+			$args['numberposts'] = $this->getIPerPage();
+		}
 		$args['post_type'] = $params['type'];
 		// Query posts.
 		return get_posts($args);

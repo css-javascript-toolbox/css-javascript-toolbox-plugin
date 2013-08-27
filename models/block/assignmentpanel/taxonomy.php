@@ -29,11 +29,22 @@ extends CJT_Models_Block_Assignmentpanel_Base {
 	/**
 	* put your comment there...
 	* 
+	*/
+	protected function isHierarchical() {
+		// Initialize.
+		$typeParams =& $this->getTypeParams();
+		// Check if post_type hierarchical.
+		return is_taxonomy_hierarchical($typeParams['type']);
+	}
+
+	/**
+	* put your comment there...
+	* 
 	* @param mixed $item
 	*/
 	protected function prepareItem(& $item) {
 		// Initialize.
-		$typeParams = $this->getTypeParams();
+		$typeParams =& $this->getTypeParams();
 		$taxonomy = $typeParams['type'];
 		// COMMON names for 'ID' and 'TITLE'
 		$preItem['id'] = $item->term_id;
@@ -63,12 +74,19 @@ extends CJT_Models_Block_Assignmentpanel_Base {
   protected function queryItems() {
 		// Initialize.
 		$args = $this->args;
-		$params = $this->getTypeParams();
+		$params =& $this->getTypeParams();
 		// Set User passed parameters used to query 'posts'
 		$args['hide_empty'] = false;
 		$args['order'] = 'DESC';
-		$args['offset'] = $this->getOffset();
-		$args['number'] = $this->getIPerPage();
+		if ($this->isHierarchical()) {
+			// Return them all for taxonomy doesn't 
+			// require the end-offset ($args['number']) to be set.
+			$args['offset'] = 0;
+		}
+		else {
+			$args['offset'] = $this->getOffset();
+			$args['number'] = $this->getIPerPage();
+		}
 		// Query posts.
 		return get_terms($params['type'], $args);
   }
