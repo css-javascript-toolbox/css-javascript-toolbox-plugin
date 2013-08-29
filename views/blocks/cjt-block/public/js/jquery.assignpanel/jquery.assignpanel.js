@@ -44,11 +44,6 @@
 					this.jElement = $(assigmentPanelElement);
 					
 					/**
-					* 
-					*/
-					this.pins = {};
-					
-					/**
 					* Hold reference for 'this' object to
 					* be accessed by 'private' methods when called
 					* from DOM element event handler.
@@ -132,18 +127,28 @@
 					* 
 					* @param event
 					*/
-					var _onobjectstatechanged = function(event) {
+					var _onobjectstatechanged = function() {
 						// Initialize.
-						var checkbox = event.targetElement;
-						var groupName = '';
-						var objectId = '';
-						var item;
-						// Change value directly for 'synced'
-						// pins. Add new map if locally added,
-						// delete local unchecked
-						switch (checkbox) {
-							
+						var checkbox = this;
+						var groupName = checkbox.name.match(/cjtoolbox\[\d+\]\[(\w+)\]/)[1];
+						var objectId = parseInt(checkbox.value);
+						// Get item reference is available (sync=true, sync=false&value=true)
+						// or create new one (select not synced item).
+						var item = (map[groupName][objectId] === undefined) ? {sync : false} : map[groupName][objectId];
+						// Set value as checkbox.
+						item.value = $(checkbox).prop('checked');
+						// If the item is not 'synced' (not saved on server)
+						// and not checked then remove it from the map
+						// , add it if checked.
+						if (item.sync == false) {
+							if (item.value == false) {
+								delete map[groupName][objectId];
+							}
+							else {
+								map[groupName][objectId] = item;	
+							}
 						}
+						console.log(map[groupName]);
 					};
 
 					/**
@@ -290,7 +295,7 @@
 																		.val(item.id)
 																		 // Update the map once the assigned pin checkbox
 																		 // checked value changed.
-																		.change($.proxy(_onobjectstatechanged, this))
+																		.change(_onobjectstatechanged)
 																		.prop('checked', item.assigned)
 																		.appendTo($('<label></label>').appendTo(itemLi));
 										// Checkbox title container.
