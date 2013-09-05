@@ -305,7 +305,13 @@
 																.attr('title', item.title)
 																.appendTo(itemLi);
 										// Checkbox title and link
-										$('<a href="' + item.link + '" target="_blank">' + item.title + '</a>').appendTo(title);
+										if (item.link) {
+											$('<a href="' + item.link + '" target="_blank">' + item.title + '</a>').appendTo(title);	
+										}
+										else {
+											title.text(item.title)
+													 .css({'margin-left' : '6px'});
+										}
 										// In case that the current item has child items,
 										// Add DOM Nodes to server child items.
 										if (item.hasChilds) {
