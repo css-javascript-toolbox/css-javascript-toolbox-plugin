@@ -56,15 +56,21 @@ abstract class CJT_Models_Block_Assignmentpanel_Base {
 	/**
 	* put your comment there...
 	* 
+	* @param mixed $assignedOnly
 	* @param mixed $type
 	* @param mixed $offset
 	* @param mixed $iPerPage
 	* @param mixed $blockId
 	* @param mixed $typeParams
 	*/
-	public static function getInstance($type, $offset, $iPerPage, $blockId, $typeParams) {
+	public static function getInstance($assignedOnly, $type, $offset, $iPerPage, $blockId, $typeParams) {
 		// Get type class name.
 		$typeName = strtoupper($type);
+		// Inistantiate 'pinned' object if assignedOnly flag is set to true.
+		if ($assignedOnly) {
+			$typeName .= 'pinned';
+		}
+		// Build items-list handler class name.
 		$typeClass = "CJT_Models_Block_Assignmentpanel_{$typeName}";
 		// Instantiate type object.
 		$typeObject = new $typeClass($offset, $iPerPage, $blockId, $typeParams);
@@ -82,19 +88,14 @@ abstract class CJT_Models_Block_Assignmentpanel_Base {
 		$blockId = $this->getBlockId();
 		$pinsMap = array();
 		$items = array();
-		// Prepare block pinned items.
-		$pinsTable = new CJTBlockPinsTable(cssJSToolbox::getInstance()->getDBDriver());
-		$pins = $pinsTable->get(null, array('blockId' => $blockId, 'pin' => $params['group']));
-		// Create ITEM-ID => VALUE array map for the retrieved pins.
-		foreach ($pins as $pin) {
-			$pinsMap[$pin->value] = true;
-		}
+		// Pins map.
+		$pinsMap = $this->getPinsMap();
 		// Query all items by the model class.
 		$items = $this->queryItems();
 		// Prepare all retrieved items by 'base' and model classes.
-		foreach ($items as & $item) {
+		foreach ($items as $key => & $item) {
 			// Prepare the item by the model class.
-			$this->prepareItem($item);
+			$this->prepareItem($key, $item);
 			// Set if item is assigned to the block!
 			$item['assigned'] = isset($pinsMap[$item['id']]);
 		}
@@ -139,6 +140,20 @@ abstract class CJT_Models_Block_Assignmentpanel_Base {
 	}
 
 	/**
+	* Query/Get-Cached pins map.
+	* 
+	*/
+	protected final function getPinsMap() {
+		// Initialize.
+		static $map = null;
+		if ($map === null) {
+			$map = $this->pinsMap();
+		}
+		// Returns.
+		return $map;
+	}
+
+	/**
 	* put your comment there...
 	* 
 	*/
@@ -156,10 +171,16 @@ abstract class CJT_Models_Block_Assignmentpanel_Base {
 	/**
 	* put your comment there...
 	* 
+	*/
+	protected abstract function pinsMap();
+	
+	/**
+	* put your comment there...
+	* 
 	* @param mixed $item
 	* @return void
 	*/
-	protected abstract function prepareItem(& $item);
+	protected abstract function prepareItem($key, & $item);
 
 	/**
 	* put your comment there...

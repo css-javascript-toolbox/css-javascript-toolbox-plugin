@@ -10,6 +10,83 @@
 (function($) {
 
 	/**
+	* 
+	*/
+	var notifySaveChangesProto = function(block) {
+		
+		/**
+		* put your comment there...
+		* 
+		* @param block
+		*/
+		this.initDIFields = function() {
+			// Initialize notification saqve change singlton object.
+			block.changes = [];
+			// Initialize vars.
+			var model = block.block;
+			var aceEditor = model.aceEditor;
+			var fields = model.getDIFields();
+			// Create common interface for ace editor to
+			// be accessed like other HTML elements.
+			aceEditor.type = 'aceEditor'; // Required for _oncontentchanged to behave correctly.
+			/**
+			* Bind method for bind events like HTML Elements.
+			*/
+			aceEditor.bind = function(e, h) {
+				this.getSession().doc.on(e, h);
+			}
+			/**
+			* Method to get hash copy from stored content.
+			*/
+			aceEditor.cjtSyncInputField = function() {
+				this.cjtBlockSyncValue = hex_md5(this.getSession().getValue());	
+			}
+			// Hack jQuery Object by pushing
+			// ace Editor into fields list, increase length by 1.
+			fields[fields.length++] = aceEditor;
+			// For all fields call cjtSyncInputField and give a unique id.
+			$.each(fields, $.proxy(
+				function(index, field) {
+					this.initElement(field);
+				}, this)
+			);
+			// Chaining.
+			return this;
+		},
+		
+		/**
+		* put your comment there...
+		* 
+		* @param element
+		*/
+		this.initElement = function(field) {
+			// Assign weight number used to identify the field.
+			field.cjtBlockFieldId = CJTBlocksPage.blocks.getUFI();
+			// Create default cjtSyncInputField method if not exists.
+			if (field.cjtSyncInputField == undefined) {
+				if (field.type == 'checkbox') {
+			  	field.cjtSyncInputField = function() {
+			  		this.cjtBlockSyncValue = $(this).prop('checked');
+			  	}
+				}
+				else {
+			  	field.cjtSyncInputField = function() {
+			  		this.cjtBlockSyncValue = this.value;
+			  	}			  	
+				}
+				// Create interface to "bind" too.
+				field.bind = function(e, h) {
+			  	$(this).bind(e, h);
+				}
+			}
+			// Sync field.
+			field.cjtSyncInputField();
+			// Bind to change event.
+			field.bind('change', $.proxy(block._oncontentchanged, block));
+		}
+	};
+
+	/**
 	* Default block features and options.
 	*
 	* @var object
@@ -17,7 +94,7 @@
 	var defaultOptions = {
 		showObjectsPanel : true,
 		calculatePinPoint : 1,
-		copy : {fields : ['code', 'links', 'expressions', 'pages', 'posts', 'categories', 'pinPoint']}
+		restoreRevision : {fields : ['code']}
 	};
 
 	/**
@@ -263,7 +340,7 @@
 				// Return REsolved Dummy Object for standarizing sake!
 				return CJTBlocksPage.server.getDeferredObject().resolve().promise();
 			}
-			// Queue User Direct Interact fields (code, posts, categories, links, expressions etc...).
+			// Queue User Direct Interact fields (code, etc...).
 			var data = {calculatePinPoint : this.features.calculatePinPoint, createRevision : 1};
 			// Push DiFields inside Ajax queue.
 			this.block.queueDIFields();
@@ -401,23 +478,6 @@
 		*
 		*
 		*
-		*/		
-		this.copy = function(data) {
-			var properties = this.features.copy.fields;
-			$.each(properties, $.proxy(
-				function(index, name) {
-					var property = this.block.property(name);
-					// Use setValue Fields Common Setter Interface (FCSI) impleneted by CJTBlock.
-					property.setValue(data[name]);
-				}, this)
-			);			
-		}
-		
-		/**
-		*
-		*
-		*
-		*
 		*/
 		this.enable = function(state) {
 			var elements = this.block.box.find('input:checkbox, textarea, select');
@@ -450,7 +510,7 @@
 		*/
 		this.initCJTPluginBase = function(node, args) {
 			// Initialize object properties!
-			this.block = new CJTBlock(node)
+			this.block = new CJTBlock(this, node)
 			this.features = $.extend(defaultOptions, args);
 			// Load commonly used elements.
 			this.elements = {};
@@ -462,7 +522,7 @@
 			// Initialize User Interface.
 			this.initUI();
 			// Prepare input elements for notifying user changes.
-			this.notifySavingChangesInit();
+			this.notifySaveChanges = (new notifySaveChangesProto(this)).initDIFields();
 			// Set Plugin options.
 			this.setOptions();
 		}
@@ -548,67 +608,6 @@
 			// need sometime to be ready for display.
 			model.box.css({display : 'block'}).addClass('cjt-block');
 		}
-		
-		/**
-		*
-		* For now it initialize fields for notifying user changes.
-		*
-		*
-		*
-		*/
-		this.notifySavingChangesInit = function() {
-			var model = this.block;
-			var aceEditor = model.aceEditor;
-			var fields = model.getDIFields();
-			// Initialize vars.
-			this.changes = [];
-			// Create common interface for ace editor to
-			// be accessed like other HTML elements.
-			aceEditor.type = 'aceEditor'; // Required for _oncontentchanged to behave correctly.
-			/**
-			* Bind method for bind events like HTML Elements.
-			*/
-			aceEditor.bind = function(e, h) {
-				this.getSession().doc.on(e, h);
-			}
-			/**
-			* Method to get hash copy from stored content.
-			*/
-			aceEditor.cjtSyncInputField = function() {
-				this.cjtBlockSyncValue = hex_md5(this.getSession().getValue());	
-			}
-			// Hack jQuery Object by pushing
-			// ace Editor into fields list, increase length by 1.
-			fields[fields.length++] = aceEditor;
-			// For all fields call cjtSyncInputField and give a unique id.
-			$.each(fields, $.proxy(
-				function(fieldId, field) {
-					// Assign weight number used to identify the field.
-				  field.cjtBlockFieldId = fieldId;
-				  // Create default cjtSyncInputField method if not exists.
-				  if (field.cjtSyncInputField == undefined) {
-			  		if (field.type == 'checkbox') {
-			  			field.cjtSyncInputField = function() {
-			  				this.cjtBlockSyncValue = $(this).prop('checked');
-			  			}
-			  		}
-			  		else {
-			  			field.cjtSyncInputField = function() {
-			  				this.cjtBlockSyncValue = this.value;
-			  			}			  	
-			  		}
-			  		// Create interface to "bind" too.
-			  		field.bind = function(e, h) {
-			  			$(this).bind(e, h);
-			  		}
-				  }
-					// Sync field.
-					field.cjtSyncInputField();
-					// Bind to change event.
-					field.bind('change', $.proxy(this._oncontentchanged, this));
-				}, this)
-			);
-		}
 
 		/**
 		* 
@@ -630,14 +629,26 @@
 		}
 		
 		/**
+		* 
+		*/
+		this.restoreRevision = function(revisionId, data) {
+			var properties = this.features.restoreRevision.fields;
+			$.each(properties, $.proxy(
+				function(index, name) {
+					var property = this.block.property(name);
+					// Use setValue Fields Common Setter Interface (FCSI) impleneted by CJTBlock.
+					property.setValue(data[name]);
+				}, this)
+			);			
+		}
+	
+		/**
 		* Change Block options.
 		*
 		* NOT IMPLEMENTED YET.
 		*
 		*/
-		this.setOptions = function() {
-		
-		}
+		this.setOptions = function() {}
 		
 		/*
 		*

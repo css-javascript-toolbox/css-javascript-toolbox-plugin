@@ -56,7 +56,7 @@
 					* 
 					* @type Object
 					*/
-					var map = {pages : [], posts : [], categories : []};
+					var map = {pages : {}, posts : {}, categories : {}, pinPoint : {}};
 					
 					/**
 					* put your comment there...
@@ -134,21 +134,20 @@
 						var objectId = parseInt(checkbox.value);
 						// Get item reference is available (sync=true, sync=false&value=true)
 						// or create new one (select not synced item).
-						var item = (map[groupName][objectId] === undefined) ? {sync : false} : map[groupName][objectId];
+						var item = (map[groupName][objectId] === undefined) ? {sync : 0} : map[groupName][objectId];
 						// Set value as checkbox.
-						item.value = $(checkbox).prop('checked');
+						item.value = $(checkbox).prop('checked') ? 1 : 0;
 						// If the item is not 'synced' (not saved on server)
 						// and not checked then remove it from the map
 						// , add it if checked.
-						if (item.sync == false) {
-							if (item.value == false) {
+						if (item.sync === 0) {
+							if (item.value === 0) {
 								delete map[groupName][objectId];
 							}
 							else {
 								map[groupName][objectId] = item;	
 							}
 						}
-						console.log(map[groupName]);
 					};
 
 					/**
@@ -190,7 +189,8 @@
 							block : assignPanel.block.block.get('id'),
 							index : index,
 							iPerPage : getIPerPage(),
-							typeParams : typeParams
+							typeParams : typeParams,
+							assignedOnly : false
 						};
 						// Send request to server.
 						var promise = server.send('block', 'getAPOP', requestData).success($.proxy(
@@ -204,7 +204,7 @@
 									function(index, item) {
 										// Cache only 'assigned' items.
 										if (item.assigned === true) {
-											map[typeParams.group][item.id] = {value : true, sync : true};
+											map[typeParams.group][item.id] = {value : 1, sync : 1};
 										}										
 									}, this)
 								);
@@ -298,6 +298,8 @@
 																		.change(_onobjectstatechanged)
 																		.prop('checked', item.assigned)
 																		.appendTo($('<label></label>').appendTo(itemLi));
+										// Add the Checkbox to notification save chnages elements.
+										assignPanel.block.notifySaveChanges.initElement(checkbox.get(0));
 										// Checkbox title container.
 										var title = $('<span><span>')
 																.attr('title', item.title)
@@ -337,6 +339,7 @@
 						return map;						
 					}
 
+					/// CONSTRUCTTOR  ///
 					// Initialize all 'objects-list'
 					this.jElement.find('.objects-list-button').each(
 						$.proxy(function(index, objectListEle) {
@@ -376,6 +379,7 @@
 							listElement.bind('scroll.cjt', listElementNode._ondetectlistscroll);
 						}, this)
 					);
+					
 					// Initialize Assigment Panel tab.
 					this.jElement.tabs({
 						activate : function(event, ui) {
@@ -387,6 +391,7 @@
 						active : false,
 						collapsible : true,
 					})
+					
 					// Initialize custom posts accordion.
 					.find('#accordion-custom-posts-' + mdlBlock.get('id')).accordion({
 						activate : function(event, ui) {
@@ -398,12 +403,14 @@
 						active : false,
 						collapsible : true
 					});
+					
 					// Initialize Advanced tab accordion.
 					mdlBlock.box.find('#advanced-accordion-' + mdlBlock.get('id')).accordion({
 							change : _onadvancedaccordionchanged,
 							header: '.acc-header'
 						}
 					);
+					
 				}
 			}
 		})
