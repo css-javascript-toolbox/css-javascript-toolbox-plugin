@@ -171,8 +171,6 @@ class CJTBlocksAjaxController extends CJTAjaxController {
 	*/
 	public function saveBlocksAction() {
 		$response = array();
-		// Single block model class.
-		require_once CJTOOLBOX_MODELS_PATH . '/block.php';
 		// Blocks are sent ins single array list.
 		$blocksToSave = filter_input(INPUT_POST, 'blocks', FILTER_UNSAFE_RAW, FILTER_REQUIRE_ARRAY);
 		$calculatePinPoint = (bool) filter_input(INPUT_POST, 'calculatePinPoint', FILTER_SANITIZE_NUMBER_INT);
@@ -185,7 +183,7 @@ class CJTBlocksAjaxController extends CJTAjaxController {
 				$blockData = (object) $postedblockPartialData;
 				$blockData->id = $id;
 				// Recalculate pinPoint field value.
-				!$calculatePinPoint or CJTBlockModel::calculateBlockPinPoint($blockData);
+				!$calculatePinPoint or (CJTBlockModel::arrangePins($blockData) && CJTBlockModel::calculateBlockPinPoint($blockData));
 				// Create block revision.
 				!$createRevision or $this->model->addRevision($id);
 				// Set lastModified field to current time.

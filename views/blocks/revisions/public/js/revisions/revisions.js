@@ -48,7 +48,7 @@
 			.success(
 				function(revisionData) {
 					// Copy revision data.
-					blockRevisions.block.copy(revisionData);
+					blockRevisions.block.restoreRevision(revisionId, revisionData);
 					// Remove Popup.
 					window.parent.tb_remove();
 				}

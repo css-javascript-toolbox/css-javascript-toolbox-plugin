@@ -74,18 +74,20 @@
 			// For link to behave inactive.
 			return false;
 		}
-		// Initialize parent class.
+		/// Initialize parent class.
+		// Add assigment panel fields to the restoreRevision args.
+		args.restoreRevision = {fields : ['code', 'pages', 'posts', 'categories', 'pinPoint', 'links', 'expressions']};
 		this.initCJTPluginBase(node, args);
+		
 		// Plug the assigment panel, get the jQuery ELement for it
 		var assigmentPanelElement = this.block.box.find('#tabs-' + this.block.get('id'));
-		this.pagesPanel = assigmentPanelElement.CJTBlockAssignmentPanel({block : this});
+		this.pagesPanel = assigmentPanelElement.CJTBlockAssignmentPanel({block : this}).get(0).CJTBlockAssignmentPanel;
 		// Add toolbox button.
 		var tbIconsGroup = this.block.box.find('.editor-toolbox .icons-group')
 		tbIconsGroup.children().first().after('<a href="#" class="cjt-tb-link cjttbl-toggle-objects-panel"></a>')
 		var toggler = this.editorToolbox.add('toggle-objects-panel', {callback : this._ontogglepagespanel});
 		// Close it if it were closed.
 		this._ontogglepagespanel({target : toggler.jButton}, this.block.get('pagesPanelToggleState', ''));
-		
 		// More to Dock with Fullscreen mode!
 		this.extraDocks = [
 			{element : assigmentPanelElement.find('.ui-tabs-panel'), pixels : 89},

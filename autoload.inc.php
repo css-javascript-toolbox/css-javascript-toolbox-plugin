@@ -17,3 +17,5 @@ $map = $CJTAutoLoad->map();
 $map->offsetSet('CJTxTable', 'framework/db/mysql/xtable.inc.php');
 $map->offsetSet('CJTTable', 'framework/db/mysql/table.inc.php');
 $map->offsetSet('CJTBlockPinsTable', 'tables/block-pins.php');
+$map->offsetSet('CJTBlockModel', 'models/block.php');
+$map->offsetSet('CJTBlocksModel', 'models/blocks.php');

@@ -186,10 +186,7 @@ var CJTBlocksPage;
 			this.blocks = new CJTBlocks();
 			this.server = CJTServer;
 			// Put CJT code block into actions!
-			var blocks = this.blocks.getBlocks().CJTBlock({
-				calculatePinPoint : 0, 
-				copy : {fields: ['code']}
-			});
+			var blocks = this.blocks.getBlocks().CJTBlock({calculatePinPoint : 0});
 			// Fix thickbox issue caused by media-upload.js script.
 			this.metaboxBlockToolbox = blocks.get(0).CJTBlock.toolbox;
 			this.metaboxBlockToolbox.buttons['info'].callback = $.proxy(this._onshowthickbox, {event : '_ongetinfo'});
