@@ -36,6 +36,11 @@ extends CJT_Models_Block_Assignmentpanel_Taxonomybase {
   *
   */
   protected function queryItems() {
+  	// All assigned items is fetched in the first request
+  	// Multiple requestes is now allowed.
+  	if ($this->getOffset()) {
+			return array();
+  	}
   	// Initialize.
   	$params = $this->getTypeParams();
   	// Get all assigned IDs.
@@ -43,6 +48,7 @@ extends CJT_Models_Block_Assignmentpanel_Taxonomybase {
   	// Query all available Ids.
   	$args = $this->args;
   	$args['include'] = $ids;
+  	$args['offset'] = 0;
   	// Return empty list if nothing assigned
   	// or the queried items otherwise.
   	$items = empty($ids) ? array() : get_terms($params['type'], $args);

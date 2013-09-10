@@ -94,7 +94,9 @@ var CJTBlockBase;
 			properties.state = {om : new CJTBlockPropertyHTMLNodeOM(),
 													flags: 'rw', 
 													selector : 'input:hidden[name="cjtoolbox[{blockId}][state]"]'};
-			properties.code = {flags: 'rws', 	selector : 'div#editor-{blockId}'};
+			properties.code = {om : new CJTBlockPropertyACEEditor(), 
+												 flags: 'rws',
+												 selector : 'div#editor-{blockId}'};
 			properties.editorLang = {flags: 'rwc'};
 			properties.pagesPanelToggleState = {flags: 'rwc'};
 			// Initialize ALL (BASE, DERIVDED) properties.
@@ -125,9 +127,6 @@ var CJTBlockBase;
 			var codeDiv = $(this.property('code').selector).get(0);
 			codeDiv.getValue = function() {
 				return block.aceEditor.getSession().getValue();
-			};
-			codeDiv.setValue = function(value) {
-				block.aceEditor.getSession().setValue(value)
 			};
 		}
 		

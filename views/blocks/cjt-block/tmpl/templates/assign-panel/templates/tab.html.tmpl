@@ -9,7 +9,7 @@
 						// Cache item tab ID.
 						$item['tabId'] = "{$tab['tab']['id']}-{$block->id}-{$name}";
 ?>
-						<li class="<?php echo $tabViewTmpl ?>-button">
+						<li class="<?php echo $tabViewTmpl ?>-button type-<?php echo $name ?>">
 <?php					echo $this->getTemplate('inputs-list', array('item' => $item), 'tmpl/templates/assign-panel/templates') ?>
 							<a href="#<?php echo $item['tabId'] ?>"><?php echo $item['title'] ?></a>
 						</li>

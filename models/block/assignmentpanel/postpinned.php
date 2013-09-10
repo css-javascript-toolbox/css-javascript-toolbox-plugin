@@ -36,6 +36,11 @@ extends CJT_Models_Block_Assignmentpanel_Postbase {
   *
   */
   protected function queryItems() {
+  	// All assigned items is fetched in the first request
+  	// Multiple requestes is now allowed.
+  	if ($this->getOffset()) {
+			return array();
+  	}
   	// Initialize.
   	$params = $this->getTypeParams();
   	// Get all assigned IDs.
@@ -44,6 +49,8 @@ extends CJT_Models_Block_Assignmentpanel_Postbase {
   	$args = $this->args;
   	$args['post_type'] = $params['type'];
   	$args['post__in'] = $ids;
+		$args['offset'] = $this->getOffset();
+		$args['numberposts'] = -1;
   	// Return empty list if nothing assigned
   	// or the queried items otherwise.
   	$items = empty($ids) ? array() : get_posts($args);

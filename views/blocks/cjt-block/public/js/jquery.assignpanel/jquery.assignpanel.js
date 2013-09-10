@@ -41,6 +41,16 @@
 					/**
 					* 
 					*/
+					this.buttons = {pages : [], posts : [], categories : [], pinPoint : []};
+					
+					/**
+					* 
+					*/
+					this.loadAssignedOnlyMode = false;
+					
+					/**
+					* 
+					*/
 					this.jElement = $(assigmentPanelElement);
 					
 					/**
@@ -81,6 +91,10 @@
 						// Initialize.
 						var list = this;
 						var jList = $(list);
+						// Don't load unless not all items has been loaded.
+						if (jList.data('itemsLoaded')) {
+							return;
+						}
 						// Prevent multiple requests at the same time.
 						var isLoading = jList.data('cjt_isObjectListLoading');
 						// Scroll value.
@@ -107,7 +121,7 @@
 						if (item.data('objectListButton') === true) {
 							// Load first objects page for the activated item
 							// only once.
-							if (item.data('objectListActivated') === undefined) {
+							if (item.data('objectListActivated') !== true) {
 								// In order to load the first page we need to get 'list' DOM node.
 								var list = item.data('list');
 								// Load first page.
@@ -185,12 +199,15 @@
 					var getAPOP = function(index, typeParams) {
 						// Initialize.
 						var server = CJTBlocksPage.server;
+						// Use modeBlockId instead of original block id to be used in case of 
+						// DISPLAY-REVISION mode or any other modes added in the future.
+						var blockId = assignPanel.modeBlockId ? assignPanel.modeBlockId : assignPanel.block.block.get('id');
 						var requestData = {
-							block : assignPanel.block.block.get('id'),
+							block : blockId,
 							index : index,
 							iPerPage : getIPerPage(),
 							typeParams : typeParams,
-							assignedOnly : false
+							assignedOnly : assignPanel.loadAssignedOnlyMode
 						};
 						// Send request to server.
 						var promise = server.send('block', 'getAPOP', requestData).success($.proxy(
@@ -249,6 +266,72 @@
 					};
 
 					/**
+					* 
+					*/
+					this.list_displayItems = function(list, data) {
+						// Initialize.
+						var mdlBlock = assignPanel.block.block;
+						// New items to add to the list.
+						var items = data.items;
+						// Get pins parameters.
+						var typeParams = list.data('params')
+						// Get the cached loaded pins count.
+						var loadedPinsCount = list.data('loadedCount');
+						// Update loaded count.
+						list.data('loadedCount', (loadedPinsCount + data.count));
+						// Add items to list using
+						$.each(items, $.proxy(
+							function(index, item) {
+								// Get parent list DOM Node.
+								var listId = '#objects-list-' + typeParams.type + '-' + mdlBlock.get('id') + '-' + item.parent;
+								var targetList = assignPanel.jElement.find(listId);
+								// Item list LI element.
+								var itemLi = $('<li></li>').appendTo(targetList);
+								// Item assignment panel checkbox.
+								var checkbox = $('<input type="checkbox" />')
+																 // Set name
+																.prop('name', 'cjtoolbox[' + mdlBlock.get('id') + '][' + typeParams.group + '][]')
+																 // Submit object-ID when saving.
+																.val(item.id)
+																 // Update the map once the assigned pin checkbox
+																 // checked value changed.
+																.change(_onobjectstatechanged)
+																.prop('checked', item.assigned)
+																.appendTo($('<label></label>').appendTo(itemLi))
+																// If load-assigned-only-mode is activated then disable checkboxes.
+																.prop('disabled', assignPanel.loadAssignedOnlyMode);
+								// Add the Checkbox to notification save chnages elements.
+								assignPanel.block.notifySaveChanges.initElement(checkbox.get(0));
+								// Checkbox title container.
+								var title = $('<span><span>')
+														.attr('title', item.title)
+														.appendTo(itemLi);
+								// Checkbox title and link
+								if (item.link) {
+									$('<a href="' + item.link + '" target="_blank">' + item.title + '</a>').appendTo(title);	
+								}
+								else {
+									title.text(item.title)
+											 .css({'margin-left' : '6px'});
+								}
+								// Create Child Components IF: NOT-IN-REVISION-MODE AND THE ITEM-HAS-CHILD.
+								if (!assignPanel.loadAssignedOnlyMode && item.hasChilds) {
+									// Add 'select childs' checkbox just before te title container element.
+									var link = $('<a href="#" class="select-childs-checkbox-overlay"></a>')
+									.click($.proxy(_onselectchilds, this))
+									.insertBefore(title);
+									// Overlay checkbox.
+									link.after('<input type="checkbox" class="select-childs">');
+									// Add child items list below the title container.
+									$('<ul class="children"></ul>')
+									.prop('id', ('objects-list-' + typeParams.type + '-' + mdlBlock.get('id') + '-' + item.id))
+									.insertAfter(title);
+								}
+							}, this)
+						);
+					}
+					
+					/**
 					* APOP -- Assigment Pabel Objects page
 					* 
 					*/
@@ -265,69 +348,16 @@
 						var promise = getAPOP(loadedPinsCount, typeParams).success($.proxy(
 							// Add the new items to the list.
 							function(response) {
-								// Initialize.
-								var mdlBlock = assignPanel.block.block;
-								// New items to add to the list.
-								var items = response.items;
 								// If there is no more items to load then exit
 								// and don't try to load data for this list anymore.
 								if (response.count == 0) {
-									// Remove scroll event that handle the dynamic loading.
-									list.unbind('scroll.cjt');
+									// Mark as full loaded
+									list.data('itemsLoaded', true);
 									// Exit as there is nothing to process.
 									return;
 								}
-								// Update loaded count.
-								list.data('loadedCount', (loadedPinsCount + response.count));
-								// Add items to list using
-								$.each(items, $.proxy(
-									function(index, item) {
-										// Get parent list DOM Node.
-										var listId = '#objects-list-' + typeParams.type + '-' + mdlBlock.get('id') + '-' + item.parent;
-										var targetList = assignPanel.jElement.find(listId);
-										// Item list LI element.
-										var itemLi = $('<li></li>').appendTo(targetList);
-										// Item assignment panel checkbox.
-										var checkbox = $('<input type="checkbox" />')
-																		 // Set name
-																		.prop('name', 'cjtoolbox[' + mdlBlock.get('id') + '][' + typeParams.group + '][]')
-																		 // Submit object-ID when saving.
-																		.val(item.id)
-																		 // Update the map once the assigned pin checkbox
-																		 // checked value changed.
-																		.change(_onobjectstatechanged)
-																		.prop('checked', item.assigned)
-																		.appendTo($('<label></label>').appendTo(itemLi));
-										// Add the Checkbox to notification save chnages elements.
-										assignPanel.block.notifySaveChanges.initElement(checkbox.get(0));
-										// Checkbox title container.
-										var title = $('<span><span>')
-																.attr('title', item.title)
-																.appendTo(itemLi);
-										// Checkbox title and link
-										if (item.link) {
-											$('<a href="' + item.link + '" target="_blank">' + item.title + '</a>').appendTo(title);	
-										}
-										else {
-											title.text(item.title)
-													 .css({'margin-left' : '6px'});
-										}
-										// In case that the current item has child items,
-										// Add DOM Nodes to server child items.
-										if (item.hasChilds) {
-											// Add 'select childs' checkbox just before te title container element.
-											var link = $('<a href="#" class="select-childs-checkbox-overlay"></a>')
-											.click($.proxy(_onselectchilds, this))
-											.insertBefore(title);
-											// Overlay checkbox.
-											link.after('<input type="checkbox" class="select-childs">');
-											// Add child items list below the title container.
-											$('<ul class="children"></ul>')
-											.prop('id', ('objects-list-' + typeParams.type + '-' + mdlBlock.get('id') + '-' + item.id))
-											.insertAfter(title);
-										}
-									}, this)
-								);
+								// Display items.
+								assignPanel.list_displayItems(list, response);
 							}, this)
 						).complete($.proxy(
 							function() {
@@ -344,8 +374,43 @@
 					this.getMap = function() {
 						return map;						
 					}
+		
+					/**
+					* put your comment there...
+					* 
+					*/
+					this.getTypeObject = function() {
+						// Default type object.
+						var type = {
+							button : {
+								stateVars : {
+									objectListActivated : false,
+								}
+							},
+							list : {
+								stateVars : {
+									cjt_isObjectListLoading : false,
+									loadedCount : 0,
+									itemsLoaded : 0
+								},
+								items : null
+							}
+						};
+						// Returs.
+						return type;
+					}
+		
+					/**
+					* 
+					*/
+					this.setMapGroup = function(name, mapList) {
+						map[name] = mapList;
+					}
 
 					/// CONSTRUCTTOR  ///
+					var blockId = mdlBlock.get('id');
+					var typeObjectDefaults = this.getTypeObject();
+					
 					// Initialize all 'objects-list'
 					this.jElement.find('.objects-list-button').each(
 						$.proxy(function(index, objectListEle) {
@@ -363,7 +428,7 @@
 								})
 							);
 							// Get objects-list DOM node.
-							listElementId = '#objects-list-' + listParams.type + '-' + mdlBlock.get('id') + '-0';
+							listElementId = '#objects-list-' + listParams.type + '-' + blockId + '-0';
 							listElement = this.jElement.find(listElementId).eq(0);
 							// Initialize data register.
 							listElement.data('loadedCount', 0);
@@ -371,6 +436,8 @@
 							listElement.data('params', listParams)
 							// Set objects-list for later use.
 							objectListEle.data('list', listElement)
+							// Initialize default state-var
+							.data('objectListActivated', false)
 							// In order for the item to be processed on the 'activate' event
 							// the item should be signed for that so it can determind
 							// later when the activate event got fired!
@@ -383,6 +450,8 @@
 							listElementNode._ondetectlistscroll = _ondetectlistscroll;
 							// Fetch objects from server with list scrolls event.
 							listElement.bind('scroll.cjt', listElementNode._ondetectlistscroll);
+							// Cache object-list-element reference for later use.
+							this.buttons[listParams['group']].push(objectListEle);
 						}, this)
 					);
 					
@@ -393,13 +462,11 @@
 							ui.item = ui.newTab;
 							// Trigger real event handler.
 							_onobjectlistactivate(event, ui);
-						},
-						active : false,
-						collapsible : true,
+						}
 					})
 					
 					// Initialize custom posts accordion.
-					.find('#accordion-custom-posts-' + mdlBlock.get('id')).accordion({
+					.find('#accordion-custom-posts-' + blockId).accordion({
 						activate : function(event, ui) {
 							// Set ui.item to accordion reference.
 							ui.item = ui.newHeader;
@@ -411,12 +478,13 @@
 					});
 					
 					// Initialize Advanced tab accordion.
-					mdlBlock.box.find('#advanced-accordion-' + mdlBlock.get('id')).accordion({
+					mdlBlock.box.find('#advanced-accordion-' + blockId).accordion({
 							change : _onadvancedaccordionchanged,
 							header: '.acc-header'
 						}
 					);
-					
+					// Activate the AUX tab by default.
+					this.jElement.find('li.type-other>a').trigger('click');
 				}
 			}
 		})
