@@ -820,14 +820,10 @@
 		* 
 		*/
 		this.restoreRevision = function(revisionId, data) {
-			var properties = this.features.restoreRevision.fields;
-			$.each(properties, $.proxy(
-				function(index, name) {
-					var property = this.block.property(name);
-					// Use setValue Fields Common Setter Interface (FCSI) impleneted by CJTBlock.
-					property.setValue(data[name]);
-				}, this)
-			);			
+			// Create new revision control action.
+			var revisionControl = new CJTBlockOptionalRevision(this, data, revisionId);
+			// Display the revision + enter revision mode.
+			revisionControl.display();
 		}
 	
 		/**
@@ -850,6 +846,9 @@
 					this.toolbox.jToolbox.hide();
 					// Disable all fields.
 					this.enable(false);
+				case 'revision':
+					// Show the other buttons.
+					
 				break;
 				default:
 					 // Nothing for now
