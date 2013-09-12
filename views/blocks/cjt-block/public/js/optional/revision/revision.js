@@ -23,6 +23,18 @@ var CJTBlockOptionalRevision = null;
 		/**
 		* put your comment there...
 		* 
+		*/
+		var activateTab = function(type) {
+			// Initialize.
+			var assignPanel = block.pagesPanel.jElement;
+			// Activate the AUX tab by default.
+			assignPanel.find('li.type-' + type + '>a').trigger('click');
+			assignPanel.tabs({collapsible : false});
+		};
+
+		/**
+		* put your comment there...
+		* 
 		* @param block
 		* @param Revision
 		*/
@@ -32,10 +44,19 @@ var CJTBlockOptionalRevision = null;
 			// Handle switch state event.
 			this.onSwitchState = this._onswitchstate;
 			this.onRestoreDone = this._onrestoredone;
+			this.onBeforeSwitchState = this._onbeforeswitchstate;
 			// Initialize.
 			this.assignPanel = block.pagesPanel;
 		}
 	
+		/**
+		* 
+		*/
+		this._onbeforeswitchstate = function() {
+			// deactivate all tabs while processing.
+			block.pagesPanel.jElement.tabs({collapsible : true, active : false});
+		}
+
 		/**
 		* 
 		*/
@@ -60,6 +81,8 @@ var CJTBlockOptionalRevision = null;
 				  this.assignPanel.modeBlockId = null;
 				break;
 			}
+			// Reset assignpanel selected TAB.
+			activateTab('other');
 		}
 
 		// Construct parent.

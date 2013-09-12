@@ -46,7 +46,7 @@
 					/**
 					* 
 					*/
-					this.loadAssignedOnlyMode = false;
+					this.loadAssignedOnlyMode = (this.block.state == 'restore');
 					
 					/**
 					* 

@@ -67,7 +67,7 @@ extends CJT_Models_Block_Assignmentpanel_Base {
 		$mdlBlocks = new CJTBlocksModel();
 		$blockId = $this->getBlockId();
 		// Query block pinPoint field.
-		$assignedPinPoints = $mdlBlocks->getBlock($blockId, array(), array('id', 'pinPoint'))->pinPoint;
+		$assignedPinPoints = $mdlBlocks->getBlock($blockId, array(), array('id', 'pinPoint'), false)->pinPoint;
 		// Return map.
 		return $this->auxHelper->getPinsArray($assignedPinPoints);
 	}
