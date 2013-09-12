@@ -658,10 +658,8 @@
 					this.toolbox.jToolbox.hide();
 					// Disable all fields.
 					this.enable(false);
-				case 'revision':
-					// Show the other buttons.
-					
-				break;
+					// Change state
+					this.state = 'restore';
 				default:
 					 // Nothing for now
 				break;

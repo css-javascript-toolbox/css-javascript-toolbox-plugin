@@ -146,8 +146,8 @@ class CJTBlocksModel {
 	* @param mixed $id
 	* @param mixed $fields
 	*/
-	public function getBlock($id, $filters = array(), $fields = array('*')) {
-		$blocks = $this->getBlocks($id, $filters, $fields);
+	public function getBlock($id, $filters = array(), $fields = array('*'), $useDefaultBackupFltr = true) {
+		$blocks = $this->getBlocks($id, $filters, $fields, OBJECT_K, array(), $useDefaultBackupFltr);
 		$block = !empty($blocks) ? reset($blocks) : null;
 		return $block;
 	}
@@ -157,13 +157,13 @@ class CJTBlocksModel {
 	* 
 	* @param mixed $ids
 	*/
-	public function getBlocks($ids = array(), $filters = array(), $fields = array('*'), $returnType = OBJECT_K, $orderBy = array()) {
+	public function getBlocks($ids = array(), $filters = array(), $fields = array('*'), $returnType = OBJECT_K, $orderBy = array(), $useDefaultBackupFltr = true) {
 		$blocks = array();
 		// Create Tables objects.
 		$blocksTable = new CJTBlocksTable($this->dbDriver);
 		$pinsTable = new CJTBlockPinsTable($this->dbDriver);
 		// Read blocks.
-		$blocks = $blocksTable->get($ids, $fields, $filters, $returnType, $orderBy);
+		$blocks = $blocksTable->get($ids, $fields, $filters, $returnType, $orderBy, $useDefaultBackupFltr);
 		// Get only pins for retrieved blocks.
 		$ids = array_keys($blocks);
 		$pins = empty($ids) ? array() : $pinsTable->get($ids);

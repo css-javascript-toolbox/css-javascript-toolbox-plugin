@@ -38,6 +38,11 @@ var CJTBlockOptionalRevisionBase = null;
 		* 
 		*/
 		this.state;
+
+		/**
+		* Switch state event
+		*/
+		this.onBeforeSwitchState;
 		
 		/**
 		* Switch state event
@@ -50,6 +55,22 @@ var CJTBlockOptionalRevisionBase = null;
 		this.onSwitchState;
 		
 		/**
+		* put your comment there...
+		* 
+		*/
+		this.CJTBlockOptionalRevisionBase = function(block, revision) {
+			// Initialize instance.
+			this.block = block;
+			this.revision = revision;
+			this.original = {};
+			this.state = 'normal';
+			// Events.
+			this.onSwitchState = function() {};
+			this.onDoneRestore = function() {};
+			this.onBeforeSwitchState = function() {};
+		}
+
+		/**
 		* 
 		*/
 		this.cancel = function() {
@@ -60,6 +81,8 @@ var CJTBlockOptionalRevisionBase = null;
 			var mdlBlock = block.block;
 			var properties = block.features.restoreRevision.fields;
 			var pom;
+			// Before switch state event.
+			this.onBeforeSwitchState()
 			// Copy original data back to the block.
 			$.each(properties, $.proxy(
 				function(index, propertyName) {
@@ -80,29 +103,16 @@ var CJTBlockOptionalRevisionBase = null;
 			// Enable button is there is a change not saved yet, disable it if not.
 			saveButton.enable(isChanged);
 			// Reset save buttons properties back.
-			saveButton.jButton.text('Save');
+			saveButton.jButton.text('Save')
+			// Clear RESTORE button style
+			.removeClass('cjttblSW-restore');
 			saveButton.callback = saveButton._callback;
 			block._onsavechanges = block.__onsavechanges;
 			saveButton._callback = null;
 			// Notify blocks page.
-			CJTBlocksPage.blockContentChanged(this.block.id, isChanged);
+			CJTBlocksPage.blockContentChanged(block.block.id, isChanged);
 			// Change state / Enter revision mode.
 			this.onSwitchState(this.state = null);
-		}
-		
-		/**
-		* put your comment there...
-		* 
-		*/
-		this.CJTBlockOptionalRevisionBase = function(block, revision) {
-			// Initialize instance.
-			this.block = block;
-			this.revision = revision;
-			this.original = {};
-			this.state = 'normal';
-			// Events.
-			this.onSwitchState = function() {};
-			this.onDoneRestore = function() {};
 		}
 	
 		/**
@@ -116,6 +126,8 @@ var CJTBlockOptionalRevisionBase = null;
 			var mdlBlock = block.block;
 			var properties = block.features.restoreRevision.fields;
 			var pom;
+			// Before switch state event.
+			this.onBeforeSwitchState()
 			// Cache 'Changes' array, don't reference it from block.changes
 			// as both got the same variable reference.
 			this.original.changes = block.changes; block.changes = [];
@@ -177,9 +189,20 @@ var CJTBlockOptionalRevisionBase = null;
 					this.original.changes = [];
 					// Stop loading
 					saveButton.loading(false);
+					// Sync fields with server value.
+					// This refrssh required for notifying saving
+					// change to detect changes.
+					var diFields = block.block.getDIFields();
+					// Push aceEditor into diFields list.
+					diFields[diFields.length++] = block.block.aceEditor;
+					diFields.each(
+						function() {
+							this.cjtSyncInputField();
+						}
+					);
 					// Cancel restore action will reset
 					// the block UI elements to the normal state.
-					this.cancel();
+					this.cancel(true);
 				}, this)
 			);
 		}

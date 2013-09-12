@@ -21,6 +21,17 @@
 		this.pagesPanel = null;
 		
 		/**
+		* 
+		*/
+		this._onswitchstate = function(state) {
+			switch (state) {
+				case 'restore':
+					this.pagesPanel.loadAssignedOnlyMode = true;
+				break;
+			}
+		}
+
+		/**
 		*
 		*
 		*
@@ -74,6 +85,7 @@
 			// For link to behave inactive.
 			return false;
 		}
+		
 		/// Initialize parent class.
 		// Add assigment panel fields to the restoreRevision args.
 		args.restoreRevision = {fields : ['code', 'pages', 'posts', 'categories', 'pinPoint', 'links', 'expressions']};
@@ -97,6 +109,7 @@
 			{element : assigmentPanelElement.find('.advanced-accordion .ui-accordion-content'), pixels : 169},
 			{element : assigmentPanelElement.find('.advanced-accordion .ui-accordion-content textarea'), pixels : 177}
 		];
+		
 	} // End class.
 	
 	// Extend CJTBLockPluginBase.
