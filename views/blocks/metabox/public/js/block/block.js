@@ -13,12 +13,12 @@ var CJTBlock;
 	* 
 	* @param element
 	*/
-	var CJTBlock = function(element) {
+	CJTBlock = function(blockPlugin, element) {
 		
 		// Constructor.
 		this.CJTBlock = function() {
 			// Initialize parent.
-			this.CJTBlockBase(element);
+			this.CJTBlockBase(blockPlugin, element, {});
 		}
 		
 		// Construct!
@@ -26,6 +26,6 @@ var CJTBlock;
 	}
 	
 	// Extend CJTBlockBase class.
-	CJTBlock.prototype = CJTBlockBase;
+	CJTBlock.prototype = new CJTBlockBase();
 	
 })(jQuery)
