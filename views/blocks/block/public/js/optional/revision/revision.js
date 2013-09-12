@@ -66,7 +66,7 @@ var CJTBlockOptionalRevisionBase = null;
 			this.state = 'normal';
 			// Events.
 			this.onSwitchState = function() {};
-			this.onDoneRestore = function() {};
+			this.onRestoreDone = function() {};
 			this.onBeforeSwitchState = function() {};
 		}
 
