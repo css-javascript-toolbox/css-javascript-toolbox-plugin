@@ -384,8 +384,7 @@
 								// Add or Remove CSS class based on the current state.
 								button.addClass(colorStyles[colorState ? 1 : 0]);
 							}, this)
-						, 500);
-						
+						, 150);
 						// Load next page.
 						var promise = getAPOP(loadedPinsCount, typeParams, initialize, page).success($.proxy(
 							// Add the new items to the list.
@@ -481,7 +480,11 @@
 							listElementId = '#objects-list-' + listParams.type + '-' + blockId + '-0';
 							listElement = this.jElement.find(listElementId).eq(0);
 							// Initialize data register.
-							listElement.data('loadedCount', 0)
+							listElement
+							.data('loadedCount', 0)
+							.data('loadedPages', 0)
+							.data('totalItemsCount', 0)
+							// Cache button element reference.
 							.data('button', objectListEle.find('>a'))
 							// Get info-panel element.
 							.data('infoPanel', listElement.next())
@@ -539,6 +542,8 @@
 								// Trigger real event handler.
 								_onobjectlistactivate(event, ui);
 							}
+							// Make link inactive.
+							return false;
 						}, this)
 					);
 					

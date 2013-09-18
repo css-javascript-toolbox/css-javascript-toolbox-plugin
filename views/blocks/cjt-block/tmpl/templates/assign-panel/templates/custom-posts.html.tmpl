@@ -1,18 +1,24 @@
 <?php
 // Create tabs for every custom post under the custom posts tab.
 // Get all registered custom posts.
-$customPosts = get_post_types(array('public' => 1, '_builtin' => false), 'objects');
+$customPosts = get_post_types(array('public' => 1, 'show_ui' => true, '_builtin' => false), 'objects');
 // Get refernce to custom posts tab.
 $items = array();
-// Add tab for every custom post.
+// Add tab for every custom post
+// Exclude 'Empty' Custom Post Types.
 foreach ($customPosts as $typeName => $customPost) {
-	$items[$typeName] = array(
-		'title' => $customPost->labels->name,
-		'renderer' => 'objects-list',
-		'type' => array('type' => $typeName,
-										'group' => 'posts',
-										'targetType' => 'post')
-	);
+	// Check if has posts.	
+	$hasPosts = count(get_posts(array('post_type' => $typeName, 'offset' => 0, 'numberposts' => 1)));
+	// Add only types with at least one post exists.
+	if ($hasPosts) {
+		$items[$typeName] = array(
+			'title' => $customPost->labels->name,
+			'renderer' => 'objects-list',
+			'type' => array('type' => $typeName,
+											'group' => 'posts',
+											'targetType' => 'post')
+		);
+	}
 }
 // If there is no custom posts registered show message
 //, otherwise create the custom-posts accordion
