@@ -13,6 +13,14 @@ extends CJT_Models_Block_Assignmentpanel_Postbase {
 	* put your comment there...
 	* 
 	*/
+	public function getTotalCount() {
+		return count($this->getPinsMap());
+	}
+
+	/**
+	* put your comment there...
+	* 
+	*/
 	protected function isHierarchical() {
 		return false;
 	}

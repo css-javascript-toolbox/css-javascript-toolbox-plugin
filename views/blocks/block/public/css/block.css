@@ -120,6 +120,9 @@
 	top: -2px;
 	background-position: center center;
 }
+.block-toolbox a.cjttbs-disabled,
+.block-toolbox a.cjttbs-disabled:hover {opacity: 0.4 !important}
+
 .block-toolbox a.cjttbl-save.cjttbs-disabled {background: url(../images/toolbox/save-inactive.png); }
 .block-toolbox a.cjttbl-revisions { background-image: url(../images/toolbox/revisions.png); }
 .block-toolbox a.cjttbl-delete { background-image: url(../images/toolbox/delete.png); }

@@ -13,6 +13,22 @@ extends CJT_Models_Block_Assignmentpanel_Postbase {
 	* put your comment there...
 	* 
 	*/
+	public function getTotalCount() {
+		// Initialize.
+		$args = $this->args;
+		$params =& $this->getTypeParams();
+		// Set args.
+		$args['offset'] = 0;
+		$args['numberposts'] = -1;
+		$args['post_type'] = $params['type'];
+		// Query posts.
+		return count(get_posts($args));
+	}
+
+	/**
+	* put your comment there...
+	* 
+	*/
 	protected function isHierarchical() {
 		// Initialize.
 		$typeParams =& $this->getTypeParams();

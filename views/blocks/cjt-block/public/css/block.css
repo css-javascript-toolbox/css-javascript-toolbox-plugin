@@ -2,7 +2,15 @@
 .cjcodeblock {margin-right:317px;}
 /*  Pages Panel */
 .cjpageblock {width: 315px; height: 100%; position: absolute; right: 3px;}
-.pagelist {padding:10px; height: 251px; overflow:auto; background:#fff; border:1px solid #ccc;}
+.pagelist {
+	padding:10px;
+	height: 242px; 
+	overflow:auto;
+	background:#fff; 
+	border:1px solid #ccc; 
+	margin-bottom: 0px;
+	margin-top: 8px;
+}
 /* Wrap long text */
 .pagelist a{color: black; text-decoration: none;}
 .select-childs {position: relative; left: 2px; top: 2px; margin-left:-12px !important; margin-right: 1px !important; margin-top: 0px !important;}
@@ -17,27 +25,60 @@
 .pagelist li .list-error .message{font-weight: bold;}
 .pagelist ul { margin-left:15px; }
 
+div.cjpageblock .objects-list-button > a.prog-colored {color: yellow !important;}
+.info-panel {
+	display: none;
+	margin-top: 4px;
+	text-align: right;
+	font-size: 15px;
+	margin-right: 2px;
+}
+.info-panel .info-panel-loaded-count {color: #A5581B;}
+
+.info-panel .optional-actions {
+	display: none;
+	width: 80px;
+	height: 12px;
+}
+.info-panel .pagination-list {
+	background-image: url('../images/pages-panel/external_link.png');
+	width: 16px;
+	height: 16px;
+	background-repeat: no-repeat;
+	display: inline-block;
+	margin-top: 1px;
+}
+.pagination-options-list {display: none; width: 140px; height: 200px !important; position: absolute;}
+
 /**
 * jQuery Accordions
 */
-.ui-accordion {margin-top: 6px;}
-a.acc-header {display: block;}
+a.acc-header, .custom-posts-container a.custom-post-item-header {display: block;}
 a.acc-header,
 a.acc-header:hover,
-a.acc-header:visited {
+a.acc-header:visited,
+.custom-posts-container a.custom-post-item-header,
+.custom-posts-container a.custom-post-item-header:hover,
+.custom-posts-container a.custom-post-item-header:visited {
 	text-decoration: none;
 	font-family: Helvetica;
-	color: #AFAFAF;
+	color: #A5581B;
 	font-weight: bold;
 }
-
 /**
 * Custom Posts jQuery Accordion
 */
-.cjt-tab-item-custom-posts {overflow: auto;}
-.custom-posts-accordion .ui-accordion-content {height: 211px;}
-.custom-posts-accordion .pagelist {height: 180px; margin-top: 2px;}
-.custom-posts-accordion a.acc-header {
+.custom-posts-container {
+	background-color: white;
+	margin-top: 9px;
+	height: 261px;
+	padding: 6px;
+	overflow: auto;
+}
+.custom-posts-container .custom-post-list {display: none; padding-bottom: 8px;}
+.custom-posts-container .ui-accordion-content {height: 258px;}
+.custom-posts-container .pagelist {height: 218px; margin-top: 2px; margin-left: 5px; border: none; padding-top: 0px;}
+.custom-posts-container a.custom-post-item-header {
 	text-decoration: underline;
 	margin-bottom: 2px;
 	padding-left: 5px;
@@ -75,5 +116,5 @@ a.acc-header:visited {
 .cjpageblock .ui-tabs .ui-tabs-nav li.ui-tabs-selected { margin-bottom: 0; padding-bottom: 1px; }
 .cjpageblock .ui-tabs .ui-tabs-nav li.ui-tabs-selected a, .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .ui-tabs .ui-tabs-nav li.ui-state-processing a { cursor: text; background:#E9E9E9; border-color:#CCCCCC #CCCCCC #E9E9E9; color:#333333; }
 .cjpageblock .ui-tabs .ui-tabs-nav li a, .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a { cursor: pointer; } /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
-.cjpageblock .ui-tabs .ui-tabs-panel {height: 290px; display: block; padding: 0px 7px; background: #EFEFEF; border-color:#CCCCCC; border-style:solid;border-width:1px;border-collapse:separate;-moz-border-radius:3px 3px 0 0;-webkit-border-top-right-radius:3px;-webkit-border-top-left-radius:3px;-khtml-border-top-right-radius:3px;-khtml-border-top-left-radius:3px;border-top-right-radius:3px;border-top-left-radius:3px; clear:both }
+.cjpageblock .ui-tabs .ui-tabs-panel {height: 294px; display: block; padding: 0px 7px; background: #EFEFEF; border-color:#CCCCCC; border-style:solid;border-width:1px;border-collapse:separate;-moz-border-radius:3px 3px 0 0;-webkit-border-top-right-radius:3px;-webkit-border-top-left-radius:3px;-khtml-border-top-right-radius:3px;-khtml-border-top-left-radius:3px;border-top-right-radius:3px;border-top-left-radius:3px; clear:both }
 .cjpageblock .ui-tabs .ui-tabs-hide { display: none !important; }
