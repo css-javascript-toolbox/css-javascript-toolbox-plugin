@@ -17,4 +17,12 @@ extends CJT_Models_Block_Assignmentpanel_Auxiliarybase {
 		return $this->getList();
 	}
 
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function getTotalCount() {
+		return count($this->getList());
+	}
+
 } // End class.

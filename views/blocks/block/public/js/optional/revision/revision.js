@@ -152,6 +152,7 @@ var CJTBlockOptionalRevisionBase = null;
 			saveButton.enable(true);
 			saveButton._callback = saveButton.callback;
 			saveButton.__onsavechanges = block._onsavechanges;
+			toolbox.buttons['switch-editor-language'].enable(true);
 			block._onsavechanges = saveButton.callback = $.proxy(this.restore, this);
 			// Rename it to 'Restore'
 			saveButton.jButton.text('Restore')

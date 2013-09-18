@@ -13,6 +13,20 @@ extends CJT_Models_Block_Assignmentpanel_Taxonomybase {
 	* put your comment there...
 	* 
 	*/
+	public function getTotalCount() {
+		// Initialize.
+		$args = $this->args;
+		$params =& $this->getTypeParams();
+		// Set args.
+		$args['fields'] = 'ids';
+		// Query posts.
+		return count(get_terms($params['type'], $args));
+	}
+
+	/**
+	* put your comment there...
+	* 
+	*/
 	protected function isHierarchical() {
 		// Initialize.
 		$typeParams =& $this->getTypeParams();

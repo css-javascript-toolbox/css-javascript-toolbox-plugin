@@ -7,14 +7,6 @@
 .cjcodeblock {
 	margin-right: 0px !important; /* Override block.css style */
 }
-/*
-  Show disable state for block toolbox buttons 
-  when user delete the metabox.
-*/
-.block-toolbox a.cjttbs-disabled,
-.block-toolbox a.cjttbs-disabled:hover {
-	opacity: 0.4;
-}
 
 /**
 * Show loading image with 100% opactiy.

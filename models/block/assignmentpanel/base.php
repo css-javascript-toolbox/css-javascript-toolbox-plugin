@@ -153,6 +153,8 @@ abstract class CJT_Models_Block_Assignmentpanel_Base {
 		return $map;
 	}
 
+	public abstract function getTotalCount();
+	
 	/**
 	* put your comment there...
 	* 

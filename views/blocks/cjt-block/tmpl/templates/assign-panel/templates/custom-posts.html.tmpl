@@ -3,10 +3,10 @@
 // Get all registered custom posts.
 $customPosts = get_post_types(array('public' => 1, '_builtin' => false), 'objects');
 // Get refernce to custom posts tab.
-$accordionItems = array();
+$items = array();
 // Add tab for every custom post.
 foreach ($customPosts as $typeName => $customPost) {
-	$accordionItems[$typeName] = array(
+	$items[$typeName] = array(
 		'title' => $customPost->labels->name,
 		'renderer' => 'objects-list',
 		'type' => array('type' => $typeName,
@@ -16,13 +16,13 @@ foreach ($customPosts as $typeName => $customPost) {
 }
 // If there is no custom posts registered show message
 //, otherwise create the custom-posts accordion
-if (!empty($accordionItems)) :
+if (!empty($items)) :
 ?>
-	<div id="accordion-custom-posts-<?php echo $block->id ?>" class="custom-posts-accordion">
-<?php foreach ($accordionItems as $item) : ?>
+	<div id="custom-posts-container-<?php echo $block->id ?>" class="custom-posts-container">
+<?php foreach ($items as $item) : ?>
 		<div class="objects-list-button">
 <?php	echo $this->getTemplate('inputs-list', array('item' => $item), 'tmpl/templates/assign-panel/templates') ?>
-			<a href="#" class="acc-header"><?php echo $item['title'] ?></a>
+			<a href="#" class="custom-post-item-header"><?php echo $item['title'] ?></a>
 		</div>
 		<div class="custom-post-list">
 <?php

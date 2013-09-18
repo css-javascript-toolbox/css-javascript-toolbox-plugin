@@ -102,10 +102,13 @@
 		this._ontogglepagespanel({target : toggler.jButton}, this.block.get('pagesPanelToggleState', ''));
 		// More to Dock with Fullscreen mode!
 		this.extraDocks = [
-			{element : assigmentPanelElement.find('.ui-tabs-panel'), pixels : 89},
+			{element : assigmentPanelElement.find('.ui-tabs-panel'), pixels : 72},
 			{element : assigmentPanelElement.find('.ui-tabs-panel .pagelist'), pixels : 132},
-			{element : assigmentPanelElement.find('.custom-post-list.ui-accordion-content'), pixels : 122},
-			{element : assigmentPanelElement.find('.custom-post-list.ui-accordion-content .pagelist'), pixels : 160},
+			
+			{element : assigmentPanelElement.find('.custom-posts-container'), pixels : 122},
+			{element : assigmentPanelElement.find('.custom-posts-container .custom-post-list'), pixels : 122},
+			{element : assigmentPanelElement.find('.custom-posts-container .custom-post-list .pagelist'), pixels : 167},
+			
 			{element : assigmentPanelElement.find('.advanced-accordion .ui-accordion-content'), pixels : 169},
 			{element : assigmentPanelElement.find('.advanced-accordion .ui-accordion-content textarea'), pixels : 177}
 		];

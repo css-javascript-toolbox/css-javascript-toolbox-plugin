@@ -104,7 +104,7 @@
 						// If the ScrollValue = ScrollZone
 						// then we need to load a new page.
 						if ((scrollValue == scrollZone) && (isLoading === false)) {
-							list.getCJTBlockAPOP();
+							list.getCJTBlockAPOP(false);
 						}
 					};
 
@@ -124,12 +124,26 @@
 							if (item.data('objectListActivated') !== true) {
 								// In order to load the first page we need to get 'list' DOM node.
 								var list = item.data('list');
+								var params = list.data('params');
 								// Load first page.
-								list.get(0).getCJTBlockAPOP().success($.proxy(
-									function() {
+								list.get(0).getCJTBlockAPOP(true).success($.proxy(
+									function(response) {
 										// Mark item as activated after the page
 										// is successfully loaded.
 										item.data('objectListActivated', true);
+										// Initialize TOTLAL COUNT.
+										if (response.count) {
+											var infoPanel = list.data('infoPanel');
+											// Cache total.
+											list.data('totalItemsCount', response.total);
+											// Show pagination info bar.
+											infoPanel.css({display : 'block'}).find('.info-panel-total').text(response.total);
+											// Show/Hide info panel icons.
+											infoPanel.mouseleave(function() {infoPanel.find('.optional-actions').hide()})
+											.mouseenter(function() {infoPanel.find('.optional-actions').css({display : 'inline-block'})});
+											// Show pagination list when clicked.
+											new CJTBlockAssignPanelPaginationList(assignPanel, list);
+										}
 									}, this)
 								);
 							}
@@ -167,6 +181,17 @@
 					/**
 					* put your comment there...
 					* 
+					*/
+					var _onpaginationlist = function() {
+						// Show pagination list.
+						alert('xxx');
+						// Inactive link.
+						return false;
+					};
+					
+					/**
+					* put your comment there...
+					* 
 					* @param event
 					* 
 					* @returns {Boolean}
@@ -193,10 +218,11 @@
 					* put your comment there...
 					* 
 					* @param index
-					* @param objType
-					* @param type
+					* @param typeParams
+					* @param initialize
+					* @param page
 					*/
-					var getAPOP = function(index, typeParams) {
+					var getAPOP = function(index, typeParams, initialize, page) {
 						// Initialize.
 						var server = CJTBlocksPage.server;
 						// Use modeBlockId instead of original block id to be used in case of 
@@ -205,9 +231,10 @@
 						var requestData = {
 							block : blockId,
 							index : index,
-							iPerPage : getIPerPage(),
+							iPerPage : (page * assignPanel.getIPerPage()),
 							typeParams : typeParams,
-							assignedOnly : assignPanel.loadAssignedOnlyMode
+							assignedOnly : assignPanel.loadAssignedOnlyMode,
+							initialize : initialize
 						};
 						// Send request to server.
 						var promise = server.send('block', 'getAPOP', requestData).success($.proxy(
@@ -245,7 +272,7 @@
 					* above and bottom the objects-list.
 					* 
 					*/
-					var getIPerPage = function() {
+					this.getIPerPage = function() {
 						// Calculate iPerPage only if not calculated.
 						if (iPerPage === null) {
 							// Initialize.
@@ -335,7 +362,7 @@
 					* APOP -- Assigment Pabel Objects page
 					* 
 					*/
-					var list_GetAPOP = function() {
+					this.list_GetAPOP = function(initialize, page) {
 						// Initialize.
 						var list = $(this);
 						// Get pins parameters.
@@ -344,8 +371,23 @@
 						var loadedPinsCount = list.data('loadedCount');
 						// Flag that the list is in 'loading' state.
 						list.data('cjt_isObjectListLoading', true);
+						// Show LOADING-PROGRESS as color switching.
+						var button = list.data('button');
+						var colorStyles = ['prog-normal', 'prog-colored'];
+						var colorState = false;
+						var tmrProg = window.setInterval($.proxy(
+							function() {
+								// Remove previous state class.
+								button.removeClass(colorStyles[colorState ? 1 : 0]);
+								// Switch STATE
+								colorState = !colorState;
+								// Add or Remove CSS class based on the current state.
+								button.addClass(colorStyles[colorState ? 1 : 0]);
+							}, this)
+						, 500);
+						
 						// Load next page.
-						var promise = getAPOP(loadedPinsCount, typeParams).success($.proxy(
+						var promise = getAPOP(loadedPinsCount, typeParams, initialize, page).success($.proxy(
 							// Add the new items to the list.
 							function(response) {
 								// If there is no more items to load then exit
@@ -358,11 +400,19 @@
 								}
 								// Display items.
 								assignPanel.list_displayItems(list, response);
+								// Display loaded items count.
+								list.data('infoPanel').find('.info-panel-loaded-count').text(list.data('loadedCount'));
+								// Cache TOTAL loaded pages.
+								list.data('loadedPages', (list.data('loadedPages') + page));
 							}, this)
 						).complete($.proxy(
 							function() {
 								// Flag that the list is in 'not-loading' state.
 								list.data('cjt_isObjectListLoading', false);
+								// Stop progeess.
+								window.clearInterval(tmrProg);
+								// Remove STATE class.
+								button.removeClass('prog-normal').removeClass('prog-colored');
 							}, this)
 						);
 						return promise;
@@ -431,9 +481,12 @@
 							listElementId = '#objects-list-' + listParams.type + '-' + blockId + '-0';
 							listElement = this.jElement.find(listElementId).eq(0);
 							// Initialize data register.
-							listElement.data('loadedCount', 0);
+							listElement.data('loadedCount', 0)
+							.data('button', objectListEle.find('>a'))
+							// Get info-panel element.
+							.data('infoPanel', listElement.next())
 							// Push all input field values to the list.
-							listElement.data('params', listParams)
+							.data('params', listParams);
 							// Set objects-list for later use.
 							objectListEle.data('list', listElement)
 							// Initialize default state-var
@@ -446,7 +499,10 @@
 							inputFields.remove();
 							// Add fetchBlockPins and Detect Scrolling event handler method to the list object.
 							listElementNode = listElement.get(0);
-							listElementNode.getCJTBlockAPOP = list_GetAPOP;
+							listElementNode.getCJTBlockAPOP = function(initialize) {
+								// List items.
+								return assignPanel.list_GetAPOP.apply(this, [initialize, 1]);
+							};
 							listElementNode._ondetectlistscroll = _ondetectlistscroll;
 							// Fetch objects from server with list scrolls event.
 							listElement.bind('scroll.cjt', listElementNode._ondetectlistscroll);
@@ -458,24 +514,33 @@
 					// Initialize Assigment Panel tab.
 					this.jElement.tabs({
 						activate : function(event, ui) {
-							// Set ui.item to accordion reference.
+							// Set ui.item to TAB reference.
 							ui.item = ui.newTab;
 							// Trigger real event handler.
 							_onobjectlistactivate(event, ui);
 						}
-					})
-					
-					// Initialize custom posts accordion.
-					.find('#accordion-custom-posts-' + blockId).accordion({
-						activate : function(event, ui) {
-							// Set ui.item to accordion reference.
-							ui.item = ui.newHeader;
-							// Trigger real event handler.
-							_onobjectlistactivate(event, ui);
-						},
-						active : false,
-						collapsible : true
 					});
+					
+					// Create custom posts toggle widget.
+					var cpContainer = this.jElement.find('#custom-posts-container-' + blockId);
+					// Toggle custom post list when the header link is clicked.
+					cpContainer.find('.objects-list-button>a.custom-post-item-header').click($.proxy(
+						function(event) {
+							// Initialize.
+							var button = $(event.target).parent();
+							var list = button.next();
+							// Toggle item.
+							list.toggle();
+							// Fire the activate event in case that the item
+							// is not visible.
+							if (list.css('display') != 'none') {
+								// Activate event standard interface.
+								var ui = {item : button};
+								// Trigger real event handler.
+								_onobjectlistactivate(event, ui);
+							}
+						}, this)
+					);
 					
 					// Initialize Advanced tab accordion.
 					mdlBlock.box.find('#advanced-accordion-' + blockId).accordion({

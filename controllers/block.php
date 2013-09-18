@@ -61,6 +61,7 @@ class CJTBlockController extends CJTAjaxController {
 		$oTypeParams = $_GET['typeParams'];
 		$offset = $_GET['index'];
 		$assignedOnly = ($_GET['assignedOnly'] == 'false') ? false : true;
+		$initialize = ($_GET['initialize'] == 'false') ? false : true;
 		// Get the corresponding type object
 		// for handling the request.
 		$typeName = $oTypeParams['targetType'];
@@ -81,6 +82,11 @@ class CJTBlockController extends CJTAjaxController {
 		// Return result
 		$this->response['count'] = count($items);
 		$this->response['items'] = $items;
+		// Return count only when the list is activated for
+		// the first time.
+		if ($initialize) {
+			$this->response['total'] = $typeObject->getTotalCount();	
+		}
 	}
 
 } //  End class.
