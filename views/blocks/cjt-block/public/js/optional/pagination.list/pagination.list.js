@@ -39,9 +39,13 @@ var CJTBlockAssignPanelPaginationList;
 		* put your comment there...
 		* 
 		*/
-		var _onhide = function() {
-			// Hide list.
-			paginationList.hide();
+		var _onhide = function(event) {
+			// Initialize.
+			var element = event.target;
+			if ((element !== paginationList.get(0)) && (element !== link.get(0))) {
+				// Hide list.
+				paginationList.hide();
+			}
 		};
 		
 		/**
@@ -49,7 +53,13 @@ var CJTBlockAssignPanelPaginationList;
 		* 
 		*/
 		var _onselect = function() {
-			
+			// Load the number of pages laying between
+			// the last loaded page and the new selected one.
+			var pagesCount = parseInt(paginationList.val()) - loadedCount;
+			// Load pages.
+			assignPanel.list_GetAPOP.apply(list, [false, pagesCount]);
+			// Close.
+			paginationList.hide();
 		};
 	
 		/**
@@ -58,25 +68,29 @@ var CJTBlockAssignPanelPaginationList;
 		*/
 		var _onshow = function() {
 			// Disable all items until the loaded page.
-			var realLoadedCount = list.data('loadedCount');
-			var loadedDiff = realLoadedCount - loadedCount;
+			var realLoadedCount = list.data('loadedPages');
 			// Disable all options that is already loaded and
 			// not captured by the list as a reult o external
 			// loading through the list scrollbar.
-			for (var pagNo = (loadedCount + 1); pageNo <= loadedDiff; pageNo++) {
+			for (var pageNo = (loadedCount + 1); pageNo <= realLoadedCount; pageNo++) {
 				paginationList.children().eq(pageNo - 1).prop('disabled', true);
 			}
+			// Update loaded count
+			loadedCount = realLoadedCount;
 			// Set position.
-			paginationList.css().show();
+			paginationList.prop('selectedIndex', -1)
+			.show();
 		};
 		
 		// Show/Hide list when mouse is overed.
 		link.mouseenter($.proxy(_onshow, this))
 		.mouseleave($.proxy(_onhide, this));
+		paginationList.mouseleave($.proxy(_onhide, this))
+		
 		// Select item.
 		paginationList.change($.proxy(_onselect, this));
 		// Create pages list.
-		var pagesCount = list.data('totalItemsCount') / assignPanel.getIPerPage();
+		var pagesCount = Math.ceil(list.data('totalItemsCount') / assignPanel.getIPerPage());
 		for (var pageNo = 1; pageNo <= pagesCount; pageNo++) {
 			// Create page option.
 			var option = $('<option></option>').prop('value', pageNo).text(pageNo)

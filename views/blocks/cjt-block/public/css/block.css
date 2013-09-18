@@ -31,7 +31,7 @@ a.l_ext { position: relative; top: 3px; background:url(../images/pages-panel/ext
 /** Fullscreen mode */
 .postbox.fullscreen .cjpageblock {z-index: 31;}
 
-div.cjpageblock .objects-list-button > a.prog-colored {color: yellow !important;}
+div.cjpageblock .objects-list-button > a.prog-colored {color: transparent !important;}
 .info-panel {
 	display: none;
 	margin-top: 4px;
@@ -54,7 +54,14 @@ div.cjpageblock .objects-list-button > a.prog-colored {color: yellow !important;
 	display: inline-block;
 	margin-top: 1px;
 }
-.pagination-options-list {display: none; width: 140px; height: 200px !important; position: absolute;}
+.pagination-options-list {
+	display: none;
+	z-index: 1;
+	width: 61px;
+	height: 108px !important;
+	position: absolute;
+	margin-left: -76px;
+}
 
 /**
 * jQuery Accordions
