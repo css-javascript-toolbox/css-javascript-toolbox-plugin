@@ -41,7 +41,7 @@ var CJTBlockAssignPanelPaginationList;
 		*/
 		var _onhide = function(event) {
 			// Initialize.
-			var element = event.target;
+			var element = event.relatedTarget;
 			if ((element !== paginationList.get(0)) && (element !== link.get(0))) {
 				// Hide list.
 				paginationList.hide();

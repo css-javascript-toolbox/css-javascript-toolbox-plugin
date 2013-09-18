@@ -52,15 +52,20 @@ div.cjpageblock .objects-list-button > a.prog-colored {color: transparent !impor
 	height: 16px;
 	background-repeat: no-repeat;
 	display: inline-block;
-	margin-top: 1px;
+	margin-top: 0px;
+	position: relative;
+	left: 0px;
 }
 .pagination-options-list {
 	display: none;
 	z-index: 1;
 	width: 61px;
 	height: 108px !important;
-	position: absolute;
-	margin-left: -76px;
+	position: relative;
+	margin-left: -64px;
+	margin-top: -89px;
+	left: -13px;
+	top: -7px;
 }
 
 /**
