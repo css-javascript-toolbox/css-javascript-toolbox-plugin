@@ -138,9 +138,6 @@
 											list.data('totalItemsCount', response.total);
 											// Show pagination info bar.
 											infoPanel.css({display : 'block'}).find('.info-panel-total').text(response.total);
-											// Show/Hide info panel icons.
-											infoPanel.mouseleave(function() {infoPanel.find('.optional-actions').hide()})
-											.mouseenter(function() {infoPanel.find('.optional-actions').css({display : 'inline-block'})});
 											// Show pagination list when clicked.
 											new CJTBlockAssignPanelPaginationList(assignPanel, list);
 										}
@@ -176,17 +173,6 @@
 								map[groupName][objectId] = item;	
 							}
 						}
-					};
-
-					/**
-					* put your comment there...
-					* 
-					*/
-					var _onpaginationlist = function() {
-						// Show pagination list.
-						alert('xxx');
-						// Inactive link.
-						return false;
 					};
 					
 					/**
