@@ -53,13 +53,18 @@ var CJTBlockAssignPanelPaginationList;
 		* 
 		*/
 		var _onselect = function() {
-			// Load the number of pages laying between
-			// the last loaded page and the new selected one.
-			var pagesCount = parseInt(paginationList.val()) - loadedCount;
-			// Load pages.
-			assignPanel.list_GetAPOP.apply(list, [false, pagesCount]);
-			// Close.
-			paginationList.hide();
+			// Don't do anything when reseting the selectedIndex
+			// through the _onshow method.
+			var selectedIndex = parseInt(paginationList.prop('selectedIndex'));
+			if (selectedIndex != -1) {
+				// Load the number of pages laying between
+				// the last loaded page and the new selected one.
+				var pagesCount = parseInt(paginationList.val()) - loadedCount;
+				// Load pages.
+				assignPanel.list_GetAPOP.apply(list, [false, pagesCount]);
+				// Close.
+				paginationList.hide();
+			}
 		};
 	
 		/**
