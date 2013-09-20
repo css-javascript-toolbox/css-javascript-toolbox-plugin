@@ -92,7 +92,7 @@
 						var list = this;
 						var jList = $(list);
 						// Don't load unless not all items has been loaded.
-						if (jList.data('itemsLoaded')) {
+						if (jList.data('itemsLoaded') === true) {
 							return;
 						}
 						// Prevent multiple requests at the same time.
@@ -132,15 +132,13 @@
 										// is successfully loaded.
 										item.data('objectListActivated', true);
 										// Initialize TOTLAL COUNT.
-										if (response.count) {
-											var infoPanel = list.data('infoPanel');
-											// Cache total.
-											list.data('totalItemsCount', response.total);
-											// Show pagination info bar.
-											infoPanel.css({display : 'block'}).find('.info-panel-total').text(response.total);
-											// Show pagination list when clicked.
-											new CJTBlockAssignPanelPaginationList(assignPanel, list);
-										}
+										var infoPanel = list.data('infoPanel');
+										// Cache total.
+										list.data('totalItemsCount', response.total);
+										// Show pagination info bar.
+										infoPanel.css({display : 'block'}).find('.info-panel-total').text(response.total);
+										// Reset Pagination List when the button is first time activated.
+										item.data('paginationList').reset();
 									}, this)
 								);
 							}
@@ -419,14 +417,16 @@
 						var type = {
 							button : {
 								stateVars : {
-									objectListActivated : false,
+									objectListActivated : false
 								}
 							},
 							list : {
 								stateVars : {
 									cjt_isObjectListLoading : false,
 									loadedCount : 0,
-									itemsLoaded : 0
+									itemsLoaded : false,
+									loadedPages : 0,
+									totalItemsCount : 0
 								},
 								items : null
 							}
@@ -470,6 +470,7 @@
 							.data('loadedCount', 0)
 							.data('loadedPages', 0)
 							.data('totalItemsCount', 0)
+							.data('itemsLoaded', false)
 							// Cache button element reference.
 							.data('button', objectListEle.find('>a'))
 							// Get info-panel element.
@@ -478,6 +479,8 @@
 							.data('params', listParams);
 							// Set objects-list for later use.
 							objectListEle.data('list', listElement)
+							// Pagination list.
+							.data('paginationList', new CJTBlockAssignPanelPaginationList(this, listElement))
 							// Initialize default state-var
 							.data('objectListActivated', false)
 							// In order for the item to be processed on the 'activate' event

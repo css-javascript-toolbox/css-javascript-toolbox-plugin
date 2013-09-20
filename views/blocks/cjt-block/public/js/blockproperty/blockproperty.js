@@ -128,6 +128,12 @@ var CJTBlockPropertyAPItemsList;
 					list.empty();
 					// Add items to the list.
 					list.append(type.list.items);
+					// Reset Pagination list.
+					button.data('paginationList').reset();
+					// Reset info panel.
+					var infoPanel = list.data('infoPanel');
+					infoPanel.find('.info-panel-total').text(list.data('totalItemsCount'));
+					infoPanel.find('.info-panel-loaded-count').text(list.data('loadedCount'));
 				}, this)
 			);
 			// Set the map.

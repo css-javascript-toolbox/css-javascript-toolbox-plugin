@@ -86,22 +86,33 @@ var CJTBlockAssignPanelPaginationList;
 			paginationList.prop('selectedIndex', -1)
 			.show();
 		};
-		
+
+		/**
+		* 
+		*/
+		this.reset = function() {
+			// Create pages list.
+			var pagesCount = Math.ceil(list.data('totalItemsCount') / assignPanel.getIPerPage());
+			// Clear list.
+			paginationList.empty();
+			// Add page numbers.
+			for (var pageNo = 1; pageNo <= pagesCount; pageNo++) {
+				// Create page option.
+				var option = $('<option></option>').prop('value', pageNo).text(pageNo)
+				// Add it
+				.appendTo(paginationList);
+			}
+			// Reset vars.
+			loadedCount	= 0;
+		}
+
 		// Show/Hide list when mouse is overed.
 		link.mouseenter($.proxy(_onshow, this))
 		.mouseleave($.proxy(_onhide, this));
 		paginationList.mouseleave($.proxy(_onhide, this))
-		
+
 		// Select item.
 		paginationList.change($.proxy(_onselect, this));
-		// Create pages list.
-		var pagesCount = Math.ceil(list.data('totalItemsCount') / assignPanel.getIPerPage());
-		for (var pageNo = 1; pageNo <= pagesCount; pageNo++) {
-			// Create page option.
-			var option = $('<option></option>').prop('value', pageNo).text(pageNo)
-			// Add it
-			.appendTo(paginationList);
-		}
 	};
 	
 })(jQuery);
