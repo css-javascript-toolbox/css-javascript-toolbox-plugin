@@ -25,9 +25,17 @@ defined('ABSPATH') or die("Access denied");
 		<div class="cjcontainer">
 			<div class="cjcodeblock">
 				<div class="datablock">
-					<textarea class="initCode" style="visibility:hidden"><?php echo htmlentities($this->block->code, null, 'UTF-8') ;?></textarea>
-					<div id="editor-<?php echo $this->block->id ?>" class="code-editor">
-					</div>					
+<?php			// Output block code only if the block metabox is opened.
+					$code = '';
+					$codeLoadedSignClass = '';
+					$blockId = "cjtoolbox-{$this->block->id}";
+					$closedMetaboxes = get_usermeta(get_current_user_id(), 'closedpostboxes_cjtoolbox');
+					if (!in_array($blockId, $closedMetaboxes)) {
+						$code = htmlentities($this->block->code, null, 'UTF-8');
+						$codeLoadedSignClass = ' initially-loaded';
+					}
+?>
+					<div id="editor-<?php echo $this->block->id ?>" class="code-editor<?php echo $codeLoadedSignClass ?>"><?php echo $code ?></div>					
 				</div>
 			</div>
 		</div>
