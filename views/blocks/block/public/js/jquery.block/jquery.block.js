@@ -151,6 +151,11 @@
 		
 		/**
 		* 
+		*/
+		this.internalChanging = false;
+		
+		/**
+		* 
 		*
 		* 
 		*/	
@@ -176,6 +181,11 @@
 		*
 		*/
 		this._oncontentchanged = function(event) {
+			// Dont process internal changes.
+			if (this.internalChanging) {
+				return;
+			}
+			// Initialize.
 			var element;
 			var id; // Give every field an id for tracing change.
 			var newValue; // Field new value.
@@ -329,19 +339,23 @@
 		* 
 		*/
 		this._onpostboxopened = function() {
+			// Initialize.
+			var blockId = this.block.get('id');
 			// Update ACE Editor region.
 			this.block.aceEditor.resize();
 			// Load block code if not initially-loaded.
 			var aceEditor = this.block.aceEditor;
 			var jEditor = $(aceEditor.container);
 			if (!jEditor.hasClass('initially-loaded')) {
+				// Hold-on notification changes component.
+				this.internalChanging = true;
 				// Show loading state.
 				aceEditor.getSession().setValue('Loading...');
 				this.block.aceEditor.setReadOnly(true);
 				// Load code.
 				var request = {filter : {
 					field : 'id', 
-					value : this.block.get('id')},
+					value : blockId},
 					returns : ['code']
 				};
 				CJTBlocksPage.server.send('block', 'getBlockBy', request)
@@ -349,6 +363,9 @@
 					function(response) {
 						// Load code.
 						aceEditor.getSession().setValue(response.code);
+						this.internalChanging = false;
+						// Notification save changes SYNC.
+						aceEditor.cjtSyncInputField();
 						// Remove loading state.
 						this.block.aceEditor.setReadOnly(false);
 						// Mark as loaded.
