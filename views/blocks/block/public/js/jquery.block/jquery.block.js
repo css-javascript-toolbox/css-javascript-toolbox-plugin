@@ -260,6 +260,11 @@
 		*
 		*/
 		this._ondisplayrevisions = function() {
+			// Restore revision only when block is opened.
+			if (this.block.box.hasClass('closed')) {
+				return false;
+			}
+			// Initialize form request.
 			var revisionsFormParams = {
 				id : this.block.get('id'),
 				width : 300,
@@ -268,6 +273,7 @@
 			};
 			var url = CJTBlocksPage.server.getRequestURL('block', 'get_revisions', revisionsFormParams);
 			tb_show(CJTJqueryBlockI18N.blockRevisionsDialogTitle, url);
+			return false;
 		}
 		
 		/**
@@ -484,7 +490,33 @@
 		* 
 		*/
 		this._onpostboxopened = function() {
+			// Update ACE Editor region.
 			this.block.aceEditor.resize();
+			// Load block code if not initially-loaded.
+			var aceEditor = this.block.aceEditor;
+			var jEditor = $(aceEditor.container);
+			if (!jEditor.hasClass('initially-loaded')) {
+				// Show loading state.
+				aceEditor.getSession().setValue('Loading...');
+				this.block.aceEditor.setReadOnly(true);
+				// Load code.
+				var request = {filter : {
+					field : 'id', 
+					value : this.block.get('id')},
+					returns : ['code']
+				};
+				CJTBlocksPage.server.send('block', 'getBlockBy', request)
+				.success($.proxy(
+					function(response) {
+						// Load code.
+						aceEditor.getSession().setValue(response.code);
+						// Remove loading state.
+						this.block.aceEditor.setReadOnly(false);
+						// Mark as loaded.
+						jEditor.removeClass('iniially-loaded');
+					}, this)
+				);
+			}
 		}
 		
 		/**
@@ -724,13 +756,9 @@
 					model.box.find(selector).click(handler);
 				}, this)
 			);
-			// remove code textarea and replace it with ace editor.
-			var initCode = model.box.find('textarea.initCode');
+			// Initialize ACE Editor.
 			model.aceEditor.setTheme('ace/theme/chrome');
-			model.aceEditor.getSession().setValue(initCode.val());
 			model.aceEditor.setShowPrintMargin(false);
-			// Remove textarea with code transfered from server.
-			initCode.remove();
 			// Activate toolbox.
 			this.toolbox = model.box.find('.block-toolbox').CJTToolBox({
 				context : this,
