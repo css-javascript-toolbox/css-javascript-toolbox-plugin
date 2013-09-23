@@ -12,4 +12,4 @@ span.backup-name {font-weight: bold;}
 #backups-list li.alt-backup-row { background-color: #EFEFEF; }
 #backups-list li span.backup-tasks { float: right; }
 .loading { border: none; }         
-.link-loading { height: 10px; display: inline-block; }
+.link-loading {top: 2px; height: 13px; display: inline-block; }

@@ -19,7 +19,8 @@ extends CJT_Models_Block_Assignmentpanel_Base {
 		$params = $this->getTypeParams();
 		$pinsMap = array();
 		// Prepare block pinned items.
-		$pinsTable = new CJTBlockPinsTable(cssJSToolbox::getInstance()->getDBDriver());
+		$dbDriver = cssJSToolbox::getInstance()->getDBDriver();
+		$pinsTable = new CJTBlockPinsTable($dbDriver);
 		$pins = $pinsTable->get(null, array('blockId' => $blockId, 'pin' => $params['group']));
 		// Create ITEM-ID => VALUE array map for the retrieved pins.
 		foreach ($pins as $pin) {

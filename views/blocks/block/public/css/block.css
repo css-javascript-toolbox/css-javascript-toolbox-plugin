@@ -88,7 +88,7 @@
 .block-toolbox a.state-active { background: url(../images/toolbox/active.png); }
 .block-toolbox a.state-inactive { background-image: url(../images/toolbox/inactive.png); }
 .block-toolbox a.cjttbl-save {
-	background: url(../images/toolbox/save.png);
+	background: url(../images/toolbox/save.gif);
 	background-position: left top !important;
 	text-decoration: none;
 	padding-left: 23px;
@@ -120,8 +120,6 @@
 	top: -2px;
 	background-position: center center;
 }
-.block-toolbox a.cjttbs-disabled,
-.block-toolbox a.cjttbs-disabled:hover {opacity: 0.4 !important}
 
 .block-toolbox a.cjttbl-save.cjttbs-disabled {background: url(../images/toolbox/save-inactive.png); }
 .block-toolbox a.cjttbl-revisions { background-image: url(../images/toolbox/revisions.png); }

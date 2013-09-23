@@ -78,8 +78,9 @@
 	padding-left: 43px !important;
 }
 .cjt-toolbox-blocks a.cjttbl-restore.cjttbs-disabled {
-	height: 10px !important;
+	height: 11px !important;
 	margin-left: 40px;
+	top: 2px;
 }
 .cjt-toolbox-blocks a.cjttbl-delete-all { background: url(../images/toolbox/delete-all.png) no-repeat; }
 .cjt-toolbox-blocks a.cjttbl-delete-empty { background: url(../images/toolbox/delete-empty.png)  no-repeat; }
