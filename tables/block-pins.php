@@ -71,17 +71,20 @@ class CJTBlockPinsTable extends CJTTable {
 	* @param mixed $pins
 	*/
 	public function insert($blockId, $pins) {
+		// Initialize.
 		$rows = array();
-		if (!empty($pins)) {
-			foreach ($pins as $pin => $values) {
-				foreach ($values as $value) {
-					$rows[] = "({$blockId},'{$pin}', {$value})";
-				}
+		foreach (((array) $pins) as $pin => $values) {
+			foreach ($values as $value) {
+				$rows[] = "({$blockId},'{$pin}', {$value})";
 			}
+		}
+		// Execute only if there is at least one row to insert.
+		if (!empty($rows)) {
 			$rows = implode(',', $rows);
 			$query = "INSERT INTO {$this->table} (`blockId`, `pin`, `value`) VALUES {$rows};";
 			$this->dbDriver->insert($query);
 		}
+		// Chaining.
 	}
 	
 	/**

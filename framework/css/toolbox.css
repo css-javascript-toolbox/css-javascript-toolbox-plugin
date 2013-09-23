@@ -39,7 +39,7 @@
 	border-bottom-left-radius: 3px;
 }
 .cjt-toolbox .icons-group .popup-menu a.cjt-tb-text-link {
-	width: 100%;
+	width: auto;
 	background-position-x: left;
 	padding-left: 35px;
 	padding-top: 6px;
@@ -58,13 +58,18 @@
 	color: #6C6B6B;
 }
 .cjt-toolbox a.cjt-tb-link:hover {
-	opacity : 0.8;
-	filter:alpha(opacity = 80%);
+	opacity : 0.7;
+	filter:alpha(opacity = 70%);
 }
+.cjt-toolbox a.cjttbs-disabled,
 .cjt-toolbox a.cjttbs-disabled:hover {
+	opacity : 0.4;
+	filter:alpha(opacity = 4%);
+}
+
+.cjt-toolbox a.cjttbs-loading,
+.cjt-toolbox a.cjttbs-loading:hover {
 	opacity : 1;
 	filter:alpha(opacity = 100%);
 }
-.cjt-toolbox a.cjttbs-loading {
-	background: url(images/loading.gif) center no-repeat !important;
-}
+.cjt-toolbox a.cjttbs-loading{background: url(images/loading.gif) center no-repeat !important;}

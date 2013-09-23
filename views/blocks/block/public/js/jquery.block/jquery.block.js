@@ -574,8 +574,12 @@
 							this.cjtSyncInputField();
 						}
 					);
+					// Reset changes list.
+					this.changes = [];
 					// Tell blocks page that block is saved and has not changed yet.
 					CJTBlocksPage.blockContentChanged(this.block.id, false);
+					// Fire BlockSaved event.
+					this.onBlockSaved();
 				}, this)
 			)
 			.error($.proxy(
@@ -735,6 +739,8 @@
 			// Initialize object properties!
 			this.block = new CJTBlock(this, node)
 			this.features = $.extend(defaultOptions, args);
+			// Initialize Events.
+			this.onBlockSaved = function() {};
 			// Default to DOCK!!
 			this.defaultDocks = [{element : this.block.aceEditor.container}];
 			// Load commonly used elements.

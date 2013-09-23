@@ -185,10 +185,13 @@ var CJTBlockOptionalRevisionBase = null;
 				function() {
 					// Fire restore done event.
 					this.onRestoreDone();
-					// Clear notify-save-changes list.
-					this.original.changes = [];
 					// Stop loading
 					saveButton.loading(false);
+					// Clear notify-save-changes list.
+					this.original.changes = [];
+					// Cancel restore action will reset
+					// the block UI elements to the normal state.
+					this.cancel(true);
 					// Sync fields with server value.
 					// This refrssh required for notifying saving
 					// change to detect changes.
@@ -200,9 +203,6 @@ var CJTBlockOptionalRevisionBase = null;
 							this.cjtSyncInputField();
 						}
 					);
-					// Cancel restore action will reset
-					// the block UI elements to the normal state.
-					this.cancel(true);
 				}, this)
 			);
 		}

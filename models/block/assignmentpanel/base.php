@@ -159,7 +159,7 @@ abstract class CJT_Models_Block_Assignmentpanel_Base {
 	* put your comment there...
 	* 
 	*/
-	public function getTypeParams() {
+	public function & getTypeParams() {
 		return $this->typeParams;
 	}
 

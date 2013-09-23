@@ -143,7 +143,7 @@ class CJTBlockModel extends CJTModel {
 	* 
 	* @param mixed $blockData
 	*/
-	public function arrangePins(& $blockData) {
+	public static function arrangePins(& $blockData) {
 		// Initialize
 		$pinsGroupNames = array_flip(array('pages', 'posts', 'categories', 'pinPoint'));
 		$dbDriver = cssJSToolbox::getInstance()->getDBDriver();

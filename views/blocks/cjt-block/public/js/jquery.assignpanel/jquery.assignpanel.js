@@ -436,6 +436,31 @@
 					}
 		
 					/**
+					* put your comment there...
+					* 
+					*/
+					var onBlockSaved = function() {
+						// Syncronize the map.
+						var map = assignPanel.getMap();
+						$.each(map, $.proxy(
+							function(name, map) {
+								$.each(map, $.proxy(
+									function(id, item) {
+										// Sync new-added items.
+										if (!item.sync) {
+											item.sync = 1;
+										}
+										else if (!item.value) {
+											// Remove deleted item.
+											delete map[id];
+										}
+									}, this)
+								)
+							}, this)
+						);
+					};
+
+					/**
 					* 
 					*/
 					this.setMapGroup = function(name, mapList) {
@@ -544,6 +569,8 @@
 					);
 					// Activate the AUX tab by default.
 					this.jElement.find('li.type-other>a').trigger('click');
+					// Syncronize assign panel map when block saved.
+					options.block.onBlockSaved = onBlockSaved;
 				}
 			}
 		})
