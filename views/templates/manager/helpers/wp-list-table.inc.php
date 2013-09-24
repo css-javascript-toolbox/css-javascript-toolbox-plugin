@@ -103,7 +103,7 @@ class CJTTemplatesManagerListTable extends WP_List_Table {
 			echo CJTListField::getInstance("template-{$name}", 
 					'templates-manager', 
 					$fieldName, 
-					$_REQUEST[$fieldName], 
+					isset($_REQUEST[$fieldName]) ? $_REQUEST[$fieldName] : null, 
 					null, 
 					$classes,
 					null,
