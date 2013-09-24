@@ -8,20 +8,5 @@
 	margin-right: 0px !important; /* Override block.css style */
 }
 
-/**
-* Show loading image with 100% opactiy.
-*/
-.block-toolbox a.cjttbs-disabled.cjttbs-loading {
-	opacity: 1;
-}
-
-/* 
-	Dont show disable state on the delete button itself 
-	while its showing Ajax loading progress.
-*/
-.block-toolbox a.cjttbl-delete.cjttbs-disabled,
-.block-toolbox a.cjttbl-delete.cjttbs-disabled:hover {
-	opacity: 1;
-}
 /** Editor toolbox */
 .editor-toolbox a.cjttbl-preview {background-image: url(../images/editor-toolbox/preview.png);}

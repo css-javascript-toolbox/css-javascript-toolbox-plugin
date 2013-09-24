@@ -1,76 +1,76 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: CSS & Javascript Toolbox V6\n"
-"POT-Creation-Date: 2013-05-23 01:12+0200\n"
-"PO-Revision-Date: 2013-05-23 01:12+0200\n"
+"POT-Creation-Date: 2013-09-24 02:09+0200\n"
+"PO-Revision-Date: 2013-09-24 02:10+0200\n"
 "Last-Translator: \n"
 "Language-Team: CJT <development@css-javascript-toolbox.com>\n"
 "Language: English\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.5\n"
+"X-Generator: Poedit 1.5.7\n"
 "X-Poedit-KeywordsList: getText\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-SearchPath-0: E:\\local-server\\www\\css-javascript-toolbox"
-"\\6.0\\3.5\\wp-content\\plugins\\css-javascript-toolbox\n"
+"X-Poedit-SearchPath-0: J:\\wamp\\www\\css-javascript-toolbox\\6.0\\3.5\\wp-"
+"content\\plugins\\css-javascript-toolbox\n"
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/access.points/extensions.accesspoint.php:53
+#: access.points/extensions.accesspoint.php:53
 msgid "Extensions"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/access.points/manage.accesspoint.php:44
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/access.points/manage.accesspoint.php:45
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/setup/activation-form/tmpl/default.html.tmpl:28
+#: access.points/manage.accesspoint.php:44
+#: access.points/manage.accesspoint.php:45
+#: views/setup/activation-form/tmpl/default.html.tmpl:28
 msgid "CSS & Javascript Toolbox"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/access.points/packages.accesspoint.php:45
+#: access.points/packages.accesspoint.php:45
 msgid "CJT Manage - Packages"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/access.points/packages.accesspoint.php:46
+#: access.points/packages.accesspoint.php:46
 msgid "Packages"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/access.points/setup.accesspoint.php:45
+#: access.points/setup.accesspoint.php:45
 msgid "CSS & Javascript Toolbox - Setup"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/access.points/setup.accesspoint.php:46
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/extensions/plugins-list/tmpl/default_setup_action.html.tmpl:10
+#: access.points/setup.accesspoint.php:46
+#: views/extensions/plugins-list/tmpl/default_setup_action.html.tmpl:10
 msgid "Setup"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/controllers/metabox.php:57
+#: controllers/metabox.php:57
 #, php-format
 msgid "CJT Block - Post #%d"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/controllers/metabox.php:91
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/controllers/metabox.php:170
+#: controllers/metabox.php:91
+#: controllers/metabox.php:170
 msgid "CJT Block"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/controllers/templates-lookup.php:81
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/lookup/tmpl/default.html.tmpl:40
+#: controllers/templates-lookup.php:81
+#: views/templates/lookup/tmpl/default.html.tmpl:40
 msgid "Unlink"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/controllers/templates-lookup.php:99
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/controllers/templates-lookup.php:115
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/help/intro.html.tmpl:25
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/lookup/tmpl/default.html.tmpl:42
+#: controllers/templates-lookup.php:99
+#: controllers/templates-lookup.php:115
+#: views/blocks/manager/tmpl/help/intro.html.tmpl:25
+#: views/templates/lookup/tmpl/default.html.tmpl:42
 msgid "Link"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/controllers/coupling/shortcode/block/block.php:125
+#: controllers/coupling/shortcode/block/block.php:125
 msgid ""
 "Could not find block specified! Please check out the Shortcode parameters."
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/framework/js/ajax/cjt-server/cjt-server.localization.php:13
+#: framework/js/ajax/cjt-server/cjt-server.localization.php:13
 msgid ""
 "Unhandled error has been detected while processing the background request! \n"
 "\tas the error is not handled we cannot tell if the previous operation is "
@@ -82,7 +82,7 @@ msgid ""
 "\tWould you like to check the error details?"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/framework/js/ajax/cjt-server/cjt-server.localization.php:17
+#: framework/js/ajax/cjt-server/cjt-server.localization.php:17
 msgid ""
 "Its heighly recomended to send us the error details so we can enahce CJT "
 "products!\n"
@@ -91,328 +91,384 @@ msgid ""
 "\tWould you like to close the form?"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/framework/js/misc/simple-error-dialog/simple-error-dialog.localization.php:13
+#: framework/js/misc/simple-error-dialog/simple-error-dialog.localization.php:13
 msgid "Submission Error!"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/locals/strings.inc.php:9
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/models/fields/template-states.php:22
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/tables/template.php:62
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/manager/helpers/wp-list-table.inc.php:133
+#: locals/strings.inc.php:9
+#: models/fields/template-states.php:22
+#: tables/template.php:62
+#: views/templates/manager/helpers/wp-list-table.inc.php:133
 msgid "trash"
 msgstr "Trash"
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/locals/strings.inc.php:10
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/models/fields/template-states.php:21
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/tables/template.php:60
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/manager/helpers/wp-list-table.inc.php:134
+#: locals/strings.inc.php:10
+#: models/fields/template-states.php:21
+#: tables/template.php:60
+#: views/templates/manager/helpers/wp-list-table.inc.php:134
 msgid "draft"
 msgstr "Draft"
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/locals/strings.inc.php:11
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/models/fields/template-states.php:20
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/tables/template.php:61
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/manager/helpers/wp-list-table.inc.php:132
+#: locals/strings.inc.php:11
+#: models/fields/template-states.php:20
+#: tables/template.php:61
+#: views/templates/manager/helpers/wp-list-table.inc.php:132
 msgid "published"
 msgstr "Published"
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/locals/strings.inc.php:14
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/models/fields/template-development-states.php:20
+#: locals/strings.inc.php:14
+#: models/fields/template-development-states.php:20
 msgid "release"
 msgstr "Release"
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/locals/strings.inc.php:15
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/models/fields/template-development-states.php:21
+#: locals/strings.inc.php:15
+#: models/fields/template-development-states.php:21
 msgid "beta"
 msgstr "Beta"
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/locals/strings.inc.php:16
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/models/fields/template-development-states.php:23
+#: locals/strings.inc.php:16
+#: models/fields/template-development-states.php:23
 msgid "release-candidate"
 msgstr "Release candidate"
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/locals/strings.inc.php:17
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/models/fields/template-development-states.php:22
+#: locals/strings.inc.php:17
+#: models/fields/template-development-states.php:22
 msgid "alpha"
 msgstr "Alpha"
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/locals/strings.inc.php:18
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/models/fields/template-development-states.php:24
+#: locals/strings.inc.php:18
+#: models/fields/template-development-states.php:24
 msgid "revision"
 msgstr "Revision"
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/locals/strings.inc.php:21
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/models/fields/template-types.php:21
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/block/tmpl/templates/toolbox.html.tmpl:23
+#: locals/strings.inc.php:21
+#: models/fields/template-types.php:21
+#: views/blocks/block/tmpl/templates/toolbox.html.tmpl:23
 msgid "javascript"
 msgstr "Javascript"
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/locals/strings.inc.php:22
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/models/fields/template-types.php:20
+#: locals/strings.inc.php:22
+#: models/fields/template-types.php:20
 msgid "css"
 msgstr "CSS"
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/locals/strings.inc.php:23
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/models/fields/template-types.php:22
+#: locals/strings.inc.php:23
+#: models/fields/template-types.php:22
 msgid "html"
 msgstr "HTML"
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/locals/strings.inc.php:24
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/models/fields/template-types.php:23
+#: locals/strings.inc.php:24
+#: models/fields/template-types.php:23
 msgid "php"
 msgstr "PHP"
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/models/package-file.php:49
+#: models/package-file.php:49
 msgid "The uploaded package is already installed!"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/backups/manager/public/js/backups/backups.localization.php:11
+#: models/block/assignmentpanel/helpers/auxiliary.php:25
+msgid "Blog Index"
+msgstr ""
+
+#: models/block/assignmentpanel/helpers/auxiliary.php:26
+msgid "All Posts"
+msgstr ""
+
+#: models/block/assignmentpanel/helpers/auxiliary.php:27
+msgid "All Pages"
+msgstr ""
+
+#: models/block/assignmentpanel/helpers/auxiliary.php:28
+msgid "All Categories"
+msgstr ""
+
+#: models/block/assignmentpanel/helpers/auxiliary.php:29
+msgid "Recent Posts"
+msgstr ""
+
+#: models/block/assignmentpanel/helpers/auxiliary.php:30
+msgid "Entire Website"
+msgstr ""
+
+#: models/block/assignmentpanel/helpers/auxiliary.php:31
+msgid "Website Backend"
+msgstr ""
+
+#: models/block/assignmentpanel/helpers/auxiliary.php:32
+msgid "Search Pages"
+msgstr ""
+
+#: models/block/assignmentpanel/helpers/auxiliary.php:33
+msgid "All Archives"
+msgstr ""
+
+#: models/block/assignmentpanel/helpers/auxiliary.php:34
+msgid "Tag Archives"
+msgstr ""
+
+#: models/block/assignmentpanel/helpers/auxiliary.php:35
+msgid "Author Archives"
+msgstr ""
+
+#: models/block/assignmentpanel/helpers/auxiliary.php:36
+msgid "Attachment Pages"
+msgstr ""
+
+#: models/block/assignmentpanel/helpers/auxiliary.php:37
+msgid "404 Error"
+msgstr ""
+
+#: views/backups/manager/public/js/backups/backups.localization.php:11
 msgid "Backup name cannot be null!"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/backups/manager/public/js/backups/backups.localization.php:12
+#: views/backups/manager/public/js/backups/backups.localization.php:12
 msgid "Would you like to delete \"{BACKUP-NAME}\" backup?"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/block/view.php:119
+#: views/blocks/block/view.php:121
 msgid "Click to update Block name"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/block/public/js/jquery.block/jquery.block.localization.php:13
+#: views/blocks/block/public/js/jquery.block/jquery.block.localization.php:13
 msgid "Block revisions"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/block/public/js/jquery.block/jquery.block.localization.php:14
+#: views/blocks/block/public/js/jquery.block/jquery.block.localization.php:14
 msgid "CJT-Block Info"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/block/public/js/jquery.block/jquery.block.localization.php:15
+#: views/blocks/block/public/js/jquery.block/jquery.block.localization.php:15
 #, php-format
 msgid "Are you sure you want to delete this (%s) code block?"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/block/public/js/jquery.block/jquery.block.localization.php:16
+#: views/blocks/block/public/js/jquery.block/jquery.block.localization.php:16
 msgid "Deactivate (turn off) code block"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/block/public/js/jquery.block/jquery.block.localization.php:17
+#: views/blocks/block/public/js/jquery.block/jquery.block.localization.php:17
 msgid "Activate (turn on) code block"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/block/public/js/jquery.block/jquery.block.localization.php:18
+#: views/blocks/block/public/js/jquery.block/jquery.block.localization.php:18
 msgid "Set output location hook to footer"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/block/public/js/jquery.block/jquery.block.localization.php:19
+#: views/blocks/block/public/js/jquery.block/jquery.block.localization.php:19
 msgid "Set output location hook to header"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/block/public/js/jquery.block/jquery.block.localization.php:20
+#: views/blocks/block/public/js/jquery.block/jquery.block.localization.php:20
 msgid "Revert code editor to default mode"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/block/public/js/jquery.block/jquery.block.localization.php:21
+#: views/blocks/block/public/js/jquery.block/jquery.block.localization.php:21
 msgid "Switch code editor to fullscreen mode"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/block/public/js/jquery.block/jquery.block.localization.php:22
+#: views/blocks/block/public/js/jquery.block/jquery.block.localization.php:22
 msgid "Block name cannot be empty!"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/block/public/js/jquery.block/jquery.block.localization.php:23
+#: views/blocks/block/public/js/jquery.block/jquery.block.localization.php:23
 msgid ""
 "Please enter a list of the external URLs you want to link separated by comma!"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/block/public/js/jquery.block/jquery.block.localization.php:24
+#: views/blocks/block/public/js/jquery.block/jquery.block.localization.php:24
 msgid "Couldn't link the externals URI you requested!! Reason:"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/cjt-block/public/js/jquery.block/jquery.block.localization.php:13
+#: views/blocks/cjt-block/public/js/jquery.block/jquery.block.localization.php:13
 msgid "Switch code editor to fullwidth mode (hides assignment panel)"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/cjt-block/public/js/jquery.block/jquery.block.localization.php:14
+#: views/blocks/cjt-block/public/js/jquery.block/jquery.block.localization.php:14
 msgid "Revert code editor to default mode (show assignment panel)"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/create-metabox/public/js/metabox/metabox.localization.php:13
+#: views/blocks/create-metabox/public/js/metabox/metabox.localization.php:13
 msgid "Would you like to create CJT block Metabox for this post?"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/public/js/blocks-page/blocks-page.localization.php:13
+#: views/blocks/manager/public/js/blocks-page/blocks-page.localization.php:13
 msgid "Create New Code Block"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/public/js/blocks-page/blocks-page.localization.php:14
+#: views/blocks/manager/public/js/blocks-page/blocks-page.localization.php:14
 msgid "General settings"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/public/js/blocks-page/blocks-page.localization.php:15
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/toolbox.html.tmpl:35
+#: views/blocks/manager/public/js/blocks-page/blocks-page.localization.php:15
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:35
 msgid "Backups"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/public/js/blocks-page/blocks-page.localization.php:16
+#: views/blocks/manager/public/js/blocks-page/blocks-page.localization.php:16
 msgid "Restoring blocks backup will result in losing all the current blocks."
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/public/js/blocks-page/blocks-page.localization.php:16
+#: views/blocks/manager/public/js/blocks-page/blocks-page.localization.php:16
 msgid "Are you sure, you'd like to continue?"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/public/js/blocks-page/blocks-page.localization.php:17
+#: views/blocks/manager/public/js/blocks-page/blocks-page.localization.php:17
 msgid "Backup could not be restored"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/public/js/blocks-page/blocks-page.localization.php:18
+#: views/blocks/manager/public/js/blocks-page/blocks-page.localization.php:18
 msgid "Templates Manager"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/public/js/blocks-page/blocks-page.localization.php:19
+#: views/blocks/manager/public/js/blocks-page/blocks-page.localization.php:19
 #, php-format
 msgid "You're about to delete %d code block(s)."
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/public/js/blocks-page/blocks-page.localization.php:20
+#: views/blocks/manager/public/js/blocks-page/blocks-page.localization.php:20
 msgid "Are you sure you want to delete all code blocks?"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/public/js/blocks-page/blocks-page.localization.php:21
+#: views/blocks/manager/public/js/blocks-page/blocks-page.localization.php:21
 msgid "Are you sure you want to delete all the empty code blocks?"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/public/js/blocks-page/blocks-page.localization.php:22
+#: views/blocks/manager/public/js/blocks-page/blocks-page.localization.php:22
 msgid "The changes you made will be lost if you navigate away from this page."
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/public/js/blocks-page/blocks-page.localization.php:23
+#: views/blocks/manager/public/js/blocks-page/blocks-page.localization.php:23
 msgid "There is no blocks to delete!"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/metabox/public/js/jquery.block/jquery.block.localization.php:12
+#: views/blocks/metabox/public/js/jquery.block/jquery.block.localization.php:12
 msgid "Preview Post/Page in a new window"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/metabox/public/js/metabox/metabox.localization.php:13
+#: views/blocks/metabox/public/js/metabox/metabox.localization.php:13
 msgid "You've changed CJT block content but you didn' save this changes yet!"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/metabox/public/js/metabox/metabox.localization.php:13
+#: views/blocks/metabox/public/js/metabox/metabox.localization.php:13
 msgid "Would you really like to leave the page without saving this chnages"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/new/public/js/add-new-block/add-new-block.localization.php:13
+#: views/blocks/new/public/js/add-new-block/add-new-block.localization.php:13
 msgid "block"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/new/public/js/add-new-block/add-new-block.localization.php:14
+#: views/blocks/new/public/js/add-new-block/add-new-block.localization.php:14
 msgid "code block"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/extensions/plugins-list/public/js/default/default.localization.php:13
+#: views/extensions/plugins-list/public/js/default/default.localization.php:13
 msgid "CJT Extension License Activation Form"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/extensions/plugins-list/public/js/extensions/extensions.localization.php:13
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/extensions/plugins-list/public/js/plugins/plugins.localization.php:13
+#: views/extensions/plugins-list/public/js/extensions/extensions.localization.php:13
+#: views/extensions/plugins-list/public/js/plugins/plugins.localization.php:13
 msgid "CJT Extensions"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/installer/install/public/js/default/default.localization.php:13
+#: views/installer/install/public/js/default/default.localization.php:13
 msgid "Start"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/installer/install/public/js/default/default.localization.php:14
+#: views/installer/install/public/js/default/default.localization.php:14
 msgid "Installation Completed ... Click Start button and have fun!!!"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/installer/install/public/js/default/default.localization.php:15
+#: views/installer/install/public/js/default/default.localization.php:15
 msgid ""
 "The installation process would just take several minutes!\n"
 "\n"
 "\tWould you like to start the installation process?"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/installer/notice/public/js/default/default.localization.php:13
+#: views/installer/notice/public/js/default/default.localization.php:13
 msgid ""
 "The notice message wont displayed again! You still can install/upgrade the "
 "Plugin by going to the manage blocks page.  Would you really like to dismis "
 "this notice?"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/packages/install/public/js/install/install.localization.php:13
+#: views/packages/install/public/js/install/install.localization.php:13
 msgid "Package successfuly installed!"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/packages/manager/helpers/wp-list-table.inc.php:46
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/packages/manager/helpers/wp-list-table.inc.php:79
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/manager/helpers/wp-list-table.inc.php:59
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/manager/helpers/wp-list-table.inc.php:131
+#: views/packages/manager/helpers/wp-list-table.inc.php:46
+#: views/packages/manager/helpers/wp-list-table.inc.php:79
+#: views/templates/manager/helpers/wp-list-table.inc.php:59
+#: views/templates/manager/helpers/wp-list-table.inc.php:131
 msgid "Delete"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/packages/manager/helpers/wp-list-table.inc.php:59
+#: views/packages/manager/helpers/wp-list-table.inc.php:59
 msgid "View"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/packages/manager/helpers/wp-list-table.inc.php:62
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/info/view.php:39
+#: views/packages/manager/helpers/wp-list-table.inc.php:62
+#: views/templates/info/view.php:39
 msgid "N/A"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/packages/manager/helpers/wp-list-table.inc.php:98
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/manager/helpers/wp-list-table.inc.php:153
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/info/tmpl/default.html.tmpl:4
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/new/tmpl/default.html.tmpl:24
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/info/tmpl/default.html.tmpl:6
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/template/tmpl/default.html.tmpl:44
+#: views/packages/manager/helpers/wp-list-table.inc.php:98
+#: views/templates/manager/helpers/wp-list-table.inc.php:153
+#: views/blocks/info/tmpl/default.html.tmpl:4
+#: views/blocks/new/tmpl/default.html.tmpl:24
+#: views/templates/info/tmpl/default.html.tmpl:6
+#: views/templates/template/tmpl/default.html.tmpl:44
 msgid "Name"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/packages/manager/helpers/wp-list-table.inc.php:99
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/manager/helpers/wp-list-table.inc.php:157
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/info/tmpl/default.html.tmpl:5
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/info/tmpl/default.html.tmpl:17
+#: views/packages/manager/helpers/wp-list-table.inc.php:99
+#: views/templates/manager/helpers/wp-list-table.inc.php:157
+#: views/blocks/info/tmpl/default.html.tmpl:5
+#: views/templates/info/tmpl/default.html.tmpl:17
 msgid "Author"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/packages/manager/helpers/wp-list-table.inc.php:100
+#: views/packages/manager/helpers/wp-list-table.inc.php:100
 msgid "Website"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/packages/manager/helpers/wp-list-table.inc.php:101
+#: views/packages/manager/helpers/wp-list-table.inc.php:101
 msgid "License"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/packages/manager/helpers/wp-list-table.inc.php:102
+#: views/packages/manager/helpers/wp-list-table.inc.php:102
 msgid "Readme"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/packages/manager/helpers/wp-list-table.inc.php:103
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/info/tmpl/default.html.tmpl:3
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/info/tmpl/default.html.tmpl:5
+#: views/packages/manager/helpers/wp-list-table.inc.php:103
+#: views/blocks/info/tmpl/default.html.tmpl:3
+#: views/templates/info/tmpl/default.html.tmpl:5
 msgid "ID"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/packages/manager/public/js/manager/manager.localization.php:13
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/lookup/public/js/lookup/lookup.localization.php:13
+#: views/packages/manager/public/js/manager/manager.localization.php:13
+#: views/templates/lookup/public/js/lookup/lookup.localization.php:13
 msgid "This operation is permanent and cannot be reverted!"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/packages/manager/public/js/manager/manager.localization.php:13
+#: views/packages/manager/public/js/manager/manager.localization.php:13
 msgid "Would you like to delete the selected packages?"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/packages/manager/public/js/manager/manager.localization.php:14
+#: views/packages/manager/public/js/manager/manager.localization.php:14
 msgid "Install Package File"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/settings/manager/view.php:35
+#: views/settings/manager/view.php:36
+msgid "Uninstall"
+msgstr ""
+
+#: views/settings/manager/view.php:37
 msgid "MetaBox"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/setup/activation-form/public/js/default/default.localization.php:13
+#: views/setup/activation-form/public/js/default/default.localization.php:13
 msgid ""
 "External request need to be made to to css-javascript-toolbox offical web "
 "site! The operation will take an effect once its successed! You can always "
@@ -422,7 +478,7 @@ msgid ""
 "\t\t\t\t\t\t\tAre you sure would you like to process?"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/setup/activation-form/public/js/default/default.localization.php:15
+#: views/setup/activation-form/public/js/default/default.localization.php:15
 msgid ""
 "External request need to be made to to css-javascript-toolbox offical web "
 "site! The operation will take an effect once its successed! You can always "
@@ -432,7 +488,7 @@ msgid ""
 "\t\t\t\t\t\t\tAre you sure would you like to process?"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/setup/activation-form/public/js/default/default.localization.php:17
+#: views/setup/activation-form/public/js/default/default.localization.php:17
 msgid ""
 "The reset operation will clear the license fields and clear component "
 "license cache! This is really great once you need to stop using a previously "
@@ -441,458 +497,430 @@ msgid ""
 "anytime later!"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/setup/activation-form/public/js/default/default.localization.php:19
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/new/tmpl/default.html.tmpl:28
+#: views/setup/activation-form/public/js/default/default.localization.php:19
+#: views/blocks/new/tmpl/default.html.tmpl:28
 msgid "Activate"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/setup/activation-form/public/js/default/default.localization.php:20
+#: views/setup/activation-form/public/js/default/default.localization.php:20
 msgid "Deactivate"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/setup/activation-form/public/js/default/default.localization.php:22
+#: views/setup/activation-form/public/js/default/default.localization.php:22
 msgid "Activating Key"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/setup/activation-form/public/js/default/default.localization.php:23
+#: views/setup/activation-form/public/js/default/default.localization.php:23
 msgid "Deactivating key"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/setup/activation-form/public/js/default/default.localization.php:24
+#: views/setup/activation-form/public/js/default/default.localization.php:24
 msgid "Checking Key"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/setup/activation-form/public/js/default/default.localization.php:25
+#: views/setup/activation-form/public/js/default/default.localization.php:25
 msgid "Reseting License Information"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/setup/activation-form/public/js/default/default.localization.php:27
+#: views/setup/activation-form/public/js/default/default.localization.php:27
 msgid "Invalid"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/setup/activation-form/public/js/default/default.localization.php:28
+#: views/setup/activation-form/public/js/default/default.localization.php:28
 msgid "Valid"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/setup/activation-form/public/js/default/default.localization.php:29
+#: views/setup/activation-form/public/js/default/default.localization.php:29
 msgid "Error"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/setup/activation-form/public/js/default/default.localization.php:30
+#: views/setup/activation-form/public/js/default/default.localization.php:30
 msgid "Activated"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/setup/activation-form/public/js/default/default.localization.php:31
+#: views/setup/activation-form/public/js/default/default.localization.php:31
 msgid "Deactivated"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/setup/activation-form/public/js/default/default.localization.php:32
+#: views/setup/activation-form/public/js/default/default.localization.php:32
 msgid "Reseted"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/setup/activation-form/public/js/default/default.localization.php:34
+#: views/setup/activation-form/public/js/default/default.localization.php:34
 msgid "License key is activate! Thank you!"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/setup/activation-form/public/js/default/default.localization.php:35
+#: views/setup/activation-form/public/js/default/default.localization.php:35
 msgid "License Cache has been reseted!"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/setup/activation-form/public/js/default/default.localization.php:37
+#: views/setup/activation-form/public/js/default/default.localization.php:37
 msgid "License key is activated!"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/setup/activation-form/public/js/default/default.localization.php:38
+#: views/setup/activation-form/public/js/default/default.localization.php:38
 msgid "Could not activate the provided license key!"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/setup/activation-form/public/js/default/default.localization.php:39
+#: views/setup/activation-form/public/js/default/default.localization.php:39
 msgid "Could not activate License Key due to the server error!"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/setup/activation-form/public/js/default/default.localization.php:41
+#: views/setup/activation-form/public/js/default/default.localization.php:41
 msgid "The license key is deactivated!"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/setup/activation-form/public/js/default/default.localization.php:42
+#: views/setup/activation-form/public/js/default/default.localization.php:42
 msgid "Could not deactivate the provided license key!"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/setup/activation-form/public/js/default/default.localization.php:43
+#: views/setup/activation-form/public/js/default/default.localization.php:43
 msgid "Could not deactivate License Key due to the server error!"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/setup/activation-form/public/js/default/default.localization.php:45
+#: views/setup/activation-form/public/js/default/default.localization.php:45
 msgid "The ckeck operation detects that the provided key is a valid key!"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/setup/activation-form/public/js/default/default.localization.php:46
+#: views/setup/activation-form/public/js/default/default.localization.php:46
 msgid "The check operation detects that the provided key is an invalid key!"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/setup/activation-form/public/js/default/default.localization.php:47
+#: views/setup/activation-form/public/js/default/default.localization.php:47
 msgid "Could not check License Key due to the server error!"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/setup/activation-form/public/js/default/default.localization.php:49
+#: views/setup/activation-form/public/js/default/default.localization.php:49
 msgid "Reset"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/setup/activation-form/public/js/default/default.localization.php:51
+#: views/setup/activation-form/public/js/default/default.localization.php:51
 msgid "Invalid License name!"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/setup/activation-form/public/js/default/default.localization.php:52
+#: views/setup/activation-form/public/js/default/default.localization.php:52
 msgid "Invalid License key!"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/setup/activation-form/public/js/default/default.localization.php:53
+#: views/setup/activation-form/public/js/default/default.localization.php:53
 msgid "Component name is absolute!!! Invalid Request Specified!!!"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/lookup/public/js/lookup/lookup.localization.php:15
+#: views/templates/lookup/public/js/lookup/lookup.localization.php:15
 msgid "Would you like to UNLINK all linked templates?"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/lookup/public/js/lookup/lookup.localization.php:16
+#: views/templates/lookup/public/js/lookup/lookup.localization.php:16
 msgid "All Templates has been unlinked sucessfully!"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/lookup/public/js/lookup/lookup.localization.php:17
+#: views/templates/lookup/public/js/lookup/lookup.localization.php:17
 msgid "Lookup Quick Template Edit Form"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/manager/helpers/wp-list-table.inc.php:55
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/info/tmpl/default.html.tmpl:3
+#: views/templates/manager/helpers/wp-list-table.inc.php:55
+#: views/templates/info/tmpl/default.html.tmpl:3
 msgid "Info"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/manager/helpers/wp-list-table.inc.php:56
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/lookup/tmpl/default.html.tmpl:45
+#: views/templates/manager/helpers/wp-list-table.inc.php:56
+#: views/templates/lookup/tmpl/default.html.tmpl:45
 msgid "Edit"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/manager/helpers/wp-list-table.inc.php:154
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/info/tmpl/default.html.tmpl:7
+#: views/templates/manager/helpers/wp-list-table.inc.php:154
+#: views/templates/info/tmpl/default.html.tmpl:7
 msgid "Type"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/manager/helpers/wp-list-table.inc.php:155
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/info/tmpl/default.html.tmpl:16
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/template/tmpl/default.html.tmpl:39
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/template/tmpl/default.html.tmpl:73
+#: views/templates/manager/helpers/wp-list-table.inc.php:155
+#: views/templates/info/tmpl/default.html.tmpl:16
+#: views/templates/template/tmpl/default.html.tmpl:39
+#: views/templates/template/tmpl/default.html.tmpl:73
 msgid "Version"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/manager/helpers/wp-list-table.inc.php:156
+#: views/templates/manager/helpers/wp-list-table.inc.php:156
 msgid "Release"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/manager/helpers/wp-list-table.inc.php:158
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/info/tmpl/default.html.tmpl:6
+#: views/templates/manager/helpers/wp-list-table.inc.php:158
+#: views/blocks/info/tmpl/default.html.tmpl:6
 msgid "Date Created"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/manager/helpers/wp-list-table.inc.php:159
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/info/tmpl/default.html.tmpl:7
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/info/tmpl/default.html.tmpl:9
+#: views/templates/manager/helpers/wp-list-table.inc.php:159
+#: views/blocks/info/tmpl/default.html.tmpl:7
+#: views/templates/info/tmpl/default.html.tmpl:9
 msgid "Last Modified"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/manager/helpers/wp-list-table.inc.php:160
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/template/tmpl/default.html.tmpl:75
+#: views/templates/manager/helpers/wp-list-table.inc.php:160
+#: views/templates/template/tmpl/default.html.tmpl:75
 msgid "State"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/manager/public/js/manager/manager.localization.php:13
+#: views/templates/manager/public/js/manager/manager.localization.php:13
 msgid "Create New Template"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/manager/public/js/manager/manager.localization.php:14
+#: views/templates/manager/public/js/manager/manager.localization.php:14
 msgid "Edit Template"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/manager/public/js/manager/manager.localization.php:15
+#: views/templates/manager/public/js/manager/manager.localization.php:15
 msgid "Are you sure you want to delete all the selected templates?"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/template/public/js/template/template.localization.php:13
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/template/public/js/template/template.localization.php:14
+#: views/templates/template/public/js/template/template.localization.php:13
+#: views/templates/template/public/js/template/template.localization.php:14
 msgid "template"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/template/public/js/template/template.localization.php:15
+#: views/templates/template/public/js/template/template.localization.php:15
 msgid "language type"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/template/public/js/template/template.localization.php:15
+#: views/templates/template/public/js/template/template.localization.php:15
 msgid "CSS, JavaScript, HTML, or PHP"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/template/public/js/template/template.localization.php:16
+#: views/templates/template/public/js/template/template.localization.php:16
 msgid "template state"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/template/public/js/template/template.localization.php:16
+#: views/templates/template/public/js/template/template.localization.php:16
 msgid "Published, Draft, or Trash"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/template/public/js/template/template.localization.php:17
+#: views/templates/template/public/js/template/template.localization.php:17
 msgid ""
 "You won't be able to revert the type name once its set! Are you sure would "
 "you like to use the selected type?"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/backups/manager/tmpl/form.html.tmpl:6
+#: views/backups/manager/tmpl/form.html.tmpl:6
 msgid ""
 "Write backup name and click Backup button to create backup from current "
 "blocks"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/backups/manager/tmpl/list.html.tmpl:3
+#: views/backups/manager/tmpl/list.html.tmpl:3
 msgid ""
 "There is no backups available! You can start creating new backups from the "
 "form above."
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/backups/manager/tmpl/single-backup.html.tmpl:16
+#: views/backups/manager/tmpl/single-backup.html.tmpl:16
 msgid "By"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/block/tmpl/edit.html.tmpl:12
+#: views/blocks/block/tmpl/edit.html.tmpl:12
 msgid "Cancel editing code block title"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/block/tmpl/edit.html.tmpl:13
+#: views/blocks/block/tmpl/edit.html.tmpl:13
 msgid "Save code block title"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/block/tmpl/templates/editor-toolbox.html.tmpl:12
+#: views/blocks/block/tmpl/templates/editor-toolbox.html.tmpl:12
 msgid "Increase font size in code editor"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/block/tmpl/templates/editor-toolbox.html.tmpl:13
+#: views/blocks/block/tmpl/templates/editor-toolbox.html.tmpl:13
 msgid "Decrease font size in code editor"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/block/tmpl/templates/editor-toolbox.html.tmpl:14
+#: views/blocks/block/tmpl/templates/editor-toolbox.html.tmpl:14
 msgid "Reset font size in code editor"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/block/tmpl/templates/editor-toolbox.html.tmpl:15
+#: views/blocks/block/tmpl/templates/editor-toolbox.html.tmpl:15
 msgid ""
 "Clear all text in code editor.  To undo, click Command-Z for Mac or Ctrl-Z "
 "for Windows.  Click Save to permanently take affect"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/block/tmpl/templates/toolbox.html.tmpl:12
+#: views/blocks/block/tmpl/templates/toolbox.html.tmpl:12
 msgid "Template Lookup - Embed or link templates to code blocks"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/block/tmpl/templates/toolbox.html.tmpl:15
+#: views/blocks/block/tmpl/templates/toolbox.html.tmpl:15
 msgid "Link external"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/block/tmpl/templates/toolbox.html.tmpl:17
+#: views/blocks/block/tmpl/templates/toolbox.html.tmpl:17
 msgid "Show code block information"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/block/tmpl/templates/toolbox.html.tmpl:19
+#: views/blocks/block/tmpl/templates/toolbox.html.tmpl:19
 msgid "Set editing language for syntax highlighting"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/block/tmpl/templates/toolbox.html.tmpl:21
+#: views/blocks/block/tmpl/templates/toolbox.html.tmpl:21
 msgid "Set editing language to CSS"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/block/tmpl/templates/toolbox.html.tmpl:21
+#: views/blocks/block/tmpl/templates/toolbox.html.tmpl:21
 msgid "Cascading Style Sheets"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/block/tmpl/templates/toolbox.html.tmpl:22
+#: views/blocks/block/tmpl/templates/toolbox.html.tmpl:22
 msgid "Set editing language to HTML"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/block/tmpl/templates/toolbox.html.tmpl:22
+#: views/blocks/block/tmpl/templates/toolbox.html.tmpl:22
 msgid "Hyper Text Markup Language"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/block/tmpl/templates/toolbox.html.tmpl:23
+#: views/blocks/block/tmpl/templates/toolbox.html.tmpl:23
 msgid "Set editing language to JavaScript"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/block/tmpl/templates/toolbox.html.tmpl:24
+#: views/blocks/block/tmpl/templates/toolbox.html.tmpl:24
 msgid "Set editing language to PHP"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/block/tmpl/templates/toolbox.html.tmpl:24
+#: views/blocks/block/tmpl/templates/toolbox.html.tmpl:24
 msgid "PHP: Hypertext Preprocessor"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/block/tmpl/templates/toolbox.html.tmpl:27
+#: views/blocks/block/tmpl/templates/toolbox.html.tmpl:27
 msgid "Edit code block title.  Click Save to take affect"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/block/tmpl/templates/toolbox.html.tmpl:28
+#: views/blocks/block/tmpl/templates/toolbox.html.tmpl:28
 msgid "View and restore code block revisions"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/block/tmpl/templates/toolbox.html.tmpl:29
+#: views/blocks/block/tmpl/templates/toolbox.html.tmpl:29
 msgid "Delete code block"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/block/tmpl/templates/toolbox.html.tmpl:35
+#: views/blocks/block/tmpl/templates/toolbox.html.tmpl:35
 msgid "Save changes to code block"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/block/tmpl/templates/toolbox.html.tmpl:35
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/template/tmpl/default.html.tmpl:12
+#: views/blocks/block/tmpl/templates/toolbox.html.tmpl:35
+#: views/templates/template/tmpl/default.html.tmpl:12
 msgid "Save"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:9
+#: views/blocks/cjt-block/tmpl/templates/assign-panel/default.html.tmpl:7
 msgid "Pages"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:10
+#: views/blocks/cjt-block/tmpl/templates/assign-panel/default.html.tmpl:14
 msgid "Posts"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:11
-msgid "Custom Posts"
-msgstr ""
-
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:12
+#: views/blocks/cjt-block/tmpl/templates/assign-panel/default.html.tmpl:21
 msgid "Categories"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:13
+#: views/blocks/cjt-block/tmpl/templates/assign-panel/default.html.tmpl:28
+msgid "Custom Posts"
+msgstr ""
+
+#: views/blocks/cjt-block/tmpl/templates/assign-panel/default.html.tmpl:32
 msgid "Auxiliary"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:14
+#: views/blocks/cjt-block/tmpl/templates/assign-panel/default.html.tmpl:39
 msgid "Advanced"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:58
-msgid "There are no Custom Posts Defined yet!"
-msgstr ""
-
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:82
-msgid "Front Page"
-msgstr ""
-
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:86
-msgid "Blog Index"
-msgstr ""
-
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:87
-msgid "All Posts"
-msgstr ""
-
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:88
-msgid "All Pages"
-msgstr ""
-
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:89
-msgid "All Categories"
-msgstr ""
-
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:90
-msgid "Recent Posts"
-msgstr ""
-
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:91
-msgid "Entire Website"
-msgstr ""
-
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:92
-msgid "Website Backend"
-msgstr ""
-
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:93
-msgid "Search Pages"
-msgstr ""
-
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:94
-msgid "All Archives"
-msgstr ""
-
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:95
-msgid "Tag Archives"
-msgstr ""
-
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:96
-msgid "Author Archives"
-msgstr ""
-
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:97
-msgid "Attachment Pages"
-msgstr ""
-
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:98
-msgid "404 Error"
-msgstr ""
-
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:112
+#: views/blocks/cjt-block/tmpl/templates/assign-panel/templates/advanced.html.tmpl:2
 msgid "One URL per line"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:112
+#: views/blocks/cjt-block/tmpl/templates/assign-panel/templates/advanced.html.tmpl:2
 msgid "URLs"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:116
+#: views/blocks/cjt-block/tmpl/templates/assign-panel/templates/advanced.html.tmpl:6
 msgid "One Expression per line"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/cjt-block/tmpl/templates/objects-panel.html.tmpl:116
+#: views/blocks/cjt-block/tmpl/templates/assign-panel/templates/advanced.html.tmpl:6
 msgid "Expressions"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/create-metabox/tmpl/create.html.tmpl:22
+#: views/blocks/cjt-block/tmpl/templates/assign-panel/templates/auxiliarity.html.tmpl:6
+msgid "Front Page"
+msgstr ""
+
+#: views/blocks/cjt-block/tmpl/templates/assign-panel/templates/custom-posts.html.tmpl:48
+msgid "There are no Custom Posts Defined yet!"
+msgstr ""
+
+#: views/blocks/create-metabox/tmpl/create.html.tmpl:22
 msgid "Would you like to create a new CJT block for this post?"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/create-metabox/tmpl/create.html.tmpl:23
+#: views/blocks/create-metabox/tmpl/create.html.tmpl:23
 msgid ""
 "In order to increase performance while navigating the post pages and for "
 "saving database records we're not creating CJT code block for any post until "
 "you really need to do!"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/create-metabox/tmpl/create.html.tmpl:24
+#: views/blocks/create-metabox/tmpl/create.html.tmpl:24
 msgid "Click"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/create-metabox/tmpl/create.html.tmpl:24
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/new/tmpl/default.html.tmpl:67
+#: views/blocks/create-metabox/tmpl/create.html.tmpl:24
+#: views/blocks/new/tmpl/default.html.tmpl:67
 msgid "Create"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/create-metabox/tmpl/create.html.tmpl:24
+#: views/blocks/create-metabox/tmpl/create.html.tmpl:24
 msgid ""
 "to create CJT code block for current post and utilize from all features "
 "found in the CJT management page!"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/info/tmpl/default.html.tmpl:8
+#: views/blocks/info/tmpl/default.html.tmpl:8
 msgid "Shortcode"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/blocks.html.tmpl:11
-msgid "CSS & Javascript Toolbox V6"
+#: views/blocks/manager/tmpl/blocks.html.tmpl:11
+msgid "CSS & Javascript Toolbox Pro"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/blocks.html.tmpl:12
+#: views/blocks/manager/tmpl/blocks.html.tmpl:14
+msgid "Download"
+msgstr ""
+
+#: views/blocks/manager/tmpl/blocks.html.tmpl:16
+msgid "Script Packages"
+msgstr ""
+
+#: views/blocks/manager/tmpl/blocks.html.tmpl:22
 msgid "Need Help?"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/blocks.html.tmpl:12
-msgid "CJT User Manual"
+#: views/blocks/manager/tmpl/blocks.html.tmpl:23
+msgid "How-To"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/blocks.html.tmpl:22
+#: views/blocks/manager/tmpl/blocks.html.tmpl:24
+msgid "Support Forum"
+msgstr ""
+
+#: views/blocks/manager/tmpl/blocks.html.tmpl:25
+msgid "User Manual"
+msgstr ""
+
+#: views/blocks/manager/tmpl/blocks.html.tmpl:29
+msgid "Support"
+msgstr ""
+
+#: views/blocks/manager/tmpl/blocks.html.tmpl:30
+msgid "Request Feature"
+msgstr ""
+
+#: views/blocks/manager/tmpl/blocks.html.tmpl:43
 msgid ""
 "You have now restored the code blocks from the current backup. Nothing is "
 "saved until you click \"Restore\" button. To revert back to the previous "
@@ -900,152 +928,152 @@ msgid ""
 "button."
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/blocks.html.tmpl:35
+#: views/blocks/manager/tmpl/blocks.html.tmpl:56
 msgid "Warning!"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/blocks.html.tmpl:35
+#: views/blocks/manager/tmpl/blocks.html.tmpl:56
 msgid ""
 "Please make sure to validate added CSS &amp; JavaScript codes, the plugin "
 "doesn't do that for you!"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/toolbox.html.tmpl:3
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:3
 msgid "Add new code block"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/toolbox.html.tmpl:3
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:3
 msgid "New Code Block"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/toolbox.html.tmpl:4
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:4
 msgid "Save changes to all code blocks"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/toolbox.html.tmpl:4
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:4
 msgid "Save All Changes"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/toolbox.html.tmpl:5
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:5
 msgid "Cancel backup restoring"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/toolbox.html.tmpl:5
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:5
 msgid "Cancel Restore"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/toolbox.html.tmpl:6
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:6
 msgid "Save restored Backup"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/toolbox.html.tmpl:6
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/revisions/tmpl/default.html.tmpl:27
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:6
+#: views/blocks/revisions/tmpl/default.html.tmpl:27
 msgid "Restore"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/toolbox.html.tmpl:9
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:9
 msgid "Tools for block state (batch)"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/toolbox.html.tmpl:11
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:11
 msgid "Activate (turn on) all code blocks"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/toolbox.html.tmpl:11
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:11
 msgid "Activate All"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/toolbox.html.tmpl:13
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:13
 msgid "Deactivate (turn off) all code blocks"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/toolbox.html.tmpl:13
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:13
 msgid "Deactivate All"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/toolbox.html.tmpl:15
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:15
 msgid "Switch current state for all code blocks"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/toolbox.html.tmpl:15
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:15
 msgid "Revert State"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/toolbox.html.tmpl:18
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:18
 msgid "Tools for location hook (batch)"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/toolbox.html.tmpl:20
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:20
 msgid "Set output location hook to footer for all code blocks"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/toolbox.html.tmpl:20
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:20
 msgid "Footer all"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/toolbox.html.tmpl:22
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:22
 msgid "Set output location hook to header for all code blocks"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/toolbox.html.tmpl:22
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:22
 msgid "Header all"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/toolbox.html.tmpl:26
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:26
 msgid "Code Template Manager"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/toolbox.html.tmpl:29
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:29
 msgid "Tools for block cleanup and backup"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/toolbox.html.tmpl:31
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:31
 msgid "Delete all code blocks"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/toolbox.html.tmpl:31
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:31
 msgid "Delete all"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/toolbox.html.tmpl:33
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:33
 msgid "Delete only empty code blocks"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/toolbox.html.tmpl:33
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:33
 msgid "Delete Empty"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/toolbox.html.tmpl:35
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:35
 msgid "Backup Manager - Create, restore, or delete backups"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/toolbox.html.tmpl:38
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:38
 msgid "General plugin settings"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/toolbox.html.tmpl:40
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:40
 msgid "Maximise all code blocks"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/toolbox.html.tmpl:41
+#: views/blocks/manager/tmpl/toolbox.html.tmpl:41
 msgid "Minimise all code blocks"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/help/intro.html.tmpl:10
+#: views/blocks/manager/tmpl/help/intro.html.tmpl:10
 msgid "Welcome to the CSS & JavaScript Toolbox dashboard"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/help/intro.html.tmpl:11
+#: views/blocks/manager/tmpl/help/intro.html.tmpl:11
 msgid ""
 "Since you do not have any code blocks active, you can either: create a new "
 "code block or create a new code template."
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/help/intro.html.tmpl:12
+#: views/blocks/manager/tmpl/help/intro.html.tmpl:12
 msgid "Create a new Code Block"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/help/intro.html.tmpl:13
+#: views/blocks/manager/tmpl/help/intro.html.tmpl:13
 msgid ""
 "You can add a new code block by clicking the New Code Block button.  Once "
 "your code block has been added, simply choose the editor you wish to work "
@@ -1059,11 +1087,11 @@ msgid ""
 "assigned webpage."
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/help/intro.html.tmpl:14
+#: views/blocks/manager/tmpl/help/intro.html.tmpl:14
 msgid "Create a new Code Template"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/help/intro.html.tmpl:15
+#: views/blocks/manager/tmpl/help/intro.html.tmpl:15
 msgid ""
 "You can create code templates when you click into the Code Template "
 "Manager.  To find this, hover over the icon showing a small cog over pages, "
@@ -1078,11 +1106,11 @@ msgid ""
 "template, you can click the Save button"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/help/intro.html.tmpl:16
+#: views/blocks/manager/tmpl/help/intro.html.tmpl:16
 msgid "Embedding or Linking a Code Templates"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/help/intro.html.tmpl:17
+#: views/blocks/manager/tmpl/help/intro.html.tmpl:17
 msgid ""
 "Code Templates can be either embedded or linked into your code blocks.  To "
 "see all your code templates, you have to click the Template Lookup icon by "
@@ -1090,33 +1118,33 @@ msgid ""
 "appear showing you code templates in the form of users and they are:"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/help/intro.html.tmpl:19
+#: views/blocks/manager/tmpl/help/intro.html.tmpl:19
 msgid "WordPress:  default code templates that are packaged with WordPress"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/help/intro.html.tmpl:20
+#: views/blocks/manager/tmpl/help/intro.html.tmpl:20
 msgid ""
 "Sample Templates:  CJT Sample Templates (depending if Sample Templates were "
 "selected during install)"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/help/intro.html.tmpl:21
+#: views/blocks/manager/tmpl/help/intro.html.tmpl:21
 msgid ""
 "Users:  code templates created by actual WordPress users and administrators"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/help/intro.html.tmpl:23
+#: views/blocks/manager/tmpl/help/intro.html.tmpl:23
 msgid ""
 "You can click on any of the 3 types of users to see all of their code "
 "templates, and you can either embed or link these to code blocks."
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/help/intro.html.tmpl:24
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/lookup/tmpl/default.html.tmpl:38
+#: views/blocks/manager/tmpl/help/intro.html.tmpl:24
+#: views/templates/lookup/tmpl/default.html.tmpl:38
 msgid "Embed"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/help/intro.html.tmpl:24
+#: views/blocks/manager/tmpl/help/intro.html.tmpl:24
 msgid ""
 "embedding a code template will paste the entire template contents into the "
 "code block editor. This can be ideal if you want to do further enhancements "
@@ -1124,7 +1152,7 @@ msgid ""
 "template."
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/manager/tmpl/help/intro.html.tmpl:25
+#: views/blocks/manager/tmpl/help/intro.html.tmpl:25
 msgid ""
 "linking the code template does not actually paste the template into the code "
 "block editor but instead links to it.  This is more ideal if you want to "
@@ -1132,143 +1160,143 @@ msgid ""
 "individual code blocks for each."
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/new/tmpl/default.html.tmpl:24
+#: views/blocks/new/tmpl/default.html.tmpl:24
 msgid "Name or title of code block  (must be unique and cannot be left blank)"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/new/tmpl/default.html.tmpl:28
+#: views/blocks/new/tmpl/default.html.tmpl:28
 msgid "Tick the checkbox to Activate (turn on) code block"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/new/tmpl/default.html.tmpl:32
+#: views/blocks/new/tmpl/default.html.tmpl:32
 msgid "Set location hook for code block output to: Header or Footer"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/new/tmpl/default.html.tmpl:32
+#: views/blocks/new/tmpl/default.html.tmpl:32
 msgid "Location Hook"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/new/tmpl/default.html.tmpl:36
+#: views/blocks/new/tmpl/default.html.tmpl:36
 msgid "Header"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/new/tmpl/default.html.tmpl:37
+#: views/blocks/new/tmpl/default.html.tmpl:37
 msgid "Footer"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/new/tmpl/default.html.tmpl:48
+#: views/blocks/new/tmpl/default.html.tmpl:48
 msgid "Set initial code block position to: First Block or Last Block"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/new/tmpl/default.html.tmpl:48
+#: views/blocks/new/tmpl/default.html.tmpl:48
 msgid "Initial Block Position"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/new/tmpl/default.html.tmpl:53
+#: views/blocks/new/tmpl/default.html.tmpl:53
 msgid "First Block"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/new/tmpl/default.html.tmpl:54
+#: views/blocks/new/tmpl/default.html.tmpl:54
 msgid "Last Block"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/new/tmpl/default.html.tmpl:66
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/template/tmpl/default.html.tmpl:15
+#: views/blocks/new/tmpl/default.html.tmpl:66
+#: views/templates/template/tmpl/default.html.tmpl:15
 msgid "Cancel"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/revisions/tmpl/default.html.tmpl:19
+#: views/blocks/revisions/tmpl/default.html.tmpl:19
 msgid "No revisions!"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/blocks/revisions/tmpl/default.html.tmpl:26
+#: views/blocks/revisions/tmpl/default.html.tmpl:26
 msgid "by"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/installer/install/tmpl/default.html.tmpl:24
+#: views/installer/install/tmpl/default.html.tmpl:24
 msgid ""
 "In order to start using CJT Plugin you need first to install the Plugin."
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/installer/install/tmpl/default.html.tmpl:25
+#: views/installer/install/tmpl/default.html.tmpl:25
 msgid ""
 "The installation process will create CJT database tables, build-it Database "
 "records."
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/installer/install/tmpl/default.html.tmpl:26
+#: views/installer/install/tmpl/default.html.tmpl:26
 msgid "Check for previous version and if the upgrade process is needed."
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/installer/install/tmpl/default.html.tmpl:27
+#: views/installer/install/tmpl/default.html.tmpl:27
 msgid ""
 "The Plugin is in disable state untill the  installation process took place!"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/installer/install/tmpl/default.html.tmpl:28
+#: views/installer/install/tmpl/default.html.tmpl:28
 msgid ""
 "To utilize from the CJT functionality you must install the Plugin first!!"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/installer/install/tmpl/default.html.tmpl:30
+#: views/installer/install/tmpl/default.html.tmpl:30
 msgid "Installing Version "
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/installer/install/tmpl/default.html.tmpl:31
+#: views/installer/install/tmpl/default.html.tmpl:31
 msgid ""
 "When you install a new version of CJT for the first time or even upgrading "
 "from old versions, a number of processes will happen, which will take "
 "approximately 1 to 2 minutes. These processes include"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/installer/install/tmpl/default.html.tmpl:38
+#: views/installer/install/tmpl/default.html.tmpl:38
 msgid "Create database tables."
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/installer/install/tmpl/default.html.tmpl:39
+#: views/installer/install/tmpl/default.html.tmpl:39
 msgid ""
 "Creating file system directories (e.g wp-content/cjt-content/templates)."
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/installer/install/tmpl/default.html.tmpl:40
+#: views/installer/install/tmpl/default.html.tmpl:40
 msgid "Add CJT built-in authors used by templates system."
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/installer/install/tmpl/default.html.tmpl:41
+#: views/installer/install/tmpl/default.html.tmpl:41
 msgid ""
 "Add Wordpress built-in scripts and styles as CJT Templates so it can be used "
 "throught Templates Lookup form."
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/installer/install/tmpl/default.html.tmpl:42
+#: views/installer/install/tmpl/default.html.tmpl:42
 msgid "Finalize Installation."
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/installer/install/tmpl/upgrade.html.tmpl:13
+#: views/installer/install/tmpl/upgrade.html.tmpl:13
 msgid "Upgrading CJT Plugin"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/installer/install/tmpl/upgrade.html.tmpl:14
+#: views/installer/install/tmpl/upgrade.html.tmpl:14
 msgid ""
 "Please wait while we upgrading CJT Plugin installation! This process would "
 "take only a few seconds!"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/installer/install/tmpl/upgrade.html.tmpl:16
+#: views/installer/install/tmpl/upgrade.html.tmpl:16
 msgid "Upgrade"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/installer/install/tmpl/upgrades/upgrade.html.tmpl:10
+#: views/installer/install/tmpl/upgrades/upgrade.html.tmpl:10
 msgid "Upgrading Plugin"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/installer/install/tmpl/upgrades/upgrade.html.tmpl:11
+#: views/installer/install/tmpl/upgrades/upgrade.html.tmpl:11
 msgid ""
 "The upgrade process time estimation cannot be preditected because its based "
 "on the amount of data (blocks + other data) you've created."
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/installer/install/tmpl/upgrades/upgrade.html.tmpl:12
+#: views/installer/install/tmpl/upgrades/upgrade.html.tmpl:12
 msgid ""
 "Important Note: It is highly recommended to upgrade the plugin using the "
 "same administrator or user that was used to manage the code blocks. This "
@@ -1276,232 +1304,214 @@ msgid ""
 "logged in administrators or users' meta data."
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/installer/install/tmpl/upgrades/upgrade.html.tmpl:20
+#: views/installer/install/tmpl/upgrades/upgrade.html.tmpl:20
 msgid "Finalize Upgrade."
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/installer/notice/tmpl/default.html.tmpl:12
+#: views/installer/notice/tmpl/default.html.tmpl:12
 msgid ""
 "CJT Plugin has been installed throught Wordpress Plugins manager page. In "
 "order for CJT Plugin to work correctly you must install it throught"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/installer/notice/tmpl/default.html.tmpl:13
+#: views/installer/notice/tmpl/default.html.tmpl:13
 msgid "CJT-Instalaltion page."
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/installer/notice/tmpl/default.html.tmpl:16
+#: views/installer/notice/tmpl/default.html.tmpl:16
 msgid "Please or you can go to the installation page directly through the"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/installer/notice/tmpl/default.html.tmpl:17
+#: views/installer/notice/tmpl/default.html.tmpl:17
 msgid "CSS & Javascript Toolbox page."
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/installer/notice/tmpl/default.html.tmpl:19
+#: views/installer/notice/tmpl/default.html.tmpl:19
 msgid "Dismiss"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/packages/install/tmpl/default.html.tmpl:24
+#: views/packages/install/tmpl/default.html.tmpl:24
 msgid "Package File"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/packages/install/tmpl/default.html.tmpl:28
+#: views/packages/install/tmpl/default.html.tmpl:28
 msgid "Install"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/packages/manager/tmpl/default.html.tmpl:15
+#: views/packages/manager/tmpl/default.html.tmpl:15
 msgid "Install Package"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/packages/raw-file/tmpl/default.html.tmpl:11
+#: views/packages/raw-file/tmpl/default.html.tmpl:11
 msgid "Package file - Raw Viewer"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/settings/manager/tmpl/pages/metabox.html.tmpl:12
+#: views/settings/manager/tmpl/pages/metabox.html.tmpl:12
 msgid "Registered Post Types"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/setup/activation-form/tmpl/default.html.tmpl:25
+#: views/settings/manager/tmpl/pages/uninstall.html.tmpl:7
+msgid "Wipe out data!"
+msgstr ""
+
+#: views/setup/activation-form/tmpl/default.html.tmpl:25
 msgid "License Key"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/setup/activation-form/tmpl/default.html.tmpl:27
+#: views/setup/activation-form/tmpl/default.html.tmpl:27
 msgid ""
 "In order to get the benefits from the premium services we provide you've to "
 "obtain your license key from"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/setup/activation-form/tmpl/default.html.tmpl:28
+#: views/setup/activation-form/tmpl/default.html.tmpl:28
 msgid "web site"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/setup/activation-form/tmpl/default.html.tmpl:32
+#: views/setup/activation-form/tmpl/default.html.tmpl:32
 msgid "Your Name"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/setup/activation-form/tmpl/default.html.tmpl:37
+#: views/setup/activation-form/tmpl/default.html.tmpl:37
 msgid "Key"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/setup/activation-form/tmpl/default.html.tmpl:46
+#: views/setup/activation-form/tmpl/default.html.tmpl:46
 msgid "Check"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/info/tmpl/default.html.tmpl:8
+#: views/templates/info/tmpl/default.html.tmpl:8
 msgid "Creation Date"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/info/tmpl/default.html.tmpl:10
+#: views/templates/info/tmpl/default.html.tmpl:10
 msgid "Last Revision Comment"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/info/tmpl/default.html.tmpl:13
+#: views/templates/info/tmpl/default.html.tmpl:13
 msgid "About"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/info/tmpl/default.html.tmpl:15
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/template/tmpl/default.html.tmpl:38
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/template/tmpl/default.html.tmpl:65
+#: views/templates/info/tmpl/default.html.tmpl:15
+#: views/templates/template/tmpl/default.html.tmpl:38
+#: views/templates/template/tmpl/default.html.tmpl:65
 msgid "Description"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/info/tmpl/default.html.tmpl:18
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/template/tmpl/default.html.tmpl:66
+#: views/templates/info/tmpl/default.html.tmpl:18
+#: views/templates/template/tmpl/default.html.tmpl:66
 msgid "Keywords"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/lookup/tmpl/default.html.tmpl:32
+#: views/templates/lookup/tmpl/default.html.tmpl:32
 msgid "User"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/lookup/tmpl/default.html.tmpl:61
+#: views/templates/lookup/tmpl/default.html.tmpl:61
 msgid "Show"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/lookup/tmpl/default.html.tmpl:63
+#: views/templates/lookup/tmpl/default.html.tmpl:63
 msgid "Linked"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/lookup/tmpl/default.html.tmpl:64
+#: views/templates/lookup/tmpl/default.html.tmpl:64
 msgid "Unlinked"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/lookup/tmpl/default.html.tmpl:65
+#: views/templates/lookup/tmpl/default.html.tmpl:65
 msgid "All"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/lookup/tmpl/default.html.tmpl:69
+#: views/templates/lookup/tmpl/default.html.tmpl:69
 msgid "Unlink All"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/manager/tmpl/default.html.tmpl:25
+#: views/templates/manager/tmpl/default.html.tmpl:25
 msgid "Create Template"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/template/tmpl/default.html.tmpl:11
+#: views/templates/template/tmpl/default.html.tmpl:11
 msgid "Close"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/template/tmpl/default.html.tmpl:16
+#: views/templates/template/tmpl/default.html.tmpl:16
 msgid "Update"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/template/tmpl/default.html.tmpl:37
+#: views/templates/template/tmpl/default.html.tmpl:37
 msgid "Main"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/template/tmpl/default.html.tmpl:44
+#: views/templates/template/tmpl/default.html.tmpl:44
 msgid "Name or title of template  (must be unique and cannot be left blank)"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/template/tmpl/default.html.tmpl:46
+#: views/templates/template/tmpl/default.html.tmpl:46
 msgid ""
 "Set the code language to: CSS, JavaScript, HTML, or PHP  (selection must be "
 "made)"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/template/tmpl/default.html.tmpl:46
+#: views/templates/template/tmpl/default.html.tmpl:46
 msgid "Language"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/template/tmpl/default.html.tmpl:47
+#: views/templates/template/tmpl/default.html.tmpl:47
 msgid "< Select Type >"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/template/tmpl/default.html.tmpl:50
+#: views/templates/template/tmpl/default.html.tmpl:50
 msgid ""
 "Set the template state to: Published, Draft, or Trash  (selection must be "
 "made)"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/template/tmpl/default.html.tmpl:50
+#: views/templates/template/tmpl/default.html.tmpl:50
 msgid "Template State"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/template/tmpl/default.html.tmpl:51
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/template/tmpl/default.html.tmpl:76
+#: views/templates/template/tmpl/default.html.tmpl:51
+#: views/templates/template/tmpl/default.html.tmpl:76
 msgid "< Select State >"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/template/tmpl/default.html.tmpl:54
+#: views/templates/template/tmpl/default.html.tmpl:54
 msgid ""
 "Enter code for the template in the large text ﬁeld and click Save when done"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/template/tmpl/default.html.tmpl:54
+#: views/templates/template/tmpl/default.html.tmpl:54
 msgid "Code"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/template/tmpl/default.html.tmpl:65
+#: views/templates/template/tmpl/default.html.tmpl:65
 msgid ""
 "Enter a descriptive write-up for the template describing what it is, and how "
 "it works, etc "
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/template/tmpl/default.html.tmpl:66
+#: views/templates/template/tmpl/default.html.tmpl:66
 msgid ""
 "Enter strong keywords for the template - each being separated by a comma"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/template/tmpl/default.html.tmpl:73
+#: views/templates/template/tmpl/default.html.tmpl:73
 msgid "Enter the speciﬁc version for the template  (e.g. 1.0)"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/template/tmpl/default.html.tmpl:75
+#: views/templates/template/tmpl/default.html.tmpl:75
 msgid ""
 "Set the release state to: Release, Beta, Alpha, Release Candidate, or "
 "Revision"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/template/tmpl/default.html.tmpl:78
+#: views/templates/template/tmpl/default.html.tmpl:78
 msgid ""
 "Add any notes such as stability issues, bug ﬁxes, or anything that can be "
 "useful for future development"
 msgstr ""
 
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/templates/template/tmpl/default.html.tmpl:78
+#: views/templates/template/tmpl/default.html.tmpl:78
 msgid "Revision note"
-msgstr ""
-
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/installer/install/tmpl/upgrades/02.operations:11
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/installer/install/tmpl/upgrades/03.operations:11
-msgid ""
-"Transfer blocks to the new blocks table. Old versions doesn't use a specific "
-"blocks table!"
-msgstr ""
-
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/installer/install/tmpl/upgrades/02.operations:12
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/installer/install/tmpl/upgrades/03.operations:12
-msgid ""
-"Transfer templates to the new database table. New template is enhanced and "
-"support revisioning and other development attributes."
-msgstr ""
-
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/installer/install/tmpl/upgrades/03.operations:13
-msgid "Transfer backup blocks."
-msgstr ""
-
-#: E:\local-server\www\css-javascript-toolbox\6.0\3.5\wp-content\plugins\css-javascript-toolbox/views/installer/install/tmpl/upgrades/10.operations:11
-msgid "Upgrading database"
 msgstr ""
