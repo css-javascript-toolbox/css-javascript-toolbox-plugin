@@ -568,7 +568,7 @@
 						}
 					);
 					// Activate the AUX tab by default.
-					this.jElement.find('li.type-other>a').trigger('click');
+					this.jElement.find('li.type-advanced>a').trigger('click');
 					// Syncronize assign panel map when block saved.
 					options.block.onBlockSaved = onBlockSaved;
 				}
