@@ -21,8 +21,8 @@
 .pagelist li span>a {margin-left: 4px;}
 .pagelist li { line-height:19px; word-wrap:break-word; margin:0; padding:0; }
 .pagelist li .sub-list {font-weight: bold; font-size: 13px;text-decoration: underline;}
-.pagelist li .list-error {font-size: 12px;text-align: center;margin-top: 41px;text-decoration: underline;}
-.pagelist li .list-error .message{font-weight: bold;}
+.list-error {font-size: 12px;text-align: center;margin-top: 41px;text-decoration: underline;}
+.list-error .message{font-weight: bold;}
 .pagelist ul { margin-left:15px; }
 
 div.cjpageblock .objects-list-button > a.prog-colored {color: transparent !important;}
