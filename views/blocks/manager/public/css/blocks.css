@@ -3,9 +3,9 @@
 .wrap { position: relative; }
 .cjt-banner-bar .cjt-banner-link a, .cjt-banner-bar a:hover, .cjt-banner-bar a:visited{color: #A5581B;}
 #cjt-banner-bar-right {right: 0px;position: absolute;top: 2px;}
-#cjt-banner-bar-right .cjt-banner-link {float: right; margin-bottom: 6px;}
+#cjt-banner-bar-right .cjt-banner-link {margin-bottom: 6px;}
 
-#get-packages {margin-left: 15px;}
+#get-packages {margin-left: 5px;}
 #get-packages-icon {display: inline-block; width: 13px; height: 15px; background-image: url('../images/get-packages.png'); margin-left: 3px;margin-bottom: -4px; margin-right: 5px;}
 
 #review-icon {display: inline-block; width: 75px; height: 14px; background-image: url('../images/review.png');margin-bottom: -2px; margin-left: 12px;}
