@@ -30,7 +30,7 @@ defined('ABSPATH') or die("Access denied");
 					$codeLoadedSignClass = '';
 					$blockId = "cjtoolbox-{$this->block->id}";
 					$closedMetaboxes = get_user_meta(get_current_user_id(), 'closedpostboxes_cjtoolbox', true);
-					if (!in_array($blockId, $closedMetaboxes)) {
+					if (!in_array($blockId, ((array) $closedMetaboxes))) {
 						$code = htmlentities($this->block->code, null, 'UTF-8');
 						$codeLoadedSignClass = ' initially-loaded';
 					}
