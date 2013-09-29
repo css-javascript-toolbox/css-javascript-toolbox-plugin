@@ -1,3 +1,13 @@
+= 6.2 =
+* Enhance: Initially don't load Block assignment panel items: Speed up Blocks page loading time when its initially opened, also affect the browser performance as the items is not loaded or rendered before its required.
+* Enhance: Initially don't load Block code for the closed/minimized Blocks: Loading those Blocks will be done through AJAX once the Block is opened by user.
+* Enhance: The ability to 'Cancel' revision mode and get back to the normal mode without refreshing the whole page.
+* Update: Animate Block 'Save' button for not-saved Blocks.
+* Update: The Assignment-Panel is now Loads the assigned items only when enter the revision and backup modes.
+* Update: Set assignment-Panel Advanced-TAB as the default active TAB.
+* Add: Few helper links to the CJT offical website at the top of the Blocks page.
+* Fix: Block 'Save' and 'Save All Changes' buttons are stay enabled after updating Block Assignment-Panel items and revert them back again. The buttons is enabled even if the Block content has not been changed.
+
 = 6.1.1.2 =
 * Fix: Add version 6.0.14 CE upgrader.
 * Fix: Failed to work with non-ascii (e.g Arabic) characters

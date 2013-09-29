@@ -1,9 +1,9 @@
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-#   Date: June 07, 2013
+#   Date: Sep 29, 2013
 #   Product Name: CSS & Javascript Toolbox V6
 #   Description: Easily add custom CSS and JavaScript code to individual Pages, Posts, Categories, and URLs.
 #   Type: WordPress Plugin, Premium
-#   Product Version: 6.1.1.2
+#   Product Version: 6.2
 #   Author: http://wipeoutmedia.com
 #   Original package file: css-javascript-toolbox.zip
 #   Web Site: http://css-javascript-toolbox.com/
@@ -23,7 +23,7 @@ For more information and support about the installation process, please visit th
 CJT website here:  http://css-javascript-toolbox.com/css-javascript-toolbox-v6/
 
 Requirements (Platform requirements)
-	WordPress: Minimum 3.3, tested up to 3.5.1
+	WordPress: Minimum 3.6, tested up to 3.6.1
 	PHP: >= 5.2
 		
 Install (Installing Plugin Files)
