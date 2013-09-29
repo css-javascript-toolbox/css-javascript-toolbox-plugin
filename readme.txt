@@ -5,9 +5,9 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: plug, customise, style, scripts, hack, Wordpress, contribute, enhancing, HTML, CSS, Javascript, PHP, execute, display, output, header, footer, apply, requests, match, hook, run
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Requires at least: 3.3
-Tested up to: 3.5.1
-Stable tag: 6.0.15
+Requires at least: 3.6
+Tested up to: 3.6.1
+Stable tag: 6.1
 
 Easily add custom CSS, JavaScript, HTML and PHP code to unique CJT code blocks and assign them wherever you want.
 
@@ -126,6 +126,17 @@ Sometimes a bug decides to rear its ugly head and when this happens, this is whe
 2. CJT Shortcode button
 
 == Changelog ==
+
+= 6.1 =
+* Enhance: Initially don't load Block assignment panel items: Speed up Blocks page loading time when its initially opened, also affect the browser performance as the items is not loaded or rendered before its required.
+* Enhance: Initially don't load Block code for the closed/minimized Blocks: Loading those Blocks will be done through AJAX once the Block is opened by user.
+* Enhance: The ability to 'Cancel' revision mode and get back to the normal mode without refreshing the whole page.
+* Update: Animate Block 'Save' button for not-saved Blocks.
+* Update: The Assignment-Panel is now Loads the assigned items only when enter the revision and backup modes.
+* Update: Set assignment-Panel Advanced-TAB as the default active TAB.
+* Add: Few helper links to the CJT offical website at the top of the Blocks page.
+* Fix: Block 'Save' and 'Save All Changes' buttons are stay enabled after updating Block Assignment-Panel items and revert them back again. The buttons is enabled even if the Block content has not been changed.
+
 = 6.0.15 =
 * Enhance: Uninstaller is now configurable so that admin can specify is to wipeout the data or not! This is really great for manual upgrade to the PE versions!
 
