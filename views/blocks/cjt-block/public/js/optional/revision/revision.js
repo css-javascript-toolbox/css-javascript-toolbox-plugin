@@ -82,7 +82,7 @@ var CJTBlockOptionalRevision = null;
 				break;
 			}
 			// Reset assignpanel selected TAB.
-			activateTab('other');
+			activateTab('advanced');
 		}
 
 		// Construct parent.
