@@ -1,6 +1,6 @@
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #   Date: Sep 29, 2013
-#   Product Name: CSS & Javascript Toolbox Free
+#   Product Name: CSS & Javascript Toolbox PRO
 #   Description: Easily add custom CSS and JavaScript code to individual Pages, Posts, Categories, and URLs.
 #   Type: WordPress Plugin, Premium
 #   Product Version: 6.2
