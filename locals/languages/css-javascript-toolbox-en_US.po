@@ -13,8 +13,7 @@ msgstr ""
 "X-Poedit-KeywordsList: getText\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-SearchPath-0: J:\\wamp\\www\\css-javascript-toolbox\\6.0\\3.5\\wp-"
-"content\\plugins\\css-javascript-toolbox\n"
+"X-Poedit-SearchPath-0: "
 
 #: access.points/extensions.accesspoint.php:53
 msgid "Extensions"
