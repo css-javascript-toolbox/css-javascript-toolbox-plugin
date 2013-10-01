@@ -14,7 +14,7 @@ class CJTSetupModel {
 	/**
 	* 
 	*/
-	const EDD_PRODUCT_NAME = 'CJT V6';
+	const EDD_PRODUCT_NAME = 'CJT Pro';
 	
 	/**
 	* 
