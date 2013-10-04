@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: CSS & Javascript Toolbox V6\n"
-"POT-Creation-Date: 2013-09-29 23:46+0200\n"
-"PO-Revision-Date: 2013-09-29 23:46+0200\n"
+"POT-Creation-Date: 2013-10-05 00:16+0200\n"
+"PO-Revision-Date: 2013-10-05 00:16+0200\n"
 "Last-Translator: \n"
 "Language-Team: CJT <development@css-javascript-toolbox.com>\n"
 "Language: English\n"
@@ -305,90 +305,110 @@ msgid "Checking Key"
 msgstr ""
 
 #: views/setup/activation-form/public/js/default/default.localization.php:25
-msgid "Reseting License Information"
+msgid "Key is not activated/used yet"
+msgstr ""
+
+#: views/setup/activation-form/public/js/default/default.localization.php:26
+msgid "Key is inactive"
 msgstr ""
 
 #: views/setup/activation-form/public/js/default/default.localization.php:27
-msgid "Invalid"
-msgstr ""
-
-#: views/setup/activation-form/public/js/default/default.localization.php:28
-msgid "Valid"
+msgid "Reseting License Information"
 msgstr ""
 
 #: views/setup/activation-form/public/js/default/default.localization.php:29
-msgid "Error"
+msgid "Invalid"
 msgstr ""
 
 #: views/setup/activation-form/public/js/default/default.localization.php:30
-msgid "Activated"
+msgid "Valid"
 msgstr ""
 
 #: views/setup/activation-form/public/js/default/default.localization.php:31
-msgid "Deactivated"
+msgid "Error"
 msgstr ""
 
 #: views/setup/activation-form/public/js/default/default.localization.php:32
-msgid "Reseted"
+msgid "Activated"
+msgstr ""
+
+#: views/setup/activation-form/public/js/default/default.localization.php:33
+msgid "Deactivated"
 msgstr ""
 
 #: views/setup/activation-form/public/js/default/default.localization.php:34
-msgid "License key is activate! Thank you!"
-msgstr ""
-
-#: views/setup/activation-form/public/js/default/default.localization.php:35
-msgid "License Cache has been reseted!"
+msgid "Reseted"
 msgstr ""
 
 #: views/setup/activation-form/public/js/default/default.localization.php:37
-msgid "License key is activated!"
+msgid "License key is activate! Thank you!"
 msgstr ""
 
 #: views/setup/activation-form/public/js/default/default.localization.php:38
-msgid "Could not activate the provided license key!"
+msgid "License Cache has been reseted!"
 msgstr ""
 
-#: views/setup/activation-form/public/js/default/default.localization.php:39
-msgid "Could not activate License Key due to the server error!"
+#: views/setup/activation-form/public/js/default/default.localization.php:40
+msgid "License key is activated!"
 msgstr ""
 
 #: views/setup/activation-form/public/js/default/default.localization.php:41
-msgid "The license key is deactivated!"
+msgid "Could not activate the provided license key!"
 msgstr ""
 
 #: views/setup/activation-form/public/js/default/default.localization.php:42
-msgid "Could not deactivate the provided license key!"
+msgid "Could not activate License Key due to the server error!"
 msgstr ""
 
-#: views/setup/activation-form/public/js/default/default.localization.php:43
-msgid "Could not deactivate License Key due to the server error!"
+#: views/setup/activation-form/public/js/default/default.localization.php:44
+msgid "The license key is deactivated!"
 msgstr ""
 
 #: views/setup/activation-form/public/js/default/default.localization.php:45
-msgid "The ckeck operation detects that the provided key is a valid key!"
+msgid "Could not deactivate the provided license key!"
 msgstr ""
 
 #: views/setup/activation-form/public/js/default/default.localization.php:46
-msgid "The check operation detects that the provided key is an invalid key!"
+msgid "Could not deactivate License Key due to the server error!"
 msgstr ""
 
-#: views/setup/activation-form/public/js/default/default.localization.php:47
-msgid "Could not check License Key due to the server error!"
+#: views/setup/activation-form/public/js/default/default.localization.php:48
+msgid "The ckeck operation detects that the provided key is a valid key!"
 msgstr ""
 
 #: views/setup/activation-form/public/js/default/default.localization.php:49
-msgid "Reset"
+msgid "The check operation detects that the provided key is an invalid key!"
+msgstr ""
+
+#: views/setup/activation-form/public/js/default/default.localization.php:50
+msgid "Could not check License Key due to the server error!"
 msgstr ""
 
 #: views/setup/activation-form/public/js/default/default.localization.php:51
-msgid "Invalid License name!"
+msgid ""
+"The ckeck operation detects that the provided key is a valid key! The key is "
+"not being activated yet."
 msgstr ""
 
 #: views/setup/activation-form/public/js/default/default.localization.php:52
+msgid ""
+"The ckeck operation detects that the provided key is a valid key! The "
+"license key need to be activated from the CJT Website."
+msgstr ""
+
+#: views/setup/activation-form/public/js/default/default.localization.php:54
+msgid "Reset"
+msgstr ""
+
+#: views/setup/activation-form/public/js/default/default.localization.php:56
+msgid "Invalid License name!"
+msgstr ""
+
+#: views/setup/activation-form/public/js/default/default.localization.php:57
 msgid "Invalid License key!"
 msgstr ""
 
-#: views/setup/activation-form/public/js/default/default.localization.php:53
+#: views/setup/activation-form/public/js/default/default.localization.php:58
 msgid "Component name is absolute!!! Invalid Request Specified!!!"
 msgstr ""
 
