@@ -12,14 +12,15 @@ Stable tag: 6.1
 Easily add custom CSS, JavaScript, HTML and PHP code to unique CJT code blocks and assign them wherever you want.
 
 == Description ==
-CSS & JavaScript Toolbox (or CJT) is a powerful and flexible plugin, which allows you to contribute to your WordPress installation code via an easy-to-use web interface. You will be able to modify or extend your site functionality and appearance by adding custom code directly into CJT code blocks and assign them to pages, posts, custom posts, categories, URLs, expressions, and loads more!
+CSS & JavaScript Toolbox is a code management plugin that gives you the tools to easily and safely modify or extend the functionality and appearance of your WordPress-powered website. You do this by adding custom code directly into unique code blocks and assign them to pages, posts, custom posts, categories, URLs, expressions, and loads more!
 
-[youtube http://www.youtube.com/watch?v=A2AcTeU_tMk]
+[youtube http://www.youtube.com/watch?v=Br4tVp6QFwA]
 
-If you like to know more about the development state, issues and to tracke future versions code please follow us on [GitHub Plugin repository](https://github.com/css-javascript-toolbox/css-javascript-toolbox-plugin).
+= Upgrade to CJT Pro =
+You will get more power and flexibility, better security, and a lot more features, tools and options in CJT Pro. Features in Pro include: a code auto completion system (for CSS, JavaScript, PHP, and HTML), code block metabox support for Pages/Posts, heaps of editor tools, external script support, a powerful code template manager, script package installer, and the list goes on. [Click here to see all the benefits of CJT Pro](http://css-javascript-toolbox.com/css-javascript-toolbox-pro)
 
 = Who is this plugin for? =
-The CJT plugin was created to help website authors write their own code. Basically, if you love writing code, then you will love CJT. Designed and developed from the ground-up, CJT will suit novice users to seasoned website developers alike. You can also use it as a training tool, and learn step-by-step how to write and apply scripts yourself!  In fact, you will find useful script examples on the CJT website.
+This plugin is primarily intended for WordPress website developers and designers. But that is not to say that others would not be able to get use out of it. CJT can be used for a lot of things from teachers, students learning to code, to mum and dad bloggers wanting to add Google Analytics or other scripts to their website.
 
 = Have you ever thought? =
 - Wouldn't it be great to have an easy way to plug your code into a Wordpress installation without having to know how to create a Wordpress plugin OR having to modify files through FTP, etc?
@@ -48,8 +49,8 @@ If you would like to learn more, please click to [download the CJT User Manual](
 = Scripts, scripts, glorious scripts! =
 If you would like to learn how to use our plugin with some script examples, please visit our [Scripts page](http://css-javascript-toolbox.com/category/scripts).  If you are a script author and would like to get more exposure for your scripts, please submit your scripts to us.  Click [Submit a Script](http://css-javascript-toolbox.com/submit-a-script) to find out more. 
 
-= Add more power to CJT by installing Extensions! =
-CJT is extensible Plugin that allow to other Wordpress Plugins to extend or change its behaviour! CJT team start to create some useful extensions you can find in the [addons](http://css-javascript-toolbox.com/addons) page.
+= Follow the Developments =
+If you like to know more about the development state, issues and to track future versions code please follow us on [GitHub Plugin repository](https://github.com/css-javascript-toolbox/css-javascript-toolbox-plugin).
 
 = Thank You =
 We would like to take this opportunity to thank you for installing our WordPress plugin.  We will continue to develop it further, making it bigger and better with awesome updates in the near future. If you like this plugin and not only find it useful, but appreciate the huge amount of work that has gone into creating it, you can certainly support us in a number of ways, including:
@@ -122,19 +123,19 @@ Sometimes a bug decides to rear its ugly head and when this happens, this is whe
 
 == Screenshots ==
 
-1. Main CJT V6 CE code block screen
+1. Main CJT Free code block screen
 2. CJT Shortcode button
 
 == Changelog ==
 
 = 6.1 =
 * Enhance: Initially don't load Block assignment panel items: Speed up Blocks page loading time when its initially opened, also affect the browser performance as the items is not loaded or rendered before its required.
-* Enhance: Initially don't load Block code for the closed/minimized Blocks: Loading those Blocks will be done through AJAX once the Block is opened by user.
+* Enhance: Initially don't load Block code for the closed/minimised Blocks: Loading those Blocks will be done through AJAX once the Block is opened by user.
 * Enhance: The ability to 'Cancel' revision mode and get back to the normal mode without refreshing the whole page.
 * Update: Animate Block 'Save' button for not-saved Blocks.
 * Update: The Assignment-Panel is now Loads the assigned items only when enter the revision and backup modes.
 * Update: Set assignment-Panel Advanced-TAB as the default active TAB.
-* Add: Few helper links to the CJT offical website at the top of the Blocks page.
+* Add: Few helper links to the CJT official website at the top of the Blocks page.
 * Fix: Block 'Save' and 'Save All Changes' buttons are stay enabled after updating Block Assignment-Panel items and revert them back again. The buttons is enabled even if the Block content has not been changed.
 
 = 6.0.15 =
@@ -146,7 +147,7 @@ Sometimes a bug decides to rear its ugly head and when this happens, this is whe
 * Fix: Failed to work with non-ascii (e.g Arabic) characters.
 * Enhance: Viewing block info is now showing Shortcode using block 'name' instead of 'id'.
 * Enhance: Embedded Shortcode with its closing tag as the Shortcode content is now being used by the handler blocks.
-* Enhance: Revert block Shortcode 'force' parameter default value to 'true' therefoe allow using multiple Shortcode for the same block without setting 'force' attribute.
+* Enhance: Revert block Shortcode 'force' parameter default value to 'true' therefore allow using multiple Shortcode for the same block without setting 'force' attribute.
 
 = 6.0.13 =
 * Fix: CJT hijacks Plugins page after activate or deactivate a Plugin.
@@ -167,9 +168,9 @@ Sometimes a bug decides to rear its ugly head and when this happens, this is whe
 
 = 6.0.6 =
 * Fix: Conflict with other Plugins!
-* Fix: Javascript exception throwed when dismissing the install/upgrade notice.
+* Fix: Javascript exception thrown when dismissing the install/upgrade notice.
 * Enhancement: Disallow (with user notice) upgrade/downgrade if the target version is not being supported, therefor saving user data!
-* Enhancement: Don't break down the site if manual upgrade/downgrage process is incompleted! Allow user to revert back manually or disable the Plugin.
+* Enhancement: Don't break down the site if manual upgrade/downgrade process is uncompleted! Allow user to revert back manually or disable the Plugin.
 * Enhancement: E_ALL complain! Suppress all notices when WP_DEBUG set to true, allow better development, fast performance and error handling.
 
 = 6.0 =
@@ -204,7 +205,7 @@ Sometimes a bug decides to rear its ugly head and when this happens, this is whe
 * Each block has an Information metabox (Author, created date, modification date, and Shortcode).
 * Create new block with initial properties (state, name and position).
 * Internal error detection routine for detecting Ajax errors that may have happened away from users view.
-* There is an extensive CJT User Manual PDF file attached in the /docs folder.  You can also download this file through the website - click for [CJT V6 CE User Manual](http://css-javascript-toolbox.com/css-javascript-toolbox-free)
+* There is an extensive CJT User Manual PDF file attached in the /docs folder.  You can also download this file through the website - click for [CJT Free User Manual](http://css-javascript-toolbox.com/css-javascript-toolbox-free)
 * Use of a separated Dashboard item to embrace all CJT plugin pages.
 * Added separate installer and upgrade pages for both CJT v0.3 and v0.8 to allow watching of the installation processes.
 * Added an uninstaller to completely erase all CJT data from the system.
@@ -236,19 +237,19 @@ Sometimes a bug decides to rear its ugly head and when this happens, this is whe
 Its recommended to backup your database before upgrading.
 Templates feature/system is not available anymore! Please backup your templates data manually before upgrading.
 You can do this by copying and pasting CSS and JS template data into a text editor and saving your text file.
-If you have any other third-party plugin or software integrated with the CJT plugin database, please note that the database structure has been completely changed in CJT V6 CE.
+If you have any other third-party plugin or software integrated with the CJT plugin database, please note that the database structure has been completely changed in CJT Free.
 Linked scripts are now obsolete! If you've linked scripts with any code blocks, then those blocks might stop working.
 
 = 0.3 =
 Its recommended to backup your database before upgrading.
 Templates feature/system is not available anymore! Please backup your templates data manually before upgrading.
-You can do this by copying and pasting CSS and JS template data into a text editor and saving your text file. If you have any other third-party plugin or software integrated with the CJT plugin database, please note that the database structure has been completely changed in CJT V6 CE.
+You can do this by copying and pasting CSS and JS template data into a text editor and saving your text file. If you have any other third-party plugin or software integrated with the CJT plugin database, please note that the database structure has been completely changed in CJT Free.
 Code block names will get changed as 'CSS & Javascript Block' phrase will be removed and replaced by 'Block' word.
 The double-slashes fix modules is now obsolete! If you have extra slashes (double slashes) in your code block you have to clean it manually yourself or upgrade to version 0.8 to fix them first!
 
 == Credits ==
 	
-Copyright (c) 2013, Wipeout Media.
+Copyright © 2013, Wipeout Media.
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
