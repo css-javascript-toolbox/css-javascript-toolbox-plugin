@@ -79,14 +79,6 @@
 		/**
 		* put your comment there...
 		* 
-		*/
-		_onreset : function() {
-			alert('reset!!');
-		},
-		
-		/**
-		* put your comment there...
-		* 
 		* @param event
 		*/
 		_onsubmit : function(event) {

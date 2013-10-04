@@ -13,7 +13,9 @@ ul.fields-list {}
 #license-state {width: 16px; height: 18px; display: inline-block; position: relative; top: 3px;	visibility: hidden;}
 #license-state.activate {background : url('../images/activate.png')  no-repeat;}
 #license-state.deactivate {background : url('../images/deactivate.png')  no-repeat;}
-#license-state.valid {background : url('../images/valid.png')  no-repeat;}
+#license-state.valid, 
+#license-state.inactive,
+#license-state.site_inactive {background : url('../images/valid.png')  no-repeat;}
 #license-state.invalid{background : url('../images/invalid.png')  no-repeat;}
 #license-state.reset{background : url('../images/reset.png')  no-repeat;}
 #license-state.error{background : url('../images/error.png')  no-repeat;}
