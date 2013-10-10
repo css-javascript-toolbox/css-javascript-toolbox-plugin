@@ -73,7 +73,7 @@ class CJTPinsBlockSQLView extends CJTSQLView {
 											LEFT JOIN `{$pinsTable}` pins
 											ON blocks.`id` = pins.`blockId`";
 		$query['where'] = "(((`backupId` IS NULL) AND (blocks.`code` != '') AND (`state` = '{$filters->state}'){$excludes}) AND 
-											((blocks.`pinPoint` & {$filters->pinPoint}){$customPins}));";
+											((blocks.`pinPoint` & {$filters->pinPoint}){$customPins}))";
 		// Combine all into one statement.
 		$query = $this->buildQuery($query['from'], $query['where']);
 		return $query;
