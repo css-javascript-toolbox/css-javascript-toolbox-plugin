@@ -1,6 +1,3 @@
-= 6.2.1 =
-* Fix: License key activation.
-
 = 6.2 =
 * Enhance: Initially don't load Block assignment panel items: Speed up Blocks page loading time when its initially opened, also affect the browser performance as the items is not loaded or rendered before its required.
 * Enhance: Initially don't load Block code for the closed/minimized Blocks: Loading those Blocks will be done through AJAX once the Block is opened by user.
