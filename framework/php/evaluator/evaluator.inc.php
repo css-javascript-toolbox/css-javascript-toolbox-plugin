@@ -49,16 +49,21 @@ class CJTPHPCodeEvaluator {
 		// Evaluate PHP code and save the result!
 		$beforeEvalError = error_get_last();
 		$unusedResult = eval("?>{$code}");
+		$afterEvalError = error_get_last();
 		$evalOBuffer = ob_get_clean();
+		$showError = ini_get('display_errors') && WP_DEBUG;
+		$isError = $afterEvalError && ($beforeEvalError != $afterEvalError);
 		// Handling errors!
-		if ($beforeEvalError != error_get_last()) {
-			if (ini_get('display_errors')) {
-				$this->output  = 'CJT PHP Code Error detected for the following block: <br><br>';
-				$this->output .= "Name: {$block->name}<br>";
-				$this->output .= "ID: #{$block->id}<br><br>";
-				$this->output .= "PHP Error Details are listed below:<br>";
+		if ($isError && $showError) {
+			$this->output  = 'CJT PHP Code Error detected for the following block: <br><br>';
+			$this->output .= "Name: {$block->name}<br>";
+			$this->output .= "ID: #{$block->id}<br><br>";
+			if ($evalOBuffer) {
+				$this->output .= "PHP Error message:<br>";
 				$this->output .= $evalOBuffer;
 			}
+			$this->output .= "PHP Error tech Details:<br>";
+			$this->output .= print_r($afterEvalError, true);
 		}
 		else { // Get evaludated code result!
 			$this->output .= $evalOBuffer;
