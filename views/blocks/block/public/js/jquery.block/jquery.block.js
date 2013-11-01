@@ -266,6 +266,7 @@
 		*
 		*/
 		this._oneditname = function(event) {
+			// Initialize.
 			var editName = this.elements.editBlockName;
 			var inputText = editName.find('input.block-name');
 			// When block name clicked don't toggle postbox.
@@ -294,6 +295,13 @@
 					'font-size' : this.elements.blockName.css('font-size'),
 					'font-family' : this.elements.blockName.css('font-family')
 				};
+				// Make the textbox wider in case the displayed name is 
+				// wider than the text field.
+				var labelWidth = parseInt(this.elements.blockName.css('width'));
+				var textWidh = parseInt(inputText.css('width'));
+				if (labelWidth > textWidh) {
+					styles.width = (labelWidth + 100) + 'px';
+				}
 				inputText.css(styles);
 				// Display.
 				editName.css('display', 'block');
