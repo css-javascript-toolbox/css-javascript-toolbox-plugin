@@ -560,6 +560,9 @@ var CJTBlocksPage;
 		init : function() {
 			// Initialize object vars.
 			CJTBlocksPage.blocksForm = $('form#cjtoolbox-blocks-page-form');
+			// Prevent form submission, ALL is done through AJAX.
+			// Pressing Enter in text fields might caused the whole page to be refreshed.
+			CJTBlocksPage.blocksForm.get(0).onsubmit = function() {return false;}
 			CJTBlocksPage.blocksContainer = $('div#normal-sortables');
 			CJTBlocksPage.intro = CJTBlocksPage.blocksForm.find('#cjt-noblocks-intro');
 			CJTBlocksPage.server = CJTServer;
