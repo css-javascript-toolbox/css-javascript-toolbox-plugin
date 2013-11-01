@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: CSS & Javascript Toolbox V6\n"
-"POT-Creation-Date: 2013-10-05 00:16+0200\n"
-"PO-Revision-Date: 2013-10-05 00:16+0200\n"
+"Project-Id-Version: CSS & Javascript Toolbox FREE\n"
+"POT-Creation-Date: 2013-11-01 21:46+0200\n"
+"PO-Revision-Date: 2013-11-01 21:46+0200\n"
 "Last-Translator: \n"
 "Language-Team: CJT <development@css-javascript-toolbox.com>\n"
 "Language: English\n"
@@ -166,7 +166,7 @@ msgid "Set output location hook to header"
 msgstr ""
 
 #: views/blocks/block/public/js/jquery.block/jquery.block.localization.php:20
-msgid "Block name cannot be empty!"
+msgid "Invalid block name"
 msgstr ""
 
 #: views/blocks/manager/public/js/blocks-page/blocks-page.localization.php:13
@@ -577,35 +577,23 @@ msgstr ""
 msgid "Pro Edition"
 msgstr ""
 
-#: views/blocks/manager/tmpl/blocks.html.tmpl:19
+#: views/blocks/manager/tmpl/blocks.html.tmpl:18
 msgid "Script Packages"
 msgstr ""
 
 #: views/blocks/manager/tmpl/blocks.html.tmpl:24
-msgid "Support"
+msgid "Need Help?"
 msgstr ""
 
 #: views/blocks/manager/tmpl/blocks.html.tmpl:26
-msgid "Request Feature"
+msgid "User Manual"
 msgstr ""
 
 #: views/blocks/manager/tmpl/blocks.html.tmpl:30
 msgid "Rate & Review"
 msgstr ""
 
-#: views/blocks/manager/tmpl/blocks.html.tmpl:36
-msgid "Need Help?"
-msgstr ""
-
-#: views/blocks/manager/tmpl/blocks.html.tmpl:37
-msgid "How-To"
-msgstr ""
-
-#: views/blocks/manager/tmpl/blocks.html.tmpl:40
-msgid "User Manual"
-msgstr ""
-
-#: views/blocks/manager/tmpl/blocks.html.tmpl:53
+#: views/blocks/manager/tmpl/blocks.html.tmpl:44
 msgid ""
 "You have now restored the code blocks from the current backup. Nothing is "
 "saved until you click \"Restore\" button. To revert back to the previous "
@@ -613,11 +601,11 @@ msgid ""
 "button."
 msgstr ""
 
-#: views/blocks/manager/tmpl/blocks.html.tmpl:66
+#: views/blocks/manager/tmpl/blocks.html.tmpl:57
 msgid "Warning!"
 msgstr ""
 
-#: views/blocks/manager/tmpl/blocks.html.tmpl:66
+#: views/blocks/manager/tmpl/blocks.html.tmpl:57
 msgid ""
 "Please make sure to validate added CSS &amp; JavaScript codes, the plugin "
 "doesn't do that for you!"
