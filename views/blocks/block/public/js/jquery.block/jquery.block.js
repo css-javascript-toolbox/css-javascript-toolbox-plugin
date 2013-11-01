@@ -449,25 +449,24 @@
 			// Save only if new and old name are not same.
 			var blockName = this.elements.editBlockName.find('input.block-name').val();
 			// Name cannot be empty!
-			if (!blockName) {
-				// Reset the name back!
-				// fill name so the below code will be compatible to handle both cases.
-				blockName = this.block.get('name');
+			if (!blockName.match(/^[A-Za-z0-9\!\#\@\$\&\*\(\)\[\]\x20\-\_\+\?\:\;\.]{1,50}$/)) {
 				// Show message!
-				alert(CJTJqueryBlockI18N.nameCantBeEmpty);
+				alert(CJTJqueryBlockI18N.invalidBlockName);
 			}
-			// Change block name.
-			this.block.set('name', blockName)
-			.success($.proxy(
-				function(rName) {
-				// Update metabox title when sucess.
-				this.elements.blockName.text(rName.value);
-				}, this)
-			);
-			// Update on server.
-			this.block.sync('name');
-			// Hide edit name input field and tasks buttons.
-			this._oncanceleditname();
+			else { // Simply save!
+				// Change block name.
+				this.block.set('name', blockName)
+				.success($.proxy(
+					function(rName) {
+					// Update metabox title when sucess.
+					this.elements.blockName.text(rName.value);
+					}, this)
+				);
+				// Update on server.
+				this.block.sync('name');
+				// Hide edit name input field and tasks buttons.
+				this._oncanceleditname();
+			}
 		}
 		
 		/**

@@ -96,7 +96,7 @@
 		init : function()	{
 		  this.form = $('form#cjtoolbox_new_block_form');
 		  this.errors = new CJTSimpleErrorDialog(this.form)
-		  .add('name', /^.+$/, CJTAddNewBlockI18N.invalidName);
+		  .add('name', /^[A-Za-z0-9\!\#\@\$\&\*\(\)\[\]\x20\-\_\+\?\:\;\.]{1,50}$/, CJTAddNewBlockI18N.invalidName);
 			// Actions handled by this object.
 			var events = {'.save' : this._onsave, '.cancel' : this._oncancel};
 			$.each(events, $.proxy(

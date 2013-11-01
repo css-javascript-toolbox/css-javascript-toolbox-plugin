@@ -17,5 +17,5 @@ return array(
 	'state_inactiveTitle' => cssJSToolbox::getText('Activate (turn on) code block'),
 	'location_headerTitle' => cssJSToolbox::getText('Set output location hook to footer'),
 	'location_footerTitle' => cssJSToolbox::getText('Set output location hook to header'),
-	'nameCantBeEmpty' => cssJSToolbox::getText('Block name cannot be empty!'),
+	'invalidBlockName' => cssJSToolbox::getText('Invalid block name'),
 );
