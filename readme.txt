@@ -133,6 +133,7 @@ Sometimes a bug decides to rear its ugly head and when this happens, this is whe
 * Fix: Code Blocks is not being applied on WPEngine servers and other servers related to the MYSQL query error.
 * Enhance: Show User-PHP code errors only when WP_DEBUG is set to TRUE.
 * Enhance: Auto-Size edit-block-name text field to fit the current block-name, therefor display the name without the need of moving the cursor to the end.
+* Enhance: Disable new-block form fields while saving prevent user from duplicating block when traffic is slow.
 
 = 6.1 =
 * Enhance: Initially don't load Block assignment panel items: Speed up Blocks page loading time when its initially opened, also affect the browser performance as the items is not loaded or rendered before its required.
