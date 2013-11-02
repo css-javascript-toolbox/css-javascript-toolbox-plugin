@@ -70,6 +70,8 @@
 					var formData = this.form.serializeObject();
 					// Request parameters.
 					var requestParams = $.extend({ids : CJTBlocksPage.blocks.getExistsIds(), viewName : 'cjt-block'}, formData);
+					// Disable new form.
+					this.form.find('input, select').prop('disabled', true);
 					// Create block at the server.
 					CJTBlocksPage.server.send('blocksPage', 'create_block', requestParams, 'get')
 					.success($.proxy(
@@ -79,6 +81,12 @@
 							// Close window.
 							window.parent.tb_remove();
 						}, this)
+					// Request COMPLETE!
+					).complete($.proxy(
+					  function() {
+							// Enable new form.
+							this.form.find('input, select').prop('disabled', false);
+					  }, this)
 					);	
 			  }, this)
 			).fail($.proxy(
