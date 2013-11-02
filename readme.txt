@@ -131,6 +131,7 @@ Sometimes a bug decides to rear its ugly head and when this happens, this is whe
 = 6.1.1 =
 * Fix: Validate block name when editing and adding blocks.
 * Fix: Code Blocks is not being applied on WPEngine servers and other servers related to the MYSQL query error.
+* Fix: Load block code one time after its first time opened as it was loaded every time the block is opened.
 * Enhance: Show User-PHP code errors only when WP_DEBUG is set to TRUE.
 * Enhance: Auto-Size edit-block-name text field to fit the current block-name, therefor display the name without the need of moving the cursor to the end.
 * Enhance: Disable new-block form fields while saving prevent user from duplicating block when traffic is slow.
