@@ -377,7 +377,7 @@
 						// Remove loading state.
 						this.block.aceEditor.setReadOnly(false);
 						// Mark as loaded.
-						jEditor.removeClass('iniially-loaded');
+						jEditor.addClass('initially-loaded');
 					}, this)
 				);
 			}
