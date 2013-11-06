@@ -88,7 +88,7 @@
 .block-toolbox a.state-active { background: url(../images/toolbox/active.png); }
 .block-toolbox a.state-inactive { background-image: url(../images/toolbox/inactive.png); }
 .block-toolbox a.cjttbl-save {
-	background: url(../images/toolbox/save.png);
+	background: url(../images/toolbox/save.gif);
 	background-position: left top !important;
 	text-decoration: none;
 	padding-left: 23px;
@@ -98,10 +98,29 @@
 	width: 37px !important;
 	height: 18px !important;
 }
+/* Restore revision toolbox buttons. */
+.block-toolbox a.cjttblSW-restore {
+	background: url(../images/toolbox/restore.png);
+	width: 50px !important;
+}
+.block-toolbox a.cjttbl-cancel-restore {
+	background: url(../images/toolbox/cancel-restore.png);
+	background-position: left top !important;
+	text-decoration: none;
+	padding-left: 23px;
+	padding-top: 5px;
+	position: relative;
+	top: -9px;
+	width: 45px !important;
+	height: 18px !important;
+	margin-right: 10px !important;
+}
+
 .block-toolbox a.cjttbl-save.cjttbs-loading {
 	top: -2px;
 	background-position: center center;
 }
+
 .block-toolbox a.cjttbl-save.cjttbs-disabled {background: url(../images/toolbox/save-inactive.png); }
 .block-toolbox a.cjttbl-revisions { background-image: url(../images/toolbox/revisions.png); }
 .block-toolbox a.cjttbl-delete { background-image: url(../images/toolbox/delete.png); }

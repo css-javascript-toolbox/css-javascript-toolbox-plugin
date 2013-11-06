@@ -1,0 +1,53 @@
+<?php
+// Create tabs for every custom post under the custom posts tab.
+// Get all registered custom posts.
+$customPosts = get_post_types(array('public' => 1, 'show_ui' => true, '_builtin' => false), 'objects');
+// Get refernce to custom posts tab.
+$items = array();
+// Add tab for every custom post
+// Exclude 'Empty' Custom Post Types.
+foreach ($customPosts as $typeName => $customPost) {
+	// Check if has posts.	
+	$hasPosts = count(get_posts(array('post_type' => $typeName, 'offset' => 0, 'numberposts' => 1)));
+	// Add only types with at least one post exists.
+	if ($hasPosts) {
+		$items[$typeName] = array(
+			'title' => $customPost->labels->name,
+			'renderer' => 'objects-list',
+			'type' => array('type' => $typeName,
+											'group' => 'posts',
+											'targetType' => 'post')
+		);
+	}
+}
+// If there is no custom posts registered show message
+//, otherwise create the custom-posts accordion
+if (!empty($items)) :
+?>
+	<div id="custom-posts-container-<?php echo $block->id ?>" class="custom-posts-container">
+<?php foreach ($items as $item) : ?>
+		<div class="objects-list-button">
+<?php	echo $this->getTemplate('inputs-list', array('item' => $item), 'tmpl/templates/assign-panel/templates') ?>
+			<a href="#" class="custom-post-item-header"><?php echo $item['title'] ?></a>
+		</div>
+		<div class="custom-post-list">
+<?php
+				// Get item 'renderer' (every tab has template to render) template.
+				$tabViewTmpl = $item['renderer'];
+				// Use template view for rendering the tab.
+				echo $this->getTemplate($tabViewTmpl,
+					array('tab' => $item, 'block' => $block),
+					'tmpl/templates/assign-panel/templates'
+					);
+?>
+		</div>
+<?php endforeach; ?>
+	</div>
+<?php else : ?>
+	<div class="list-error">
+		<span class="message"><?php echo cssJSToolbox::getText('There are no Custom Posts Defined yet!') ?></span>
+		<br />
+		<br />
+		<span class="desc">This message is displayed if there is no Custom Post types defined or there is no Posts Added under Custom Post types!</span>
+	</div>
+<?php endif; ?>

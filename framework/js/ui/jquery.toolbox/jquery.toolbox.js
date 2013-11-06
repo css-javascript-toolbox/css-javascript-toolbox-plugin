@@ -113,6 +113,8 @@ var CJTToolBoxNS = new (function ($) {
 				this.jButton.addClass(this.toolbox.params.disabledClass);							
 				this.enabled = false;
 			}
+			// Chaining.
+			return this;
 		}
 		
 		/**
@@ -521,6 +523,8 @@ var CJTToolBoxNS = new (function ($) {
 									button.enable(enabled);
 								}, this)
 							);
+							// Chaining.
+							return this;
 						},
 						
 						/**
@@ -544,6 +548,20 @@ var CJTToolBoxNS = new (function ($) {
 									CJTToolBox.add(name, data);
 								}
 							)
+						},
+						
+						/**
+						* 
+						*/
+						remove : function(name) {
+							// Get button.
+							var button = this.buttons[name];
+							// Remove button node.
+							button.jButton.remove();
+							// Delete from buttons list.
+							delete this.buttons[name];
+							// Chaining.
+							return this;
 						}
 						
 					}; // End Toolbox class.

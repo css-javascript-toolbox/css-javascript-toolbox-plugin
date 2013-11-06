@@ -1,0 +1,33 @@
+			<div id="<?php echo $tab['tab']['id'] ?>-<?php echo $block->id; ?>" class="objects-list-component <?php echo $tab['tab']['class'] ?>">
+				<ul>
+<?php
+					/// Create TAB navigator
+					foreach ($tab['tabs'] as $name => & $item): 
+						// Use template name as CSS class for providing a way
+						// for identifying the items that has objects-list to fetch.
+						$tabViewTmpl = $item['renderer'];
+						// Cache item tab ID.
+						$item['tabId'] = "{$tab['tab']['id']}-{$block->id}-{$name}";
+?>
+						<li class="<?php echo $tabViewTmpl ?>-button type-<?php echo $name ?>">
+<?php					echo $this->getTemplate('inputs-list', array('item' => $item), 'tmpl/templates/assign-panel/templates') ?>
+							<a href="#<?php echo $item['tabId'] ?>"><?php echo $item['title'] ?></a>
+						</li>
+<?php 		endforeach; ?>
+				</ul>
+<?php
+				/// Create TAB Views.
+				foreach ($tab['tabs'] as $name => & $item):
+					// Get item 'renderer' (every tab has template to render.) template.
+					$tabViewTmpl = $item['renderer'];
+?>
+					<div id="<?php echo $item['tabId'] ?>" class="cjt-tab-item-<?php echo $name ?>">
+<?php // Use template view for rendering the tab.
+						echo $this->getTemplate($tabViewTmpl,
+							array('tab' => $item, 'block' => $block),
+							'tmpl/templates/assign-panel/templates'
+						);
+?>					
+					</div>
+<?php		endforeach; ?>
+			</div>

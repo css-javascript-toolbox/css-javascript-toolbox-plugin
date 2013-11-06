@@ -7,7 +7,7 @@
 defined('ABSPATH') or die("Access denied");
 ?>
 		<div class="cjt-toolbox edit-block-name">
-			<input type="text" class="block-name" value="">
+			<input type="text" class="block-name" value="" maxlength="50">
 			<div class="icons-group">
 				<a class="cjt-tb-link cancel" title="<?php echo cssJSToolbox::getText('Cancel editing code block title') ?>"></a>
 				<a class="cjt-tb-link save" title="<?php echo cssJSToolbox::getText('Save code block title') ?>"></a>
@@ -26,9 +26,17 @@ defined('ABSPATH') or die("Access denied");
 			<div class="cjcodeblock">
 <?php 	echo $this->getTemplate('editor-toolbox', array(), 'tmpl/templates'); ?>
 				<div class="datablock">
-					<textarea class="initCode" style="visibility:hidden"><?php echo htmlentities($this->block->code, null, 'UTF-8') ;?></textarea>
-					<div id="editor-<?php echo $this->block->id ?>" class="code-editor">
-					</div>					
+<?php			// Output block code only if the block metabox is opened.
+					$code = '';
+					$codeLoadedSignClass = '';
+					$blockId = "cjtoolbox-{$this->block->id}";
+					$closedMetaboxes = get_user_meta(get_current_user_id(), 'closedpostboxes_cjtoolbox', true);
+					if (!in_array($blockId, ((array) $closedMetaboxes))) {
+						$code = htmlentities($this->block->code, null, 'UTF-8');
+						$codeLoadedSignClass = ' initially-loaded';
+					}
+?>
+					<div id="editor-<?php echo $this->block->id ?>" class="code-editor<?php echo $codeLoadedSignClass ?>"><?php echo $code ?></div>					
 				</div>
 			</div>
 		</div>

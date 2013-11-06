@@ -165,7 +165,7 @@
 		*/
 		init : function() {
 			// Initialize accordion Plugin.
-			$('#templates-list').accordion({fillSpace : true})
+			$('#templates-list').accordion({fillSpace : true, heightStyle : "fill"})
 			// Make author templates list toggle-able.
 			.find('.author-name .name').click($.proxy(this._ontoggletemplates, this));
 			// Actions!!
@@ -188,11 +188,10 @@
 			var accordionHeight = templatesLookupFormNS.inputs.height - ($('.sweep').height() + 5);
 			$('#templates-lookup').css('height', (accordionHeight + 'px'));
 			// Use accordion menu for templates types list.
-			// Select type corresponding to editor language type
+			// @TODO: Select type corresponding to editor language type
 			// (e.g if editor-lang = 'css' then select 'CSS', etc...).
-			var activeTypeSelector = '#templates-type-header-' + templatesLookupFormNS.inputs.block.get('editorLang');
-			$('#templates-list').accordion('activate', activeTypeSelector)
-			.accordion('resize');
+			// var activeTypeSelector = '#templates-type-header-' + templatesLookupFormNS.inputs.block.get('editorLang');
+			$('#templates-list').accordion('refresh');
 		}
 		
 	}	// End class.

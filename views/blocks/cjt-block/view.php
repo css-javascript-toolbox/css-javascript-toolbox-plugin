@@ -59,7 +59,12 @@ class CJTBlocksCjtBlockView extends CJTView {
 		CJTBlocksBlockView::enqueueScripts();
 		self::useScripts(__CLASS__,
 			'jquery-ui-tabs', 
-			'jquery-ui-accordion', 
+			'jquery-ui-accordion',
+			'views:blocks:cjt-block:public:js:{CJT_CJT_BLOCK-}jquery.assignpanel',
+			'views:blocks:cjt-block:public:js:{CJT_CJT_BLOCK-}blockproperty',
+			'views:blocks:cjt-block:public:js:optional:{CJT_CJT_BLOCK-}pagination.list',
+			'views:blocks:cjt-block:public:js:optional:{CJT_CJT_BLOCK-}revision',
+			'views:blocks:cjt-block:public:js:{CJT_CJT_BLOCK-}block',
 			'views:blocks:cjt-block:public:js:{CJT_CJT_BLOCK-}jquery.block'
 		);
 	}

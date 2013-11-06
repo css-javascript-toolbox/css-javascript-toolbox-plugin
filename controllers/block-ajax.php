@@ -33,8 +33,21 @@ class CJTBlockAjaxController extends CJTAjaxController {
 		add_action('wp_ajax_cjtoolbox_get_revisions', array(&$this, '_doAction'));
 		// Redirects
 		$this->registryAction('getBlockBy');
+		$this->registryAction('getAPOP');
+		$this->registryAction('restoreRevision');
 	}
+
 	
+	/**
+	* put your comment there...
+	* 
+	* @deprecated this is just a redirect to the CJTBlockContoller::getAction().
+	*/
+	protected function getAPOPAction() {
+		// Pass to CJTBlockController!
+		$this->redirect('block');
+	}
+
 	/**
 	* put your comment there...
 	* 
@@ -70,11 +83,17 @@ class CJTBlockAjaxController extends CJTAjaxController {
 	* @deprecated All will be moved to other controllers in the future versions.
 	*/
 	public function getRevisionAction() {
+		// Initialize
 		$model = $this->getModel('blocks');
 		// Get request parameters.
 		$revision['id'] = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-		$revision['fields'] = array('id', 'code', 'pinPoint', 'links', 'expressions');
+		$revision['fields'] = array('id', 'code', 'links', 'expressions');
 		$revision = $model->getBlock($revision['id'], array(), $revision['fields']);
+		// Discard Pins.
+		$revision->pages = false;
+		$revision->posts = false;
+		$revision->categories = false;
+		// Return revision.
 		$this->response = $revision;
 	}
 	
@@ -106,6 +125,28 @@ class CJTBlockAjaxController extends CJTAjaxController {
 		$this->response = $view->getTemplate('default');
 	}
 	
+	/**
+	* put your comment there...
+	* 
+	*/
+	protected function restoreRevisionAction() {
+		// Initialize.
+		$mdlBlocks = new CJTBlocksModel();
+		// Get revision ID.
+		$rId = (int) $_GET['rid'];
+		$bId = (int) $_GET['bid'];
+		// Restore revision
+		// 1. Query revision block (only restore fields).
+		// 2. Change the id to the original id.
+		// 3. Update the block as the original block.
+		$revisionBlock = $mdlBlocks->getBlock($rId, array(), array('id', 'code', 'pinPoint', 'links', 'expressions'));
+		$revisionBlock->id = $bId;
+		$mdlBlocks->update($revisionBlock, true);
+		$mdlBlocks->save();
+		// Return TRUE.
+		$this->response = true;
+	}
+
 	/**
 	* Update exists block property value.
 	* 

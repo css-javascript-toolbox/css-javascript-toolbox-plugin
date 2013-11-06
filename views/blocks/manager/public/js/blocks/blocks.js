@@ -26,6 +26,11 @@ var CJTBlocks;
 		/**
 		* 
 		*/
+		this.nextId = 1;
+		
+		/**
+		* 
+		*/
 		this.signature = "cjtoolbox";
 		
 		/**
@@ -57,6 +62,13 @@ var CJTBlocks;
 			return isChanged;
 		}
 		
+		/**
+		* 
+		*/
+		this.getUFI = function(changes) {
+			return this.nextId++;
+		}
+	
 		/*
 		*
 		*

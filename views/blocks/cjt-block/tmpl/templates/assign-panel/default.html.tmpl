@@ -1,0 +1,55 @@
+<?php
+// Define tabs.
+$tabs = array(
+	'tab' => array('id' => 'tabs', 'class'=> 'cjt-pages-tab'),
+	'tabs' => array(
+		'pages' => array(
+			'title' => cssJSToolbox::getText('Pages'),
+			'renderer' => 'objects-list',
+			'type' => array('type' => 'page',
+											'group' => 'pages', 
+											'targetType' => 'post')
+		),
+		'posts' => array(
+			'title' => cssJSToolbox::getText('Posts'),
+			'renderer' => 'objects-list',
+			'type' => array('type' => 'post',
+											'group' => 'posts',
+											'targetType' => 'post')
+		),
+		'categories' => array(
+			'title' => cssJSToolbox::getText('Categories'),
+			'renderer' => 'objects-list',
+			'type' => array('type' => 'category', 
+											'group' => 'categories', 
+											'targetType' => 'taxonomy')
+		),
+		'custom-posts' => array(
+			'title' => cssJSToolbox::getText('Custom Posts'),
+			'renderer' => 'custom-posts'
+		),
+		'other' => array(
+			'title' => cssJSToolbox::getText('Auxiliary'),
+			'renderer' => 'objects-list',
+			'type' => array('type' => 'auxiliary', 
+											'group' => 'pinPoint', 
+											'targetType' => 'auxiliary')
+		),
+		'advanced' => array(
+			'title' => cssJSToolbox::getText('Advanced'),
+			'renderer' => 'advanced'
+		),
+	)
+);
+?>
+			<div class="cjpageblock">
+<?php
+				// Render assigment panel root tab. All nested tabs will be rendered
+				// internally by the tab template.
+				echo $this->getTemplate('tab', 
+					array('tab' => $tabs, 'block' => $block),
+					'tmpl/templates/assign-panel/templates'
+				);
+?>
+			<div style="clear:both;"></div>
+		</div>

@@ -22,6 +22,8 @@ return array(
 	'activateActionStateName' => cssJSToolbox::getText('Activating Key'),
 	'deactivateActionStateName' => cssJSToolbox::getText('Deactivating key'),
 	'checkActionStateName' => cssJSToolbox::getText('Checking Key'),
+	'site_inactiveStateName' => cssJSToolbox::getText('Key is not activated/used yet'),
+	'inactiveStateName' => cssJSToolbox::getText('Key is inactive'),
 	'resetActionStateName' => cssJSToolbox::getText('Reseting License Information'),
 	/* State names */
 	'invalidStateName' => cssJSToolbox::getText('Invalid'),
@@ -30,6 +32,7 @@ return array(
 	'activateStateName' => cssJSToolbox::getText('Activated'),
 	'deactivateStateName' => cssJSToolbox::getText('Deactivated'),
 	'resetStateName' => cssJSToolbox::getText('Reseted'),
+	
 	/* Request message to be showed after the request is completed! */
 	'readvalidRequestMessage' => cssJSToolbox::getText('License key is activate! Thank you!'),
 	'resetvalidRequestMessage' => cssJSToolbox::getText('License Cache has been reseted!'),
@@ -45,6 +48,8 @@ return array(
 	'checkvalidRequestMessage' => cssJSToolbox::getText('The ckeck operation detects that the provided key is a valid key!'),
 	'checkinvalidRequestMessage' => cssJSToolbox::getText('The check operation detects that the provided key is an invalid key!'),
 	'checkerrorRequestMessage' => cssJSToolbox::getText('Could not check License Key due to the server error!'),
+	'checksite_inactiveRequestMessage' => cssJSToolbox::getText('The ckeck operation detects that the provided key is a valid key! The key is not being activated yet.'),
+	'checkinactiveRequestMessage' => cssJSToolbox::getText('The ckeck operation detects that the provided key is a valid key! The license key need to be activated from the CJT Website.'),
 	
 	'resetButtonCaption' => cssJSToolbox::getText('Reset'),
 	/* Validation */

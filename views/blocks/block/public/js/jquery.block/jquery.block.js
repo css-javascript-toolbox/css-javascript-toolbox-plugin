@@ -10,6 +10,83 @@
 (function($) {
 
 	/**
+	* 
+	*/
+	var notifySaveChangesProto = function(block) {
+		
+		/**
+		* put your comment there...
+		* 
+		* @param block
+		*/
+		this.initDIFields = function() {
+			// Initialize notification saqve change singlton object.
+			block.changes = [];
+			// Initialize vars.
+			var model = block.block;
+			var aceEditor = model.aceEditor;
+			var fields = model.getDIFields();
+			// Create common interface for ace editor to
+			// be accessed like other HTML elements.
+			aceEditor.type = 'aceEditor'; // Required for _oncontentchanged to behave correctly.
+			/**
+			* Bind method for bind events like HTML Elements.
+			*/
+			aceEditor.bind = function(e, h) {
+				this.getSession().doc.on(e, h);
+			}
+			/**
+			* Method to get hash copy from stored content.
+			*/
+			aceEditor.cjtSyncInputField = function() {
+				this.cjtBlockSyncValue = hex_md5(this.getSession().getValue());	
+			}
+			// Hack jQuery Object by pushing
+			// ace Editor into fields list, increase length by 1.
+			fields[fields.length++] = aceEditor;
+			// For all fields call cjtSyncInputField and give a unique id.
+			$.each(fields, $.proxy(
+				function(index, field) {
+					this.initElement(field);
+				}, this)
+			);
+			// Chaining.
+			return this;
+		},
+		
+		/**
+		* put your comment there...
+		* 
+		* @param element
+		*/
+		this.initElement = function(field) {
+			// Assign weight number used to identify the field.
+			field.cjtBlockFieldId = CJTBlocksPage.blocks.getUFI();
+			// Create default cjtSyncInputField method if not exists.
+			if (field.cjtSyncInputField == undefined) {
+				if (field.type == 'checkbox') {
+			  	field.cjtSyncInputField = function() {
+			  		this.cjtBlockSyncValue = $(this).prop('checked');
+			  	}
+				}
+				else {
+			  	field.cjtSyncInputField = function() {
+			  		this.cjtBlockSyncValue = this.value;
+			  	}			  	
+				}
+				// Create interface to "bind" too.
+				field.bind = function(e, h) {
+			  	$(this).bind(e, h);
+				}
+			}
+			// Sync field.
+			field.cjtSyncInputField();
+			// Bind to change event.
+			field.bind('change', $.proxy(block._oncontentchanged, block));
+		}
+	};
+
+	/**
 	* Default block features and options.
 	*
 	* @var object
@@ -17,7 +94,7 @@
 	var defaultOptions = {
 		showObjectsPanel : true,
 		calculatePinPoint : 1,
-		copy : {fields : ['code', 'links', 'expressions', 'pages', 'posts', 'categories', 'pinPoint']}
+		restoreRevision : {fields : ['code']}
 	};
 
 	/**
@@ -89,6 +166,11 @@
 		
 		/**
 		* 
+		*/
+		this.internalChanging = false;
+		
+		/**
+		* 
 		*
 		* 
 		*/	
@@ -127,6 +209,11 @@
 		*
 		*/
 		this._oncontentchanged = function(event) {
+			// Dont process internal changes.
+			if (this.internalChanging) {
+				return;
+			}
+			// Initialize.
 			var element;
 			var id; // Give every field an id for tracing change.
 			var newValue; // Field new value.
@@ -183,6 +270,11 @@
 		*
 		*/
 		this._ondisplayrevisions = function() {
+			// Restore revision only when block is opened.
+			if (this.block.box.hasClass('closed')) {
+				return false;
+			}
+			// Initialize form request.
 			var revisionsFormParams = {
 				id : this.block.get('id'),
 				width : 300,
@@ -191,6 +283,7 @@
 			};
 			var url = CJTBlocksPage.server.getRequestURL('block', 'get_revisions', revisionsFormParams);
 			tb_show(CJTJqueryBlockI18N.blockRevisionsDialogTitle, url);
+			return false;
 		}
 		
 		/**
@@ -201,6 +294,7 @@
 		*
 		*/
 		this._oneditname = function(event) {
+			// Initialize.
 			var editName = this.elements.editBlockName;
 			var inputText = editName.find('input.block-name');
 			// When block name clicked don't toggle postbox.
@@ -229,6 +323,13 @@
 					'font-size' : this.elements.blockName.css('font-size'),
 					'font-family' : this.elements.blockName.css('font-family')
 				};
+				// Make the textbox wider in case the displayed name is 
+				// wider than the text field.
+				var labelWidth = parseInt(this.elements.blockName.css('width'));
+				var textWidh = parseInt(inputText.css('width'));
+				if (labelWidth > textWidh) {
+					styles.width = (labelWidth + 100) + 'px';
+				}
 				inputText.css(styles);
 				// Display.
 				editName.css('display', 'block');
@@ -407,7 +508,40 @@
 		* 
 		*/
 		this._onpostboxopened = function() {
+			// Initialize.
+			var blockId = this.block.get('id');
+			// Update ACE Editor region.
 			this.block.aceEditor.resize();
+			// Load block code if not initially-loaded.
+			var aceEditor = this.block.aceEditor;
+			var jEditor = $(aceEditor.container);
+			if (!jEditor.hasClass('initially-loaded')) {
+				// Hold-on notification changes component.
+				this.internalChanging = true;
+				// Show loading state.
+				aceEditor.getSession().setValue('Loading...');
+				this.block.aceEditor.setReadOnly(true);
+				// Load code.
+				var request = {filter : {
+					field : 'id', 
+					value : blockId},
+					returns : ['code']
+				};
+				CJTBlocksPage.server.send('block', 'getBlockBy', request)
+				.success($.proxy(
+					function(response) {
+						// Load code.
+						aceEditor.getSession().setValue(response.code);
+						this.internalChanging = false;
+						// Notification save changes SYNC.
+						aceEditor.cjtSyncInputField();
+						// Remove loading state.
+						this.block.aceEditor.setReadOnly(false);
+						// Mark as loaded.
+						jEditor.addClass('initially-loaded');
+					}, this)
+				);
+			}
 		}
 		
 		/**
@@ -424,7 +558,7 @@
 				// Return REsolved Dummy Object for standarizing sake!
 				return CJTBlocksPage.server.getDeferredObject().resolve().promise();
 			}
-			// Queue User Direct Interact fields (code, posts, categories, links, expressions etc...).
+			// Queue User Direct Interact fields (code, etc...).
 			var data = {calculatePinPoint : this.features.calculatePinPoint, createRevision : 1};
 			// Push DiFields inside Ajax queue.
 			this.block.queueDIFields();
@@ -448,8 +582,12 @@
 							this.cjtSyncInputField();
 						}
 					);
+					// Reset changes list.
+					this.changes = [];
 					// Tell blocks page that block is saved and has not changed yet.
 					CJTBlocksPage.blockContentChanged(this.block.id, false);
+					// Fire BlockSaved event.
+					this.onBlockSaved();
 				}, this)
 			)
 			.error($.proxy(
@@ -472,25 +610,24 @@
 			// Save only if new and old name are not same.
 			var blockName = this.elements.editBlockName.find('input.block-name').val();
 			// Name cannot be empty!
-			if (!blockName) {
-				// Reset the name back!
-				// fill name so the below code will be compatible to handle both cases.
-				blockName = this.block.get('name');
+			if (!blockName.match(/^[A-Za-z0-9\!\#\@\$\&\*\(\)\[\]\x20\-\_\+\?\:\;\.]{1,50}$/)) {
 				// Show message!
-				alert(CJTJqueryBlockI18N.nameCantBeEmpty);
+				alert(CJTJqueryBlockI18N.invalidBlockName);
 			}
-			// Change block name.
-			this.block.set('name', blockName)
-			.success($.proxy(
-				function(rName) {
-				// Update metabox title when sucess.
-				this.elements.blockName.text(rName.value);
-				}, this)
-			);
-			// Update on server.
-			this.block.sync('name');
-			// Hide edit name input field and tasks buttons.
-			this._oncanceleditname();
+			else { // Simply save!
+				// Change block name.
+				this.block.set('name', blockName)
+				.success($.proxy(
+					function(rName) {
+					// Update metabox title when sucess.
+					this.elements.blockName.text(rName.value);
+					}, this)
+				);
+				// Update on server.
+				this.block.sync('name');
+				// Hide edit name input field and tasks buttons.
+				this._oncanceleditname();
+			}
 		}
 		
 		/**
@@ -558,23 +695,6 @@
 		}
 		
 		/**
-		*
-		*
-		*
-		*
-		*/		
-		this.copy = function(data) {
-			var properties = this.features.copy.fields;
-			$.each(properties, $.proxy(
-				function(index, name) {
-					var property = this.block.property(name);
-					// Use setValue Fields Common Setter Interface (FCSI) impleneted by CJTBlock.
-					property.setValue(data[name]);
-				}, this)
-			);			
-		}
-		
-		/**
 		* 
 		*/
 		this.dock = function(elements, pixelsToRemove) {
@@ -624,8 +744,10 @@
 		*/
 		this.initCJTPluginBase = function(node, args) {
 			// Initialize object properties!
-			this.block = new CJTBlock(node)
+			this.block = new CJTBlock(this, node)
 			this.features = $.extend(defaultOptions, args);
+			// Initialize Events.
+			this.onBlockSaved = function() {};
 			// Default to DOCK!!
 			this.defaultDocks = [{element : this.block.aceEditor.container}];
 			// Load commonly used elements.
@@ -638,7 +760,7 @@
 			// Initialize User Interface.
 			this.initUI();
 			// Prepare input elements for notifying user changes.
-			this.notifySavingChangesInit();
+			this.notifySaveChanges = (new notifySaveChangesProto(this)).initDIFields();
 			// Set Plugin options.
 			this.setOptions();
 		}
@@ -664,13 +786,9 @@
 					model.box.find(selector).click(handler);
 				}, this)
 			);
-			// remove code textarea and replace it with ace editor.
-			var initCode = model.box.find('textarea.initCode');
+			// Initialize ACE Editor.
 			model.aceEditor.setTheme('ace/theme/chrome');
-			model.aceEditor.getSession().setValue(initCode.val());
 			model.aceEditor.setShowPrintMargin(false);
-			// Remove textarea with code transfered from server.
-			initCode.remove();
 			// Activate toolbox.
 			this.toolbox = model.box.find('.block-toolbox').CJTToolBox({
 				context : this,
@@ -736,67 +854,6 @@
 			// need sometime to be ready for display.
 			model.box.css({display : 'block'}).addClass('cjt-block');
 		}
-		
-		/**
-		*
-		* For now it initialize fields for notifying user changes.
-		*
-		*
-		*
-		*/
-		this.notifySavingChangesInit = function() {
-			var model = this.block;
-			var aceEditor = model.aceEditor;
-			var fields = model.getDIFields();
-			// Initialize vars.
-			this.changes = [];
-			// Create common interface for ace editor to
-			// be accessed like other HTML elements.
-			aceEditor.type = 'aceEditor'; // Required for _oncontentchanged to behave correctly.
-			/**
-			* Bind method for bind events like HTML Elements.
-			*/
-			aceEditor.bind = function(e, h) {
-				this.getSession().doc.on(e, h);
-			}
-			/**
-			* Method to get hash copy from stored content.
-			*/
-			aceEditor.cjtSyncInputField = function() {
-				this.cjtBlockSyncValue = hex_md5(this.getSession().getValue());	
-			}
-			// Hack jQuery Object by pushing
-			// ace Editor into fields list, increase length by 1.
-			fields[fields.length++] = aceEditor;
-			// For all fields call cjtSyncInputField and give a unique id.
-			$.each(fields, $.proxy(
-				function(fieldId, field) {
-					// Assign weight number used to identify the field.
-				  field.cjtBlockFieldId = fieldId;
-				  // Create default cjtSyncInputField method if not exists.
-				  if (field.cjtSyncInputField == undefined) {
-			  		if (field.type == 'checkbox') {
-			  			field.cjtSyncInputField = function() {
-			  				this.cjtBlockSyncValue = $(this).prop('checked');
-			  			}
-			  		}
-			  		else {
-			  			field.cjtSyncInputField = function() {
-			  				this.cjtBlockSyncValue = this.value;
-			  			}			  	
-			  		}
-			  		// Create interface to "bind" too.
-			  		field.bind = function(e, h) {
-			  			$(this).bind(e, h);
-			  		}
-				  }
-					// Sync field.
-					field.cjtSyncInputField();
-					// Bind to change event.
-					field.bind('change', $.proxy(this._oncontentchanged, this));
-				}, this)
-			);
-		}
 
 		/**
 		* 
@@ -818,14 +875,22 @@
 		}
 		
 		/**
+		* 
+		*/
+		this.restoreRevision = function(revisionId, data) {
+			// Create new revision control action.
+			var revisionControl = new CJTBlockOptionalRevision(this, data, revisionId);
+			// Display the revision + enter revision mode.
+			revisionControl.display();
+		}
+	
+		/**
 		* Change Block options.
 		*
 		* NOT IMPLEMENTED YET.
 		*
 		*/
-		this.setOptions = function() {
-		
-		}
+		this.setOptions = function() {}
 		
 		/*
 		*
@@ -839,7 +904,8 @@
 					this.toolbox.jToolbox.hide();
 					// Disable all fields.
 					this.enable(false);
-				break;
+					// Change state
+					this.state = 'restore';
 				default:
 					 // Nothing for now
 				break;

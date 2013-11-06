@@ -66,6 +66,8 @@ class CJTBlocksMetaBoxView extends CJTView {
 		self::useScripts(__CLASS__,
 			'views:blocks:metabox:public:js:{CJT-}metabox',
 			'views:blocks:manager:public:js:{CJT-}blocks',
+			'views:blocks:metabox:public:js:optional:{CJT_CJT_BLOCK-}revision',
+			'views:blocks:metabox:public:js:{CJT_METABOX_BLOCK-}block',
 			'views:blocks:metabox:public:js:{CJT_METABOX_BLOCK-}jquery.block',
 			'framework:js:ajax:{CJT-}cjt-server',
 			'framework:js:ajax:{CJT-}scripts-loader',

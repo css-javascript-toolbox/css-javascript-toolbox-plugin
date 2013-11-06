@@ -1,0 +1,31 @@
+/**
+* 
+*/
+var CJTBlock;
+
+/**
+* 
+*/
+(function($) {
+	
+	/**
+	* put your comment there...
+	* 
+	* @param element
+	*/
+	CJTBlock = function(blockPlugin, element) {
+		
+		// Constructor.
+		this.CJTBlock = function() {
+			// Initialize parent.
+			this.CJTBlockBase(blockPlugin, element, {});
+		}
+		
+		// Construct!
+		this.CJTBlock();
+	}
+	
+	// Extend CJTBlockBase class.
+	CJTBlock.prototype = new CJTBlockBase();
+	
+})(jQuery)

@@ -1,8 +1,12 @@
 /** CSS &amp; Javascript Toolkit - blocks page CSS **/
 /* Wordpress Page */
 .wrap { position: relative; }
-.cjt-user-manual {right: 0px;position: absolute;top: 2px;}
-.cjt-user-manual a, .cjt-user-manual a:hover, .cjt-user-manual a:visited{color: #A5581B;}
+.cjt-banner-bar .cjt-banner-link a, .cjt-banner-bar a:hover, .cjt-banner-bar a:visited{color: #A5581B;}
+#cjt-banner-bar-right {right: 0px;position: absolute;top: 2px;}
+#cjt-banner-bar-right .cjt-banner-link {float: right; margin-bottom: 6px;}
+
+#get-packages-icon {display: inline-block; width: 13px; height: 15px; background-image: url('../images/get-packages.png'); margin-left: 3px;margin-bottom: -4px; margin-right: 5px;}
+
 .blocks-icon32 { background: transparent url('../images/CSS_JS_Toolbox_Icon.png') no-repeat; }
 #post-body{ display: none; min-width:700px; }
 /* Give extra space for the last Block Code-Auto-Completion dialog */
@@ -72,8 +76,9 @@
 	padding-left: 43px !important;
 }
 .cjt-toolbox-blocks a.cjttbl-restore.cjttbs-disabled {
-	height: 10px !important;
+	height: 11px !important;
 	margin-left: 40px;
+	top: 2px;
 }
 .cjt-toolbox-blocks a.cjttbl-delete-all { background: url(../images/toolbox/delete-all.png) no-repeat; }
 .cjt-toolbox-blocks a.cjttbl-delete-empty { background: url(../images/toolbox/delete-empty.png)  no-repeat; }

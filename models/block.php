@@ -141,6 +141,63 @@ class CJTBlockModel extends CJTModel {
 	/**
 	* put your comment there...
 	* 
+	* @param mixed $blockData
+	*/
+	public static function arrangePins(& $blockData) {
+		// Initialize
+		$pinsGroupNames = array_flip(array('pages', 'posts', 'categories', 'pinPoint'));
+		$dbDriver = cssJSToolbox::getInstance()->getDBDriver();
+		$mdlBlock = new CJTBlocksModel();
+		$block = $mdlBlock->getBlock($blockData->id, array(), array('id', 'pinPoint'));
+		$submittedPins = array_intersect_key(((array) $blockData), $pinsGroupNames);
+		$assignedPins = array_intersect_key(((array) $block), $pinsGroupNames);
+		// Transfer assigned PinPoint from "FLAGGED INTEGER" TO "ARRAY" like
+		// the other pins.
+		$assignedPins['pinPoint'] = array_keys(CJT_Models_Block_Assignmentpanel_Helpers_Auxiliary
+																::getInstance()
+																->getPinsArray($assignedPins['pinPoint']));
+		// Walk through all assigned pins.
+		// Unassigned any item with 'value=false'.
+		// Whenever an item is found on the submitted
+		// pins it should be removed from the submitted list
+		foreach ($submittedPins as $groupName => $submittedGroup) {
+			// Get assigned pins group if found 
+			if (!isset($assignedPins[$groupName])) {
+				// Initialize new assigned group array.
+				$assignedPins[$groupName] = array();
+			}
+			// Get assigned group array reference.
+			$assignedGroup =& $assignedPins[$groupName];
+			// For every submitted item there is three types.
+			// 1. Already assigned :WHEN: (sync == true and value == true)
+			// 2. Unassigned :WHEN: (value == false)
+			// 3. Newly assigned :WHEN: (sync = false).
+			foreach ($submittedGroup as $submittedPinId => $submittedPin) {
+				// Unassigned pin
+				if (!$submittedPin['value']) {
+					// Find the submittedPinId AssignedPins index.
+					$assignedIndex = array_search($submittedPinId, $assignedGroup);
+					// Unassigned it :REMOVE FROM ARRAY:
+					unset($assignedGroup[$assignedIndex]);
+				}
+				else if (!$submittedPin['sync']) {
+					// Add newly assigned item.
+					$assignedGroup[] = $submittedPinId;
+				}
+			}
+		}
+		// Copy all assigned pins back to the block object.
+		foreach ($assignedPins as $groupName => $finalGroupAssigns) {
+			// Copy the group back to the block object.
+			$blockData->{$groupName} = $finalGroupAssigns;
+		}
+		// Important for caller short-circle condition.
+		return true;
+	}
+
+	/**
+	* put your comment there...
+	* 
 	* @deprecated Use calculatePinpoint
 	*/
 	public static function calculateBlockPinPoint(& $block) {

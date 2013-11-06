@@ -1,0 +1,18 @@
+				<ul class="pagelist">
+					<li>
+						<label>
+<?php						echo $this->getPinCheckbox('pinPoint', CJTBlockModel::PINS_PAGES_FRONT_PAGE) ?>
+						</label> 
+						<span><a href="<?php bloginfo('url') ?>" target="_blank"><?php echo cssJSToolbox::getText('Front Page') ?></a></span>
+					</li>
+<?php
+
+						foreach ($list as $value => $text) :
+?>
+					<li>
+						<label>
+<?php						echo $this->getPinCheckbox('pinPoint', $value) ?> <?php echo $text ?>
+						</label>
+					</li>
+<?php					endforeach; ?>
+				</ul>

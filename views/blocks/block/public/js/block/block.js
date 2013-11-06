@@ -7,38 +7,12 @@
 /**
 * Put CJTBlock class at global scope.
 */
-var CJTBlock;
+var CJTBlockBase;
 
 /**
 * JQuery wrapper for the CJTBlock class.
 */
 (function($) {
-
-	/**
-	* Blocks property that allowed to be read or write.
-	*
-	* flags:
-	*	- r : read.
-	*	- w : write.
-	*	- c : cookie.
-	*	- l : checkbox list.
-	*
-	* @var object
-	*/
-	var properties = {
-		name 									: {flags: 'rw', 	selector : 'input:hidden[name="cjtoolbox[{blockId}][name]"]'},
-		editorLang						: {flags: 'rwc'},
-		pagesPanelToggleState	: {flags: 'rwc'},
-		location 							: {flags: 'rw', 	selector : 'input:hidden[name="cjtoolbox[{blockId}][location]"]'},
-		state 								: {flags: 'rw', 	selector : 'input:hidden[name="cjtoolbox[{blockId}][state]"]'},
-		code 									: {flags: 'rw', 	selector : 'div#editor-{blockId}'},
-		links 								: {flags: 'rw', 	selector : 'textarea[name="cjtoolbox[{blockId}][links]"]'},
-		expressions 					: {flags: 'rw', 	selector : 'textarea[name="cjtoolbox[{blockId}][expressions]"]'},
-		pinPoint 							: {flags: 'rwl', 	selector : 'input:checkbox[name="cjtoolbox[{blockId}][pinPoint][]"]'},
-		pages 								: {flags: 'rwl', 	selector : 'input:checkbox[name="cjtoolbox[{blockId}][pages][]"]'},
-		posts 								: {flags: 'rwl', 	selector : 'input:checkbox[name="cjtoolbox[{blockId}][posts][]"]'},
-		categories 						: {flags: 'rwl', 	selector : 'input:checkbox[name="cjtoolbox[{blockId}][categories][]"]'}
-	};
 	
 	/**
 	* Flags values.
@@ -57,7 +31,7 @@ var CJTBlock;
 	* @version 6
 	* @param DOMElement Block element.
 	*/
-	CJTBlock = function(element) {
+	CJTBlockBase = function() {
 		
 		/**
 		* 
@@ -65,6 +39,11 @@ var CJTBlock;
 		*
 		*/
 		this.aceEditor = null;
+		
+		/**
+		* 
+		*/
+		this.blockPlugin = null;
 		
 		/**
 		* Block JQuery object.
@@ -81,26 +60,74 @@ var CJTBlock;
 		this.id = 0;
 		
 		/**
+		* Blocks property that allowed to be read or write.
 		*
+		* flags:
+		*	- r : read.
+		*	- w : write.
+		*	- c : cookie.
+		*	- S : Save when block is saved.
 		*
-		*
-		*
-		*
+		* @var object
 		*/
-		this.CJTBlock = function() {
-			var block = this; // To be used inside each().
+		this.properties = {};
+	
+		/**
+		* put your comment there...
+		* 
+		* @param element
+		*/
+		this.CJTBlockBase = function(blockPlugin, element, properties) {
+			// Initialize.
+			this.blockPlugin = blockPlugin;
 			this.box = $(element);
 			this.id = parseInt(this.box.find('input:hidden[name="blocks[]"]').val())
+			this.properties = {};
 			this.aceEditor = ace.edit('editor-' + this.id);
+			// Define base properties.
+			properties.name = {om : new CJTBlockPropertyHTMLNodeOM(),
+												flags: 'rw', 
+												selector : 'input:hidden[name="cjtoolbox[{blockId}][name]"]'};
+			properties.location = {om : new CJTBlockPropertyHTMLNodeOM(),
+														flags: 'rw', 
+														selector : 'input:hidden[name="cjtoolbox[{blockId}][location]"]'};
+			properties.state = {om : new CJTBlockPropertyHTMLNodeOM(),
+													flags: 'rw', 
+													selector : 'input:hidden[name="cjtoolbox[{blockId}][state]"]'};
+			properties.code = {om : new CJTBlockPropertyACEEditor(), 
+												 flags: 'rws',
+												 selector : 'div#editor-{blockId}'};
+			properties.editorLang = {flags: 'rwc'};
+			properties.pagesPanelToggleState = {flags: 'rwc'};
+			// Initialize ALL (BASE, DERIVDED) properties.
+			$.each(properties, $.proxy(
+				function(name, propertyDefinition) {
+					// Add flag checker method to property object.
+					propertyDefinition.flag = function(flag) {
+						var flagIndex = this.flags.indexOf(flag);
+						return (flagIndex == -1) ? false : true;
+					};
+					// Add name to the property object.
+					propertyDefinition.name = name;
+					// Place block id in the selector.
+					if (propertyDefinition.selector != undefined) {
+						propertyDefinition.selector = propertyDefinition.selector.replace('{blockId}', this.id);
+					}
+					// If OM is supported bind it.
+					if (propertyDefinition.om !== undefined) {
+						propertyDefinition.om.bind(this.blockPlugin, propertyDefinition);
+					}
+					// Cache property object.
+					this.properties[name] = propertyDefinition;
+				}, this)
+			);
 			// Create bridge through "code" field
 			// so that div element can set/get aceEditor real object.
+			var block = this;
 			var codeDiv = $(this.property('code').selector).get(0);
 			codeDiv.getValue = function() {
 				return block.aceEditor.getSession().getValue();
 			};
-			codeDiv.setValue = function(value) {
-				block.aceEditor.getSession().setValue(value)
-			};			
 		}
 		
 		/**
@@ -110,77 +137,72 @@ var CJTBlock;
 		* @return mixed
 		*/
 		this.get = function(name, _default) {
-			var value = null;
-			// Just return the exists properties.
+			// Initialize.
+			var value = null;		
+			var property = this.property(name);
+			// Check member variables first.
 			if (this[name] != undefined) {
 				value = this[name];
 			}
-			// Properties need to be fetched from HTML structure or from another JS objects.
-			else {
-				var property = this.property(name);
-				// There are two types of properties, cookie and element.
-				if (property.flag('c')) {
-					// Get cookie value.
-					var cookieName = name + '-' + this.id;
-					value = $.cookies.get(cookieName);
-				}
-				else { // Not cookies, it may be saved throught JS object or inside HTML elements.
-					// Custom implemetation.
-					switch (name) {
-						case 'code': // Code is throught ACE-Editor Object.
-							value = this.aceEditor.getSession().getValue();
-						break;
-						default: // Get property value from html elements.
-							var element = this.box.find(property.selector);
-							switch (property.flag('l')) {
-								// Custom implementation for reading checkboxes list.
-								case true:
-									value = [];
-									element.each(
-										function(index, element) {
-											element = $(element);
-											if (element.prop('checked')) {
-												value.push(element.val());
-											}
-										}
-									)
-								break;
-								default:
-									value = element.val();
-								break;
-							}
-						break;
-					}
-				}
-				// If empty and _default is provided, return _default.
-				if (!value && (_default != undefined)) {
-					value = _default;
+			// There are two types of properties, cookie and element.
+			else if (property.flag('c')) {
+				// Get cookie value.
+				var cookieName = name + '-' + this.id;
+				value = $.cookies.get(cookieName);
+			}
+			else { // Not cookies, it may be saved throught JS object or inside HTML elements.
+				// Custom implemetation.
+				switch (name) {
+					case 'code': // Code is throught ACE-Editor Object.
+						value = this.aceEditor.getSession().getValue();
+					break;
+					default: // Get property value from html elements.
+						value = property.om.get();
+					break;
 				}
 			}
+			// If empty and _default is provided, return _default.
+			if (!value && (_default != undefined)) {
+				value = _default;
+			}
+			// Returns
 			return value;
 		}
 		
 		/**
-		*
-		*
-		*
-		*
-		*
+		* 
 		*/
 		this.getDIFields = function() {
-			var fieldsNames = ['links', 'expressions', 'pinPoint', 'pages', 'posts', 'categories'];
-			var diFieldsSelector = [];
-			var diFields;
-			var block = this; // To be used inside each().
-			$.each(fieldsNames,
-				function(index, field) {
-					diFieldsSelector.push(block.property(field).selector);
-				}
-			);
-			diFields = block.box.find(diFieldsSelector.join(','));
+			// Initialize.
+			var diFields = null;
+			// Query DIFields selectors nodes.
+			diFields = this.box.find(this.getDIProperties().selector.join(','));
+			// Returns diFields
 			return diFields;
 		}
 		
+		/**
+		* 
+		*/
+		this.getDIProperties = function() {
+			// Initialize.
+			var diProperties = {selector : [], list : {}};
+			// Collect DIFields from the properties list.
+			$.each(this.properties, $.proxy(
+				function(name, property) {
+					// All fields with 's' flag is a DIField.
+					if (property.flag('s')) {
+						// Add property to the list.
+						diProperties.list[name] = property;
+						// Add the selector as well.
+						diProperties.selector.push(property.selector);
+					}
+				}, this)
+			);
+			// Return DIProperties.
+			return diProperties;
+		}
+
 		/**
 		* Get operation queue object for the block.
 		*
@@ -206,76 +228,10 @@ var CJTBlock;
 		* @return object Property selector object.
 		*/		
 		this.property = function(name) {
-			if (properties[name] == undefined) {
-				$.error('Property ' + name + ' is not found');
-			}
-			else {
-				// Copy/Clone property object.
-				var property = $.extend({}, properties[name]);
-				// Add flag checker method to property object.
-				property.flag = function(flag) {
-					var flagIndex = this.flags.indexOf(flag);
-					return (flagIndex == -1) ? false : true;
-				};
-				// Place block id in the selector.
-				if (property.selector != undefined) {
-					property.selector = property.selector.replace('{blockId}', this.id);
-					// Implement set/get common interface through all fields.
-					if (property.flag('l')) {
-						property.setValue = function(values) {
-							var fields = $(this.selector);
-							// If values is integer then each bit represent single field value.
-							if ($.isNumeric(values)) {
-								var flag;
-								var arrayValues = [];
-								// Convert bit-map to array.
-								for (weight = 0; weight < 32; weight++) {
-									flag = Math.pow(2, weight);
-									if (flag & values) {
-										arrayValues.push(flag.toString(16));
-									}
-								}
-								values = arrayValues;
-							}
-							else if (values == undefined) {
-								// We need all fields to be unchecked is pin is not passed,
-								values = [];
-							}
-							// Check/Uncheck fields.
-							fields.each(
-								function(index, field) {
-									var field = $(field);
-									var checked = (values.indexOf(field.val()) == -1) ? false : true;
-									field.prop('checked', checked);
-									// Fire change event so that
-									// notification save change action can take place.
-									field.change();
-								}
-							);
-						};
-					}
-					else if (property.flag('c')) {
-						property.setValue = function() {
-
-						};					
-					}
-					else {
-						property.setValue = function(value) {
-							var jNode = $(this.selector);
-							var node = jNode.get(0);
-							if (node.value == undefined) {
-								node.setValue(value);
-							}
-							else {
-								node.value = value;
-							}
-							// Fire change event so that
-							// notification save change action can take place.
-							jNode.change();
-						};
-					}
-				}
-			}
+      // Get property object from the cache.
+      var property = this.properties[name];
+      // Returns property cached object used to
+      // get and set property values.
 			return property;
 		}
 		
@@ -292,40 +248,34 @@ var CJTBlock;
 			// return Dummy Promise object.
 			var promise = CJTServer.getDeferredObject().promise();
 			var property = this.property(name);
-			// Check if the property is writable.
-			if (!property.flag('w')) {
-				$.error('Could not write to read-only property');
+			// There are two types of properties, cookie and element.
+			if (property.flag('c')) {
+				var expires = new Date((new Date()).getTime() + ((30 * 24 * 60 * 60) * 1000)); // Live for 1 month.
+				// Set cookie value.
+				var cookieName = name + '-' + this.id;
+				$.cookies.set(cookieName, newValue, {expiresAt : expires});
 			}
 			else {
-				// There are two types of properties, cookie and element.
-				if (property.flag('c')) {
-					var expires = new Date((new Date()).getTime() + ((30 * 24 * 60 * 60) * 1000)); // Live for 1 month.
-					// Set cookie value.
-					var cookieName = name + '-' + this.id;
-					$.cookies.set(cookieName, newValue, {expiresAt : expires});
-				}
-				else {
-					// Get element value.
-					var element = this.box.find(property.selector);
-					var value = element.val();
-					// Update only if not same.
-					if ((newValue != undefined) && (value != newValue)) {
-						// Update on the server.
-						var data = {
-							id : this.get('id'),
-							property : name,
-							value : newValue
-						};
-						// Save property at the server.
-						queue = this.getOperationQueue(name);
-						promise = queue.add(data)
-						.success(
-							function(rProperty) {
-								// Change local value to new value.
-								element.val(rProperty.value);
-							}
-						);
-					}
+				// Get element value.
+				var element = this.box.find(property.selector);
+				var value = element.val();
+				// Update only if not same.
+				if ((newValue != undefined) && (value != newValue)) {
+					// Update on the server.
+					var data = {
+						id : this.get('id'),
+						property : name,
+						value : newValue
+					};
+					// Save property at the server.
+					queue = this.getOperationQueue(name);
+					promise = queue.add(data)
+					.success(
+						function(rProperty) {
+							// Change local value to new value.
+							element.val(rProperty.value);
+						}
+					);
 				}
 			}
 			return promise;
@@ -381,25 +331,23 @@ var CJTBlock;
 		* @return void
 		*/
 		this.queueDIFields = function() {
-			var dIFields = ['code', 'pinPoint', 'pages', 'posts', 'categories', 'links', 'expressions'];
+			// Initialize.
+			var dIFields = this.getDIProperties().list;
 			var queue = this.getOperationQueue('saveDIFields');
-			var block = this; // To use inside .each().
+			var blockId = this.get('id');
 			// For every field create queue request as a single property for the block.
-			$.each(dIFields,
-				function(index, property) {
+			$.each(dIFields, $.proxy(
+				function(name) {
 					var field = {
-						id : block.get('id'),
-						property : property,
-						value : block.get(property)
+						id : blockId,
+						property : name,
+						value : this.get(name)
 					};
 					// Add to queue list.
 					queue.add(field);
-				}
+				}, this)
 			);
 		}
-		
-		// Initialize object.
-		this.CJTBlock();
 		
 	} // End class.
 	

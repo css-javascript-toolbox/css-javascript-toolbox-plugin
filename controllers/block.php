@@ -33,6 +33,7 @@ class CJTBlockController extends CJTAjaxController {
 		parent::__construct();
 		// Actions!
 		$this->registryAction('getBlockBy');
+		$this->registryAction('getAPOP');
 	}
 	
 	/**
@@ -49,4 +50,43 @@ class CJTBlockController extends CJTAjaxController {
 		$this->response = array_intersect_key((array) $this->model->getBlockBy(), $returns);
 	}
 	
+	/**
+	* Get assigment panel objects page.
+	* 
+	*/
+	public function getAPOPAction() {
+		// Read inputs.
+		$iPerPage = (int) $_GET['iPerPage'];
+		$blockId = (int) $_GET['block'];
+		$oTypeParams = $_GET['typeParams'];
+		$offset = $_GET['index'];
+		$assignedOnly = ($_GET['assignedOnly'] == 'false') ? false : true;
+		$initialize = ($_GET['initialize'] == 'false') ? false : true;
+		// Get the corresponding type object
+		// for handling the request.
+		$typeName = $oTypeParams['targetType'];
+		/**
+		* put your comment there...
+		* 
+		* @var CJT_Models_Block_Assignmentpanel_Base
+		*/
+		$typeObject = CJT_Models_Block_Assignmentpanel_Base
+								::getInstance($assignedOnly, 
+															$typeName,
+															$offset, 
+															$iPerPage, 
+															$blockId, 
+															$oTypeParams);
+		// Fetch next page.
+		$items = $typeObject->getItems();
+		// Return result
+		$this->response['count'] = count($items);
+		$this->response['items'] = $items;
+		// Return count only when the list is activated for
+		// the first time.
+		if ($initialize) {
+			$this->response['total'] = $typeObject->getTotalCount();	
+		}
+	}
+
 } //  End class.

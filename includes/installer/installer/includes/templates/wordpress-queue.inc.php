@@ -65,36 +65,36 @@ class CJTInstallerWordpressQueueTemplates extends ArrayIterator {
 		// Get template and key refernces!
 		$wpTemplate = $this->current();
 		$handle = $this->key();
+		// Use only templates defined with the internal file systems!!
+		$devFile = str_replace(".{$this->type->extension}", ".dev.{$this->type->extension}", $wpTemplate->src);
 		// Get display name from Queue name!
 		$displayName = ucfirst(str_replace(array('-', '_'), ' ', $handle));
-		// Use only templates defined with the internal file systems!!
-		// development file (.dev).js has priority over .js file.
-		$devFile = str_replace(".{$this->type->extension}", ".dev.{$this->type->extension}", $wpTemplate->src);
-		if ((is_file(ABSPATH . '/' . ($file = $devFile))) || (is_file(ABSPATH . '/' . ($file = $wpTemplate->src)))) {
-			// Prepare periodically used vars!
-			$time = current_time('mysql');
-			// Add queue object as CJT template!
-			$template = CJTxTable::getInstance('template')
-			->set('name',  $displayName)
-			->set('queueName', $handle)
-			->set('type', $this->type->name)
-			->set('creationDate', $time)
-			->set('ownerId', get_current_user_id())
-			->set('authorId', CJTAuthorTable::WORDPRESS_AUTHOR_ID)
-			->set('state', 'published')
-			->set('attributes', CJTTemplateTable::ATTRIBUTES_SYSTEM_FLAG)
-			->save();
-			// Add revision for that template.
-			$revision = CJTxTable::getInstance('template-revision')
-			->set('templateId', $template->get('id'))
-			->set('revisionNo', 1)
-			->set('version', $wpTemplate->ver)
-			->set('changeLog', 'Cached by CJT installer!')
-			->set('state', 'release')
-			->set('dateCreated', $time)
-			->set('file', $file)
-			->save();
-		}
+		// Prepare periodically used vars!
+		$time = current_time('mysql');
+		// Add queue object as CJT template!
+		$template = CJTxTable::getInstance('template')
+		->set('name',  $displayName)
+		->set('queueName', $handle)
+		->set('type', $this->type->name)
+		->set('creationDate', $time)
+		->set('ownerId', get_current_user_id())
+		->set('authorId', CJTAuthorTable::WORDPRESS_AUTHOR_ID)
+		->set('state', 'published')
+		->set('attributes', CJTTemplateTable::ATTRIBUTES_SYSTEM_FLAG)
+		->save();
+		// Add revision for that template.
+		$revision = CJTxTable::getInstance('template-revision')
+		->set('templateId', $template->get('id'))
+		->set('revisionNo', 1)
+		->set('version', $wpTemplate->ver)
+		->set('changeLog', 'Cached by CJT installer!')
+		->set('state', 'release')
+		->set('dateCreated', $time)
+		// Use .dev file once its exists, otherwise use the original file
+		// even if its empty! Its the Wordpress repositibility to load the built-in
+		// scripts not our. @See controllers/blocks-coupling.php where the templates/scripts is linked.
+		->set('file', ((is_file(ABSPATH . "/{$devFile}" ) ? $devFile : $wpTemplate->src)))
+		->save();
 	}
 	
 } // End class.

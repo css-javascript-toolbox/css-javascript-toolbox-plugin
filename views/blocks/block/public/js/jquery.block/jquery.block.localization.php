@@ -17,9 +17,9 @@ return array(
 	'state_inactiveTitle' => cssJSToolbox::getText('Activate (turn on) code block'),
 	'location_headerTitle' => cssJSToolbox::getText('Set output location hook to footer'),
 	'location_footerTitle' => cssJSToolbox::getText('Set output location hook to header'),
+	'invalidBlockName' => cssJSToolbox::getText('Invalid block name'),
 	'screenmode_fullscreenTitle' => cssJSToolbox::getText('Revert code editor to default mode'),
 	'screenmode_Title' => cssJSToolbox::getText('Switch code editor to fullscreen mode'),
-	'nameCantBeEmpty' => cssJSToolbox::getText('Block name cannot be empty!'),
 	'linkExternalMessage' => cssJSToolbox::getText('Please enter a list of the external URLs you want to link separated by comma!'),
 	'couldNotLinkExternals' => cssJSToolbox::getText('Couldn\'t link the externals URI you requested!! Reason:'),
 );
