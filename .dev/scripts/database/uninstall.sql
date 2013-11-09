@@ -8,6 +8,13 @@ DROP TABLE IF EXISTS 60wp35_cjtoolbox_block_pins;
 DROP TABLE IF EXISTS 60wp35_cjtoolbox_block_templates;
 DROP TABLE IF EXISTS 60wp35_cjtoolbox_templates;
 DROP TABLE IF EXISTS 60wp35_cjtoolbox_template_revisions;
+DROP TABLE IF EXISTS 60wp35_cjtoolbox_packages;
+DROP TABLE IF EXISTS 60wp35_cjtoolbox_package_objects;
+DROP TABLE IF EXISTS 60wp35_cjtoolbox_parameters;
+DROP TABLE IF EXISTS 60wp35_cjtoolbox_parameter_typedef;
+DROP TABLE IF EXISTS 60wp35_cjtoolbox_forms;
+DROP TABLE IF EXISTS 60wp35_cjtoolbox_form_groups;
+DROP TABLE IF EXISTS 60wp35_cjtoolbox_form_group_parameters;
 
 /* Delete Version 0.3 and 0.8 Tables */
 DROP TABLE IF EXISTS 60wp35_cjtoolbox_cjdata;
