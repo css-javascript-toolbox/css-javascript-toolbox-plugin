@@ -1,0 +1,27 @@
+<?php
+/**
+* 
+*/
+
+?>
+<fieldset>
+	<strong><?php echo cssJSToolbox::getText('Frontend Trigger Hook') ?></strong>
+	<ul>
+		<li>
+			<label for="frontend-trigger-tag"><?php echo cssJSToolbox::getText('Tag') ?></label>
+			<select id="frontend-trigger-tag" name="settings[advanced][trigger][frontend][tag]">
+<?php // Display available tags for FRONTEND trigger/coupling controller
+				$tags = array('wp', 'template_redirect');
+				foreach ($tags as $tag) : 
+					$isSelected = ($tag == $settings->trigger->frontend->tag) ? ' selected="selected"' : '';
+?>
+				<option value="<?php echo $tag ?>"<?php echo $isSelected ?>><?php echo $tag ?></option>
+<?php 	endforeach; ?>
+			</select>
+		</li>
+		<li>
+			<label for="frontend-trigger-priority"><?php echo cssJSToolbox::getText('Priority') ?></label>
+			<input type="text" id="frontend-trigger-priority" name="settings[advanced][trigger][frontend][priority]" value="<?php echo $settings->trigger->frontend->priority ?>" />
+		</li>
+	</ul>
+</fieldset>

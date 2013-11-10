@@ -182,6 +182,7 @@ class CJTBlocksCouplingController extends CJTController {
 		}
 		// Hold the single instance we've!
 		self::$instance = $this;
+		$siteHook = cssJSToolbox::$config->core->siteHook;
 		// Initialize controller.
 		parent::__construct(false);
 		// Import related libraries
@@ -191,7 +192,7 @@ class CJTBlocksCouplingController extends CJTController {
 		// Initialize controller.
 		$initCouplingCallback = $this->onassigncouplingcallback(array(&$this, 'initCoupling'));
 		add_action('admin_init', $initCouplingCallback);
-		add_action('wp', $initCouplingCallback);
+		add_action($siteHook->tag, $initCouplingCallback, $siteHook->priority);
 		// Add Shortcode callbacks.
 		add_shortcode('cjtoolbox', array(&$this, 'shortcode'));
 	}
