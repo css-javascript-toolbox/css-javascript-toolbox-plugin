@@ -70,8 +70,10 @@ extends CJT_Framework_Developer_Interface_Block_Parameters_Parameters {
 	* put your comment there...
 	* 
 	* @param mixed $excludes
+	* @param array Parameters to include (Will be merged to params)
+	* @return string JSON of the parameters list.
 	*/
-	public function json($excludes = null) {
+	public function json($excludes = null, $includes = null) {
 		// Initialize.
 		$params = array();
 		$json = '';
@@ -108,6 +110,8 @@ extends CJT_Framework_Developer_Interface_Block_Parameters_Parameters {
 				}
 			}
 		}
+		// Merge INCLUDE List!
+		$includes && ($params = array_merge($params, $includes));
 		// Get JSON.
 		$json = json_encode($params);
 		// Returns.
