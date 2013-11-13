@@ -164,7 +164,7 @@ implements CJT_Models_Package_Xml_Definition_Interface_Element {
 					// Transit.
 					$childObject->transit()
 					// Process inners.
-															->processInners();
+											->processInners();
 					// Cache!
 					$this->childs[] = $childObject;
 				}

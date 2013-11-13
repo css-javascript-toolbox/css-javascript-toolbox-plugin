@@ -86,8 +86,8 @@ extends ArrayIterator {
 				// Add as child parameter!
 				$parameters[$param->getParent()]->addChild($param);
 			}
-				// Flat parameters list.
-				$this->params[] = $param;
+			// Flat parameters list.
+			$this->params[] = $param;
 		}
 		// Return only root parameters.
 		return $parameters;

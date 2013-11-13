@@ -29,7 +29,7 @@ extends CJT_Framework_Developer_Interface_Block_Shortcode_Parameters_Base_Scalar
 	* put your comment there...
 	* 
 	*/
-	public function getShortcodeValue() {
+	protected function getShortcodeValue() {
 		return "'" . json_encode($this->getValue()) . "'";
 	}
 
