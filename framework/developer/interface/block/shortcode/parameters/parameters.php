@@ -37,13 +37,20 @@ extends CJT_Framework_Developer_Interface_Block_Parameters_Parameters {
 	protected function getFactory() {
 		return new CJT_Framework_Developer_Interface_Block_Shortcode_Parameters_Factory();
 	}
-
+	
 	/**
-	* Shortcode parameters interface (SPI).
-	*                                        
+	* put your comment there...
+	* 
 	* @param mixed $strings
+	* @param mixed $content
+	* @return CJT_Framework_Developer_Interface_Block_Shortcode_Parameters_Parameters
 	*/
-	public function loadString($strings) {
+	public function loadString($strings, $content) {
+		// Get the name of the CONTENT PARAMETER -- If EXISTS!
+		// THEN PUSH IT AS ITS PASSED AS SHORTCODR ATTRIBUTE.
+		if ($contentParameter = $this->getContentParameter()) {
+			$strings[$contentParameter->getDefinition()->getName(true)] = $content;
+		}
 		// Load all parameters with shortcde parameters.
 		foreach ($this->getParams() as $name => $param) {
 			// Dont override default value unless parameter is passed!
@@ -125,14 +132,23 @@ extends CJT_Framework_Developer_Interface_Block_Parameters_Parameters {
 	*/
 	public function shortcode($blockName) {
 		// Initialize.
-		$shortcode = "[cjtoolbox name='{$blockName}'\n\t\t%s]\n[/cjtoolbox]";
-		$parameters = array();
-		// Aggregate all parameters strings in one array!
-		foreach ($this->getParams() as $param) {
-			$parameters[] = $param->shortcode();
+		$shortcode = "[cjtoolbox name='{$blockName}'\n\t\t%s]%s\n[/cjtoolbox]";
+		$shortcodeContent = '';
+		$params = $this->getParams();
+		$attributes = array();		
+		// Process all parameters except of the Shortcode Content parameter.
+		if ($contentParameter = $this->getContentParameter()) {
+			// Remove it from the list as it will be added as content rather than attribute.
+			unset($params[$contentParameter->getDefinition()->getName(true)]);	
+			// Get Content Parameter data.
+			$shortcodeContent = $contentParameter->getValue();
 		}
-		// Join with a TAB character!
-		return sprintf($shortcode, join("\t\t\n", $parameters));
+		// Aggregate all parameters strings in one array!
+		foreach ($params as $param) {
+			$attributes[] = $param->shortcode();
+		}
+		// Join with a TAB character + Add Content Parameter!
+		return sprintf($shortcode, join("\t\t\n", $attributes), $shortcodeContent);
 	}
 
 } // End class

@@ -69,7 +69,7 @@ class CJT_Framework_Developer_Interface_Block_Shortcode_Shortcode {
 			new CJT_Models_Block_Parameters_Parameters($block->id)
 		);
 		// Load from shortcode parameters.
-		$this->parameters->loadString($parameters);
+		$this->parameters->loadString($parameters, $content);
 		//$this->segments = new CJT_Framework_Developer_Interface_Block_Shortcode_Segments_Segments($this->cleanContent());
 		// Generate Shortcode block container id.
 		$this->bcid = md5(microtime());

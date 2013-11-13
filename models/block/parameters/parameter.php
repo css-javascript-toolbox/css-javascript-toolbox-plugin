@@ -13,6 +13,13 @@ class CJT_Models_Block_Parameters_Parameter {
 	* 
 	* @var mixed
 	*/
+	protected $contentParameter;
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	protected $defaultValue;
 	
 	/**
@@ -76,6 +83,7 @@ class CJT_Models_Block_Parameters_Parameter {
 	* @return CJT_Models_Block_Parameters_Parameter
 	*/
 	public function __construct($parameter) {
+		$this->contentParameter = isset($parameter['contentParam']) ? $parameter['contentParam'] : null;
 		$this->defaultValue = isset($parameter['defaultValue']) ? $parameter['defaultValue'] : null;
 		$this->id = isset($parameter['id']) ? $parameter['id'] : null;
 		$this->name = isset($parameter['name']) ? $parameter['name'] : null;
@@ -104,6 +112,14 @@ class CJT_Models_Block_Parameters_Parameter {
 	*/
 	public function getChilds() {
 		return $this->childs;
+	}
+
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function getContentParameter() {
+		return $this->contentParameter;
 	}
 
 	/**

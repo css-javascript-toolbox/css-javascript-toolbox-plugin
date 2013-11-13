@@ -16,6 +16,13 @@ abstract class CJT_Framework_Developer_Interface_Block_Parameters_Parameters {
 	* 
 	* @var mixed
 	*/
+	protected $contentParameter = null;
+
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	protected $params = array();
 	
 	/**
@@ -29,8 +36,18 @@ abstract class CJT_Framework_Developer_Interface_Block_Parameters_Parameters {
 		// Validate parameters.
 		foreach ($parameters as $parameter) {
 			// Create type object.
-			$this->params[$parameter->getName(true)] = $this->getFactory()->create($parameter->getType(), $parameter);
+			$parameterModel = $this->params[$parameter->getName(true)] = $this->getFactory()->create($parameter->getType(), $parameter);
+			// Hold reference to the CONTENT PARAMETER.
+			$parameter->getContentParameter() && ($this->contentParameter = $parameterModel);
 		}
+	}
+
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function getContentParameter() {
+		return $this->contentParameter;
 	}
 
 	/**
