@@ -27,6 +27,18 @@ CJT_Framework_View_Block_Parameter_Interface_Type {
 	/**
 	* put your comment there...
 	* 
+	*/
+	public function enqueueScripts() {return array();}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function enqueueStyles() {return array();}
+
+	/**
+	* put your comment there...
+	* 
 	* @param mixed $parameter
 	*/
 	public function getBaseTypeFactory($parameter) {

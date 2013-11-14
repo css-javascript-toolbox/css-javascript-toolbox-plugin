@@ -29,6 +29,24 @@ extends CJT_Framework_View_Block_Parameter_Base_Abstract {
 	* put your comment there...
 	* 
 	*/
+	public function enqueueScripts() {
+		// @TODO: Enqueue all childs!!
+		return array();
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function enqueueStyles() {
+		// @TODO: Enqueue all childs!!
+		return array();		
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
 	public function getParams() {
 		// Initialize.
 		$params = array();
