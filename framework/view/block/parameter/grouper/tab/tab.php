@@ -18,11 +18,28 @@ class CJT_Framework_View_Block_Parameter_Grouper_Tab_Tab {
  	/**
  	* put your comment there...
  	* 
+ 	* @var mixed
+ 	*/
+ 	protected $paramsView = array('enqueue' => 
+ 		array('scripts' => array(), 'styles' => array())
+ 	);
+
+ 	/**
+ 	* put your comment there...
+ 	* 
  	* @param mixed $parameters
  	* @return CJT_Framework_View_Block_Parameter_Grouper_Tab
  	*/
  	public function __construct($params) {
+ 		// Cache params list reference.
 		$this->params = $params;
+		// Cache styles and scripts to be enqueued.
+		foreach ($this->params as $groupKey => $group) {
+			foreach ($group['params'] as $param) {
+				$this->paramsView['enqueue']['scripts'] += $param->enqueueScripts();
+				$this->paramsView['enqueue']['styles'] += $param->enqueueStyles();
+			}
+		}
  	}
 
  	/**
@@ -40,7 +57,7 @@ class CJT_Framework_View_Block_Parameter_Grouper_Tab_Tab {
  	* 
  	*/
  	public function enqueueScripts() {
- 		return array('jquery', 'jquery-ui-tabs');
+ 		return array_merge(array('jquery', 'jquery-ui-tabs'), $this->paramsView['enqueue']['scripts']);
  	}
  	
  	/**
@@ -48,7 +65,7 @@ class CJT_Framework_View_Block_Parameter_Grouper_Tab_Tab {
  	* 
  	*/
  	public function enqueueStyles() {
-		return array('framework:css:jquery-ui-1.8.21.custom');
+ 		return array_merge(array('framework:css:jquery-ui-1.8.21.custom'), $this->paramsView['enqueue']['styles']);
  	}
  	
  	/**
