@@ -106,8 +106,10 @@ class CJTTinymceBlocksController extends CJTAjaxController {
 		if ($blockParams->hasParams()) {
 			// If the data is submitted then load the parameters object with the post data!
 			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+				// Get RAW data from the data submitted (avoid magic_quotes, Why called MAGIC!!!!)!
+				$rawPostData = filter_input(INPUT_POST, 'form-data', FILTER_UNSAFE_RAW, FILTER_REQUIRE_ARRAY);
 				// Fill the form by the posted data
-				$blockParams->setValue($_POST['form-data']);
+				$blockParams->setValue($rawPostData);
 				// Validate the submitted data against their parameters.
 				if ($blockParams->validate()) {
 					// Generate and Return Shortcode string!
