@@ -14,7 +14,8 @@
 	*/
 	var defaultConfig = {
 		loading : true, 
-		cssClass : 'link-loading'
+		cssClass : 'link-loading',
+		ceHandler : null
 	};
 	
 	/**
@@ -55,19 +56,22 @@
 						* @type Object
 						*/
 						stack : {},
-						
+
 						/**
 						* put your comment there...
 						* 
+						* @param params
 						*/
-						changeState : function() {
+						changeState : function(params) {
 							// Get reference to HTML node for the link element.
 							var node = this.jNode.get(0);
 							var stack = this.stack;
 							// Change configs.
-							this.setConfig();
-							// Enable loading.
-							if (this.config.loading) {
+							this.setConfig(params);
+							// Enable loading only if not already in loading state.
+							if (!stack.loading && this.config.loading) {
+								// SET as in LOADING state.
+								stack.loading = true;
 								// Store link text & Remove link text.
 								stack.originalWidth = this.jNode.css('width');
 								stack.text = this.jNode.text();
@@ -85,9 +89,9 @@
 									}
 								);
 							}
-							else { // Disable loading and destroy object.
+							else if (stack.loading && !this.config.loading) { // Disable loading and destroy object.
 								// Remove loading class.
-								this.JNode.removeClass(this.config.cssClass);
+								this.jNode.removeClass(this.config.cssClass);
 								// Set text back.
 								this.jNode.text(stack.text);
 								// Remove custom width.
@@ -96,22 +100,24 @@
 								this.jNode.bind('click', this.config.ceHandler)
 								// Unbind prevent default handler defined by this class
 								.unbind('click.CJTLoading');
-								// Destroy jQuery Plugin for that object.
-								node.CJTLoader = undefined;
+								// RESET STACK!
+								this.stack = {};
 							}
 						},
 						
 						/**
+						* put your comment there...
 						* 
+						* @param params
 						*/
-						setConfig : function() {
+						setConfig : function(params) {
 							this.config = $.extend(defaultConfig, params);
 						}
 						
 					};
 				}
 				// Initialize Plugin for first time.
-				this.CJTLoader.changeState();
+				this.CJTLoader.changeState(params);
 			}
 		)
 	} // End JPlugin.
