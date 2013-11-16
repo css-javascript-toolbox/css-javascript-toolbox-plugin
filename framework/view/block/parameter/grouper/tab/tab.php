@@ -57,7 +57,11 @@ class CJT_Framework_View_Block_Parameter_Grouper_Tab_Tab {
  	* 
  	*/
  	public function enqueueScripts() {
- 		return array_merge(array('jquery', 'jquery-ui-tabs'), $this->paramsView['enqueue']['scripts']);
+ 		return array_merge(array(
+ 			'jquery',
+ 			'jquery-ui-tabs'
+ 			), 
+ 		$this->paramsView['enqueue']['scripts']);
  	}
  	
  	/**
@@ -65,7 +69,11 @@ class CJT_Framework_View_Block_Parameter_Grouper_Tab_Tab {
  	* 
  	*/
  	public function enqueueStyles() {
- 		return array_merge(array('framework:css:jquery-ui-1.8.21.custom'), $this->paramsView['enqueue']['styles']);
+ 		return array_merge(array(
+ 			'framework:view:block:parameter:grouper:tab:public:css:tab',
+ 			'framework:css:jquery-ui-1.8.21.custom',
+ 			), 
+ 		$this->paramsView['enqueue']['styles']);
  	}
  	
  	/**
