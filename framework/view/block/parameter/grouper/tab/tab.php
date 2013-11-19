@@ -36,8 +36,8 @@ class CJT_Framework_View_Block_Parameter_Grouper_Tab_Tab {
 		// Cache styles and scripts to be enqueued.
 		foreach ($this->params as $groupKey => $group) {
 			foreach ($group['params'] as $param) {
-				$this->paramsView['enqueue']['scripts'] += $param->enqueueScripts();
-				$this->paramsView['enqueue']['styles'] += $param->enqueueStyles();
+				$this->paramsView['enqueue']['scripts'] = array_merge($this->paramsView['enqueue']['scripts'], $param->enqueueScripts());
+				$this->paramsView['enqueue']['styles'] = array_merge($this->paramsView['enqueue']['styles'], $param->enqueueStyles());
 			}
 		}
  	}
