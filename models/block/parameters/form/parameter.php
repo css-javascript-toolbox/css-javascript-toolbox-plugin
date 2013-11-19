@@ -35,6 +35,13 @@ extends CJT_Models_Block_Parameters_Parameter {
 	* 
 	* @var mixed
 	*/
+	protected $helpText;
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	protected $renderer;
 
 	/**
@@ -63,6 +70,7 @@ extends CJT_Models_Block_Parameters_Parameter {
 		$this->groupDescription = isset($parameter['groupDescription']) ? $parameter['groupDescription'] : null;
 		$this->renderer = isset($parameter['renderer']) ? $parameter['renderer'] : null;
 		$this->description = isset($parameter['description']) ? $parameter['description'] : null;
+		$this->helpText = isset($parameter['helpText']) ? $parameter['helpText'] : null;
 	}
 
 	/**
@@ -99,6 +107,14 @@ extends CJT_Models_Block_Parameters_Parameter {
 	*/
 	public function getGroupName() {
 		return $this->groupName;
+	}
+
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function getHelpText() {
+		return $this->helpText;
 	}
 
 	/**

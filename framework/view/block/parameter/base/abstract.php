@@ -102,6 +102,24 @@ CJT_Framework_View_Block_Parameter_Interface_Type {
 	/**
 	* put your comment there...
 	* 
+	* @param mixed $name
+	*/
+	protected function getTemplate($name) {
+		// Get RENDERER class name.
+		$path = explode('_', get_class($this));
+		$rendererName = array_pop($path);
+		// For now it only support getting standard templates
+		// from the abstract class.
+		// In the future it might used to get template overrided in the
+		// $this object class.
+ 		ob_start();
+		include "abstract/template/{$name}.phtml";
+		return ob_get_clean();
+	}
+
+	/**
+	* put your comment there...
+	* 
 	*/
 	public function shortcode() {
 		return $this->getTypeObject()->shortcode();

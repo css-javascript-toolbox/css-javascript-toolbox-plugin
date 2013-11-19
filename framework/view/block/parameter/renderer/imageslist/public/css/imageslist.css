@@ -5,7 +5,7 @@ ul.cjt-shortcodeparameter-type-field-imageslist-list li {
 	text-align: center;
 	background-color: #EFEFEF;
 }
-
+.images-list {min-height: 31px; border: 1px solid #EFEFEF; padding: 2px; margin-left: -1px;}
 .imageslist-remove-image-button {
 	margin-left: 20px;
 	vertical-align: text-bottom;

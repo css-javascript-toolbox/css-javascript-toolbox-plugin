@@ -19,3 +19,4 @@ foreach ($values as $value) :
 	<option value="<?php echo $value->getValue() ?>"<?php echo $selected ?>><?php echo $value->getText() ?></option>
 <?php endforeach; ?>
 </select>
+<?php echo $this->getTemplate('helpText') ?>
