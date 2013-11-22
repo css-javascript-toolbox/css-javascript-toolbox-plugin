@@ -12,6 +12,7 @@ DROP TABLE IF EXISTS 60wp35_cjtoolbox_packages;
 DROP TABLE IF EXISTS 60wp35_cjtoolbox_package_objects;
 DROP TABLE IF EXISTS 60wp35_cjtoolbox_parameters;
 DROP TABLE IF EXISTS 60wp35_cjtoolbox_parameter_typedef;
+DROP TABLE IF EXISTS 60wp35_cjtoolbox_parameter_typeparams;
 DROP TABLE IF EXISTS 60wp35_cjtoolbox_forms;
 DROP TABLE IF EXISTS 60wp35_cjtoolbox_form_groups;
 DROP TABLE IF EXISTS 60wp35_cjtoolbox_form_group_parameters;
