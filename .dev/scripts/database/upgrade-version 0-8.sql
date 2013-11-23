@@ -30,6 +30,13 @@ DROP TABLE IF EXISTS 60wp35_cjtoolbox_block_pins;
 DROP TABLE IF EXISTS 60wp35_cjtoolbox_block_templates;
 DROP TABLE IF EXISTS 60wp35_cjtoolbox_templates;
 DROP TABLE IF EXISTS 60wp35_cjtoolbox_template_revisions;
+DROP TABLE IF EXISTS 60wp35_cjtoolbox_packages;
+DROP TABLE IF EXISTS 60wp35_cjtoolbox_package_objects;
+DROP TABLE IF EXISTS 60wp35_cjtoolbox_parameters;
+DROP TABLE IF EXISTS 60wp35_cjtoolbox_parameter_typedef;
+DROP TABLE IF EXISTS 60wp35_cjtoolbox_forms;
+DROP TABLE IF EXISTS 60wp35_cjtoolbox_form_groups;
+DROP TABLE IF EXISTS 60wp35_cjtoolbox_form_group_parameters;
 
 /* Update Version number. */
 UPDATE 60wp35_options SET option_value = '0.3' WHERE option_name = 'cjtoolbox_db_version';

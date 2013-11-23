@@ -1,0 +1,15 @@
+<?php
+/**
+* 
+*/
+$definition = $this->getDefinition();
+?>
+<fieldset class="cjt-param-structure">
+	<strong><?php echo $definition->getName() ?></strong>
+	<ul>
+<?php foreach ($this->getParams() as $param) : ?>
+	<li><?php echo $param ?></li>
+<?php endforeach; ?>
+</ul>
+<?php echo $this->getTemplate('helpText') ?>
+</fieldset>

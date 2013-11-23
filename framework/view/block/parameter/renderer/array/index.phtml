@@ -1,0 +1,14 @@
+<?php
+/**
+* 
+*/
+$definition = $this->getDefinition();
+?>
+<fieldset class="cjt-param-structure">
+	<strong><?php echo $definition->getName() ?></strong>
+	<ul>
+<?php foreach ($this->getValues() as $param) : ?>
+	<li><?php echo $param ?></li>
+<?php endforeach; ?>
+</ul>
+</fieldset>

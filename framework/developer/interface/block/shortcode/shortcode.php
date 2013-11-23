@@ -9,7 +9,7 @@ defined('ABSPATH') or die("Access denied");
 /**
 * 
 */
-class CJT_Framework_Developer_Interface_Block_Shortcode {
+class CJT_Framework_Developer_Interface_Block_Shortcode_Shortcode {
 	
 	/**
 	* put your comment there...
@@ -52,7 +52,7 @@ class CJT_Framework_Developer_Interface_Block_Shortcode {
 	* @var CJT_Framework_Developer_Interface_Block_Shortcode_Segments
 	*/
 	protected $segments = null;
-	
+
 	/**
 	* put your comment there...
 	* 
@@ -65,10 +65,12 @@ class CJT_Framework_Developer_Interface_Block_Shortcode {
 		// Initialize.
 		$this->block = $block;
 		$this->content =& $content;
-		cssJSToolbox::import('framework:developer:interface:block:parameters:parameters.php');
-		$this->parameters = new CJT_Framework_Developer_Interface_Block_Parameters($parameters);
-		cssJSToolbox::import('framework:developer:interface:block:shortcode:segments:segments.php');
-		$this->segments = new CJT_Framework_Developer_Interface_Block_Shortcode_Segments($this->cleanContent());
+		$this->parameters = new CJT_Framework_Developer_Interface_Block_Shortcode_Parameters_Parameters(
+			new CJT_Models_Block_Parameters_Parameters($block->id)
+		);
+		// Load from shortcode parameters.
+		$this->parameters->loadString($parameters, $content);
+		//$this->segments = new CJT_Framework_Developer_Interface_Block_Shortcode_Segments_Segments($this->cleanContent());
 		// Generate Shortcode block container id.
 		$this->bcid = md5(microtime());
 		// Build block container element id.
@@ -137,8 +139,7 @@ class CJT_Framework_Developer_Interface_Block_Shortcode {
 		static $fw = null;
 		// Instantiate framework only when used.
 		if (!$fw) {
-			cssJSToolbox::import('framework:developer:developer.php');
-			$fw = new CJT_Framework_Developer($this->block);
+			$fw = new CJT_Framework_Developer_Developer($this->block);
 		}
 		return $fw;
 	}

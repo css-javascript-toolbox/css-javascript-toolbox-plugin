@@ -1,0 +1,10 @@
+<?php
+/**
+* 
+*/
+$definition = $this->getDefinition();
+$elementId = $this->getElementId();
+?>
+<label for="<?php echo $elementId ?>" title="<?php echo $definition->getDescription() ?>"><?php echo $definition->getName() ?></label>
+<input type="text" id="<?php echo $elementId ?>" name="<?php echo $this->getName() ?>" value="<?php echo $this->getValue() ?>" class="cjt-shortcode-parameters-form-type-<?php echo $definition->getOriginalType() ?>-parameter">
+<?php echo $this->getTemplate('helpText') ?>

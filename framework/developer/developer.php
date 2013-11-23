@@ -9,7 +9,7 @@ defined('ABSPATH') or die("Access denied");
 /**
 * 
 */
-class CJT_Framework_Developer {
+class CJT_Framework_Developer_Developer {
 	
 	/**
 	* put your comment there...

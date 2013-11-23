@@ -79,7 +79,7 @@ class CJTPlugin extends CJTHookableClass {
 	/**
 	* 
 	*/
-	const DB_VERSION = '1.2';
+	const DB_VERSION = '1.3';
 	
 	/**
 	* 

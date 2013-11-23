@@ -1,0 +1,17 @@
+<?php
+/**
+* 
+*/
+
+// Parameter definition reference.
+$definition = $this->getDefinition();
+// Element id.
+$elementId = $this->getElementId();
+?>
+<div class="images-list">
+	<label title="<?php echo $definition->getDescription() ?>"><?php echo $definition->getName() ?></label>
+	<a id="<?php echo $elementId ?>" href="#" class="cjt-shortcodeparameter-type-field-imageslist"><?php echo cssJSToolbox::getText('Select') ?></a>
+	<input type="hidden" id="<?php echo $elementId ?>input" name="<?php echo $this->getName() ?>" value="" />
+	<ul id="<?php echo $elementId ?>imageslist" class="cjt-shortcodeparameter-type-field-imageslist-list"></ul>
+<?php echo $this->getTemplate('helpText') ?>
+</div>

@@ -1,0 +1,22 @@
+<?php
+/**
+* 
+*/
+
+// Get parameter definition.
+$definition = $this->getDefinition();
+
+// All values to be displayed in the list.
+$values = $definition->getValues();
+$elementId = $this->getElementId();
+?>
+<label for="<?php echo $elementId ?>" title="<?php echo $definition->getDescription() ?>"><?php echo $definition->getName() ?></label>
+<select id="<?php echo $elementId ?>" name="<?php echo $this->getName() ?>" size="2">
+<?php
+foreach ($values as $value) :
+	$selected = ($this->getValue() == $value->getValue()) ? ' selected="selected"' : '';
+?>
+	<option value="<?php echo $value->getValue() ?>"<?php echo $selected ?>><?php echo $value->getText() ?></option>
+<?php endforeach; ?>
+</select>
+<?php echo $this->getTemplate('helpText') ?>

@@ -133,6 +133,16 @@ class CJTBlocksModel {
 			$blocks->delete($revisions);
 			$pins->delete($revisions);
 		}
+		// Delete linked templates.
+		$linkedOnlyTemplatesQuery = 'DELETE FROM #__cjtoolbox_block_templates
+																											 WHERE blockId IN(%s)';
+		$this->dbDriver->delete(sprintf($linkedOnlyTemplatesQuery, implode(',', $ids)));
+		// Delete associated parameters.
+		$mdlParams = new CJT_Models_Parameters();
+		$mdlParams->delete($ids);
+		// Delete form.
+		$mdlForm = new CJT_Models_Forms();
+		$mdlForm->delete($ids);
 		// Delete blocks.
 		$blocks->delete($ids);
 		$pins->delete($ids);

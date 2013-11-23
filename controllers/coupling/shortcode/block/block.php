@@ -87,8 +87,7 @@ class CJT_Controllers_Coupling_Shortcode_Block extends CJTHookableClass {
 					// Import Executable (PHP and HTML) templates.
 					$block->code = $block->code . $model->getExecTemplatesCode($block->id);
 					// CJT Block Standard Parameters object.
-					cssJSToolbox::import('framework:developer:interface:block:shortcode:shortcode.php');
-					$spi = new CJT_Framework_Developer_Interface_Block_Shortcode($block, $this->parameters, $this->content);
+					$spi = new CJT_Framework_Developer_Interface_Block_Shortcode_Shortcode($block, $this->parameters, $this->content);
 					// Get block code, execute it as PHP!
 					$blockCode = CJTPHPCodeEvaluator::getInstance($block)->exec(array('cb' => $spi))->getOutput();
 					// CJT Shortcode markup interface (CSMI)!

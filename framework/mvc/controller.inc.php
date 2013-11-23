@@ -252,7 +252,7 @@ abstract class CJTController extends CJTHookableClass {
 	* 
 	* @deprecated
 	*/
-	public static function getView($path) {
+	public static function getView($path, $params = null) {
 		$view = null;
 		// Import view file.
 		$viewInfo = self::getViewInfo($path);
@@ -260,7 +260,7 @@ abstract class CJTController extends CJTHookableClass {
 		// Create view object.
 		$name = str_replace(' ', '', ucwords(str_replace('/', ' ',$path)));
 		$viewClass = self::getClassName($name, 'view');
-		$view = new $viewClass($viewInfo);
+		$view = new $viewClass($viewInfo, $params);
 		return $view;
 	}
 	
