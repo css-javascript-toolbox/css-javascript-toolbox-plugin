@@ -53,7 +53,7 @@ if (CJT === undefined) {
 							requestStruct.height = 600;
 							requestStruct.TB_iframe = true;
 							// @TODO: Localize Form Title!
-							tb_show('CJT Block Parameters - Form', CJTServer.getRequestURL('tinymceBlocks', 'getBlockParametersForm', requestStruct))
+							tb_show(block.formTitle, CJTServer.getRequestURL('tinymceBlocks', 'getBlockParametersForm', requestStruct))
 						break;
 					}
 			}, this)

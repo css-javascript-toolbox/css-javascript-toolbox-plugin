@@ -21,7 +21,7 @@ class CJTTinymceBlocksModel {
 		// Get common quiery parts!@
 		$query = $this->getItemsQuery();
 		// Add fields list!
-		$query['select'] = 'id, name title, owner';
+		$query['select'] = 'b.id, b.name title, b.owner, f.name formTitle';
 		$query = "SELECT {$query['select']} FROM {$query['from']} WHERE {$query['where']};";
 		// Retrieve blocks!
 		return $driver->select($query);
@@ -33,7 +33,7 @@ class CJTTinymceBlocksModel {
 	*/
 	public function getItemsQuery() {
 		// Build query parts!
-		$query['from'] = '#__cjtoolbox_blocks';
+		$query['from'] = '#__cjtoolbox_blocks b LEFT JOIN #__cjtoolbox_forms f ON b.id = f.blockId';
 		$query['where'] = 'type = "block" and backupId IS null';
 		return $query;
 	}
