@@ -1,4 +1,4 @@
-body {text-transform: capitalize; font-size: 11px;}
+body {font-size: 11px;}
 ul {list-style-type: none;  padding: 0; margin: 0;}
 fieldset {border: 1px solid #EFEFEF !important; position: relative;}
 .cjt-form ul li {margin-bottom: 9px;}
@@ -18,5 +18,5 @@ fieldset {border: 1px solid #EFEFEF !important; position: relative;}
 }
 
 #shortcode-params-form fieldset {margin-left: -10px;}
-#shortcode-params-form label {width: 200px;}
+#shortcode-params-form label {width: 200px; color: #505050 !important;}
 #shortcode-params-form input {margin-left: 0px;}
