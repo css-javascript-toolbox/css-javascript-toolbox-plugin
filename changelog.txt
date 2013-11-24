@@ -1,3 +1,6 @@
+= 6.3 =
+* Add: Packages Manager - Shortcode parameters form.
+
 = 6.2.1 =
 * Fix: Validate block name when editing and adding blocks.
 * Fix: Code Blocks is not being applied on WPEngine servers and other servers related to the MYSQL query error. 
