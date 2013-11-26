@@ -7,7 +7,7 @@
 * 
 */
 return (object) array(
-	'core' => (object) array('siteHook' => array('tag' => 'template_redirect', 'priority' => 11)),
+	'core' => (object) array('siteHook' => ((object) array('tag' => 'template_redirect', 'priority' => 11))),
 	'database' => (object) array(
 		'tables' => (object) array(
 			'blocks' => 'cjtoolbox_blocks',
