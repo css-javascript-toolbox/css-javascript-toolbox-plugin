@@ -16,6 +16,7 @@ DROP TABLE IF EXISTS 60wp35_cjtoolbox_parameter_typeparams;
 DROP TABLE IF EXISTS 60wp35_cjtoolbox_forms;
 DROP TABLE IF EXISTS 60wp35_cjtoolbox_form_groups;
 DROP TABLE IF EXISTS 60wp35_cjtoolbox_form_group_parameters;
+DROP TABLE IF EXISTS 60wp35_cjtoolbox_form_group_xfields;
 
 /* Delete Version 0.3 and 0.8 Tables */
 DROP TABLE IF EXISTS 60wp35_cjtoolbox_cjdata;
