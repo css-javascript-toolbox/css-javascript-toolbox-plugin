@@ -27,7 +27,7 @@ extends ArrayObject {
 		$this->formId = $formId;
 		$dbDriver = cssJSToolbox::getInstance()->getDBDriver();
 		// Query groups.
-		$groups = $dbDriver->select('SELECT * FROM #__cjtoolbox_form_groups g LEFT JOIN #__cjtoolbox_form_group_xfields xf ON g.id = xf.groupId', ARRAY_A);
+		$groups = $dbDriver->select("SELECT * FROM #__cjtoolbox_form_groups g LEFT JOIN #__cjtoolbox_form_group_xfields xf ON g.id = xf.groupId WHERE g.formId = {$this->formId};", ARRAY_A);
 		parent::__construct($groups);
 	}
 	
