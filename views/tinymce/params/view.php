@@ -47,6 +47,9 @@ class CJTTinymceParamsView extends CJTView {
 			// Get group data cxopy.
 			$this->groups[$group['id']] = $group;
 		}
+		// Put the Group woth the loest ID first, 
+		// Display in the same order they're added!
+		ksort($this->groups);
 		// Prepare groups from the passed parameters.
 		foreach ($params['params'] as $param) {
 			// Add parameter under its group!
