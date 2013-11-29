@@ -1,3 +1,7 @@
+= 6.3.1 =
+* Enhance: Shortcode Parameters Form is now displaying the package help text (instruction/usage along with the parameters form).
+* Fix: Break Wordpress frontend page pagination by issuing 301 redirect.
+
 = 6.3 =
 * Add: Packages Manager - Shortcode parameters form.
 
