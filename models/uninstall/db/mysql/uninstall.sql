@@ -18,6 +18,8 @@ DROP TABLE IF EXISTS #__cjtoolbox_forms;
 DROP TABLE IF EXISTS #__cjtoolbox_form_groups;
 DROP TABLE IF EXISTS #__cjtoolbox_form_group_parameters;
 DROP TABLE IF EXISTS #__cjtoolbox_parameter_typeparams;
+/* Added Version 1.4 */
+DROP TABLE IF EXISTS #__cjtoolbox_form_group_xfields;
 
 
 /*  Database version number (By this option CJT Plugin detect installation state!) */

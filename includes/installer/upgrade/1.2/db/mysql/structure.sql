@@ -58,5 +58,12 @@ CREATE TABLE `#__cjtoolbox_parameter_typeparams` (
 	`value` TEXT NOT NULL,
 	PRIMARY KEY (`id`),
 	INDEX `parameterId` (`parameterId`)
+) CHARACTER SET = utf8, COLLATE=utf8_general_ci;
+
+/* 1.4 */
+CREATE TABLE `#__cjtoolbox_form_group_xfields` (
+	`groupId` INT(11) NOT NULL,
+	`text` TEXT NULL,
+	UNIQUE INDEX `groupId` (`groupId`)
 ) CHARACTER SET = utf8, COLLATE=utf8_general_ci
 /* </Shortcode Parameters Tables> */
