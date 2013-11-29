@@ -56,7 +56,7 @@ extends CJT_Models_Block_Parameters_Base_Parameters {
 	* 
 	*/
 	protected function getQuery() {
-		$query = "SELECT p.*, pe.renderer, pe.description, pe.helpText, g.name groupName, g.description groupDescription
+		$query = "SELECT p.*, pe.renderer, pe.description, pe.helpText, g.id groupId, g.name groupName, g.description groupDescription
 										 FROM #__cjtoolbox_parameters p LEFT JOIN #__cjtoolbox_blocks b ON p.blockId = b.id
 										 LEFT JOIN #__cjtoolbox_form_group_parameters pe ON pe.parameterId = p.id
 										 LEFT JOIN #__cjtoolbox_form_groups g ON pe.groupId = g.id

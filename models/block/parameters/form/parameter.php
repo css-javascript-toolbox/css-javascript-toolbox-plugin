@@ -28,6 +28,13 @@ extends CJT_Models_Block_Parameters_Parameter {
 	* 
 	* @var mixed
 	*/
+	protected $groupId;
+
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	protected $groupName;
 	
 	/**
@@ -67,6 +74,7 @@ extends CJT_Models_Block_Parameters_Parameter {
 		parent::__construct($parameter);
 		// Initialize.
 		$this->groupName = isset($parameter['groupName']) ? $parameter['groupName'] : null;
+		$this->groupId = isset($parameter['groupId']) ? $parameter['groupId'] : null;
 		$this->groupDescription = isset($parameter['groupDescription']) ? $parameter['groupDescription'] : null;
 		$this->renderer = isset($parameter['renderer']) ? $parameter['renderer'] : null;
 		$this->description = isset($parameter['description']) ? $parameter['description'] : null;
@@ -99,6 +107,14 @@ extends CJT_Models_Block_Parameters_Parameter {
 	*/
 	public function getGroupDescription() {
 		return $this->groupDescription;
+	}
+
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function getGroupId() {
+		return $this->groupId;
 	}
 
 	/**

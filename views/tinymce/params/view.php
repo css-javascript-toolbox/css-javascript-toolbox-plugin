@@ -38,23 +38,19 @@ class CJTTinymceParamsView extends CJTView {
 	public function __construct($viewInfo, $params)  {
 		// Parent procedure!
 		parent::__construct($viewInfo, $params);
+		// Prepare groups array.
+		foreach ($params['groups'] as $group) {
+			// Initialize group info array.
+			$group['params'] = array();
+			// Group Key.
+			$group['key'] = strtolower(str_replace(array(' '), '-', $group['name']));
+			// Get group data cxopy.
+			$this->groups[$group['id']] = $group;
+		}
 		// Prepare groups from the passed parameters.
 		foreach ($params['params'] as $param) {
-			// Initialize.
-			$paramDef = $param->getDefinition();
-			$groupName = $paramDef->getGroupName();
-			// Identifiy group by key.
-			$groupKey = strtolower(str_replace(array(' '), '-', $groupName));
-			if (!isset($this->groups[$groupKey])) {
-				// Initialize group info array.
-				$this->groups[$groupKey] 	= array(
-					'name' => $groupName,
-					'description' => $paramDef->getGroupDescription(),
-					'params' => array()
-				);
-			}
 			// Add parameter under its group!
-			$this->groups[$groupKey]['params'][] = $param;
+			$this->groups[$param->getDefinition()->getGroupId()]['params'][] = $param;
 		}
 		// Instantiate grouper.
 		// Only tab grouper is supported for now!

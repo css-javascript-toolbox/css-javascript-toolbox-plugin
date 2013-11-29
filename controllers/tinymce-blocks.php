@@ -53,10 +53,12 @@ class CJTTinymceBlocksController extends CJTAjaxController {
 		// Display form view.
 		if ($form->get('blockId')) {
 			// Load parameters form.
+			$groups = new CJT_Models_Block_Parameters_Form_Groups($blockId);
 			$params = new CJT_Models_Block_Parameters_Form_Parameters($blockId);
 			$blockParams = new CJT_Framework_View_Block_Parameter_Parameters($params);
 			// Return view content!
 			$paramsView = CJTView::getInstance('tinymce/params', array(
+				'groups' => $groups,
 				'params' => $blockParams->getParams(),
 				'form' => $form->getData(),
 				'blockId' => $blockId

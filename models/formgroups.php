@@ -20,11 +20,13 @@ class CJT_Models_Formgroups {
 	public function delete($keys) {
 		// Initialize.
 		$tblFormGroup = CJTxTable::getInstance('form-group')
-																								->setTableKey(array('formId', 'groupId'));
+															->setTableKey(array('formId', 'groupId'));
+		$tblGroupXFields= CJTxTable::getInstance('form-group-xfields')
+															->setTableKey(array('groupId'));
 		$tblGroupParam = CJTxTable::getInstance('group-parameter')
-																									->setTableKey(array('groupId'));
+															->setTableKey(array('groupId'));
 		$tblParamTypedef = CJTxTable::getInstance('parameter-typedef')
-																									->setTableKey(array('parameterId'));
+																->setTableKey(array('parameterId'));
 		// Delete groups..
 		foreach ($keys as $key) {
 			// Allow only blockId to be passed as scalar!
@@ -38,15 +40,19 @@ class CJT_Models_Formgroups {
 			);
 			// Get all exists ids
 			$groups = $tblFormGroup->setData($key)
-																								->fetchAll();
+														 ->fetchAll();
 			// For each group get all assocuated parameters.
 			foreach ($groups as $group) {
+				// Delete GROUP XFields record associated with the group.
+				$tblGroupXFields->set('groupId', $group['id'])	
+												->delete();
+				// Get all params.
 				$params = $tblGroupParam->set('groupId', $group['id'])
-																											->fetchAll();
+																->fetchAll();
 				// Delete parameters typedef!
 				foreach ($params as $param) {
 					$tblParamTypedef->set('parameterId', $param['parameterId'])
-																				->delete();
+													->delete();
 				}
 				// Delete group parameters.
 				$tblGroupParam->delete();
