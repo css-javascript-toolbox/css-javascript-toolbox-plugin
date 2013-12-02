@@ -34,8 +34,9 @@ CJT_Framework_Developer_Interface_Block_Shortcode_Parameters_Interface_Type {
 	/**
 	* put your comment there...
 	* 
+	* @param mixed $parameter
 	*/
-	public function getBaseTypeFactory() {
+	public function getBaseTypeFactory($parameter) {
 		// Hold local instance!
 		static $baseTypeFactory;
 		if (!$baseTypeFactory) {
