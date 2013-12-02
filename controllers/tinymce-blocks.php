@@ -101,11 +101,16 @@ class CJTTinymceBlocksController extends CJTAjaxController {
 																	->setData(array('id' => $blockId))
 																	->load()
 																	->getData();
+		$blockForm = (array) CJTxTable::getInstance('form')
+																	->setTableKey(array('blockId'))
+																	->setData(array('blockId' => $blockId))
+																	->load()
+																	->getData();
 		// Load block parameters.
 		$parameters = new CJT_Models_Block_Parameters_Parameters($blockId);
 		$blockParams = new CJT_Framework_Developer_Interface_Block_Shortcode_Parameters_Parameters($parameters);
-		// If block has parameters display the form
-		if ($blockParams->hasParams()) {
+		// The the block has FORM associated 
+		if (isset($blockForm['blockId'])) {
 			// If the data is submitted then load the parameters object with the post data!
 			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				// Get RAW data from the data submitted (avoid magic_quotes, Why called MAGIC!!!!)!
