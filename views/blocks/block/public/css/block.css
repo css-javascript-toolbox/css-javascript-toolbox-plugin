@@ -197,7 +197,7 @@ body.fullscreen {overflow: hidden;} /** No scroll-bars */
 body.fullscreen #wpadminbar {display: none;} /** No admin menu */
 .postbox.fullscreen {
 	position: fixed;
-	z-index: 30;
+	z-index: 99;
 	top: 0px;
 	left: 0px;
 	width: 100%;
