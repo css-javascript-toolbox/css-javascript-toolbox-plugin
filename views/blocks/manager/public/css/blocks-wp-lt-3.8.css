@@ -1,1 +1,11 @@
 .block-name {font-size: 15px;}
+
+.cjt-toolbox-blocks {
+	background: #f3f3f3;
+	border: solid #ccc; 
+	border-width: 1px; 
+	padding: 4px 4px 4px 0px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-radius: 6px; 
+}
