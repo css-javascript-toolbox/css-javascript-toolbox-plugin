@@ -117,6 +117,10 @@ class CJTBlocksModel {
 	* @param mixed $ids
 	*/
 	public function delete($ids) {
+		// Allow single or multiple Ids to be passed.
+		if (!is_array($ids)) {
+			$ids = array($ids);
+		}
 		// Create Tables objects.
 		$blocks = new CJTBlocksTable($this->dbDriver);
 		$pins = new CJTBlockPinsTable($this->dbDriver);
