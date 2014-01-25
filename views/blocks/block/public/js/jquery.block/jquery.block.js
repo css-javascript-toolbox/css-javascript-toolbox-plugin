@@ -291,7 +291,6 @@
 				editName.css('left', ((this.elements.blockName.position().left - 2) + 'px')) ;
 				// Set input styles
 				var styles = {
-					'background-color' : this.block.box.find('.hndle').css('background-color'),
 					'font-size' : this.elements.blockName.css('font-size'),
 					'font-family' : this.elements.blockName.css('font-family')
 				};
