@@ -28,7 +28,7 @@
 div.cjpageblock .objects-list-button > a.prog-colored {color: transparent !important;}
 
 .info-panel {display: none; margin-top: 4px; margin-right: 2px; text-align: right;}
-.info-panel .counter {font-size: 14px;}
+.info-panel .counter {font-size: 14px; position: relative; top: -5px;}
 .info-panel .counter .info-panel-loaded-count {color: #A5581B;}
 .info-panel .optional-actions {display: inline-block; width: 80px; height: 12px;}
 .info-panel .optional-actions .pagination-list {
