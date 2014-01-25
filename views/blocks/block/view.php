@@ -98,11 +98,15 @@ class CJTBlocksBlockView extends CJTView {
 	* 
 	*/
 	public static function enqueueStyles() {
-		// Use related styles.
-		self::useStyles(__CLASS__, 
-			'thickbox',
-			'views:blocks:block:public:css:{CJT-}block'
-		);
+		// Initialize style.
+		$styles = array('thickbox', 'views:blocks:block:public:css:{CJT-}block');
+	  // IF WP < 3.8 add compatibility CSS file.
+	  $wpVersion = new CJT_Framework_Wordpress_Currentversion();
+	  if ($wpVersion->isLess('3.8')) {
+			$styles[] = 'views:blocks:block:public:css:{CJT-}block-wp-lt-3.8';
+	  }
+	  // Include styles.
+		self::useStyles(__CLASS__, $styles);
 	}
 	
 	/**

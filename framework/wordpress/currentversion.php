@@ -38,7 +38,7 @@ class CJT_Framework_Wordpress_Currentversion {
 	* @param mixed $version
 	*/
 	public function isLess($version) {
-		return (version_compare('3.6', $version) == -1);
+		return (version_compare($this->getVersion(), $version) == -1);
 	}
 
 } // End class.
