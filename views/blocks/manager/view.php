@@ -131,11 +131,15 @@ class CJTBlocksManagerView extends CJTView {
 	public static function enququeStyles() {
 	  // Enquque single block styles.
 	  CJTBlocksCjtBlockView::enqueueStyles();
-	  // Use blocks page styles.
-		self::useStyles(__CLASS__,
-			'framework:css:{CJT-}toolbox',
-			'views:blocks:manager:public:css:{CJT-}blocks'
-		);
+	  // Styles list.
+	  $styles = array('framework:css:{CJT-}toolbox', 'views:blocks:manager:public:css:{CJT-}blocks');
+	  // IF WP < 3.8 add compatibility CSS file.
+	  $wpVersion = new CJT_Framework_Wordpress_Currentversion();
+	  if ($wpVersion->isLess('3.8')) {
+			$styles[] = 'views:blocks:manager:public:css:{CJT-}blocks-wp-lt-3.8';
+	  }
+	  // Include styles.
+		self::useStyles(__CLASS__, $styles);
 	}
 	
 } // End class.

@@ -61,7 +61,7 @@
 	width: 24px;
 	height: 24px;
 	display: inline-block;
-	/* margin-top: 3px; */
+	margin-top: 3px;
 	cursor: pointer;
 }
 .block-toolbox .icons-group a.il-60x23 {
@@ -138,6 +138,7 @@
   height: 30px;
   top: 0px;
   display: none;
+  font-size: 15px;
 }
 .edit-block-name .icons-group {
 	display: inline-block;
@@ -150,12 +151,10 @@
   margin-right: 10px;
   height: 24px;
   position: relative;
-	top: -8px;
+	top: -3px;
 	margin-left: -4px;
 }
-span.block-name {
-	cursor: pointer;
-}
+span.block-name {cursor: pointer; font-size: 15px;}
 .edit-block-name .cancel { background-image: url(../images/edit-block-name/cancel.png); }
 .edit-block-name .save { background-image: url(../images/edit-block-name/save.png); }
 
