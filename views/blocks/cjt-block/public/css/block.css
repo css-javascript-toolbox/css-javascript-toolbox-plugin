@@ -54,7 +54,7 @@ a.l_ext { position: relative; top: 3px; background:url(../images/pages-panel/ext
 div.cjpageblock .objects-list-button > a.prog-colored {color: transparent !important;}
 
 .info-panel {display: none; margin-top: 4px; margin-right: 2px; text-align: right;}
-.info-panel .counter {font-size: 14px; position: relative; top: -5px;}
+.info-panel .counter {font-size: 14px; position: relative; top: -4px;}
 .info-panel .counter .info-panel-loaded-count {color: #A5581B;}
 .info-panel .optional-actions {display: inline-block; width: 80px; height: 12px;}
 .info-panel .optional-actions .pagination-list {
@@ -73,9 +73,9 @@ div.cjpageblock .objects-list-button > a.prog-colored {color: transparent !impor
 	width: 61px;
 	height: 198px !important;
 	position: relative;
-	margin-left: -64px;
+	margin-left: -62px;
 	margin-top: -179px;
-	left: -13px;
+	left: -15px;
 	top: -7px;
 	color: #A5581B;
 	font-size: 13px;
