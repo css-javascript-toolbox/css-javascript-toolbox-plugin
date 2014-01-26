@@ -35,6 +35,11 @@
 	padding: 4px 4px 4px 0px;
 	clear: both;
 	visibility: hidden;
+	border: solid #ccc; 
+	border-width: 1px; 
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-radius: 6px;
 }
 .cjt-toolbox-blocks .cjt-tb-link.cjttbl-admin-tools {position: relative; top:1px}
 .cjt-toolbox-blocks .icons-group.left-bar {
