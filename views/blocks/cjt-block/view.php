@@ -76,9 +76,15 @@ class CJTBlocksCjtBlockView extends CJTView {
 	public static function enqueueStyles() {
 		// Import related styles.
 		CJTBlocksBlockView::enqueueStyles();
-		self::useStyles(__CLASS__, 
-			'views:blocks:cjt-block:public:css:{CJT_BLOCKS_PAGE_BLOCK-}block'
-		);
+		// Initialize style.
+		$styles = array('views:blocks:cjt-block:public:css:{CJT_BLOCKS_PAGE_BLOCK-}block');
+	  // IF WP < 3.8 add compatibility CSS file.
+	  $wpVersion = new CJT_Framework_Wordpress_Currentversion();
+	  if ($wpVersion->isLess('3.8')) {
+			$styles[] = 'views:blocks:cjt-block:public:css:{CJT_BLOCKS_PAGE_BLOCK-}block-wp-lt-3.8';
+	  }
+	  // Include styles.
+		self::useStyles(__CLASS__, $styles);
 	}
 	
 	/**
