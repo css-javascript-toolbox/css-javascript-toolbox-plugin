@@ -18,13 +18,6 @@ defined('ABSPATH') or die("Access denied");
 class CJTBlocksNewView extends CJTView {
 	
 	/**
-	* put your comment there...
-	* 
-	* @var mixed
-	*/
-	public $position;
-	
-	/**
 	* Initialize view object.
 	* 
 	* @see CJTView for more details
@@ -43,13 +36,6 @@ class CJTBlocksNewView extends CJTView {
 	* @return void
 	*/
 	public function display() {
-		$defaultValues = array('position');
-		// Get form fields default values.
-		foreach ($defaultValues as $name) {
-		  if (array_key_exists($name, $_GET)) {
-				$this->$name = $_GET[$name];
-			}
-		}
 		echo $this->getTemplate('default');
 	}
 	
@@ -79,7 +65,8 @@ class CJTBlocksNewView extends CJTView {
 		self::useStyles(__CLASS__,
 			'thickbox',
 			'framework:css:{CJT-}error-dialog',
-			'framework:css:{CJT-}forms'
+			'framework:css:{CJT-}forms',
+			'views:blocks:new:public:css:{CJT-}add-new-block'
 		);
 	}
 	

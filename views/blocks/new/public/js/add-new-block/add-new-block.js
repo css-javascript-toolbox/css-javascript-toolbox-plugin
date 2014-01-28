@@ -77,7 +77,7 @@
 					.success($.proxy(
 						function(response) {
 							// Add new block to blocks page.
-							newAddedBlock = CJTBlocksPage.addBlock(formData.position, response.view)
+							newAddedBlock = CJTBlocksPage.addBlock(response.view)
 							// Close window.
 							window.parent.tb_remove();
 						}, this)

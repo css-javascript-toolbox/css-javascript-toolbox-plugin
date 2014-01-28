@@ -222,8 +222,8 @@ var CJTBlocksPage;
 				// Server paramerers.
 				viewName : 'blocks/new',
 				// Thick box parameters.
-				width : 450,
-				height: 230,
+				width : 412,
+				height: 82,
 				position : params.toolbox.position,
 				TB_iframe : true // Must be last one Thickbox removes this and later params.
 			};
@@ -463,11 +463,8 @@ var CJTBlocksPage;
 		*
 		*
 		*/
-		addBlock : function(position, content) {
+		addBlock : function(content) {
 			var sortable = CJTBlocksPage.blocksContainer;
-			// New Block positions to jQuery methods mapping.
-			var positions = {top : 'prepend', bottom : 'append'};
-			var positionMethod = positions[position];
 			// Apply toggling: The only way to apply postboxes it via postboxes.add_postbox_toggles method.
 			// Method finding all .postbox elements and bind to click.
 			// Exists .postbox(s) will bind to click event twice and the result is
@@ -476,16 +473,16 @@ var CJTBlocksPage;
 			var currentBlocks = CJTBlocksPage.blocks.getBlocks();
 			currentBlocks.removeClass('postbox').addClass('applying-postbox-to-new-block');
 			// Add block to the selected position.
-			sortable[positionMethod](content);
+			sortable.append(content);
 			// Note: Only new block will be returned because its the only one with .postbox class.
 			var newAddedBlock = CJTBlocksPage.blocks.getBlocks().eq(0);
 			// Add block element.
-			var blockId =newAddedBlock.CJTBlock({}).get(0).CJTBlock.block.get('id');
+			var blockId = newAddedBlock.CJTBlock({}).get(0).CJTBlock.block.get('id');
 			// SET ORDER: Add the new block as first or last Block without saving the unsave orders! //
 			// JUST USE THE CURRENT HASHED (SAVED ON SERVER) + ADDING THE NEW BLOCK!
 			var newBlockOrderName = CJTBlocksPage.blocks.getSortableName(blockId);
 			var order = $.merge([], sortable.data('cjtOrders'));
-			(position == 'top') ? order.unshift(newBlockOrderName) : order.push(newBlockOrderName);
+			order.push(newBlockOrderName)
 			CJTBlocksPage.saveCustomOrder(order);
 			// If this is the first block hide the intro and show normal sortable.
 			if (!CJTBlocksPage.blocks.hasBlocks()) {
