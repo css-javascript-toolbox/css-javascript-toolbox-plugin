@@ -32,9 +32,7 @@
 		}
 		
 		/// Initialize parent class.
-		// Add assigment panel fields to the restoreRevision args.
-		args.restoreRevision = {fields : ['code', 'pages', 'posts', 'categories', 'pinPoint', 'links', 'expressions']};
-		this.initCJTPluginBase(node, args);
+		this.initCJTPluginBase(node, {});
 		
 		// Plug the assigment panel, get the jQuery ELement for it
 		var assigmentPanelElement = this.block.box.find('#tabs-' + this.block.get('id'));

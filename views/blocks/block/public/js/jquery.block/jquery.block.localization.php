@@ -10,7 +10,6 @@
 * Localization text for backups script.
 */
 return array(
-	'blockRevisionsDialogTitle' => cssJSToolbox::getText('Block revisions'),
 	'blockInfoTitle' => cssJSToolbox::getText('CJT-Block Info'),
 	'confirmDelete' => cssJSToolbox::getText('Are you sure you want to delete this (%s) code block?'),
 	'state_activeTitle' => cssJSToolbox::getText('Deactivate (turn off) code block'),

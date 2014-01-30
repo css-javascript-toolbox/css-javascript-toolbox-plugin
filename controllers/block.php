@@ -60,7 +60,6 @@ class CJTBlockController extends CJTAjaxController {
 		$blockId = (int) $_GET['block'];
 		$oTypeParams = $_GET['typeParams'];
 		$offset = $_GET['index'];
-		$assignedOnly = ($_GET['assignedOnly'] == 'false') ? false : true;
 		$initialize = ($_GET['initialize'] == 'false') ? false : true;
 		// Get the corresponding type object
 		// for handling the request.
@@ -71,7 +70,7 @@ class CJTBlockController extends CJTAjaxController {
 		* @var CJT_Models_Block_Assignmentpanel_Base
 		*/
 		$typeObject = CJT_Models_Block_Assignmentpanel_Base
-								::getInstance($assignedOnly, 
+								::getInstance(false, 
 															$typeName,
 															$offset, 
 															$iPerPage, 

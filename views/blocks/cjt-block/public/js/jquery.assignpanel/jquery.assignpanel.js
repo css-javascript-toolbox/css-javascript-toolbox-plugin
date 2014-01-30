@@ -46,11 +46,6 @@
 					/**
 					* 
 					*/
-					this.loadAssignedOnlyMode = (this.block.state == 'restore');
-					
-					/**
-					* 
-					*/
 					this.jElement = $(assigmentPanelElement);
 					
 					/**
@@ -75,7 +70,10 @@
 					var mdlBlock = this.block.block;
 					
 					/**
+					* put your comment there...
 					* 
+					* @param event
+					* @param ui
 					*/
 					var _onadvancedaccordionchanged = function(event, ui) {
 						// Activate textarea under the current selected item content!
@@ -209,15 +207,11 @@
 					var getAPOP = function(index, typeParams, initialize, page) {
 						// Initialize.
 						var server = CJTBlocksPage.server;
-						// Use modeBlockId instead of original block id to be used in case of 
-						// DISPLAY-REVISION mode or any other modes added in the future.
-						var blockId = assignPanel.modeBlockId ? assignPanel.modeBlockId : assignPanel.block.block.get('id');
 						var requestData = {
-							block : blockId,
+							block : mdlBlock.get('id'),
 							index : index,
 							iPerPage : (page * assignPanel.getIPerPage()),
 							typeParams : typeParams,
-							assignedOnly : assignPanel.loadAssignedOnlyMode,
 							initialize : initialize
 						};
 						// Send request to server.
@@ -308,9 +302,7 @@
 																 // checked value changed.
 																.change(_onobjectstatechanged)
 																.prop('checked', item.assigned)
-																.appendTo($('<label></label>').appendTo(itemLi))
-																// If load-assigned-only-mode is activated then disable checkboxes.
-																.prop('disabled', assignPanel.loadAssignedOnlyMode);
+																.appendTo($('<label></label>').appendTo(itemLi));
 								// Add the Checkbox to notification save chnages elements.
 								assignPanel.block.notifySaveChanges.initElement(checkbox.get(0));
 								// Checkbox title container.
@@ -325,8 +317,8 @@
 									title.text(item.title)
 											 .css({'margin-left' : '6px'});
 								}
-								// Create Child Components IF: NOT-IN-REVISION-MODE AND THE ITEM-HAS-CHILD.
-								if (!assignPanel.loadAssignedOnlyMode && item.hasChilds) {
+								// Load only assigned mode
+								if (item.hasChilds) {
 									// Add 'select childs' checkbox just before te title container element.
 									var link = $('<a href="#" class="select-childs-checkbox-overlay"></a>')
 									.click($.proxy(_onselectchilds, this))

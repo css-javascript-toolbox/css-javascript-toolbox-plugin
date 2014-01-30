@@ -68,16 +68,6 @@
 	width: 60px;
 	height: 23px;
 }
-.cjt-toolbox .icons-group .popup-menu.templates-lookup { /* Override default for Templates Lookup*/
-	background-color: #EFEFEF;
-	border: 1px solid #bbb;
-	width: 346px;
-	height: 357px;
-	left: 80px;
-	top: 31px;
-	margin-top: 2px;
-	margin-left: 1px;
-}
 /** Toolbox buttons **/
 
 /* Editor languages classes */
@@ -100,23 +90,6 @@
 	width: 37px !important;
 	height: 18px !important;
 }
-/* Restore revision toolbox buttons. */
-.block-toolbox a.cjttblSW-restore {
-	background: url(../images/toolbox/restore.png);
-	width: 50px !important;
-}
-.block-toolbox a.cjttbl-cancel-restore {
-	background: url(../images/toolbox/cancel-restore.png);
-	background-position: left top !important;
-	text-decoration: none;
-	padding-left: 23px;
-	padding-top: 5px;
-	position: relative;
-	top: -7px;
-	width: 45px !important;
-	height: 18px !important;
-	margin-right: 10px !important;
-}
 
 .block-toolbox a.cjttbl-save.cjttbs-loading {
 	top: -2px;
@@ -124,7 +97,6 @@
 }
 
 .block-toolbox a.cjttbl-save.cjttbs-disabled {background: url(../images/toolbox/save-inactive.png); }
-.block-toolbox a.cjttbl-revisions { background-image: url(../images/toolbox/revisions.png); }
 .block-toolbox a.cjttbl-delete { background-image: url(../images/toolbox/delete.png); }
 .block-toolbox a.location-header { background-image: url(../images/toolbox/header-hook.png); }
 .block-toolbox a.location-footer { background-image: url(../images/toolbox/footer-hook.png); }

@@ -93,8 +93,7 @@
 	*/
 	var defaultOptions = {
 		showObjectsPanel : true,
-		calculatePinPoint : 1,
-		restoreRevision : {fields : ['code']}
+		calculatePinPoint : 1
 	};
 
 	/**
@@ -236,29 +235,6 @@
 		}
 		
 		/**
-		*
-		*
-		*
-		*
-		*/
-		this._ondisplayrevisions = function() {
-			// Restore revision only when block is opened.
-			if (this.block.box.hasClass('closed')) {
-				return false;
-			}
-			// Initialize form request.
-			var revisionsFormParams = {
-				id : this.block.get('id'),
-				width : 300,
-				height : 250,
-				TB_iframe : true
-			};
-			var url = CJTBlocksPage.server.getRequestURL('block', 'get_revisions', revisionsFormParams);
-			tb_show(CJTJqueryBlockI18N.blockRevisionsDialogTitle, url);
-			return false;
-		}
-		
-		/**
 		* Event handler for start editing block name.
 		*
 		* The method display edit block name box and and associate all
@@ -397,7 +373,7 @@
 				return CJTBlocksPage.server.getDeferredObject().resolve().promise();
 			}
 			// Queue User Direct Interact fields (code, etc...).
-			var data = {calculatePinPoint : this.features.calculatePinPoint, createRevision : 1};
+			var data = {calculatePinPoint : this.features.calculatePinPoint};
 			// Push DiFields inside Ajax queue.
 			this.block.queueDIFields();
 			// But save button into load state (Inactive and Showing loading icon).
@@ -645,7 +621,6 @@
 					'editor-language-php' : {callback : this._onswitcheditorlang, params : {lang : 'php'}},
 					'state-switch' : {callback : this._onswitchflag, params : {flag : 'state'}},
 					'save' : {callback : this._onsavechanges, params : {enable : false}},
-					'revisions' : {callback : this._ondisplayrevisions},
 					'delete' : {callback : this._ondelete},
 					'location-switch' : {callback : this._onswitchflag, params : {flag : 'location'}},
 					'get-shortcode' : {callback : this._ongetshortcode},
@@ -683,16 +658,6 @@
 			];
 			/** Add Our Ace Save, Full screen and Code-Auto-Completion commands */
 			editorCommands.addCommands(commands);
-		}
-		
-		/**
-		* 
-		*/
-		this.restoreRevision = function(revisionId, data) {
-			// Create new revision control action.
-			var revisionControl = new CJTBlockOptionalRevision(this, data, revisionId);
-			// Display the revision + enter revision mode.
-			revisionControl.display();
 		}
 	
 		/**

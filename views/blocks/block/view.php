@@ -87,7 +87,6 @@ class CJTBlocksBlockView extends CJTView {
 			'framework:js:ace:{CJT-}pluggable',
 			'views:blocks:block:public:js:{CJT-}ajax',
 			'views:blocks:block:public:js:{CJT-}blockproperty',
-			'views:blocks:block:public:js:optional:{CJT-}revision',
 			'views:blocks:block:public:js:{CJT-}block',
 			'views:blocks:block:public:js:{CJT-}jquery.block'		
 		);
