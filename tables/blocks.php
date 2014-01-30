@@ -73,18 +73,6 @@ class CJTBlocksTable extends CJTTable {
 			$where[] = (!isset($filters['backupId']) ? ' `backupId` IS NULL' : " `backupId` = {$filters['backupId']}");
 			unset($filters['backupId']);
 		}
-		// Filter by parent.
-		if (isset($filters['parent'])) {
-			$filters['parent'] = implode(',', ((array) $filters['parent']));
-			$where[] = " `parent` IN ({$filters['parent']})";
-			unset($filters['parent']);
-		}
-		// Types filter.
-		if (isset($filters['types'])) {
-			$types = '"' .  implode('", "', $filters['types']) . '"';
-			$where[] = " `type` IN ({$types})";
-			unset($filters['types']);
-		}
 		// Do other filters as standard where opertions nothing specific here.
 		$where = array_merge($where, $this->prepareQueryParameters($filters));
 		// Build where clause if there.
