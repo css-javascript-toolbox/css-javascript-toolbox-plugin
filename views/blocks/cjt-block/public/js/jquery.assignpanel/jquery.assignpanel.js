@@ -83,32 +83,6 @@
 					};
 
 					/**
-					* put your comment there...
-					* 
-					* @param event
-					*/
-					var _ondetectlistscroll = function(event) {
-						// Initialize.
-						var list = this;
-						var jList = $(list);
-						// Don't load unless not all items has been loaded.
-						if (jList.data('itemsLoaded') === true) {
-							return;
-						}
-						// Prevent multiple requests at the same time.
-						var isLoading = jList.data('cjt_isObjectListLoading');
-						// Scroll value.
-						var scrollValue = list.scrollTop;
-						// The hidden zone!
-						var scrollZone = list.scrollHeight - jList.innerHeight();
-						// If the ScrollValue = ScrollZone
-						// then we need to load a new page.
-						if ((scrollValue == scrollZone) && (isLoading === false)) {
-							list.getCJTBlockAPOP(false);
-						}
-					};
-
-					/**
 					*
 					* 
 					* @param event
@@ -171,31 +145,6 @@
 								map[groupName][objectId] = item;	
 							}
 						}
-					};
-					
-					/**
-					* put your comment there...
-					* 
-					* @param event
-					* 
-					* @returns {Boolean}
-					*/
-					var _onselectchilds = function(event) {
-						// Initialize vars.
-						var overlay = $(event.target);
-						var checkbox = overlay.parent().find('.select-childs');
-						var state = checkbox.prop('checked') ? '' : 'checked';
-						// Work only if select-child checkbox is interactive!
-						if (checkbox.attr('disabled') != 'disabled') {
-							// Revert checkbox state.
-							checkbox.prop('checked', state);
-							// Clone state to parent checkbox.
-							checkbox.parent().find('label>input:checkbox').prop('checked', state).trigger('change');
-							//Clone state to all child checkboxes
-							checkbox.parent().find('.children input:checkbox').prop('checked', state).trigger('change');
-						}
-						// For link to behave inactive.
-						return false;
 					};
 
 					/**
@@ -327,12 +276,6 @@
 								}
 								// Create Child Components IF: NOT-IN-REVISION-MODE AND THE ITEM-HAS-CHILD.
 								if (!assignPanel.loadAssignedOnlyMode && item.hasChilds) {
-									// Add 'select childs' checkbox just before te title container element.
-									var link = $('<a href="#" class="select-childs-checkbox-overlay"></a>')
-									.click($.proxy(_onselectchilds, this))
-									.insertBefore(title);
-									// Overlay checkbox.
-									link.after('<input type="checkbox" class="select-childs">');
 									// Add child items list below the title container.
 									$('<ul class="children"></ul>')
 									.prop('id', ('objects-list-' + typeParams.type + '-' + mdlBlock.get('id') + '-' + item.id))
@@ -520,9 +463,6 @@
 								// List items.
 								return assignPanel.list_GetAPOP.apply(this, [initialize, 1]);
 							};
-							listElementNode._ondetectlistscroll = _ondetectlistscroll;
-							// Fetch objects from server with list scrolls event.
-							listElement.bind('scroll.cjt', listElementNode._ondetectlistscroll);
 							// Cache object-list-element reference for later use.
 							this.buttons[listParams['group']].push(objectListEle);
 						}, this)

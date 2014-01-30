@@ -93,8 +93,7 @@
 	*/
 	var defaultOptions = {
 		showObjectsPanel : true,
-		calculatePinPoint : 1,
-		restoreRevision : {fields : ['code']}
+		calculatePinPoint : 1
 	};
 
 	/**
@@ -233,29 +232,6 @@
 				// Delete block.
 			  CJTBlocksPage.deleteBlocks(this.block.box);
 			}
-		}
-		
-		/**
-		*
-		*
-		*
-		*
-		*/
-		this._ondisplayrevisions = function() {
-			// Restore revision only when block is opened.
-			if (this.block.box.hasClass('closed')) {
-				return false;
-			}
-			// Initialize form request.
-			var revisionsFormParams = {
-				id : this.block.get('id'),
-				width : 300,
-				height : 250,
-				TB_iframe : true
-			};
-			var url = CJTBlocksPage.server.getRequestURL('block', 'get_revisions', revisionsFormParams);
-			tb_show(CJTJqueryBlockI18N.blockRevisionsDialogTitle, url);
-			return false;
 		}
 		
 		/**
@@ -616,18 +592,6 @@
 			this.toolbox = model.box.find('.block-toolbox').CJTToolBox({
 				context : this,
 				handlers : {
-					'templates-lookup' : {
-						type : 'Popup',
-						callback : this._onlookuptemplates,
-						params : {
-								fitToScreen : true, /* Custom to be used inside this._onpopupmenu() method */
-							_type : {
-								onPopup : this._onpopupmenu,
-								targetElement : '.templates-lookup',
-								setTargetPosition : false
-							}
-						}
-					},
 					'switch-editor-language' : {
 						type : 'Popup',
 						params : {
@@ -645,10 +609,8 @@
 					'editor-language-php' : {callback : this._onswitcheditorlang, params : {lang : 'php'}},
 					'state-switch' : {callback : this._onswitchflag, params : {flag : 'state'}},
 					'save' : {callback : this._onsavechanges, params : {enable : false}},
-					'revisions' : {callback : this._ondisplayrevisions},
 					'delete' : {callback : this._ondelete},
 					'location-switch' : {callback : this._onswitchflag, params : {flag : 'location'}},
-					'get-shortcode' : {callback : this._ongetshortcode},
 					'edit-name' : {callback : this._oneditname},
 					'info' : {callback : this._ongetinfo},
 				}
@@ -657,9 +619,6 @@
 			this._onswitcheditorlang(undefined, {lang : model.get('editorLang', 'css')});
 			// Register COMMAND-KEYS.
 			this.registerCommands();
-			// Switch Block state if required, if state is empty nothing will happen.
-			// Until now only 'restore' state is supported to prevent saving restored block.
-			this.switchState(this.features.state);
 			// Display block. 
 			// !important: Blocks come from server response doesn't need this but the newly added blocks does.
 			// need sometime to be ready for display.
@@ -684,16 +643,6 @@
 			/** Add Our Ace Save, Full screen and Code-Auto-Completion commands */
 			editorCommands.addCommands(commands);
 		}
-		
-		/**
-		* 
-		*/
-		this.restoreRevision = function(revisionId, data) {
-			// Create new revision control action.
-			var revisionControl = new CJTBlockOptionalRevision(this, data, revisionId);
-			// Display the revision + enter revision mode.
-			revisionControl.display();
-		}
 	
 		/**
 		* Change Block options.
@@ -702,26 +651,6 @@
 		*
 		*/
 		this.setOptions = function() {}
-		
-		/*
-		*
-		*
-		*
-		*/
-		this.switchState = function(state) {
-			switch (state) {
-				case 'restore':
-					// Hide block toolbox.
-					this.toolbox.jToolbox.hide();
-					// Disable all fields.
-					this.enable(false);
-					// Change state
-					this.state = 'restore';
-				default:
-					 // Nothing for now
-				break;
-			}
-		}
 		
 	} // End class.
 	

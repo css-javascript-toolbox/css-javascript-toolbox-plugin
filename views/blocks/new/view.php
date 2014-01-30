@@ -79,7 +79,8 @@ class CJTBlocksNewView extends CJTView {
 		self::useStyles(__CLASS__,
 			'thickbox',
 			'framework:css:{CJT-}error-dialog',
-			'framework:css:{CJT-}forms'
+			'framework:css:{CJT-}forms',
+			'views:blocks:new:public:css:{CJT-}add-new-block'
 		);
 	}
 	
