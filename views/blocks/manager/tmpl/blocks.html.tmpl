@@ -44,9 +44,6 @@ defined('ABSPATH') or die("Access denied");
 		<input type="hidden" id="cjt-securityToken" value="<?php echo $this->securityToken ?>" />
 		<div id="poststuff" class="metabox-holder">
 			<div id="post-body">
-<?php if ($this->backupId) : ?>
-				<p id="cjt-info"><?php  echo cssJSToolbox::getText('You have now restored the code blocks from the current backup. Nothing is saved until you click "Restore" button. To revert back to the previous code blocks and discard this action, simply click the "Cancel Restore" button.') ?></p>
-<?php endif; ?>
 <?php 	echo $this->getTemplate('toolbox', array('location' => 'top'));	?>
 <?php		do_meta_boxes($this->pageHook, 'normal', null); ?>
 				<div id="cjt-noblocks-intro"<?php if ($this->hasBlocks) : ?> style="display:none"<?php endif; ?>>

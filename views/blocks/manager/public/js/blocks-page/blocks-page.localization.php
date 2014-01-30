@@ -11,9 +11,6 @@
 */
 return array(
 	'addNewBlockDialogTitle' => cssJSToolbox::getText('Create New Code Block'),
-	'manageBackupsDialogTitle' => cssJSToolbox::getText('Backups'),
-  'confirmRestoreBlocks' => cssJSToolbox::getText('Restoring blocks backup will result in losing all the current blocks.')."\n\n".cssJSToolbox::getText('Are you sure, you\'d like to continue?'),
-	'unableToRestoreBackup' => cssJSToolbox::getText('Backup could not be restored'),
 	'commonDeleteMessage' => cssJSToolbox::getText('You\'re about to delete %d code block(s).'),
 	'confirmDeleteAll' => cssJSToolbox::getText('Are you sure you want to delete all code blocks?'),
 	'confirmDeleteEmpty' => cssJSToolbox::getText('Are you sure you want to delete all the empty code blocks?'),

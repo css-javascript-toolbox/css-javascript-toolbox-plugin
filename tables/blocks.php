@@ -55,7 +55,7 @@ class CJTBlocksTable extends CJTTable {
 	* @deprecated @param mixed $returnType
 	* @param mixed $orderBy
 	*/
-	public function get($ids = array(), $fields = array('*'), $filters = array(), $returnType = OBJECT_K, $orderBy = array(), $useDefaultBackupFltr = true) {
+	public function get($ids = array(), $fields = array('*'), $filters = array(), $returnType = OBJECT_K, $orderBy = array()) {
 		// Warn if $returnTypes is used
 		if ($returnType != OBJECT_K) {
 			die('Warning! Using $returnType with value other than OBJECT_K from the caller!!!');
@@ -67,11 +67,6 @@ class CJTBlocksTable extends CJTTable {
 		if (!empty($ids)) {
 			$ids = implode(',', $ids);
 			$where[] = " `id` IN ({$ids})";
-		}
-		// Filter by backup name.
-		if ($useDefaultBackupFltr) {
-			$where[] = (!isset($filters['backupId']) ? ' `backupId` IS NULL' : " `backupId` = {$filters['backupId']}");
-			unset($filters['backupId']);
 		}
 		// Do other filters as standard where opertions nothing specific here.
 		$where = array_merge($where, $this->prepareQueryParameters($filters));

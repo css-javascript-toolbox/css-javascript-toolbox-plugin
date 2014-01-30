@@ -62,7 +62,7 @@ class CJTBlocksAjaxController extends CJTAjaxController {
 	* 
 	* @return void
 	*/
-	public function createBlockAction($blockId = null, $blockType = null, $pinPoint = null, $viewName = null) {
+	public function createBlockAction($blockId = null, $pinPoint = null, $viewName = null) {
 		$response = array();
 		// If viewName not provided read it from request vars.
 		if (!$viewName) {
@@ -80,7 +80,6 @@ class CJTBlocksAjaxController extends CJTAjaxController {
 			'owner' => get_current_user_id(),
 			'created' => $wordpressMYSQLTime,
 			'lastModified' => $wordpressMYSQLTime,
-			'type' => $blockType,
 			'pinPoint' => $pinPoint,
 		);
 		// Read parameters from the request.
@@ -105,7 +104,7 @@ class CJTBlocksAjaxController extends CJTAjaxController {
 		}
 		else {
 			$block->setValues($newBlockData);
-			if ($viewName ){
+			if ($viewName){
 				// Get block view.
 				$blockView = CJTController::getView("blocks/{$viewName}");
 				// Push vars into the view.
@@ -135,9 +134,7 @@ class CJTBlocksAjaxController extends CJTAjaxController {
 		// Some views required objects to be pushed into it before displaying
 		// the controller element is a callback that a Dummy Controller from which
 		// this variables should be pushed.
-		$allowedViews = array(
-			'blocks/new' => array(),
-		);
+		$allowedViews = array('blocks/new' => array());
 		// Prepare parameters.
 		$viewName = filter_input(INPUT_GET, 'viewName', FILTER_SANITIZE_STRING);
 		if (array_key_exists($viewName, $allowedViews) === FALSE) {

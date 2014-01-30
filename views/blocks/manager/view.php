@@ -19,13 +19,6 @@ class CJTBlocksManagerView extends CJTView {
 	* 
 	* @var mixed
 	*/
-	public $backupId;
-	
-	/**
-	* put your comment there...
-	* 
-	* @var mixed
-	*/
 	public $blocks = array();
 	
 	/**

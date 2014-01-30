@@ -174,41 +174,8 @@ var CJTBlocksPage;
 					}
 				);
 				return isEnabled;
-			},
-			
-			/*
-			*
-			*
-			*
-			*/
-			switchState : function(state) {
-				var buttonsToHide;
-				switch (state) {
-					case 'restore':
-						// Hide Add New Block, Save all changes, location tools and state tools buttons.
-						buttonsToHide = ['save-changes', 'add-block', 'state-tools', 'location-tools'];
-					break;
-					default:
-					  // Hide Restore & Cancel Restore buttons.
-					  buttonsToHide = ['restore', 'cancel-restore'];
-					break;
-				}
-				// Hide buttons.
-				this.toolboxes.each(
-					// Get all toolboxes.
-					function(tbIndex, toolbox) {
-						// Hide all buttons for each toolbox.
-						$.each(buttonsToHide,
-							function(btnIndex, buttonName) {
-								var button = toolbox.CJTToolBox.buttons[buttonName];
-								button.jButton.css('display', 'none');
-							}
-						);
-					}
-				);
-				// Display Toolboxes.
-				this.css('visibility', 'visible');
 			}
+
 		},
 				
 		/**
@@ -230,14 +197,6 @@ var CJTBlocksPage;
 			var url = CJTBlocksPage.server.getRequestURL('blocksPage', 'get_view', requestData);
 			// Popup form.
 			tb_show(CJTBlocksPageI18N.addNewBlockDialogTitle, url);
-		},
-		
-		/**
-		* put your comment there...
-		* 
-		*/
-		_oncancelrestore : function() {
-			window.location.href = window.location.href.replace(/&backupId=\d+/, '');
 		},
 		
 		/**
@@ -298,24 +257,6 @@ var CJTBlocksPage;
 		},
 		
 		/**
-		*
-		*
-		*
-		*
-		*/
-		_onmanagebackups : function() {
-			// Server request.
-			var requestData = {
-				// Thick box parameters.
-				width : 480,
-				height: 400,
-				TB_iframe : true // Must be last one Thickbox removes this and later params.
-			};
-			var url = CJTBlocksPage.server.getRequestURL('blocksBackups', 'list', requestData);
-			tb_show(CJTBlocksPageI18N.manageBackupsDialogTitle, url);
-		},
-		
-		/**
 		* put your comment there...
 		* 
 		*/
@@ -323,39 +264,6 @@ var CJTBlocksPage;
 			var params = {width: 700, height: 600,TB_iframe : true};
 			var settingsFormURL = CJTBlocksPage.server.getRequestURL('settings', 'manageForm', params);
 			tb_show(CJTBlocksPageI18N.settingsFormTitle, settingsFormURL);
-		},
-
-		/**
-		* put your comment there...
-		* 
-		*/
-		_onrestore : function() {
-			// Confirm restore.
-			var doRestore = confirm(CJTBlocksPageI18N.confirmRestoreBlocks);
-			if (doRestore) {
-				// Disable restore button for all toolboxes.
-				var ibCancelRestore = CJTBlocksPage.toolboxes.getIButton('cancel-restore', 'enable', [false]);
-				// SHow loading for restore buttons.
-				var ibRestoreLoader = CJTBlocksPage.toolboxes.getIButton('restore', 'loading', [true, false]);
-				// Send request to server.
-				var requestData = {backupId : CJTBlocksPage.isRestore()};
-				CJTBlocksPage.server.send('blocksBackups', 'restore', requestData)
-				.success(
-					function() {
-						// Refresh the page without backupId parameter.
-						CJTBlocksPage._oncancelrestore();
-					}
-				)
-				.error(
-					function() {
-						// Notify user error.
-						alert(CJTBlocksPageI18N.unableToRestoreBackup);
-						// Stop loading progress.
-						ibCancelRestore.dispatch([true]);
-						ibRestoreLoader.dispatch([false, true]);
-					}
-				);
-			}
 		},
 		
 		/**
@@ -543,16 +451,6 @@ var CJTBlocksPage;
 		*
 		*
 		*
-		*/		
-		getStateName : function() {
-			var stateName = this.isRestore() ? 'restore' : '';
-			return stateName;
-		},
-		
-		/*
-		*
-		*
-		*
 		*/
 		init : function() {
 			// Initialize object vars.
@@ -631,23 +529,6 @@ var CJTBlocksPage;
 			};
 			// When navigating away notify saving changes.
 			window.onbeforeunload = CJTBlocksPage._onunload;
-			// Switch blocks page state.
-			CJTBlocksPage.switchState(CJTBlocksPage.getStateName());
-		},
-
-		/*
-		*
-		*
-		*
-		*/		
-		isRestore : function() {
-			// If there is backupId parameter then this is a restore state.
-			var regEx = /backupId=(\d+)/;
-			var backupId = false;
-			if (regEx.test(window.location.href)) {
-				backupId = parseInt(window.location.href.match(regEx)[1]);
-			}
-			return backupId;
 		},
 		
 		/*
@@ -724,16 +605,6 @@ var CJTBlocksPage;
 					CJTBlocksPage.blocksContainer.data('cjtOrders', ordersArray);
 				}, this)
 			);
-		},
-		
-		/*
-		*
-		*
-		*
-		*/
-		switchState : function(state) {
-			// For now only toolboxes need to switch state.
-			CJTBlocksPage.toolboxes.switchState(state);
 		}
 		
 	} // End class.

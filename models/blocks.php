@@ -110,13 +110,13 @@ class CJTBlocksModel {
 	* 
 	* @param mixed $ids
 	*/
-	public function getBlocks($ids = array(), $filters = array(), $fields = array('*'), $returnType = OBJECT_K, $orderBy = array(), $useDefaultBackupFltr = true) {
+	public function getBlocks($ids = array(), $filters = array(), $fields = array('*'), $returnType = OBJECT_K, $orderBy = array()) {
 		$blocks = array();
 		// Create Tables objects.
 		$blocksTable = new CJTBlocksTable($this->dbDriver);
 		$pinsTable = new CJTBlockPinsTable($this->dbDriver);
 		// Read blocks.
-		$blocks = $blocksTable->get($ids, $fields, $filters, $returnType, $orderBy, $useDefaultBackupFltr);
+		$blocks = $blocksTable->get($ids, $fields, $filters, $returnType, $orderBy);
 		// Get only pins for retrieved blocks.
 		$ids = array_keys($blocks);
 		$pins = empty($ids) ? array() : $pinsTable->get($ids);
