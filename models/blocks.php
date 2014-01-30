@@ -64,44 +64,6 @@ class CJTBlocksModel {
 	}
 	
 	/**
-	* put your comment there...
-	* 
-	* @param mixed $id
-	*/
-	public function addRevision($blockId) {
-		// Create Tables objects.
-		$blocks = new CJTBlocksTable($this->dbDriver);
-		$pins = new CJTBlockPinsTable($this->dbDriver);
-		// We allow only up to self::MAX_REVISIONS_PER_BLOCK revisions per block.
-		$revisions['fields'] 	= array('id');
-		$revisions['filters'] = array('type' => 'revision', 'parent' => $blockId);
-		$revisions = $blocks->get(null, $revisions['fields'], $revisions['filters']);
-		// If revisions reached self::MAX_REVISIONS_PER_BLOCK delete first one.
-		if (count($revisions) == self::MAX_REVISIONS_PER_BLOCK) {
-			$this->delete(array_shift($revisions)->id);
-		}
-		// Get block data.                                                    
-		$block['fields'] = array('id', 'lastModified', 'pinPoint', 'code', 'links', 'expressions');
-		// get() developed to return multiple blocks, fetch the first.
-		$result = $blocks->get($blockId, $block['fields']);
-		$block = reset($result);
-		// Set other fields.
-		$block->location = $block->state = '';
-		$block->parent = $blockId;
-		$block->type = 'revision';
-		$block->created = current_time('mysql');
-		$block->owner = get_current_user_id();
-		$block->id = $blocks->getNextId(); // Get new id for revision rrecord.
-		// Add block data.
-		$blocks->insert($block);
-		// Get block pins and insert pins for the revision block.
-		$blockPins = $pins->get($blockId);
-		if (!empty($blockPins)) {
-			$pins->insertRaw($block->id, $blockPins);
-		}
-	}
-	
-	/**
 	* Put your comments here...
 	*
 	*
@@ -124,19 +86,6 @@ class CJTBlocksModel {
 		// Create Tables objects.
 		$blocks = new CJTBlocksTable($this->dbDriver);
 		$pins = new CJTBlockPinsTable($this->dbDriver);
-		// Get blocks revisions.
-		$revisions['fields'] = array('id');
-		$revisions['filters']['parent'] = $ids;
-		$revisions['type'] = 'revision';
-		$revisions['result'] = $blocks->get(null, $revisions['fields'], $revisions['filters']);
-		// Revisions ids used as revision key.
-		$revisions = array_keys($revisions['result']);
-		// Delete all revisions for all "DELETED" blocks
-		// only if there is at least one revision.
-		if (!empty($revisions)) {
-			$blocks->delete($revisions);
-			$pins->delete($revisions);
-		}
 		// Delete blocks.
 		$blocks->delete($ids);
 		$pins->delete($ids);

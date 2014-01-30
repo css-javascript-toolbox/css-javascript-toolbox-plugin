@@ -184,8 +184,6 @@ class CJTBlocksAjaxController extends CJTAjaxController {
 				$blockData->id = $id;
 				// Recalculate pinPoint field value.
 				!$calculatePinPoint or (CJTBlockModel::arrangePins($blockData) && CJTBlockModel::calculateBlockPinPoint($blockData));
-				// Create block revision.
-				!$createRevision or $this->model->addRevision($id);
 				// Set lastModified field to current time.
 				$blockData->lastModified = current_time('mysql');
 				// Update database.
