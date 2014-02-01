@@ -1,7 +1,9 @@
 /** CSS &amp; Javascript Toolkit - blocks page CSS **/
 /* Wordpress Page */
 .wrap { position: relative; }
-.cjt-banner-bar .cjt-banner-link a, .cjt-banner-bar a:hover, .cjt-banner-bar a:visited{color: #A5581B;}
+a.headerlink, a.headerlink:hover, a.headerlink:visited{color: #A5581B; font-size: 16px;}
+h2#cjt-title {display: inline-block;}
+
 #cjt-banner-bar-right {right: 0px;position: absolute;top: 2px;}
 #cjt-banner-bar-right .cjt-banner-link {margin-bottom: 6px;}
 
