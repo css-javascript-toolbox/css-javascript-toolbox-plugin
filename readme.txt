@@ -129,7 +129,7 @@ Sometimes a bug decides to rear its ugly head and when this happens, this is whe
 == Changelog ==
 
 = 6.1.4 =
-* Fix: Assignment Pagination Icon position fixed.
+* Fix: Assignment Panel Pagination Icon position fixed for Safari browsers.
 * Remove: New Block Form Activate, Location Hook and Initial position fields.
 * Remove: Block Revisions.
 * Remove: Blocks Backup and Restore.
