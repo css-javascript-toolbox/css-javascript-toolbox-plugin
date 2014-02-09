@@ -346,7 +346,8 @@ abstract class CJTView extends CJTHookableClass {
 			$scriptParameters = isset($scriptObject[5]) ? $scriptObject[5] : '';
 			if (!isset($stack[$name])) {
 				// Any JS lib file should named the same as the parent folder with the extension added.
-				$libPath = ":{$scriptObject[4]}:{$scriptObject[4]}";
+				// Except files with _ at the begning
+				$libPath = ':' . ((strpos($scriptObject[4], '_') === 0) ? substr($scriptObject[4], 1) : "{$scriptObject[4]}:{$scriptObject[4]}");
 				// Pass virtual path to getURI and resolvePath to
 				// get JS file URI and localization file path.
 				$jsFile = cssJSToolbox::getURI(preg_replace($nameExp, "{$libPath}.js", $script));
