@@ -84,7 +84,6 @@ class CJTBlocksBlockView extends CJTView {
 			'framework:js:ajax:{CJT-}cjt-server-queue',
 			'framework:js:ui:{CJT-}jquery.toolbox',
 			'framework:js:ace(loadMethod=Tag, lookFor=ace)',
-			'framework:js:ace:{CJT-}pluggable',
 			'views:blocks:block:public:js:{CJT-}ajax',
 			'views:blocks:block:public:js:{CJT-}blockproperty',
 			'views:blocks:block:public:js:optional:{CJT-}revision',
