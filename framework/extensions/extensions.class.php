@@ -297,9 +297,14 @@ class CJTExtensions extends CJTHookableClass {
 	* @TODO: REMOVE HTML-MARKUP. CJT PLUGIN NEVER WRITE MARKUP IMIXED WITH HTML. ITS VERY BAD PROGRAMMING PRACTICE. THIS WILL BE REMOVED NEXT TIME AS WE IN RUSH!!!
 	*/
 	public function processIncompatibles() {
+		// Proces only if in CJT page.
+		if (!isset($_GET['page']) || ($_GET['page'] != 'cjtoolbox')) {
+			return;
+		}
 		// INitialize.
 		$message = cssJSToolbox::getText('CJT detects incompatible installed extensions and must be updated. The extsnsions is listed below.
 																			Please upgrade those listed extension from Wordpress Plugins or update pages.
+																			Those appllication are stopped until the upgrade is done.
 																			If you\'ve any problem upgrading them please visit CJT website by clicking extension links below.');
 		$list = '';
 		// For every compatible extension add
