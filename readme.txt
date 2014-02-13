@@ -131,6 +131,7 @@ Sometimes a bug decides to rear its ugly head and when this happens, this is whe
 = 6.1.5 =
 * Enhance: Editor enhancements and updates.
 * Enhance: Framework updates (Allow installing New CAC extension).
+* Fix: Safari Browser pagination icon position.
 
 = 6.1.4 =
 * Fix: Assignment Panel Pagination Icon position fixed for Safari browsers.
