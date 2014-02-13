@@ -562,6 +562,8 @@
 			this.notifySaveChanges = (new notifySaveChangesProto(this)).initDIFields();
 			// Set Plugin options.
 			this.setOptions();
+			// Load
+			this.load();
 		}
 		
 		/**
@@ -625,6 +627,11 @@
 			model.box.css({display : 'block'}).addClass('cjt-block');
 		}
 
+		/**
+		* 
+		*/
+		this.load = function() {/* Compatibility with PRO Edition CORE for Extensions to run with a single Interface */};
+		
 		/**
 		* 
 		*/

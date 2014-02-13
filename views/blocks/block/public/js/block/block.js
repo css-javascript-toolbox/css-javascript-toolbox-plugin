@@ -99,6 +99,7 @@ var CJTBlockBase;
 												 selector : 'div#editor-{blockId}'};
 			properties.editorLang = {flags: 'rwc'};
 			properties.pagesPanelToggleState = {flags: 'rwc'};
+			properties.editorTheme = {flags: 'rwc'};
 			// Initialize ALL (BASE, DERIVDED) properties.
 			$.each(properties, $.proxy(
 				function(name, propertyDefinition) {
