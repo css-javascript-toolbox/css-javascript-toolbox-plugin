@@ -7,7 +7,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.6
 Tested up to: 3.8.1
-Stable tag: 6.1.4
+Stable tag: 6.1.5
 
 Easily add custom CSS, JavaScript, HTML and PHP code to unique CJT code blocks and assign them wherever you want.
 
@@ -127,6 +127,10 @@ Sometimes a bug decides to rear its ugly head and when this happens, this is whe
 2. CJT Shortcode button
 
 == Changelog ==
+
+= 6.1.5 =
+* Enhance: Editor enhancements and updates.
+* Enhance: Framework updates (Allow installing New CAC extension).
 
 = 6.1.4 =
 * Fix: Assignment Panel Pagination Icon position fixed for Safari browsers.
