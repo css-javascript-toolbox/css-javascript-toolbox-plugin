@@ -47,32 +47,37 @@
 
 div.cjpageblock .objects-list-button > a.prog-colored {color: transparent !important;}
 
-.info-panel {display: none; margin-top: 4px; margin-right: 2px; text-align: right;}
-.info-panel .counter {font-size: 14px; position: relative; top: -4px;}
+.info-panel {
+	display: none;
+	margin-top: 3px;
+	margin-right: 2px;
+	text-align: right;
+	height: 26px;
+	margin-left: 88px;
+}
+.info-panel .optional-actions {display: inline-block; height: 100%;}
+.info-panel .counter {font-size: 14px; float: right;}
 .info-panel .counter .info-panel-loaded-count {color: #A5581B;}
-.info-panel .optional-actions {display: inline-block; width: 80px; height: 12px;}
 .info-panel .optional-actions .pagination-list {
 	background-image: url('../images/pages-panel/pagination.png');
 	width: 16px;
 	height: 16px;
 	background-repeat: no-repeat;
 	display: inline-block;
-	margin-top: -20px;
-	position: relative;
-	left: 0px;
+	position: absolute;
+	margin-top: 3px;
+	margin-left: -27px;
 }
 .info-panel .optional-actions .pagination-options-list {
 	display: none;
 	z-index: 1;
 	width: 61px;
 	height: 198px !important;
-	position: relative;
-	margin-left: -62px;
-	margin-top: -179px;
-	left: -15px;
-	top: -7px;
+	position: absolute;
 	color: #A5581B;
 	font-size: 13px;
+	margin-left: -88px;
+	margin-top: -182px;
 }
 
 /**
