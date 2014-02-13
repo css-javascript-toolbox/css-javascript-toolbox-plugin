@@ -302,8 +302,8 @@ class CJTExtensions extends CJTHookableClass {
 			return;
 		}
 		// INitialize.
-		$message = cssJSToolbox::getText('CJT detects incompatible installed extensions and must be updated. The extsnsions is listed below.
-																			Please upgrade those listed extension from Wordpress Plugins or update pages.
+		$message = cssJSToolbox::getText('CJT detects incompatible installed extensions and must be updated. Extensions are listed below.
+																			Please upgrade those extensions from Wordpress Plugins or update page.
 																			Those extensions are now stopped until the upgrade is done.
 																			If you\'ve any problem upgrading them please visit CJT website by clicking extension links below.');
 		$list = '';
