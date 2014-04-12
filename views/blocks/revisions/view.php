@@ -28,18 +28,6 @@ class CJTBlocksRevisionsView extends CJTView {
 	public $revisions = array();
 	
 	/**
-	* put your comment there...
-	* 
-	*/
-	public function __construct($info) {
-		// Initialize CJTView base class.
-		parent::__construct($info);
-		// Initialize.
-		$this->enququeScripts();
-		$this->enququeStyles();
-	}
-	
-	/**
 	* Output Javascript files requirred to Add-New-Block view to run.
 	* 
 	* @return void

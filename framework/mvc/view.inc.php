@@ -321,6 +321,18 @@ abstract class CJTView extends CJTHookableClass {
 	* put your comment there...
 	* 
 	*/
+	protected function & suppressPrintScriptsHook() {
+		// Access Global.
+		global $wp_actions;
+		// Mark as triggered.
+		$wp_actions['wp_print_scripts'] = true;
+		// Chain.
+		return $this;
+	}
+	/**
+	* put your comment there...
+	* 
+	*/
 	protected static function useScripts($className, $scripts = null) {
 		wp_enqueue_script('Just Load Default Scripts, this works great!!!!');
 		// Use current class name is $className is not provided!

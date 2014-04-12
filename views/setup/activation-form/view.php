@@ -42,20 +42,6 @@ class CJTSetupActivationFormView extends CJTView {
 	/**
 	* put your comment there...
 	* 
-	* @param mixed $info
-	* @return CJTInstallerNoticeView
-	*/
-	public function __construct($info) {
-		// CJTView class!
-		parent::__construct($info);
-		// Enqueue Styles & Scripts.
-		add_action('admin_print_styles', array(__CLASS__, 'enququeStyles'));
-		add_action('admin_print_scripts', array(__CLASS__, 'enqueueScripts'));
-	}
-	
-	/**
-	* put your comment there...
-	* 
 	* @param mixed $tpl
 	*/
 	public function display($tpl = null) {

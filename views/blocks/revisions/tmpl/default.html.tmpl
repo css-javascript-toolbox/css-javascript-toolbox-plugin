@@ -5,6 +5,11 @@
 
 // Disallow direct access.
 defined('ABSPATH') or die("Access denied");
+
+// Allow view to enqueue scripts and styles.
+$this->enququeScripts();
+$this->enququeStyles();
+$this->suppressPrintScriptsHook();
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>

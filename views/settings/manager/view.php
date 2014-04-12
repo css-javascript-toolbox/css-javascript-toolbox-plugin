@@ -35,9 +35,6 @@ class CJTSettingsManagerView extends CJTView {
 		$this->pages = array(
 			array('name' => 'uninstall', 'displayName' => cssJSToolbox::getText('Uninstall')),
 		);
-		// Enqueue external resources.
-		$this->enqueueScripts();
-		$this->enqueueStyles();
 	}
 	
 	/**

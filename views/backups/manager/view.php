@@ -39,19 +39,6 @@ class CJTBackupsManagerView extends CJTView {
 	public $currentBackup = null;
 	
 	/**
-	* Initialize view object.
-	* 
-	* @see CJTView for more details
-	* @return void
-	*/
-	public function __construct($parameters) {
-		parent::__construct($parameters);
-		// Enqueue Styles & Scripts.
-		$this->enququeScripts();
-		$this->enququeStyles();
-	}
-	
-	/**
 	* Output Add New Block markups.
 	* 
 	* @return void
