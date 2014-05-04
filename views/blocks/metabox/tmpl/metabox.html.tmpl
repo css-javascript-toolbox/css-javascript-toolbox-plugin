@@ -1,0 +1,32 @@
+<?php
+/**
+* 
+*/
+
+// Disallow direct access.
+defined('ABSPATH') or die("Access denied");
+
+// Block Templates.
+require CJTOOLBOX_VIEWS_PATH . '/blocks/block/tmpl/menu/menu.html.tmpl';
+require CJTOOLBOX_VIEWS_PATH . '/blocks/block/tmpl/codefile/codefile.html.tmpl';
+		
+// Display as metabox without using Wordpress Metabox APIs.
+if ($this->getOption('customizeMetabox')) : ?>
+<div id="cjtoolbox-<?php echo $this->getBlock()->id; ?>" class="postbox">
+	<div class="handlediv" title="Click to toggle"><br /></div>
+	<h3 class='hndle'>
+		<span><?php echo $this->getMetaboxName(); ?></span>
+	</h3>
+	<div class="inside">
+<?php endif; ?>
+		<input type="hidden" id="cjt-securityToken" value="<?php echo $this->getSecurityToken() ?>" />
+<?php $this->blockView->display();
+			if ($this->getOption('customizeMetabox')) : ?>
+	</div>
+</div>
+<?php endif; ?>
+<div id="cjt-inline-popup"></div>
+<script type="text/javascript">
+	// Initialize metabox.
+	jQuery(jQuery.proxy(CJTBlocksPage.init, CJTBlocksPage));
+</script>

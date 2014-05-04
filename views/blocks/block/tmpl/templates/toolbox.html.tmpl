@@ -1,26 +1,37 @@
 		<div class="cjt-toolbox block-toolbox">
+			<div class="empty-divider"></div>
+		
 			<div class="icons-group">
 				<a href="#" class="cjt-tb-link cjttbl-state-switch state-<?php echo $this->block->state ?>" title="<?php echo $this->localization["state_{$this->block->state}Title"] ?>"></a>
 				<a href="#" class="cjt-tb-link cjttbl-location-switch location-<?php echo $this->block->location ?>" title="<?php echo $this->localization["location_{$this->block->location}Title"] ?>"></a>
 			</div>
-			<div class="divider"></div>
+
+			<div class="empty-divider"></div>
+
 			<div class="icons-group big-bar">
-				
+				<a href="#" class="cjt-tb-link waitingToLoad cjttbl-templates-lookup" title="<?php echo cssJSToolbox::getText('Template Lookup - Embed or link templates to code blocks') ?>"></a>				
+				<iframe src="" class="popup-menu templates-lookup" NOBORDER="1" style="display:none"></iframe>
+
+				<a href="#" class="cjt-tb-link waitingToLoad cjttbl-link-external" title="<?php echo cssJSToolbox::getText('Link external') ?>"></a>				
+
 				<a href="#" class="cjt-tb-link cjttbl-info" title="<?php echo cssJSToolbox::getText('Show code block information') ?>"></a>				
-				
-				<a href="#" class="cjt-tb-link cjttbl-switch-editor-language" title="<?php echo cssJSToolbox::getText('Set editing language for syntax highlighting') ?>"></a>
+
+				<a href="#" class="cjt-tb-link waitingToLoad cjttbl-switch-editor-language" title="<?php echo cssJSToolbox::getText('Set editing language for syntax highlighting') ?>"></a>
 				<div class="popup-menu editor-langs" style="display:none">
 					<a href="#" class="cjt-tb-link cjt-tb-text-link cjttbl-editor-language-css" title="<?php echo cssJSToolbox::getText('Set editing language to CSS') ?>"><?php echo cssJSToolbox::getText('Cascading Style Sheets') ?></a>
 					<a href="#" class="cjt-tb-link cjt-tb-text-link cjttbl-editor-language-html" title="<?php echo cssJSToolbox::getText('Set editing language to HTML') ?>"><?php echo cssJSToolbox::getText('Hyper Text Markup Language') ?></a>
 					<a href="#" class="cjt-tb-link cjt-tb-text-link cjttbl-editor-language-javascript" title="<?php echo cssJSToolbox::getText('Set editing language to JavaScript') ?>"><?php echo cssJSToolbox::getText('javascript') ?></a>
 					<a href="#" class="cjt-tb-link cjt-tb-text-link cjttbl-editor-language-php" title="<?php echo cssJSToolbox::getText('Set editing language to PHP') ?>"><?php echo cssJSToolbox::getText('PHP: Hypertext Preprocessor') ?></a>
 				</div>
-				
+
 				<a href="#" class="cjt-tb-link cjttbl-edit-name" title="<?php echo cssJSToolbox::getText('Edit code block title.  Click Save to take affect') ?>"></a>
+				<a href="#" class="cjt-tb-link waitingToLoad cjttbl-revisions" title="<?php echo cssJSToolbox::getText('View and restore code block revisions') ?>"></a>
 				<a href="#" class="cjt-tb-link cjttbl-delete" title="<?php echo cssJSToolbox::getText('Delete code block') ?>"></a>
 			</div>
-			<div class="divider"></div>
+
+			<div class="empty-divider"></div>
+
 			<div class="icons-group">
-				<a href="#" class="cjt-tb-link cjttbl-save il-60x23" title="<?php echo cssJSToolbox::getText('Save changes to code block') ?>"><?php echo cssJSToolbox::getText('Save') ?></a>
+				<a href="#" class="cjt-tb-link waitingToLoad cjttbl-save il-60x23" title="<?php echo cssJSToolbox::getText('Save changes to code block') ?>"><?php echo cssJSToolbox::getText('Save') ?></a>
 			</div>
 		</div>

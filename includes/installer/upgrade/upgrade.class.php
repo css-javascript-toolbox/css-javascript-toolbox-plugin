@@ -31,12 +31,23 @@ abstract class CJTUpgradeNonTabledVersions extends CJTHookableClass {
 	/**
 	* put your comment there...
 	* 
+	* @var mixed
+	*/
+	protected $templates;
+	
+	/**
+	* put your comment there...
+	* 
 	*/
 	public function __construct() {
 		// Import dependencies!
-		cssJSToolbox::import('includes:installer:upgrade:block.class.php');
+		cssJSToolbox::import('includes:installer:upgrade:block.class.php', 'includes:installer:upgrade:template.class.php');
 		// Load blocks into installer iterator!
 		$this->blocks = $this->getBlocksIterator(get_option(self::BLOCKS_POINTER));
+		// Load templates into templates iterator!
+		$driver = cssJSToolbox::getInstance()->getDBDriver();
+		$templates = $driver->select('SELECT title as `name`, type, `code` FROM ' . self::TEMPLATES_TABLE . ';', ARRAY_A);
+		$this->templates = new CJTInstallerTemplate($templates);
 	}
 	
 	/**
@@ -98,5 +109,18 @@ abstract class CJTUpgradeNonTabledVersions extends CJTHookableClass {
 	* @param mixed $blocks
 	*/
 	protected abstract function getBlocksIterator($blocks);
+	
+	/**
+	* put your comment there...
+	* 
+	*/	
+	public function templates() {
+		// Tranform templates to the new table!
+		foreach ($this->templates as $template) {
+			$this->templates->upgrade();
+		}
+		// Chaining!
+		return $this;
+	}
 	
 } // End class.

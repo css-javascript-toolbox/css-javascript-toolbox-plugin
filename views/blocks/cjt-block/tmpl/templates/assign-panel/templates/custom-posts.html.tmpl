@@ -20,11 +20,13 @@ foreach ($customPosts as $typeName => $customPost) {
 		);
 	}
 }
-// If there is no custom posts registered show message
-//, otherwise create the custom-posts accordion
-if (!empty($items)) :
 ?>
 	<div id="custom-posts-container-<?php echo $block->id ?>" class="custom-posts-container">
+<?php
+	// If there is no custom posts registered show message
+	//, otherwise create the custom-posts accordion
+	if (!empty($items)) :
+?>
 <?php foreach ($items as $item) : ?>
 		<div class="objects-list-button">
 <?php	echo $this->getTemplate('inputs-list', array('item' => $item), 'tmpl/templates/assign-panel/templates') ?>
@@ -42,12 +44,12 @@ if (!empty($items)) :
 ?>
 		</div>
 <?php endforeach; ?>
-	</div>
 <?php else : ?>
-	<div class="list-error">
-		<span class="message"><?php echo cssJSToolbox::getText('There are no Custom Posts Defined yet!') ?></span>
-		<br />
-		<br />
-		<span class="desc">This message is displayed if there is no Custom Post types defined or there is no Posts Added under Custom Post types!</span>
-	</div>
+		<div class="list-error">
+			<span class="message"><?php echo cssJSToolbox::getText('There are no Custom Posts Defined yet!') ?></span>
+			<br />
+			<br />
+			<span class="desc">This message is displayed if there is no Custom Post types defined or there is no Posts Added under Custom Post types!</span>
+		</div>
 <?php endif; ?>
+	</div>

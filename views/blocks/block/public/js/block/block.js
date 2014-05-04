@@ -71,36 +71,12 @@ var CJTBlockBase;
 		* @var object
 		*/
 		this.properties = {};
-	
+
 		/**
-		* put your comment there...
 		* 
-		* @param element
 		*/
-		this.CJTBlockBase = function(blockPlugin, element, properties) {
-			// Initialize.
-			this.blockPlugin = blockPlugin;
-			this.box = $(element);
-			this.id = parseInt(this.box.find('input:hidden[name="blocks[]"]').val())
-			this.properties = {};
-			this.aceEditor = ace.edit('editor-' + this.id);
-			// Define base properties.
-			properties.name = {om : new CJTBlockPropertyHTMLNodeOM(),
-												flags: 'rw', 
-												selector : 'input:hidden[name="cjtoolbox[{blockId}][name]"]'};
-			properties.location = {om : new CJTBlockPropertyHTMLNodeOM(),
-														flags: 'rw', 
-														selector : 'input:hidden[name="cjtoolbox[{blockId}][location]"]'};
-			properties.state = {om : new CJTBlockPropertyHTMLNodeOM(),
-													flags: 'rw', 
-													selector : 'input:hidden[name="cjtoolbox[{blockId}][state]"]'};
-			properties.code = {om : new CJTBlockPropertyACEEditor(), 
-												 flags: 'rws',
-												 selector : 'div#editor-{blockId}'};
-			properties.editorLang = {flags: 'rwc'};
-			properties.pagesPanelToggleState = {flags: 'rwc'};
-			properties.editorTheme = {flags: 'rwc'};
-			// Initialize ALL (BASE, DERIVDED) properties.
+		this.addProperties = function(properties) {
+			// Prepare properties, add them to model list.
 			$.each(properties, $.proxy(
 				function(name, propertyDefinition) {
 					// Add flag checker method to property object.
@@ -122,13 +98,25 @@ var CJTBlockBase;
 					this.properties[name] = propertyDefinition;
 				}, this)
 			);
-			// Create bridge through "code" field
-			// so that div element can set/get aceEditor real object.
-			var block = this;
-			var codeDiv = $(this.property('code').selector).get(0);
-			codeDiv.getValue = function() {
-				return block.aceEditor.getSession().getValue();
-			};
+		};
+
+		/**
+		* put your comment there...
+		* 
+		* @param element
+		*/
+		this.CJTBlockBase = function(blockPlugin, element, properties) {
+			// Initialize.
+			this.blockPlugin = blockPlugin;
+			this.box = $(element);
+			this.id = parseInt(this.box.find('input:hidden[name="blocks[]"]').val())
+			this.properties = {};
+			// Define base properties.
+			properties.name = {om : new CJTBlockPropertyHTMLNodeOM(), flags: 'rw', selector : 'input:hidden[name="cjtoolbox[{blockId}][name]"]'};
+			properties.location = {om : new CJTBlockPropertyHTMLNodeOM(), flags: 'rw', selector : 'input:hidden[name="cjtoolbox[{blockId}][location]"]'};
+			properties.state = {om : new CJTBlockPropertyHTMLNodeOM(), flags: 'rw', selector : 'input:hidden[name="cjtoolbox[{blockId}][state]"]'};
+			// Initialize ALL (BASE, DERIVDED) properties.
+			this.addProperties(properties);
 		}
 		
 		/**
@@ -220,6 +208,37 @@ var CJTBlockBase;
 			return queue;
 		}
 		
+		/**
+		* 
+		*/
+		this.loadBase = function(properties) {
+			// Enable ACE Editor.
+			this.aceEditor = ace.edit('editor-' + this.id);
+			// Add ACE Editor Propety definition.
+			properties.code = {om : new CJTBlockPropertyACEEditor(), flags: 'rws', selector : 'div#editor-{blockId}'};
+			properties.editorLang = {flags: 'rwc'};
+			properties.editorTheme = {flags: 'rwc'};
+			properties.aceEditorMenuSettings = {flags: 'rwc'};
+			// Initialize ALL (BASE, DERIVDED) properties.
+			this.addProperties(properties);
+			// Create bridge through "code" field
+			// so that div element can set/get aceEditor real object.
+			var codeDiv = $(this.property('code').selector).get(0);
+			codeDiv.getValue = function() {
+				return this.aceEditor.getSession().getValue();
+			};
+			// Define aceEditor extension method for setting Editor Text with the possibility
+			// of UNDO.
+			this.aceEditor.setValuePossibleUndo = function(value) {
+				// Directly clear using setValue('') prevent 'undo' action!
+				// Select all text.
+				this.selectAll();
+				// Replace content with empty string!
+				this.getSession().replace(this.getSelectionRange(), value);
+				this.focus();
+			};
+		};
+
 		/**
 		* @internal
 		* 

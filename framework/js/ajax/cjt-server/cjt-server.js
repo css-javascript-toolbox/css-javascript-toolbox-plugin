@@ -40,6 +40,7 @@ var CJTServer;
 		*/
 		controllers : {
 			block : 'block-ajax',
+			codeFiles : 'code-files',
 			blocksPage : 'blocks-ajax',
 			blocksBackups : 'blocks-backups',
 			templatesLookup : 'templates-lookup',
@@ -50,7 +51,10 @@ var CJTServer;
 			metabox : 'metabox',
 			installer : 'installer',
 			setup : 'setup',
-			tinymceBlocks : 'tinymce-blocks'
+			tinymceBlocks : 'tinymce-blocks',
+			packages : 'packages',
+			packageFile : 'package-file',
+			'package' : 'package',
 		},
 		
 		/*
@@ -242,16 +246,21 @@ var CJTServer;
 		* @param string Any valid http request methods.
 		* @return jqxhr
 		*/
-		send : function(controller, action, data, requestMethod, returnType) {
+		send : function(controller, action, data, requestMethod, returnType, inSettings) {
 			var request = null;
 			var promising = null;
 			// Set default request method.
 			requestMethod = (requestMethod == undefined) ? 'get' : requestMethod;
 			// Set default return type to JSON.
 			returnType = (returnType == undefined) ? 'json' : returnType;
-			// Send the request.
+			// Build Request URL and Data.
 			request = CJTServer.getRequestObject(controller, action, data);
-			promising = $[requestMethod](request.url, request.data, null, returnType)
+			// Ajax Request Settings.
+			var settings = $.extend({type : requestMethod, data : request.data, dataType : returnType},
+															inSettings ? inSettings : {});
+			// Merge settings with passed settings.
+			// Request!
+			promising = $.ajax(request.url, settings)
 			/* @TODO: This is a temporary solution for version 6.0 to be releases! Later we'll have a full error handling system! */
 			// --- Start temporary Error handling Block ---
 			.error($.proxy(

@@ -48,6 +48,9 @@ class CJTBlocksBackupsModel {
 	* @param mixed $desBackupId
 	*/
 	public function copyBackupBlocks($srcBackupId, $desBackupId) {
+		// Initialie.
+		$codeFilesQuery = 'INSERT INTO #__cjtoolbox_block_files (blockId, id, name, description, `type`, code, `order`)
+												 SELECT %d, id, name, description, `type`, code, `order` FROM #__cjtoolbox_block_files WHERE blockId = %d;';
 		// Blocks Table & Model..
 		require_once CJTOOLBOX_TABLES_PATH . '/blocks.php';
 		require_once CJTOOLBOX_TABLES_PATH . '/block-pins.php';
@@ -98,6 +101,8 @@ class CJTBlocksBackupsModel {
 			// Insert block Pins.
 			$pinsData = array_intersect_key($block, array_flip(array('pages', 'posts', 'categories')));
 			$blockPinsTable->insert($block['id'], $pinsData);
+			// Copy code files.
+			$this->dbDriver->insert(sprintf($codeFilesQuery, $block['id'], $id))->processQueue();
 		}
 	}
 	
@@ -166,6 +171,8 @@ class CJTBlocksBackupsModel {
 		// Delete blocks using its Id.
 		$ids = array_keys($blocks);
 		$blocksModel->delete($ids);
+		// Delete code files.
+		$this->dbDriver->delete('DELETE FROM #__cjtoolbox_block_files where blockId IN (' . implode(',', $ids) . ');');
 		// In order for $this->processQueue to work
 		// we need to Merge db driver queues into the current
 		// local queue.

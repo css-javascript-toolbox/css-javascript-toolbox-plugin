@@ -94,6 +94,16 @@ var CJTBlockPropertyAPItemsList;
 		/**
 		* 
 		*/
+		this.reset = function() {
+			// Should reset all fields to Server Synched value.
+			// For now its developed as standard iunterface.
+			// so that AssignOnly mode switcher don't fail
+			// or to need to filter what properties to process.
+		};
+
+		/**
+		* 
+		*/
 		this.setValue = function(value) {
 			// Initialize.
 			var pagesPanel = block.pagesPanel;
@@ -138,7 +148,8 @@ var CJTBlockPropertyAPItemsList;
 			);
 			// Set the map.
 			pagesPanel.setMapGroup(property.name, value.map);
-		}
+		};
+		
 	}
 	
 })(jQuery);

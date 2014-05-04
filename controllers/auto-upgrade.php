@@ -29,6 +29,15 @@ class CJTAutoUpgradeController extends CJTController {
 		// Get all CJT-Plugins (Include CJT Plugin itself + all its extensions) that has activate
 		// license key!
 		$activeLicenses = $model->getStatedLicenses();
+		// Always REQUEST CJT server even if not key activated yet.
+		// FREE edition will just do normal check @Wordpress:reporioty
+		if (!isset($activeLicenses[CJTSetupModel::EDD_PRODUCT_NAME]) && (CJTPlugin::Edition != 'free')) {
+			$activeLicenses[CJTSetupModel::EDD_PRODUCT_NAME] = array(
+				'plugin' => array('Version' => CJTPlugin::VERSION, 'AuthorName' => 'CTK'),
+				'license' => array('key' => str_repeat('0', 32)),
+				'component' => array('pluginBase' => 'css-javascript-toolbox/css-js-toolbox.php')
+			);
+		}
 		// Import EDD updater Class!
 		if (!class_exists('EDD_SL_Plugin_Updater')) {
 			cssJSToolbox::import('framework:third-party:easy-digital-download:auto-upgrade.class.php');

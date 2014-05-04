@@ -1,0 +1,46 @@
+<ul id="code-files-manager">
+	<li class="dialog-tool-buttons">
+	  <a class="delete" href="#" title="<?php echo cssJSToolbox::getText('Delete all selected Code Files') ?>"><?php echo cssJSToolbox::getText('Delete') ?></a> |
+		<a class="close" href="#" title="<?php echo cssJSToolbox::getText('Close Code Files Manager Dialog') ?>"><?php echo cssJSToolbox::getText('Close') ?></a>
+	</li>
+	<li class="overlay"></li>
+	<li class="edit-code-file">
+		<input type="hidden" id="code-file-id" value="0" />
+		<fieldset>
+			<ul>
+				<li><label title="<?php echo cssJSToolbox::getText('Code File Name should be unique for each Block. Use simple names that describe fow what Code File is used for.') ?>" for="codef-file-name"><?php echo cssJSToolbox::getText('Name') ?></label><input id="code-file-name" type="text" /></li>
+				<li>
+					<label for="code-file-type" title="<?php echo cssJSToolbox::getText('Type tells CJT how to handle applying the Code File to the Associated Request. It also automatically switch Code Editor language for you.') ?>"><?php echo cssJSToolbox::getText('Type') ?></label>
+					<select id="code-file-type">
+						<option value=""></option>
+<?php
+					// List template types.
+					$templateTypes =& cssJSToolbox::$config->templates->types;
+					foreach ($templateTypes as $typeName => $type) :
+?>
+						<option value="<?php echo $typeName ?>"><?php echo $typeName ?></option>
+<?php 		endforeach; ?>							
+					</select>
+				</li>
+				<li>
+					<label for="code-file-tag" title="<?php echo cssJSToolbox::getText('Its automatically generated when the Type is changed. In most cases you won\'t need to modify it manually, only change it when you know how to works. Please point out to CJT Web site documentation for more details about TAG field.') ?>"><?php echo cssJSToolbox::getText('Tag') ?></label>
+					<textarea id="code-file-tag"></textarea>
+				</li>
+				<li>
+					<label for="code-file-description" title="<?php echo cssJSToolbox::getText('Optionally Code File notes.') ?>"><?php echo cssJSToolbox::getText('Description') ?></label>
+					<textarea id="code-file-description"></textarea>
+				</li>
+				<li>
+					<input type="button" id="code-file-save-button" value="<?php echo cssJSToolbox::getText('Save') ?>" />
+					<input type="button" id="code-file-cancel-button" value="<?php echo cssJSToolbox::getText('Close') ?>" />
+				</li>
+			</ul>
+		</fieldset>
+	</li>
+	<li class="code-file-item create-file-row"><a class="create-file" href="#"><?php echo cssJSToolbox::getText('Create File') ?> ...</a></li>
+	<li class="separator"></li>
+	<li class="quick-toolbar">
+		<input type="checkbox" class="select-code-file"> | 
+		<a class="edit" href="#"><?php echo cssJSToolbox::getText('Edit') ?></a>
+	</li>
+</ul>

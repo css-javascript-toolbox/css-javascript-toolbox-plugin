@@ -1,0 +1,12 @@
+<?php
+/**
+* 
+*/
+
+// Disallow direct access.
+defined('ABSPATH') or die("Access denied");
+
+// Return operatrions!
+return array(
+	'database' => array('text' => cssJSToolbox::getText('Upgrading database')),
+);

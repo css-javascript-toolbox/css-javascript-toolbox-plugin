@@ -74,7 +74,27 @@ class EDD_SL_Plugin_Updater {
 		if( false !== $api_response && is_object( $api_response ) ) {
 			if( version_compare( $this->version, $api_response->new_version, '<' ) ) 
 				$_transient_data->response[$this->name] = $api_response;
-	}
+			else  {
+				/**
+				* Remove FREE edition update that cached by
+				* Wordpress plugins update.
+				* 
+				* @author CJT
+				*/
+				unset( $_transient_data->response[$this->name] );
+			}
+		}
+		else {
+			/**
+			* Remove FREE edition update that cached by
+			* Wordpress plugins update. Is must do if the 
+			* HTTP reqeust fail as it will allo user to get a FREE
+			* copy!
+			* 
+			* @author CJT
+			*/
+			unset( $_transient_data->response[$this->name] );
+		}
 		return $_transient_data;
 	}
 

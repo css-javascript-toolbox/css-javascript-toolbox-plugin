@@ -1,12 +1,16 @@
 /* Toolboxes */
-.cjt-toolbox .divider {
-	background-image: url('images/divider.png');
-	background-repeat: no-repeat;
-	background-position: center;
+.cjt-toolbox .divider,
+.cjt-toolbox .empty-divider {
 	margin: 0 20px;
 	width: 2px;
 	display: inline-block;
 	height: 25px;
+}
+
+.cjt-toolbox .divider {
+	background-image: url('images/divider.png');
+	background-repeat: no-repeat;
+	background-position: center;
 }
 .cjt-toolbox .icons-group {
 	display: inline-block;
@@ -32,7 +36,7 @@
 	z-index: 2;
 	background-color: white;
 	padding: 10px 10px;
-	border: 3px solid #EFEFEF;
+	border: 1px solid #bbb;
 	border-top-right-radius: 3px;
 	border-top-left-radius: 3px;
 	border-bottom-right-radius: 3px;

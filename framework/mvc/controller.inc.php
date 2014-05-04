@@ -111,7 +111,7 @@ abstract class CJTController extends CJTHookableClass {
 			if (!isset($this->controllerInfo['model_file'])) {
 				$this->controllerInfo['model_file'] = null;
 			}
-			$this->model = CJTModel::create($this->controllerInfo['model'], array(), $this->controllerInfo['model_file']);
+			$this->model = CJTModel::create($this->controllerInfo['model'], $this->request, $this->controllerInfo['model_file']);
 		}
 		// Create default view.
 		if ($hasView === null) { // Default value for $hasView = true
@@ -243,7 +243,7 @@ abstract class CJTController extends CJTHookableClass {
 	* @param mixed $name
 	*/
 	public function getRequestParameter($name) {
-		return $this->request;	
+		return isset($this->request[$name]) ? $this->request[$name] : null;	
 	}
 	
 	/**
@@ -252,7 +252,7 @@ abstract class CJTController extends CJTHookableClass {
 	* 
 	* @deprecated
 	*/
-	public static function getView($path) {
+	public static function getView($path, $params = null) {
 		$view = null;
 		// Import view file.
 		$viewInfo = self::getViewInfo($path);
@@ -260,7 +260,7 @@ abstract class CJTController extends CJTHookableClass {
 		// Create view object.
 		$name = str_replace(' ', '', ucwords(str_replace('/', ' ',$path)));
 		$viewClass = self::getClassName($name, 'view');
-		$view = new $viewClass($viewInfo);
+		$view = new $viewClass($viewInfo, $params);
 		return $view;
 	}
 	

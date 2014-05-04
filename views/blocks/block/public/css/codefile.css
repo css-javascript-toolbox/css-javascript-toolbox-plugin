@@ -1,0 +1,95 @@
+#code-files-manager {
+	cursor: default;
+	display: none;
+	position: absolute;
+	margin-left: 38px;
+	margin-top: 8px;
+	width: 400px;
+	z-index: 5;
+	border: 1px solid #bbb;
+	overflow: auto;
+	max-height: 348px;
+	padding-bottom: 3px;
+}
+#code-files-manager > li.code-file-item {padding: 9px 9px 0px;}
+#code-files-manager > li.code-file-item a {font-size: 15px;text-decoration: none;cursor: pointer;}
+#code-files-manager > li.code-file-item a.active {font-weight: bold;  cursor: default;}
+#code-files-manager > li.code-file-item a:hover.active {color: #a5581b !important;}
+
+#code-files-manager > li.quick-toolbar {
+	position:absolute; 
+	background:transparent; 
+	margin-top: -25px;
+	margin-left: 121px;
+	margin-top: -19px;
+	right: 24px;
+	display:none;
+}
+
+#code-files-manager > li.dialog-tool-buttons {
+    position: absolute;
+    width: 89px;
+    height: 19px;
+    right: 0px;
+    top: 13px;
+}
+#code-files-manager > li.quick-toolbar > input {
+    background-color: transparent;
+}
+#code-files-manager > li.quick-toolbar > a {
+    margin-top: -1px;
+    position: relative;
+    top: -1px;
+}
+ {
+    /* margin-left: 2px; */
+}
+
+input.show-selection {
+	margin-top: -6px;
+}
+
+#code-files-manager > li.edit-code-file fieldset > ul > li textarea {
+    margin: 2px;  
+    width: 234px;  
+    height: 53px;
+    margin-left: -1px;
+}
+
+#code-files-manager > li.edit-code-file {
+	position: relative;
+	padding: 5px;
+	display: none;
+}
+
+#code-files-manager > li.edit-code-file fieldset {
+    padding: 5px;
+    border: 1px solid #bbb;
+}
+
+#code-files-manager > li.edit-code-file fieldset input,
+#code-files-manager > li.edit-code-file fieldset select,
+#code-files-manager > li.edit-code-file fieldset textarea {
+	background-color: transparent;
+	color: #a0a0a0;
+}
+
+#code-files-manager > li.edit-code-file fieldset select {margin-left: -2px}
+
+#code-files-manager > li.edit-code-file fieldset > ul > li > label {
+    width: 110px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+#code-files-manager > li.overlay {
+    position: absolute;  width: 100%;  
+    background-color: transparent;  
+    height: 97%;
+    top: 0;
+    display: none;
+}
+
+li.code-file-item.create-file-row {padding-bottom: 3px;}
+#code-files-manager > li.codeFile {padding-top: 0px;margin-bottom: 1px;}
+li.code-file-item.create-file-row > a {font-size: 16px !important;}

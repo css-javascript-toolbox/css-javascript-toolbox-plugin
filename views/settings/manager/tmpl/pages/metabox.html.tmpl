@@ -1,0 +1,20 @@
+<?php
+/**
+* 
+*/
+
+// No direct access allowed.
+defined('ABSPATH') or die("Access denied");
+
+// HTML Components.
+require CJTOOLBOX_FRAMEWORK . '/html/components/checkbox-list/checkbox-list.class.php';
+// Create checkbox list from registered post types.
+$checkboxList = HTMLCheckboxList::getInstance('post-types', "settings[{$page['name']}][postTypes]", cssJSToolbox::getText('Registered Post Types'));
+$postTypes = get_post_types(array('public' => 1, 'show_ui' => 1, 'show_in_nav_menus' => 1), 'objects');
+foreach ($postTypes as $name => $pTObject) {
+	// Get checked value from saved settings
+	$checked = in_array($name, $settings->postTypes);
+	// Add checkbox for every type.
+	$checkboxList->add($pTObject->labels->name, $name, $checked, '[]');
+}
+echo $checkboxList;

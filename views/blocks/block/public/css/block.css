@@ -3,11 +3,26 @@
 	sometimes we need to use it instead of postbox class
 	like affecting only block box while running as Metabox inside edit post page!
 */
-.cjt-block {min-width: 750px;}
+.cjt-block {min-width: 1000px;}
+
+.waitingToLoad{display: none !important;}
+
+.postbox.cjt-block a,
+.postbox.cjt-block a:hover,
+.postbox.cjt-block a:visited {text-decoration: none;}
+
+.postbox.cjt-block a,
+.postbox.cjt-block a:visited {color: #a0a0a0 !important;}
+
+.postbox.cjt-block a.active {color: #a5581b !important;}
+
+.postbox.cjt-block a:hover {color:  #c8671b !important;}
+
+.inside {color: #7c7c7c;}
 
 #cjtoolbox-admin {font-size: 12px !important;}
 #cjtoolbox-admin div.postbox {
-	display:none 
+	display:none;
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
 	border-radius: 6px; 
@@ -21,7 +36,7 @@
 	-webkit-border-top-right-radius: 6px;
 	border-top-left-radius: 6px;
 	border-top-right-radius: 6px;
-	border-bottom-color: #cccccc;
+	border-bottom-color: #bbb;
 	font-size: 12px;
 }
 #cjtoolbox-admin #poststuff h3, .metabox-holder h3 {padding: 8px 10px;}
@@ -69,11 +84,10 @@
 	height: 23px;
 }
 .cjt-toolbox .icons-group .popup-menu.templates-lookup { /* Override default for Templates Lookup*/
-	background-color: #EFEFEF;
-	border: 1px solid #bbb;
+	border: 1px solid #ccc;
 	width: 346px;
 	height: 357px;
-	left: 80px;
+	left: 154px;
 	top: 31px;
 	margin-top: 2px;
 	margin-left: 1px;
@@ -122,6 +136,24 @@
 	top: -2px;
 	background-position: center center;
 }
+.popup-menu.editor-themes-list {
+	left: 10px !important;
+	background-color: transparent !important;
+	border: none !important;
+	display: block;
+	width: 196px;
+	height: 220px;
+	overflow: auto;
+	padding: 20px !important;
+	margin-left: -202px;
+	margin-top: -25px !important;
+}
+.popup-menu.editor-themes-list ul {margin: 0px; overflow: auto; height: 182px; border: 1px solid #bbb; padding: 13px;}
+.popup-menu.editor-themes-list a {
+	padding-top: 0px !important;
+	margin: 0px !important;
+}
+.popup-menu.editor-themes-list a.selected {color: #0074a2 !important;}
 
 .block-toolbox a.cjttbl-save.cjttbs-disabled {background: url(../images/toolbox/save-inactive.png); }
 .block-toolbox a.cjttbl-revisions { background-image: url(../images/toolbox/revisions.png); }
@@ -131,6 +163,32 @@
 .block-toolbox a.cjttbl-get-shortcode { background-image: url(../images/toolbox/shortcode.png); }
 .block-toolbox a.cjttbl-edit-name { background-image: url(../images/toolbox/edit-name.png); }
 .block-toolbox a.cjttbl-info { background-image: url(../images/toolbox/info.png); }
+.block-toolbox a.cjttbl-templates-lookup { background-image: url(../images/toolbox/templates-lookup.png); }
+.block-toolbox a.cjttbl-link-external { background-image: url(../images/toolbox/link-external.png); }
+
+/** Editor Toolbox */
+.cjt-toolbox.editor-toolbox {
+	position: relative;
+	float: right;
+	width: 40px;
+	height: 350px;
+	top: 5px;	
+	margin-left: 10px;
+}
+.cjt-toolbox.editor-toolbox .icons-group a.cjt-tb-link {margin: 6px 0 0 6px;}
+.cjt-toolbox.editor-toolbox a.cjttbl-fullscreen {background-image: url(../images/editor-toolbox/maximise-editor.png);}
+.cjt-toolbox.editor-toolbox a.cjttbl-fullscreen.maximized {background-image: url(../images/editor-toolbox/minimise-editor.png);}
+.cjt-toolbox.editor-toolbox a.cjttbl-font-large {background-image: url(../images/editor-toolbox/font-large.png);}
+.cjt-toolbox.editor-toolbox a.cjttbl-font-small {background-image: url(../images/editor-toolbox/font-small.png);}
+.cjt-toolbox.editor-toolbox a.cjttbl-reset-font {background-image: url(../images/editor-toolbox/font-reset.png);}
+.cjt-toolbox.editor-toolbox a.cjttbl-clear-block {background-image: url(../images/editor-toolbox/clear-block.png);}
+.cjt-toolbox.editor-toolbox a.cjttbl-editor-theme {background-image: url(../images/editor-toolbox/theme.png);}
+
+.loading-block{
+	font-weight: bold;
+	font-size: 13px;
+	color: brown;	
+}
 
 /* Edit block name */
 .edit-block-name {
@@ -139,6 +197,20 @@
   top: 0px;
   display: none;
   font-size: 15px;
+}
+.hndle .file {
+	font-size: 15px;
+	position: absolute;
+	top: 8px;
+	margin-left: 18px;
+	cursor: pointer;
+}
+.hndle .name-file-separator {
+	font-size: 19px;
+	position: absolute;
+	top: 6px;
+	margin-left: 5px;
+	cursor: pointer;
 }
 .edit-block-name .icons-group {
 	display: inline-block;
@@ -154,7 +226,7 @@
 	top: -3px;
 	margin-left: -4px;
 }
-span.block-name {cursor: pointer; font-size: 15px;}
+span.block-name {cursor: pointer; font-size: 15px;font-weight: normal;}
 .edit-block-name .cancel { background-image: url(../images/edit-block-name/cancel.png); }
 .edit-block-name .save { background-image: url(../images/edit-block-name/save.png); }
 
@@ -170,3 +242,57 @@ span.block-name {cursor: pointer; font-size: 15px;}
 .cjbutton { width:116px; height:24px; float:left; }
 .cjbutton a { height:24px; width:24px; text-indent:-999em; display:block; float:left; }
 .cjexample { clear:left; float:left; padding:5px 0 0; }
+
+/** Editor Full Screen mode */
+body.fullscreen {overflow: hidden;} /** No scroll-bars */
+body.fullscreen #wpadminbar {display: none;} /** No admin menu */
+.postbox.fullscreen {
+	position: fixed;
+	z-index: 10000;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+}
+.postbox.fullscreen .inside {padding: 0 !important;margin: 0 !important;}
+.postbox.fullscreen .inside,
+.postbox.fullscreen .cjcontainer,
+.postbox.fullscreen .cjcontainer .cjcodeblock,
+.postbox.fullscreen .cjcontainer .datablock,
+.postbox.fullscreen .cjcontainer .code-editor {height: 100%;}
+.postbox.fullscreen .cjcontainer .datablock {padding-top: 0;}
+.postbox.fullscreen .cjcontainer .cjcodeblock {margin-right:328px;}
+/* Lookup form */
+.postbox.fullscreen .cjt-toolbox .icons-group .popup-menu.templates-lookup ,
+.popup-menu {z-index: 32 !important;}
+
+.ace_status-indicator {
+	position: relative;
+	left: 2px;
+	top: 5px;
+	/* z-index: 168; */
+}
+
+#cjt-inline-popup {display: none;}
+
+#cjtoolbox > div.inside > div.cjcontainer > div > div.ace-statusbar {
+	float: right;
+	position: absolute;
+	top: -10px;
+	margin-left: 7px;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+.ace_closeButton {
+	top: 35px;
+	left: 6px;
+	width: 62px;
+	height: 62px;
+}
+
+div[contains=setMode],
+div[contains=setOptions], 
+div[contains=setMode],
+div[contains=setTheme]
+{display: none}

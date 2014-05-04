@@ -1,0 +1,25 @@
+<?php
+/**
+* 
+*/
+
+// Display TAB navigator.
+?>
+<div id="cjt-grouper-tab-navigator">
+	<ul class="navigator">
+<?php foreach ($this->getParams() as $group) : ?>	
+		<li><a title="<?php echo $group['description'] ?>" href="#<?php echo $group['key']; ?>"><?php echo $group['name'] ?></a></li>
+<?php endforeach; ?>
+	</ul>
+<?php // Display TABS ?>
+<?php foreach ($this->getParams() as $group) : ?>
+	<div id="<?php echo $group['key']; ?>">
+<?php echo $group['text']; // Display Group XFields TOP TEXT ?>
+		<ul class="params-list">
+<?php foreach ($group['params'] as $param) : ?> 
+<li><?php echo $param; ?></li>
+<?php endforeach; ?>
+		</ul>
+	</div>
+<?php endforeach; ?>
+</div>

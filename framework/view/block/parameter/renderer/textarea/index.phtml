@@ -1,0 +1,11 @@
+<?php
+/**
+* 
+*/
+$definition = $this->getDefinition();
+// Element id.
+$elementId = $this->getElementId();
+?>
+<label for="<?php echo $elementId ?>" title="<?php echo $definition->getDescription() ?>"><?php echo $definition->getName() ?></label>
+<?php echo $this->getTemplate('helpText') ?>
+<textarea style="width: 610px;height: 55px; margin-top: 16px;" id="<?php echo $elementId ?>" name="<?php echo $this->getName() ?>"><?php echo htmlentities($this->getValue(), null, 'UTF-8') ?></textarea>

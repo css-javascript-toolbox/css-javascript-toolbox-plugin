@@ -130,7 +130,7 @@ class CJTMYSQLQueueDriver extends CJTHookableClass {
 	public function escapeValue($data, $field) {
 		switch ($field->numeric) {
 		  case 0:
-			  $data = mysql_real_escape_string($data, $this->wpdb->dbh);
+			  $data = esc_sql($data);
 			  $data = "'{$data}'";
 		  break;
 		  case 1:

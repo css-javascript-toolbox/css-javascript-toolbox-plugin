@@ -1,0 +1,29 @@
+form {margin: 0;}
+input[type="button"]{padding: 2px 24px 2px 24px;}
+#item-form label {vertical-align: top;}
+#item-form textarea#description,
+#item-form textarea#license {
+	width: 727px; height: 188px;
+}
+#item-form textarea#keywords {width: 727px; height: 34px;}
+#item-form #code {
+	margin-top: 15px;
+	width: 746px;
+	height: 348px;
+}
+#item-form textarea#changeLog {
+	height: 247px;
+	width: 523px;
+	margin-left: 2px;
+}
+#item-form #form-tabs .ui-tabs-panel {height: 474px; overflow: auto;}
+#item-form select{margin-left: -2px;}
+#item-form input#email,
+#item-form input#url{
+	width: 384px;
+}
+#item-form sub {
+	color: red;
+	position: relative;
+	top: -7px;
+}

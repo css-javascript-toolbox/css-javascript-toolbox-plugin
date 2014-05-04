@@ -1,0 +1,80 @@
+<?php
+/**
+* 
+*/
+
+/**
+* No direct access.
+*/
+defined('ABSPATH') or die("Access denied");
+
+// Allow view to enqueue scripts and styles.
+$this->enqueueScripts();
+$this->enqueueStyles();
+$this->suppressPrintScriptsHook();
+?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+<?php wp_print_head_scripts() ?>
+<?php wp_print_styles() ?>
+	</head>
+	<body>
+		<div id="cjtoolbox_popup">
+			<form id="templates-lookup" class="cjt-form">
+<?php	if (empty($this->items)) : ?>
+
+<?php else : ?>
+				<div id="templates-list">
+<?php 		foreach ($this->items as $type => $authors) : ?>
+					<h3 id="#templates-type-header-<?php echo $type ?>"><a href="#"><?php echo cssJSToolbox::getText($type) ?></a></h3>
+					<div id="#templates-type-content-<?php echo $type ?>" class="templates-list">
+						<ul class="authors-list">
+<?php 				
+								foreach ($authors as $author => $templates) :
+									$authorIdentifier ="{$type}_" . str_replace(array(' ', '-', '_'), '', $author);
+?>
+								<li>
+									<span class="author-name"><?php echo cssJSToolbox::getText('User') ?>: <a class="name" href="#<?php echo "{$authorIdentifier}" ?>"><?php echo $author ?></a></span>
+									<ul id="<?php echo "{$authorIdentifier}" ?>-author-templates" class="templates">
+<?php 						foreach ($templates as $id => $template) : ?>
+										<li class="template-item">
+											<div class="title" title="<?php echo $template->description ?>"><?php echo $template->name ?></div>
+											<span class="options">
+												<a href="#embedded(<?php echo $id ?>)" class="template-action"><?php echo cssJSToolbox::getText('Embed') ?></a>
+<?php if ($template->linked) : ?>
+				  							 | <a href="#unlink(<?php echo $id ?>)" class="template-action unlink-template"><?php echo cssJSToolbox::getText('Unlink') ?></a>
+<?php else : ?>
+                         | <a href="#link(<?php echo $id ?>)" class="template-action link-template"><?php echo cssJSToolbox::getText('Link') ?></a>
+<?php   endif; ?>
+<?php if (!$template->systemTemplate) : // Allow editing noo-system templates only ?>
+	                       | <a href="#edit(<?php echo $id ?>)" class="template-action edit-template"><?php echo cssJSToolbox::getText('Edit') ?></a>
+<?php endif; ?>
+											</span>
+										</li>
+<?php 						endforeach;	?>
+									</ul>
+								</li>
+<?php 			endforeach;	?>
+							</ul>
+					</div>
+<?php 		endforeach; ?>				
+				</div>
+<?php endif; ?>
+			</form>
+			<div class="sweep">
+						<span class="wrap">
+							<span class="filters-title"><?php echo cssJSToolbox::getText('Show') ?>: </span> 
+							<span class="filters">
+								<a href="#linked"><?php echo cssJSToolbox::getText('Linked') ?></a> | 
+								<a href="#unlinked"><?php echo cssJSToolbox::getText('Unlinked') ?></a> | 
+								<a href="#all" class="active"><?php echo cssJSToolbox::getText('All') ?></a>
+							</span>
+						</span>
+						<span class="actions">
+							 <a href="#unlink-all"><?php echo cssJSToolbox::getText('Unlink All') ?></a>
+						</span>
+					</div>
+		</div>
+<?php wp_print_footer_scripts() ?>
+	</body>
+</html>

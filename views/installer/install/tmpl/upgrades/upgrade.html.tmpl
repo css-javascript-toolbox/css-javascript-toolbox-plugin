@@ -13,13 +13,13 @@ defined('ABSPATH') or die("Access denied");
 <?php endif; ?>
 <ul class="installation-list upgrade">
 <?php
-// Get version operations if there is operation file for current upgrader.
-$versionPart = strtolower($this->installedDbVersionId);
-$operationsFile = cssJSToolbox::resolvePath("views:installer:install:tmpl:upgrades:{$versionPart}.operations");
-$operations = file_exists($operationsFile) ? require $operationsFile : array();
-// Add last operations.
-$operations['finalize'] = array('text' => cssJSToolbox::getText('Finalize Upgrade.'));	
-// Print upgrade operations.
-echo $this->getTemplate('default_operations_list', array('type' => 'upgrade', 'operations' => $operations));
+		// Get version operations.
+		$upgradeOperationsFileName = strtolower($this->installedDbVersionId) . '.operations';
+		$operations = @include ($upgradeOperationsFileName);
+		$operations = $operations ? $operations : array();
+		// Add last operations.
+		$operations['finalize'] = array('text' => cssJSToolbox::getText('Finalize Upgrade.'));	
+		// Print upgrade operations.
+		echo $this->getTemplate('default_operations_list', array('type' => 'upgrade', 'operations' => $operations));
 ?>
 </ul>

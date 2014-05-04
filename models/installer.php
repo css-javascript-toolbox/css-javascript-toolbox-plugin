@@ -169,7 +169,6 @@ class CJTInstallerModel {
 				}
 			}
 		}
-		// Returns.
 		return $result;
 	}
 	

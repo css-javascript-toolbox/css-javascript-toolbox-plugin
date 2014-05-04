@@ -9,135 +9,97 @@ defined('ABSPATH') or die("Access denied");
 /**
 * 
 */
-class CJT_Framework_Developer_Interface_Block_Parameters {
+abstract class CJT_Framework_Developer_Interface_Block_Parameters_Parameters {
 	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $contentParameter = null;
+
 	/**
 	* put your comment there...
 	* 
 	* @var mixed
 	*/
 	protected $params = array();
-
-	/**
-	* put your comment there...
-	* 
-	* @var mixed
-	*/
-	protected $uParams = null;
 	
 	/**
 	* put your comment there...
 	* 
-	* @param mixed $params
-	* @return CJT_Framework_Developer_Interface_Block_Parameters
+	* @param mixed $parameters
+	* @param mixed $fatory
+	* @return CJT_Framework_Developer_Interface_Block_Parameters_Parameters
 	*/
-	public function __construct($params) {
-		$this->uParams = $params;
-	}
-	
-	/**
-	* put your comment there...
-	* 
-	* @param mixed $name
-	* @param mixed $type
-	* @param mixed $default
-	*/
-	public function add($name, $type, $default = null) {
-		// Add to params definition list.
-		// Use lower case for ket as Wordpress shortcode parameters
-		// is always transformed to lowercase.
-		$this->params[strtolower($name)] = array('name' => $name, 'type' => $type, 'default' => $default);
-		// Chaining.
-		return $this;
-	}
-
-	/**
-	* put your comment there...
-	* 
-	* @param mixed $name
-	*/
-	public function get($name) {
-		// Allow writing it in the original case inside the code
-		// however its only retrived by the lowercvase letter.
-		return $this->uParams[strtolower($name)];
+	public function __construct($parameters) {
+		// Validate parameters.
+		foreach ($parameters as $parameter) {
+			// Create type object.
+			$parameterModel = $this->params[$parameter->getName(true)] = $this->getFactory()->create($parameter->getType(), $parameter);
+			// Hold reference to the CONTENT PARAMETER.
+			$parameter->getContentParameter() && ($this->contentParameter = $parameterModel);
+		}
 	}
 
 	/**
 	* put your comment there...
 	* 
 	*/
-	public function & getArray() {
-		return $this->uParams;
+	public function getContentParameter() {
+		return $this->contentParameter;
 	}
 
 	/**
 	* put your comment there...
 	* 
 	*/
-	public function & getDefinition() {
+	protected abstract function getFactory();
+
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function getParams() {
 		return $this->params;
 	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function getMessages() {
+		
+	}
 
 	/**
 	* put your comment there...
 	* 
-	* @param mixed $excludes
-	* @return CJT_Framework_Developer_Interface_Block_Parameters_Transform_Json
 	*/
-	public function json($excludes = null) {
-		// Internal json trnsformer object caching!
-		cssJSToolbox::import('framework:developer:interface:block:parameters:transform:json:json.php');
-		return new CJT_Framework_Developer_Interface_Block_Parameters_Transform_Json($this, $excludes);
+	public function hasParams() {
+		return !empty($this->params);
 	}
 
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $values
+	*/
+	public function setValue($values) {
+		foreach ($this->getParams() as $name => $param) {
+			if (isset($values[$name])) {
+				$param->setValue($values[$name]);	
+			}
+		}
+		return $this;
+	}
+	
 	/**
 	* put your comment there...
 	* 
 	*/
 	public function validate() {
-		// Get params definition copy!
-		$dParams = $this->params;
-		// Validate passed parameters agianst the definition.
-		foreach ($this->uParams as $name => & $value) {
-			// Check parameter existance.
-			if (!isset($this->params[$name])) {
-				// Warn user that the parameter is not exists!
-				echo cssJSToolbox::getText("Invalid Block Shortcode parameters [{$name}]");
-				// Remove from list.
-				unset($this->uParams[$name]);
-			}
-			// Get parameter type.
-			$type = $dParams[$name]['type'];
-			// Cast to correct type.
-			switch ($type) {
-				case 'array':
-				case 'object':
-					// Convert CJT JSON Array and Object to JSON object.
-					$value = str_replace(array('{A', '{O', 'A}', 'O}'), array('[', '[', ']', ']'), $value);
-					// Get PHP var for JSON text!
-					$value = json_decode($value);				
-				break;
-				case 'boolean':
-					// Case boolean from string.
-					$value = ($value == "true") ? true: false;
-				break;
-				default:
-					// PHP native cast.
-				  settype($value, $type);
-				break;
-			}
-			// As the parameter is passed by user don't need the default.
-			unset($dParams[$name]);
-		}
-		// Get other parameters not passed by user!
-		// Get only parameters with default value !== null.
-		foreach ($dParams as $name => $param) {
-			if ($param['default'] !== null) {
-				$this->uParams[$name] = $param['default'];
-			}
-		}
-		// Chaining.
-		return $this;
+		return true;
 	}
-	
+
 } // End class.

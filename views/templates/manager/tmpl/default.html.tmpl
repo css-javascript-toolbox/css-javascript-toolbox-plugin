@@ -1,0 +1,52 @@
+<?php
+/**
+* 
+*/
+
+// Disallow direct access.
+defined('ABSPATH') or die("Access denied");
+
+// Import list table class used for displaying templates list.
+$this->importHelper('wp-list-table');
+
+// Allow view to enqueue scripts and styles.
+$this->enqueueScripts();
+$this->enqueueStyles();
+$this->suppressPrintScriptsHook();
+?>
+<!DOCTYPE html>
+	<head>
+<?php wp_print_head_scripts() ?>
+<?php wp_print_styles() ?>
+	</head>
+	<body>
+		<div id="wpwrap">
+			<div id="wpcontent">
+				<div id="wpbody">
+					<div id="wpbody-content">
+						<div class="wrap">
+							<form id="templates-manager" class="cjt-form" method="post">
+								<div class="toolbar">
+									<input type="button" id="create-new-template" class="button-secondary action" value="<?php echo cssJSToolbox::getText('Create Template') ?>">
+								</div>
+<?php
+								$listTable = new CJTTemplatesManagerListTable();
+								// Push items into table list.
+								$listTable->items = $this->items;
+								// Pagintion.
+								$listTable->set_pagination_args(array(
+									'per_page' => $this->getModel()->getItemsPerPage(), 
+									'total_items' => $this->getModel()->getItemsTotal()
+								));
+								// Output list table
+								$listTable->display();
+?>
+							</form>
+						</div>					
+					</div>
+				</div>			
+			</div>
+		</div>
+<?php wp_print_footer_scripts() ?>
+	</body>
+</html>

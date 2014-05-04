@@ -116,6 +116,13 @@ abstract class CJTView extends CJTHookableClass {
 	* 
 	* @var mixed
 	*/
+	protected $params = null;
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	protected $request;
 	
 	/**
@@ -135,10 +142,14 @@ abstract class CJTView extends CJTHookableClass {
 	/**
 	* put your comment there...
 	* 
+	* @param mixed $info
+	* @param mixed $params
+	* @return CJTView
 	*/
-	public function __construct($info) {
+	public function __construct($info, $params = null) {
 		// Initialize vars!
 		$this->viewInfo = $info;
+		$this->params = $params ? $params : array();
 		// Initialize events engine!
 		parent::__construct();
 		// Fire created event!
@@ -158,9 +169,10 @@ abstract class CJTView extends CJTHookableClass {
 	* put your comment there...
 	* 
 	* @param mixed $view
+	* @param mixed $params
 	*/
-	public static function getInstance($view) {
-		return self::trigger('CJTView.createview', CJTController::getView($view));
+	public static function getInstance($view, $params = null) {
+		return self::trigger('CJTView.createview', CJTController::getView($view, $params));
 	}
 	
 	/**
@@ -176,6 +188,15 @@ abstract class CJTView extends CJTHookableClass {
 		return $this->ongetmodel($this->model);
 	}
 	
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $name
+	*/
+	public function getParam($name) {
+		return isset($this->params[$name]) ? $this->params[$name] : null;
+	}
+
 	/**
 	* put your comment there...
 	* 
@@ -200,7 +221,7 @@ abstract class CJTView extends CJTHookableClass {
 	* @param mixed $value
 	*/
 	public function getRequestParameter($name) {
-		return $this->request[$name];
+		return isset($this->request[$name]) ? $this->request[$name] : null;
 	}
 	
 	/**

@@ -12,7 +12,7 @@ defined('ABSPATH') or die("Access denied");
 		<input type="hidden" id="cjt-securityToken" value="<?php echo $this->securityToken ?>" />
 		<h1><?php echo cssJSToolbox::getText('Upgrading CJT Plugin') ?></h1>
 		<p><?php echo cssJSToolbox::getText('Please wait while we upgrading CJT Plugin installation! This process would take only a few seconds!') ?></p>
-		<p style="font-weight: bold;"><?php echo cssJSToolbox::getText('Please backup you database before processing!') ?></p>
+		<p><?php echo cssJSToolbox::getText('Its highly recommended to Backup your database before processing upgrade.') ?></p>
 <?php echo $this->getTemplate('upgrade', array('noHeaderMessage' => true), 'tmpl/upgrades'); ?>
 		<input type="button" name="install" value="<?php echo cssJSToolbox::getText('Upgrade') ?>" />
 <?php else : ?>

@@ -1,0 +1,12 @@
+/* Give extra space for the last Block Code-Auto-Completion dialog */
+#wpbody-content {margin-bottom: 270px; overflow: visible !important;}
+
+.cjt-create-metabox-metabox-form .notice {
+	font-weight: bold;
+}
+.cjcodeblock {
+	margin-right: 0px !important; /* Override block.css style */
+}
+
+/** Editor toolbox */
+.editor-toolbox a.cjttbl-preview {background-image: url(../images/editor-toolbox/preview.png);}

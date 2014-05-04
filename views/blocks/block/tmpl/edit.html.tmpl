@@ -17,25 +17,13 @@ defined('ABSPATH') or die("Access denied");
 		<input type="hidden" name="blocks[]" value="<?php echo $this->block->id ?>" />
 <?php
 		// Hidden fields.
-			$fields = array('name', 'state','location');
+			$fields = array('name', 'state', 'location');
 			foreach ($fields as $field) :
 ?>
 		<input type="hidden" name="cjtoolbox[<?php echo $this->block->id; ?>][<?php echo $field ?>]" value="<?php echo $this->block->$field ?>" />
 <?php endforeach; ?>
-		<div class="cjcontainer">
-			<div class="cjcodeblock">
-				<div class="datablock">
-<?php			// Output block code only if the block metabox is opened.
-					$code = '';
-					$codeLoadedSignClass = '';
-					$blockId = "cjtoolbox-{$this->block->id}";
-					$closedMetaboxes = get_user_meta(get_current_user_id(), 'closedpostboxes_cjtoolbox', true);
-					if (!in_array($blockId, ((array) $closedMetaboxes))) {
-						$code = htmlentities($this->block->code, null, 'UTF-8');
-						$codeLoadedSignClass = ' initially-loaded';
-					}
+<?php	
+	if (!$this->isClosed) {
+		echo $this->getTemplate('content');
+	}	
 ?>
-					<div id="editor-<?php echo $this->block->id ?>" class="code-editor<?php echo $codeLoadedSignClass ?>"><?php echo $code ?></div>					
-				</div>
-			</div>
-		</div>

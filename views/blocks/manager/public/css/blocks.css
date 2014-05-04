@@ -1,16 +1,11 @@
 /** CSS &amp; Javascript Toolkit - blocks page CSS **/
 /* Wordpress Page */
 .wrap { position: relative; }
-a.headerlink, a.headerlink:hover, a.headerlink:visited{color: #A5581B; font-size: 16px;}
-h2#cjt-title {display: inline-block;}
+.cjt-banner-bar .cjt-banner-link a, .cjt-banner-bar a:hover, .cjt-banner-bar a:visited{color: #A5581B;}
+#cjt-banner-bar-right {right: 0px;position: absolute;top: 2px;text-align: right;}
+#cjt-banner-bar-right .cjt-banner-link {float: right; margin-bottom: 6px;}
 
-#cjt-banner-bar-right {right: 0px;position: absolute;top: 2px;}
-#cjt-banner-bar-right .cjt-banner-link {margin-bottom: 6px;}
-
-#get-packages {margin-left: 5px;}
 #get-packages-icon {display: inline-block; width: 13px; height: 15px; background-image: url('../images/get-packages.png'); margin-left: 3px;margin-bottom: -4px; margin-right: 5px;}
-
-#review-icon {display: inline-block; width: 75px; height: 14px; background-image: url('../images/review.png');margin-bottom: -2px; margin-left: 12px;}
 
 .blocks-icon32 { background: transparent url('../images/CSS_JS_Toolbox_Icon.png') no-repeat; }
 #post-body{ display: none; min-width:700px; }
@@ -27,6 +22,7 @@ h2#cjt-title {display: inline-block;}
   line-height: 1.3;
   padding: 14px 0px;
 }
+
 /* Blocks loader */
 #cjt-blocks-loader { width: 100%; text-align: center; vertical-align: middle; }
 #cjt-blocks-loader p.loading-text{ padding-left: 20px; font-weight: bold; font-size: 14px;}
@@ -39,6 +35,7 @@ h2#cjt-title {display: inline-block;}
 	margin-bottom: 20px;
 	padding: 4px 4px 4px 0px !important;
 	clear: both;
+	visibility: hidden;
 	border: solid #ccc; 
 	border-width: 1px; 
 	-moz-border-radius: 6px;
@@ -65,9 +62,10 @@ h2#cjt-title {display: inline-block;}
 .cjt-toolbox-blocks a.cjttbl-state-tools {width: 28px !important; background: url(../images/toolbox/activate-all.png) no-repeat;}
 .cjt-toolbox-blocks a.cjttbl-location-tools { background: url(../images/toolbox/header-all.png) no-repeat; }
 .cjt-toolbox-blocks a.cjttbl-admin-tools { background: url(../images/toolbox/admin-tools.png) no-repeat; }
+.cjt-toolbox-blocks a.cjttbl-templates-manager { background: url(../images/toolbox/templates-manager.png) no-repeat; }
+.cjt-toolbox-blocks a.cjttbl-global-settings { background: url(../images/toolbox/settings.png) no-repeat;  }
 .cjt-toolbox-blocks a.cjttbl-save-changes { background: url(../images/toolbox/save-changes.png) no-repeat; }
 .cjt-toolbox-blocks a.cjttbl-save-changes.cjttbs-disabled {background: url(../images/toolbox/save-changes-inactive.png) no-repeat;}
-.cjt-toolbox-blocks a.cjttbl-global-settings { background: url(../images/toolbox/settings.png) no-repeat;  }
 .cjt-toolbox-blocks a.cjttbl-add-block { background: url(../images/toolbox/add-new.png)  no-repeat; }
 .cjt-toolbox-blocks a.cjttbl-cancel-restore {
 	background: url(../images/toolbox/cancel-restore.png)  no-repeat; 
@@ -103,3 +101,20 @@ h2#cjt-title {display: inline-block;}
 /* No Blocks Intro Help text */
 cjt-noblocks-intro h2 {font-weight: bold; margin: 4px 0px;}
 cjt-noblocks-intro h4 {font-weight: bold; font-size: 15px;}
+
+h2 {}
+#cjtoolbox-admin h2 {
+    display: inline-block;
+}
+div#cjtoolbox-admin {}
+a#docs-link {
+    position: relative;
+    top: -2px;
+    font-size: 16px;
+}
+span.cjt-banner-link {
+}
+span#dicount-code {
+    font-weight: bold;
+    font-size: 14px;
+}

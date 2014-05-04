@@ -42,6 +42,7 @@ class CJTBlocksAjaxController extends CJTAjaxController {
 		$this->registryAction('get_view');
 		$this->registryAction('save_blocks');
 		$this->registryAction('saveOrder');
+		$this->registryAction('loadBlock');
 	}
 	
 	/**
@@ -75,7 +76,7 @@ class CJTBlocksAjaxController extends CJTAjaxController {
 		$blockData = array(
 			'id' => $blockId,
 			'name' => $defaultBlockName,
-			'state' => 'active',
+			'state' => null,
 			'location' => null,
 			'owner' => get_current_user_id(),
 			'created' => $wordpressMYSQLTime,
@@ -98,7 +99,7 @@ class CJTBlocksAjaxController extends CJTAjaxController {
 		$blockId = $blocksModel->add($block->getValues());
 		$blocksModel->save();
 		// Read newly added block from database.
-		$newBlockData = $blocksModel->getBlock($blockId);
+		$newBlockData = $blocksModel->getBlock($blockId, array('returnCodeFile' => true));
 		
 		if ($newBlockData === null) {
 			throw new Exception('Could not add new block!!!');
@@ -169,11 +170,27 @@ class CJTBlocksAjaxController extends CJTAjaxController {
 	* put your comment there...
 	* 
 	*/
+	public function loadBlockAction() {
+		// Block Id.
+		$blockId = (int) $_GET['blockId'];
+		// Get block content.
+		$view = CJTView::getInstance('blocks/cjt-block');
+		$view->setBlock(CJTModel::create('blocks')->getBlock($blockId, array('returnCodeFile' => true)));
+		// Return View content.
+		$view->getTemplate('default');
+		$this->response = $view->structuredContent;
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
 	public function saveBlocksAction() {
 		$response = array();
 		// Blocks are sent ins single array list.
 		$blocksToSave = filter_input(INPUT_POST, 'blocks', FILTER_UNSAFE_RAW, FILTER_REQUIRE_ARRAY);
 		$calculatePinPoint = (bool) filter_input(INPUT_POST, 'calculatePinPoint', FILTER_SANITIZE_NUMBER_INT);
+		$createRevision = (bool) filter_input(INPUT_POST, 'createRevision', FILTER_SANITIZE_NUMBER_INT);
 		// For any reason that cause Client/Javascript to send empty blocks,
 		// make sure we're save.
 		if (is_array($blocksToSave) && !empty($blocksToSave)) {
@@ -183,6 +200,8 @@ class CJTBlocksAjaxController extends CJTAjaxController {
 				$blockData->id = $id;
 				// Recalculate pinPoint field value.
 				!$calculatePinPoint or (CJTBlockModel::arrangePins($blockData) && CJTBlockModel::calculateBlockPinPoint($blockData));
+				// Create block revision.
+				!$createRevision or $this->model->addRevision($id, $blockData->activeFileId);
 				// Set lastModified field to current time.
 				$blockData->lastModified = current_time('mysql');
 				// Update database.

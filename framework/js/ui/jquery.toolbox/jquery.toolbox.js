@@ -244,7 +244,7 @@ var CJTToolBoxNS = new (function ($) {
 				// Don't show the popup immediately when the mouse come over the button.
 				// As our move the mouse and didnt decide yest which popup to open.
 				// Stay for a while to make sure that this popup is desirable.
-				this.popupTimer = setTimeout($.proxy(this.showPopup, this), 400);
+				this.popupTimer = setTimeout($.proxy(this.showPopup, this), 100);
 				cbMouseOut = $.proxy(this._onmouseout, this);
 				// Hide Popup if mouse out from button or the popup form!
 				this.jButton.bind('mouseout.CJTButtonTouchMouseOut', cbMouseOut);
@@ -293,7 +293,9 @@ var CJTToolBoxNS = new (function ($) {
 				.mouseenter($.proxy(this._onmouseenter, this))
 				.click(function() {return false;}); // Behave inactive.
 			// Prepare popup elements.
-			this.targetElement = this.toolbox.jToolbox.find(params._type.targetElement)
+			this.targetElement = params._type.targetElementObject ? 
+													 params._type.targetElement : 
+													 this.toolbox.jToolbox.find(params._type.targetElement)
 			// Be intelegant and don't close for just if the mouse got out
 			// Please give User a break!!
 			.mouseenter($.proxy(this._onmouseenter, this));
@@ -305,7 +307,7 @@ var CJTToolBoxNS = new (function ($) {
 		*/
 		this.close = function() {
 			this.jButton.unbind('mouseout.CJTButtonTouchMouseOut');
-			this.targetElement.unbind('mouseout.CJTButtonTouchMouseOut').hide('fast');
+			this.targetElement.unbind('mouseout.CJTButtonTouchMouseOut').hide();
 		}
 		
 		/**
@@ -329,7 +331,7 @@ var CJTToolBoxNS = new (function ($) {
 				this.targetElement.css ({left : (this.jButton.position().left + 'px')})
 			}
 			// Show popup form.
-			this.targetElement.show('fast');
+			this.targetElement.show();
 		}
 		
 	} // End class.

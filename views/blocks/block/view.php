@@ -26,6 +26,13 @@ class CJTBlocksBlockView extends CJTView {
 	* 
 	* @var mixed
 	*/
+	public $isClosed;
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	protected $localization;
 	
 	/**
@@ -61,9 +68,9 @@ class CJTBlocksBlockView extends CJTView {
 	* put your comment there...
 	* 
 	*/
-	public function display() {
+	public function display($template = null) {
 		// Import template.
-		echo $this->getTemplate($this->templateName);
+		echo $this->getTemplate($template ? $template : $this->templateName);
 	}
 	
 	/**
@@ -73,7 +80,8 @@ class CJTBlocksBlockView extends CJTView {
 	public static function enqueueScripts() {
 		// Use related scripts.
 		self::useScripts(__CLASS__,
-			'jquery', 
+			'jquery',
+			'jquery-ui-menu',
 			'common', 
 			'wp-lists', 
 			'postbox', 
@@ -84,9 +92,14 @@ class CJTBlocksBlockView extends CJTView {
 			'framework:js:ajax:{CJT-}cjt-server-queue',
 			'framework:js:ui:{CJT-}jquery.toolbox',
 			'framework:js:ace(loadMethod=Tag, lookFor=ace)',
+			'framework:js:ace:{CJT-}pluggable',
 			'views:blocks:block:public:js:{CJT-}ajax',
 			'views:blocks:block:public:js:{CJT-}blockproperty',
 			'views:blocks:block:public:js:optional:{CJT-}revision',
+			'views:blocks:block:public:js:{CJT-}menu',
+			'views:blocks:block:public:js:menu:{CJT-}_block',
+			'views:blocks:block:public:js:{CJT-}codefile-manager',
+			'views:blocks:block:public:js:{CJT-}codefile',
 			'views:blocks:block:public:js:{CJT-}block',
 			'views:blocks:block:public:js:{CJT-}jquery.block'		
 		);
@@ -98,7 +111,12 @@ class CJTBlocksBlockView extends CJTView {
 	*/
 	public static function enqueueStyles() {
 		// Initialize style.
-		$styles = array('thickbox', 'views:blocks:block:public:css:{CJT-}block');
+		$styles = array(
+			'thickbox',
+			'views:blocks:block:public:css:{CJT-}block',
+			'views:blocks:block:public:css:{CJT-}menu',
+			'views:blocks:block:public:css:{CJT-}codefile'
+		);
 	  // IF WP < 3.8 add compatibility CSS file.
 	  $wpVersion = new CJT_Framework_Wordpress_Currentversion();
 	  if ($wpVersion->isLess('3.8')) {
@@ -148,7 +166,12 @@ class CJTBlocksBlockView extends CJTView {
 	* 
 	*/
 	public function setBlock($block) {
+		// Set block.
 		$this->block = $block;
+		// Get block state (opened/closes)
+		$closedBlockId = "cjtoolbox-{$this->block->id}";
+		$closedMetaboxes = get_user_meta(get_current_user_id(), 'closedpostboxes_cjtoolbox', true);
+		$this->isClosed = in_array($closedBlockId, ((array) $closedMetaboxes));
 	}
 	
 	/**

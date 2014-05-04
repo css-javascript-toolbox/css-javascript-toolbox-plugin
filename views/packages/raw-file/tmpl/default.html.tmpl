@@ -1,0 +1,18 @@
+<?php
+/**
+* 
+*/
+
+// Disallow direct access.
+defined('ABSPATH') or die("Access denied");
+?>
+<html>
+	<head>
+		<title><?php echo cssJSToolbox::getText('Package file - Raw Viewer') ?></title>
+	</head>
+	<body>
+		<div style="text-align: left;">
+			<?php echo $this->rawContent; ?>
+		</div>
+	</body>
+</html>

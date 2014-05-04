@@ -170,6 +170,17 @@ abstract class CJTxTable extends CJTHookableClass {
 	/**
 	* put your comment there...
 	* 
+	*/
+	public function fetchAll() {
+		// Get query.
+		$query = $this->getLoadQuery();
+		// Return all result.
+		return $this->dbDriver->select($query, ARRAY_A);
+	}
+
+	/**
+	* put your comment there...
+	* 
 	* @param mixed $field
 	*/
 	public function get($field) {
@@ -210,6 +221,38 @@ abstract class CJTxTable extends CJTHookableClass {
 		return $table;
 	}
 	
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $query
+	*/
+	protected function getLoadQuery($query = null) {
+		$tableKey = null;
+		$key = null;
+		// Query might be an array of keys!
+		if (is_array($query)) {
+			$tableKey = $query;
+			$query = null;
+		}
+		if (!$query) {
+			$item = (array) $this->item;
+			$query['select'] = 'SELECT *';
+			$query['from'] = "FROM {$this->table()}";
+			// Load only if key is not NULL!
+			if ($key = $this->isValidKey($tableKey)) {
+				$query['where'] = 'WHERE ' . implode(' AND ', $this->prepareQueryParameters($key));
+				if ($query = $this->onconcatquery($query)) {
+					// Read DB  record!
+					$query = "{$query['select']} {$query['from']} {$query['where']}";
+				}
+			}
+			else {
+				throw new CJT_Framework_DB_Mysql_Driver_Exception_Invalidkey($key);
+			}
+		}
+		return $query;
+	}
+
 	/**
 	* put your comment there...
 	* 
@@ -262,36 +305,25 @@ abstract class CJTxTable extends CJTHookableClass {
 		return $isValid;
 	}
 	
+
+
 	/**
 	* Load record into table!
 	* 	
 	* @param mixed 
 	*/
 	public function load($query = null) {
-		$tableKey = null;
-		$key = null;
-		// Query might be an array of keys!
-		if (is_array($query)) {
-			$tableKey = $query;
-			$query = null;
-		}
-		if (!$query) {
-			$item = (array) $this->item;
-			$query['select'] = 'SELECT *';
-			$query['from'] = "FROM {$this->table()}";
-			// Load only if key is not NULL!
-			if ($key = $this->isValidKey($tableKey)) {
-				$query['where'] = 'WHERE ' . implode(' AND ', $this->prepareQueryParameters($key));
-				if ($query = $this->onconcatquery($query)) {
-					// Read DB  record!
-					$query = "{$query['select']} {$query['from']} {$query['where']}";
-					$this->setItem($this->dbDriver->getRow($this->onloadquery($query)));
-				}				
-			}
-		}
-		else {
+		try {
+			// Get query to load!
+			$query = $this->getLoadQuery($query);
+			// Set the returned item.
 			$this->setItem($this->dbDriver->getRow($this->onloadquery($query)));
 		}
+		catch (CJT_Framework_DB_Mysql_Driver_Exception_Invalidkey $exception) {
+			// Backword compatibility to don't show any error.
+			// This is how the old code procedure was!
+		}
+		// Chaining.
 		return $this;
 	}
 	
@@ -324,18 +356,17 @@ abstract class CJTxTable extends CJTHookableClass {
 	}
 	
 	/**
-	* UPDATE/INSERT
-	* 
 	* THIS METHOD STILL DOESNT SUPPORT COMPOUND KEYS!!
 	* 
 	* @param mixed $forceInsert
+	* @param mixed $updateIdField
 	* @return CJTxTable
 	*/
-	public function save($forceInsert = false) {
+	public function save($forceInsert = false, $updateIdField = false) {
 		$keyFieldName = $this->key[0];
 		$item = (array) $this->item;
-		// Don't update id field.
-		$fieldsList = array_diff_key($item, array_flip($this->key));
+		// Don't update id field unless $updateIdField is set to TRUE.
+		$fieldsList = !$updateIdField ? array_diff_key($item, array_flip($this->key)) : $item;
 		$fieldsList = implode(',', $this->prepareQueryParameters($fieldsList));
 		if (!$forceInsert && $this->get($keyFieldName)) { // Update
 			// Where clause.

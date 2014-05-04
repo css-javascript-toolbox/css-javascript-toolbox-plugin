@@ -1,19 +1,23 @@
 .postbox .inside { margin-right: 6px !important; }
 /** reserve Objects Panel space */
-.cjcodeblock {margin-right:317px;}
+.cjcodeblock {margin-right:310px;}
+/** Editor toolbox **/
+.editor-toolbox a.cjttbl-toggle-objects-panel {background-image: url(../images/editor-toolbox/close-panel.png);}
+.editor-toolbox a.cjttbl-toggle-objects-panel.closed {background-image: url(../images/editor-toolbox/open-panel.png);}
 /*  Pages Panel */
 .cjpageblock {width: 315px; height: 100%; position: absolute; right: 3px;}
+
+.cjpageblock .ui-tabs-panel {color: #7c7c7c !important;}
+
 .pagelist {
 	padding:10px;
-	height: 242px; 
+	height: 248px; 
 	overflow:auto;
-	background:#fff; 
-	border:1px solid #ccc; 
+	border:1px solid #bbb; 
 	margin-bottom: 0px;
 	margin-top: 8px;
 }
 /* Wrap long text */
-.pagelist a{color: black; text-decoration: none;}
 .select-childs {
 	position: relative;
 	left: -1px;
@@ -36,7 +40,7 @@
 }
 .select-childs-checkbox-overlay:hover {opacity: 0.5; filter: alpha(opacity = 50);}
 
-.pagelist a:hover{color: #B06D38; font-weight: bold;}
+.pagelist input[type=checkbox] {background-color: transparent;}
 .pagelist>li>span {width: 203px;overflow: hidden; display: inline-block; height: 21px; vertical-align: middle;}
 .pagelist li span>a {margin-left: 4px;}
 .pagelist li { line-height:19px; word-wrap:break-word; margin:0; padding:0; }
@@ -44,8 +48,11 @@
 .list-error {font-size: 12px;text-align: center;margin-top: 41px;text-decoration: underline;}
 .list-error .message{font-weight: bold;}
 .pagelist ul { margin-left:15px; }
+a.l_ext { position: relative; top: 3px; background:url(../images/pages-panel/external_link.png) no-repeat; width:18px; height:13px; display:inline-block; }
+/** Fullscreen mode */
+.postbox.fullscreen .cjpageblock {z-index: 31; right: 10px;}
 
-div.cjpageblock .objects-list-button > a.prog-colored {color: transparent !important;}
+.listing-options {top: -28px; left: 1px; position: relative;}
 
 .info-panel {
 	display: none;
@@ -95,19 +102,21 @@ a.acc-header:visited,
 	color: #A5581B;
 	font-weight: bold;
 }
+a.acc-header.ui-accordion-header-active {color: #652200 !important;}
+
 /**
 * Custom Posts jQuery Accordion
 */
 .custom-posts-container {
-	background-color: white;
+	border: 1px solid #bbb;
 	margin-top: 9px;
-	height: 261px;
+	height: 256px;
 	padding: 6px;
 	overflow: auto;
 }
 .custom-posts-container .custom-post-list {display: none; padding-bottom: 8px;}
 .custom-posts-container .ui-accordion-content {height: 258px;}
-.custom-posts-container .pagelist {height: 218px; margin-top: 2px; margin-left: 5px; border: none; padding-top: 0px;}
+.custom-posts-container .pagelist {height: 191px; margin-top: 2px; margin-left: 5px; border: none; padding-top: 0px;}
 .custom-posts-container a.custom-post-item-header {
 	text-decoration: underline;
 	margin-bottom: 2px;
@@ -116,18 +125,29 @@ a.acc-header:visited,
 /**
 * Advanced Tab jQuery Accordion
 */
-.advanced-accordion .ui-accordion-content {height: 218px;}
+.advanced-accordion {border: 1px solid #ccc}
+.advanced-accordion .ui-accordion-content {height: 204px; padding: 0px !important; background: none !important; border: none !important}}
 .advanced-accordion .ui-accordion-header-active {color: #a5581b !important;}
 .advanced-accordion textarea {
-	height: 211px;
+	height: 196px;
 	width: 282px;
 	max-width: 282px;
 	margin-top: 4px;
 	overflow: auto;
 	white-space: nowrap;
 	text-decoration: underline;
+	margin-left: 7px;
+	background-color: transparent;
+	color: #7c7c7c;
 }
-.advanced-accordion a.acc-header {padding: 7px 4px;}
+.advanced-accordion a.acc-header {padding: 7px 4px; background: none !important; border: none !important}
+
+.advanced-accordion a.acc-header {color: #a5581b !important;}
+
+.advanced-accordion a.acc-header:hover {color:  #c8671b !important;}
+
+.ui-accordion .ui-accordion-header .ui-icon {background: none !important;}
+
 /*
  * jQuery UI Tabs 1.8.16
  *
@@ -137,14 +157,25 @@ a.acc-header:visited,
  *
  * http://docs.jquery.com/UI/Tabs#theming
  */
-.cjpageblock .ui-tabs { position: relative; zoom: 1; height: 100%; } /* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
-.cjpageblock .ui-tabs-active a, .cjpageblock ui-state-active a {color: #A5581B !important;}
-.cjpageblock .ui-tabs .ui-tabs-nav { margin: 0;}
-.cjpageblock .ui-tabs .ui-tabs-nav li { list-style: none; top: 1px; margin: 0 .2em 1px 0; padding: 0; white-space: nowrap; }
-.cjpageblock .ui-tabs .ui-tabs-nav li a { background:#F1F1F1; color:#999999; border-color:#DFDFDF #DFDFDF #CCCCCC; height:18px;margin:5px 5px 0 0;float:right;cursor:pointer;border-width:1px;border-style:solid;-moz-border-radius:3px 3px 0 0;-webkit-border-top-right-radius:3px;-webkit-border-top-left-radius:3px;-khtml-border-top-right-radius:3px;-khtml-border-top-left-radius:3px;border-top-right-radius:3px;border-top-left-radius:3px; border-bottom: 0 !important; }
-.cjpageblock .ui-tabs .ui-tabs-nav li a { font-size: 12px; float: left; padding: .5em 1.4em; text-decoration: none; }
+
+.cjpageblock .ui-tabs .ui-tabs-nav li.ui-tabs-active a {color: #a5581b !important; border-color: #a5581b;}
+
+.cjpageblock .ui-tabs .ui-tabs-nav li.ui-tabs-active a.prog-colored {color: transparent !important;}
+
+.cjpageblock .ui-tabs { background: none !important; border: none !important; padding: 0px !important; position: relative; zoom: 1; height: 100%; } /* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
+
+.ui-helper-clearfix:after {content: initial !important;}
+
+.cjpageblock .ui-tabs .ui-tabs-nav { background: none !important; border: none !important; padding: 0px !important; max-width: 315px; max-height: 80px; margin: 11px 0 0 0;}
+
+.cjpageblock .ui-tabs .ui-tabs-nav li { border: none !important; position: static !important; float: none !important; list-style: none; top: 1px; margin: 0 .2em 1px 0; padding: 0; white-space: nowrap; }
+
+/*-moz-border-radius:3px 3px 0 0;-webkit-border-top-right-radius:3px;-webkit-border-top-left-radius:3px;-khtml-border-top-right-radius:3px;-khtml-border-top-left-radius:3px;border-top-right-radius:3px;border-top-left-radius:3px;*/
+.cjpageblock .ui-tabs .ui-tabs-nav li a {font-family: "Open Sans",sans-serif; height:18px;margin:1px 1px 0 0;float:right;cursor:pointer;border: 1px solid #bbb;border-bottom: 0 !important;  font-size: 12px; float: left; padding: 6px 17px; text-decoration: none;}
+.cjpageblock .ui-tabs .ui-tabs-nav li a, .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a { cursor: pointer; } /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
+
 .cjpageblock .ui-tabs .ui-tabs-nav li.ui-tabs-selected { margin-bottom: 0; padding-bottom: 1px; }
 .cjpageblock .ui-tabs .ui-tabs-nav li.ui-tabs-selected a, .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .ui-tabs .ui-tabs-nav li.ui-state-processing a { cursor: text; background:#E9E9E9; border-color:#CCCCCC #CCCCCC #E9E9E9; color:#333333; }
-.cjpageblock .ui-tabs .ui-tabs-nav li a, .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a { cursor: pointer; } /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
-.cjpageblock .ui-tabs .ui-tabs-panel {height: 294px; display: block; padding: 0px 7px; background: #EFEFEF; border-color:#CCCCCC; border-style:solid;border-width:1px;border-collapse:separate;-moz-border-radius:3px 3px 0 0;-webkit-border-top-right-radius:3px;-webkit-border-top-left-radius:3px;-khtml-border-top-right-radius:3px;-khtml-border-top-left-radius:3px;border-top-right-radius:3px;border-top-left-radius:3px; clear:both }
+
+.cjpageblock .ui-tabs .ui-tabs-panel {height: 300px; display: block; clear:both; padding: 0px !important;}
 .cjpageblock .ui-tabs .ui-tabs-hide { display: none !important; }

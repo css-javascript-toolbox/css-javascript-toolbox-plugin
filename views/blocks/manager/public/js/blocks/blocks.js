@@ -41,7 +41,6 @@ var CJTBlocks;
 		*
 		*/
 		this.calculateChanges = function(changes, id, change) {
-			var isChanged = false;
 			// If field value changed add it to changes list.
 			if (change) {
 				changes[id] = true;
@@ -50,16 +49,7 @@ var CJTBlocks;
 				// Remove unchanged element.
 				delete changes[id];
 			}
-			// Change is detected if there is at least one element found.
-			$.each(changes,
-				function() {
-					if (this == true) {
-						isChanged = true;
-						return;
-					}
-				}
-			);
-			return isChanged;
+			return this.hasChanges(changes);
 		}
 		
 		/**
@@ -127,6 +117,24 @@ var CJTBlocks;
 			return ((hasBlocks == 'true') ? true : false);
 		}
 		
+		/**
+		* 
+		*/
+		this.hasChanges = function(changes) {
+			// Initially to no changes.
+			var isChanged = false;
+			// Change is detected if there is at least one element found.
+			$.each(changes,
+				function() {
+					if (this == true) {
+						isChanged = true;
+						return;
+					}
+				}
+			);
+			return isChanged;
+		};
+
 		/**
 		* 
 		*/

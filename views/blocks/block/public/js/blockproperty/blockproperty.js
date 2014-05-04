@@ -35,7 +35,7 @@ var CJTBlockPropertyACEEditor;
 			// Bind to property object.
 			block = blk;
 			property = prprty;
-		}
+		};
 
 		/**
 		* 
@@ -55,7 +55,7 @@ var CJTBlockPropertyACEEditor;
 		*/
 		this.getValueCache = function() {
 			return this.get();
-		}
+		};
 
 		/**
 		* 
@@ -66,7 +66,15 @@ var CJTBlockPropertyACEEditor;
 			// Get the value.
 			var element = mdlBlock.box.find(property.selector);
 			element.val(value);
-		}
+		};
+		
+		/**
+		* 
+		*/
+		this.reset = function() {
+			var element = block.block.box.find(property.selector)[0];
+			return element.cjtBlockSyncValue;
+		};
 
 	}
 	
@@ -96,28 +104,28 @@ var CJTBlockPropertyACEEditor;
 			// Bind to property object.
 			block = blk;
 			property = prprty;
-		}
+		};
 
 		/**
 		* 
 		*/
 		this.get = function() {
 			return block.block.aceEditor.getSession().getValue();
-		}
-	
+		};
+	  
 		/**
 		* 
 		*/
 		this.getValueCache = function() {
 			return this.get();
-		}
+		};
 
 		/**
 		* 
 		*/
 		this.setValue = function(value) {
 			block.block.aceEditor.getSession().setValue(value);
-		}
+		};
 
 	}
 

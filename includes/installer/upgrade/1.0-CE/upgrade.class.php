@@ -9,7 +9,12 @@ defined('ABSPATH') or die("Access denied");
 /**
 * 
 */
-class CJTV10CEUpgrade {
+class CJTV10CEUpgrade  {
+	
+	/**
+	* 
+	*/
+	const ACCESS_POINTS_CACHE_POINTER = 'settings.CJTAccessPointsDirectorySpider.cache';
 	
 	/**
 	* put your comment there...
@@ -22,26 +27,24 @@ class CJTV10CEUpgrade {
 		// Chaining.
 		return $this;
 	}
-	
+
 	/**
 	* put your comment there...
 	* 
+	* @return CJTV10CEUpgrade Return $this
 	*/
 	public function finalize() {
-		// Upgrade database internal version number using
-		// installer class.
-		cssJSToolbox::import('includes:installer:installer:installer.class.php');
-		CJTInstaller::getInstance()->finalize();
-		// Chaining.
+		// Temporary for a period of time we need to clean up
+		// users database as the access points cache wordpress option
+		// will not be used any more!
+		delete_option(self::ACCESS_POINTS_CACHE_POINTER);
+		// Delete all install operations for versions other than 'current' version!
+		CJTModel::import('installer');
+		$operationsState = get_option(CJTInstallerModel::INSTALLATION_STATE);
+		// Remove all and leave only 'current' versions operations!
+		update_option(CJTInstallerModel::INSTALLATION_STATE, array(CJTPlugin::DB_VERSION => $operationsState[CJTPlugin::DB_VERSION]));
+		// Chaining!
 		return $this;
-	}
-	
-	/**
-	* put your comment there...
-	* 
-	*/
-	public static function getInstance() {
-		return new CJTV10CEUpgrade();
 	}
 	
 } // End class.

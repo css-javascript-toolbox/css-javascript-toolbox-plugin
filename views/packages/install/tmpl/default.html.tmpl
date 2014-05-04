@@ -1,0 +1,45 @@
+<?php
+/**
+* 
+*/
+
+// Disallow direct access.
+defined('ABSPATH') or die("Access denied");
+
+// Allow view to enqueue scripts and styles.
+$this->enququeScripts();
+$this->enququeStyles();
+$this->suppressPrintScriptsHook();
+?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+<?php wp_print_head_scripts() ?>
+<?php wp_print_styles() ?>
+	</head>
+	<body>
+		<div id="wpwrap">
+			<div id="wpcontent">
+				<div id="wpbody">
+					<div id="wpbody-content">
+						<div class="wrap">
+							<form class="cjt-form">
+								<fieldset>
+									<ul>
+										<li>
+											<label for="fileUploader"><?php echo cssJSToolbox::getText('Package File') ?>:</label>
+											<iframe id="fileUploader" frameborder="0"></iframe>
+										</li>
+										<li class="buttons">
+											<input type="button" id="install" class="button-secondary" value="<?php echo cssJSToolbox::getText('Install') ?>">
+										</li>
+									</ul>
+								</fieldset>	
+							</form>
+						</div>					
+					</div>
+				</div>			
+			</div>
+		</div>
+<?php wp_print_footer_scripts() ?>
+	</body>
+</html>

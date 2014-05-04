@@ -14,7 +14,7 @@ class CJTSetupModel {
 	/**
 	* 
 	*/
-	const EDD_PRODUCT_NAME = 'CJT Pro';
+	const EDD_PRODUCT_NAME = 'CJT Free';
 	
 	/**
 	* 

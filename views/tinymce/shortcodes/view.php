@@ -26,6 +26,7 @@ class CJTTinymceShortcodesView extends CJTView {
 		add_filter('mce_buttons', array($this, 'addButton'));
 		// Enqueue dependencies scripts.
 		self::enqueueScripts();
+		self::enqueueStyles();
 	}
 	
 	/**
@@ -45,8 +46,6 @@ class CJTTinymceShortcodesView extends CJTView {
 	* @param mixed $tpl
 	*/
 	public function display($tpl = null) {
-		// Push vars into view!
-		
 		// Output view!
 		echo $this->getTemplate($tpl);
 	}
@@ -59,9 +58,20 @@ class CJTTinymceShortcodesView extends CJTView {
 		// Please thos scripts below should be already loaded
 		// by the metabox views If the tinymce is loaded inside the editbox
 		// IN OTHER CASES!!! what is the other cases! we load it!
-		self::useScripts(__CLASS__,  'framework:js:ajax:{CJT-}cjt-server');
+		self::useScripts(__CLASS__, 
+			'thickbox',
+			'framework:js:ajax:{CJT-}cjt-server'
+		);
 	}
 
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function enqueueStyles() {
+		self::useStyles(__CLASS__,  'thickbox');
+	}
+		
 	/**
 	* put your comment there...
 	* 

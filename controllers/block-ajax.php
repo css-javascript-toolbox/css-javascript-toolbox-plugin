@@ -35,9 +35,20 @@ class CJTBlockAjaxController extends CJTAjaxController {
 		$this->registryAction('getBlockBy');
 		$this->registryAction('getAPOP');
 		$this->registryAction('restoreRevision');
+		$this->registryAction('loadUrl');
+		$this->registryAction('downloadCodeFile');
 	}
 
-	
+	/**
+	* put your comment there...
+	* 
+	* @deprecated this is just a redirect to the CJTBlockContoller::getAction().
+	*/
+	protected function downloadCodeFileAction() {
+		// Pass to CJTBlockController!
+		$this->redirect('block');
+	}
+
 	/**
 	* put your comment there...
 	* 
@@ -85,10 +96,18 @@ class CJTBlockAjaxController extends CJTAjaxController {
 	public function getRevisionAction() {
 		// Initialize
 		$model = $this->getModel('blocks');
+		$tblCodeFile = new CJTBlockFilesTable(cssJSToolbox::getInstance()->getDBDriver());
+		// Inputs.
+		$revisionId = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 		// Get request parameters.
-		$revision['id'] = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-		$revision['fields'] = array('id', 'code', 'links', 'expressions');
+		$revision['id'] = $revisionId;
+		$revision['fields'] = array('id', 'links', 'expressions', 'masterFile');
 		$revision = $model->getBlock($revision['id'], array(), $revision['fields']);
+		// Get revisioned code file.
+		$revision->code = $tblCodeFile->set('blockId', $revisionId)
+																	->set('id', $revision->masterFile)
+																	->load()
+																	->getData()->code;
 		// Discard Pins.
 		$revision->pages = false;
 		$revision->posts = false;
@@ -103,10 +122,12 @@ class CJTBlockAjaxController extends CJTAjaxController {
 	* @deprecated All will be moved to other controllers in the future versions.
 	*/
 	public function getRevisionsAction() {
+		// initialize.
 		$model = $this->getModel('blocks');
 		// Get request parameters.
 		$blockId = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 		// Get block revisions.
+		$revisions['filter']['masterFile'] = $_GET['activeFileId'];
 		$revisions['filter']['parent'] = $blockId;
 		$revisions['filter']['type'] = 'revision';
 		// Its mandatory to select fields instead of using just .*.
@@ -124,7 +145,17 @@ class CJTBlockAjaxController extends CJTAjaxController {
 		// Return view content.
 		$this->response = $view->getTemplate('default');
 	}
-	
+
+	/**
+	* put your comment there...
+	* 
+	* @deprecated this is just a redirect to the CJTBlockContoller::getAction().
+	*/
+	protected function loadUrlAction() {
+		// Pass to CJTBlockController!
+		$this->redirect('block');
+	}
+
 	/**
 	* put your comment there...
 	* 
@@ -132,14 +163,25 @@ class CJTBlockAjaxController extends CJTAjaxController {
 	protected function restoreRevisionAction() {
 		// Initialize.
 		$mdlBlocks = new CJTBlocksModel();
+		$tblCodeFile = new CJTBlockFilesTable(cssJSToolbox::getInstance()->getDBDriver());
 		// Get revision ID.
 		$rId = (int) $_GET['rid'];
 		$bId = (int) $_GET['bid'];
-		// Restore revision
-		// 1. Query revision block (only restore fields).
-		// 2. Change the id to the original id.
-		// 3. Update the block as the original block.
-		$revisionBlock = $mdlBlocks->getBlock($rId, array(), array('id', 'code', 'pinPoint', 'links', 'expressions'));
+		// Get Revision Block + Revision Code.
+		$revisionBlock = $mdlBlocks->getBlock($rId, array(), array('id', 'pinPoint', 'links', 'expressions', 'masterFile'));
+		$revisionBlock->code = $tblCodeFile->set('blockId', $rId)
+																			 ->set('id', $revisionBlock->masterFile)
+																			 ->load()
+																			 ->getData()->code;
+		// If code === null set it to empoty string '' as null woulod
+		// prevent the field from being in the query, cause SQL error.
+		if ($revisionBlock->code === null) {
+			$revisionBlock->code = '';
+		}
+		// Code File Fields.
+		$revisionBlock->activeFileId = $revisionBlock->masterFile;
+		$revisionBlock->masterFile = null; // This is just for querying CodeFile. DONT UPDATE.
+		// Restore Block.
 		$revisionBlock->id = $bId;
 		$mdlBlocks->update($revisionBlock, true);
 		$mdlBlocks->save();

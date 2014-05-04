@@ -6,6 +6,148 @@
 * 
 */
 (function($) {
+
+	/**
+	* put your comment there...
+	* 
+	* @type T_JS_FUNCTION
+	*/
+	var Buttons = new function() {
+		
+		/**
+		* 
+		*/
+		this.AssignOnlySwitcher = function(assignPanel) {
+			// initialize.
+			var isRunning = false;
+			var anchors = {};
+			var switchers = [{name : 'assignOnly', state : true, 'otherSwitcher' : 'all'}, {name : 'all', state : false, 'otherSwitcher' : 'assignOnly'}];
+			var model = assignPanel.block.block;
+			var jElement = $(model.box.find('.listing-options'));
+			
+			/**
+			* put your comment there...
+			* 
+			* @param event
+			*/
+			var _onswitch = function(event) {
+				// Don't run while in process.
+				if (isRunning) {
+					return false;
+				}
+				// Get switcher associated to the anchor.
+				var switcher = $(event.target).data('switcher');
+				// Check for changes.
+				// If would be treated as changed when
+				// there is a changed detected and the
+				// the change is really made to the assign panel fields.
+				// Get changes copy and remove CODE field.
+				var changes = $.extend({}, assignPanel.block.changes);
+				var codeFieldID = model.aceEditor.cjtBlockFieldId;
+				delete changes[codeFieldID];
+				// CHeck if there is any changes regardless the CODE field.
+				if (CJTBlocksPage.blocks.hasChanges(changes)) {
+					var confirmed = confirm(CJT_CJT_BLOCKJqueryBlockI18N.changesDetectedConfirmMessage);
+					// If not confirmed returns.
+					if (!confirmed) {
+						return false;
+					}
+					else {
+						// Reset all changes except code.
+						assignPanel.block.changes = {codeFieldID : assignPanel.block.changes[assignPanel.block.changes]};
+						// HasChanges!
+						var hasChanges = CJTBlocksPage.blocks.hasChanges(assignPanel.block.changes);
+						// Based on the hasChanges value reflect user interface
+						// components for CJTPages and the Block unit.
+						CJTBlocksPage.blockContentChanged(model.get('id'), hasChanges);
+						assignPanel.block.toolbox.buttons['save'].enable(hasChanges);
+					}
+				}
+				// Enter running mode.
+				isRunning = true;
+				// Reset assignment panel
+				// Process all LISTING properties.
+				var properties = $.merge([], assignPanel.block.features.restoreRevision.fields);
+				delete properties[properties.indexOf('code')];
+				delete properties[properties.indexOf('links')];
+				delete properties[properties.indexOf('expressions')];
+				$.each(properties, $.proxy(
+					function(index, propertyName) {
+						if (propertyName) {
+							// Get property om
+							pom = model.property(propertyName).om;
+							// Reset values.
+							pom.setValue(null);
+							pom.reset();
+						}
+					}, this)
+				);
+				// Save property.
+				model.set('assignOnlyModeSwitcher', switcher.name);
+				// Switch state.
+				this.switchState();
+				// Activate ADVANCED TAB.
+				// Activate previously activated tab.
+				var currentActiveTAB = assignPanel.jElement.tabs('option', 'active');
+				assignPanel.activateTab('advanced');
+				assignPanel.jElement.tabs('option', 'active', currentActiveTAB);
+				// Exsit running mode.
+				isRunning = false;
+				// Inactive
+				return false;
+			};
+			
+			/**
+			* put your comment there...
+			* 
+			*/
+			var getBlockSwitcherName = function() {
+				return model.get('assignOnlyModeSwitcher', 'all');
+			};
+
+			/**
+			* put your comment there...
+			* 
+			*/
+			this.jElement = function() {
+				return jElement;
+			};
+			
+			/**
+			* put your comment there...
+			* 
+			*/
+			this.switchState = function() {
+				// Get block switcher.
+				var anchor = anchors[getBlockSwitcherName()];
+				var switcher = anchor.data('switcher');
+				// Change anchor state.
+				anchor.addClass('active');
+				// Reset the other anchor state.
+				anchors[switcher.otherSwitcher].removeClass('active');				
+				// Change state.
+				assignPanel.loadAssignedOnlyMode = switcher.state;
+				assignPanel.checkboxDisabled = false;
+			};
+
+			// Initialize null p
+			// Find links, bind events.
+			$.each(switchers, $.proxy(
+				function(index, switcher) {
+					// Find Anchor
+					anchors[switcher.name] = model.box.find('.listing-options-' + switcher.name)
+					// Handle click
+					.click($.proxy(_onswitch, this))
+					// Store switcher name.
+					.data('switcher', switcher);
+				}, this)
+			);
+			
+			// Switch to default state.
+			this.switchState();
+		};
+		
+	};
 	
 	/**
 	* Hold the items per page to load
@@ -46,7 +188,12 @@
 					/**
 					* 
 					*/
-					this.loadAssignedOnlyMode = (this.block.state == 'restore');
+					this.checkboxDisabled = (this.block.state == 'restore')
+					
+					/**
+					* 
+					*/
+					this.loadAssignedOnlyMode = this.checkboxDisabled;
 					
 					/**
 					* 
@@ -80,6 +227,32 @@
 					var _onadvancedaccordionchanged = function(event, ui) {
 						// Activate textarea under the current selected item content!
 						ui.newContent.find('textarea').focus();
+					};
+
+					/**
+					* put your comment there...
+					* 
+					* @param event
+					*/
+					var _ondetectlistscroll = function(event) {
+						// Initialize.
+						var list = this;
+						var jList = $(list);
+						// Don't load unless not all items has been loaded.
+						if (jList.data('itemsLoaded') === true) {
+							return;
+						}
+						// Prevent multiple requests at the same time.
+						var isLoading = jList.data('cjt_isObjectListLoading');
+						// Scroll value.
+						var scrollValue = list.scrollTop;
+						// The hidden zone!
+						var scrollZone = list.scrollHeight - jList.innerHeight();
+						// If the ScrollValue = ScrollZone
+						// then we need to load a new page.
+						if ((scrollValue == scrollZone) && (isLoading === false)) {
+							list.getCJTBlockAPOP(false);
+						}
 					};
 
 					/**
@@ -146,6 +319,31 @@
 							}
 						}
 					};
+					
+					/**
+					* put your comment there...
+					* 
+					* @param event
+					* 
+					* @returns {Boolean}
+					*/
+					var _onselectchilds = function(event) {
+						// Initialize vars.
+						var overlay = $(event.target);
+						var checkbox = overlay.parent().find('.select-childs');
+						var state = checkbox.prop('checked') ? '' : 'checked';
+						// Work only if select-child checkbox is interactive!
+						if (checkbox.attr('disabled') != 'disabled') {
+							// Revert checkbox state.
+							checkbox.prop('checked', state);
+							// Clone state to parent checkbox.
+							checkbox.parent().find('label>input:checkbox').prop('checked', state).trigger('change');
+							//Clone state to all child checkboxes
+							checkbox.parent().find('.children input:checkbox').prop('checked', state).trigger('change');
+						}
+						// For link to behave inactive.
+						return false;
+					};
 
 					/**
 					* put your comment there...
@@ -191,6 +389,15 @@
 						return promise;
 					};
 
+					/**
+					* 
+					*/
+					this.activateTab = function(type) {
+						// Activate the AUX tab by default.
+						assignPanel.jElement.find('li.type-' + type + '>a').trigger('click');
+						assignPanel.jElement.tabs({collapsible : false});
+					};
+					
 					/**
 					* Get items count to load per
 					* page.
@@ -259,7 +466,7 @@
 																.prop('checked', item.assigned)
 																.appendTo($('<label></label>').appendTo(itemLi))
 																// If load-assigned-only-mode is activated then disable checkboxes.
-																.prop('disabled', assignPanel.loadAssignedOnlyMode);
+																.prop('disabled', assignPanel.checkboxDisabled);
 								// Add the Checkbox to notification save chnages elements.
 								assignPanel.block.notifySaveChanges.initElement(checkbox.get(0));
 								// Checkbox title container.
@@ -276,6 +483,12 @@
 								}
 								// Create Child Components IF: NOT-IN-REVISION-MODE AND THE ITEM-HAS-CHILD.
 								if (!assignPanel.loadAssignedOnlyMode && item.hasChilds) {
+									// Add 'select childs' checkbox just before te title container element.
+									var link = $('<a href="#" class="select-childs-checkbox-overlay"></a>')
+									.click($.proxy(_onselectchilds, this))
+									.insertBefore(title);
+									// Overlay checkbox.
+									link.after('<input type="checkbox" class="select-childs">');
 									// Add child items list below the title container.
 									$('<ul class="children"></ul>')
 									.prop('id', ('objects-list-' + typeParams.type + '-' + mdlBlock.get('id') + '-' + item.id))
@@ -463,11 +676,17 @@
 								// List items.
 								return assignPanel.list_GetAPOP.apply(this, [initialize, 1]);
 							};
+							listElementNode._ondetectlistscroll = _ondetectlistscroll;
+							// Fetch objects from server with list scrolls event.
+							listElement.bind('scroll.cjt', listElementNode._ondetectlistscroll);
 							// Cache object-list-element reference for later use.
 							this.buttons[listParams['group']].push(objectListEle);
 						}, this)
 					);
 					
+					// Buttons.
+					this.assignedOnlySwitcher = new Buttons.AssignOnlySwitcher(this);
+		
 					// Initialize Assigment Panel tab.
 					this.jElement.tabs({
 						activate : function(event, ui) {

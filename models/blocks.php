@@ -55,33 +55,48 @@ class CJTBlocksModel {
 		$block = (array) $block;
 		// Create Tables objects.
 		$blocks = new CJTBlocksTable($this->dbDriver);
+		$codeFile = new CJTBlockFilesTable($this->dbDriver);
 		// Get new id if not specified.
-		if (!$block['id']) {
+		if (!isset($block['id']) || !$block['id']) {
 			$block['id'] = $blocks->getNextId();
 		}
+		// Cache code for MASTER file.
+		$codeFile->set('code', (isset($block['code']) ? $block['code'] : null));
+		unset($block['code']); // If it passed it mist be removed from blocks data(avoid field not found)
+		// Add new block.
 		$blocks->insert($block);
+		// Add code files.
+		$codeFile->set('blockId', $block['id'])
+						 ->set('id', 1)
+						 ->set('name', 'Master')
+						 ->save(true, true);
+		// Return Newly added block id.
 		return $block['id'];
 	}
 	
 	/**
 	* put your comment there...
 	* 
-	* @param mixed $id
+	* @param mixed $blockId
+	* @param mixed $activeFileId
 	*/
-	public function addRevision($blockId) {
+	public function addRevision($blockId, $activeFileId) {
 		// Create Tables objects.
 		$blocks = new CJTBlocksTable($this->dbDriver);
 		$pins = new CJTBlockPinsTable($this->dbDriver);
-		// We allow only up to self::MAX_REVISIONS_PER_BLOCK revisions per block.
+		$codeFile = new CJTBlockFilesTable($this->dbDriver);
+		// We allow only up to self::MAX_REVISIONS_PER_BLOCK revisions per
+		// block code files So that a single block may has up to 
+		// self::MAX_REVISIONS_PER_BLOCK * count(codeFiles)
 		$revisions['fields'] 	= array('id');
-		$revisions['filters'] = array('type' => 'revision', 'parent' => $blockId);
+		$revisions['filters'] = array('type' => 'revision', 'parent' => $blockId, 'masterFile' => $activeFileId);
 		$revisions = $blocks->get(null, $revisions['fields'], $revisions['filters']);
 		// If revisions reached self::MAX_REVISIONS_PER_BLOCK delete first one.
 		if (count($revisions) == self::MAX_REVISIONS_PER_BLOCK) {
 			$this->delete(array_shift($revisions)->id);
 		}
 		// Get block data.                                                    
-		$block['fields'] = array('id', 'lastModified', 'pinPoint', 'code', 'links', 'expressions');
+		$block['fields'] = array('id', 'lastModified', 'pinPoint', 'links', 'expressions');
 		// get() developed to return multiple blocks, fetch the first.
 		$result = $blocks->get($blockId, $block['fields']);
 		$block = reset($result);
@@ -91,6 +106,8 @@ class CJTBlocksModel {
 		$block->type = 'revision';
 		$block->created = current_time('mysql');
 		$block->owner = get_current_user_id();
+		$block->masterFile = $activeFileId; // Only the revisioned code file would be exists and must be 
+																				// used as the masterFile!
 		$block->id = $blocks->getNextId(); // Get new id for revision rrecord.
 		// Add block data.
 		$blocks->insert($block);
@@ -99,6 +116,14 @@ class CJTBlocksModel {
 		if (!empty($blockPins)) {
 			$pins->insertRaw($block->id, $blockPins);
 		}
+		// Revision current ActiveFileId code record.
+		// Simply, get a copy of it from the target block
+		// and assign the copy to the new created block revision.
+		$codeFile->set('id', $activeFileId)
+						 ->set('blockId', $blockId)
+						 ->load()
+						 ->set('blockId', $block->id)
+						 ->save(true, true);
 	}
 	
 	/**
@@ -124,6 +149,7 @@ class CJTBlocksModel {
 		// Create Tables objects.
 		$blocks = new CJTBlocksTable($this->dbDriver);
 		$pins = new CJTBlockPinsTable($this->dbDriver);
+		$codeFile = new CJTBlockFilesTable($this->dbDriver);
 		// Get blocks revisions.
 		$revisions['fields'] = array('id');
 		$revisions['filters']['parent'] = $ids;
@@ -136,10 +162,23 @@ class CJTBlocksModel {
 		if (!empty($revisions)) {
 			$blocks->delete($revisions);
 			$pins->delete($revisions);
+			// Delete code files.
+			$this->dbDriver->delete(sprintf('DELETE FROM #__cjtoolbox_block_files WHERE blockId IN(%s)', implode(',', $revisions)));
 		}
+		// Delete linked templates.
+		$linkedOnlyTemplatesQuery = 'DELETE FROM #__cjtoolbox_block_templates WHERE blockId IN(%s)';
+		$this->dbDriver->delete(sprintf($linkedOnlyTemplatesQuery, implode(',', $ids)));
+		// Delete associated parameters.
+		$mdlParams = new CJT_Models_Parameters();
+		$mdlParams->delete($ids);
+		// Delete form.
+		$mdlForm = new CJT_Models_Forms();
+		$mdlForm->delete($ids);
 		// Delete blocks.
 		$blocks->delete($ids);
 		$pins->delete($ids);
+		// Delete code files.
+		$this->dbDriver->delete(sprintf('DELETE FROM #__cjtoolbox_block_files WHERE blockId IN(%s)', implode(',', $ids)));
 		// Chaining!
 		return $this;
 	}
@@ -162,10 +201,14 @@ class CJTBlocksModel {
 	* @param mixed $ids
 	*/
 	public function getBlocks($ids = array(), $filters = array(), $fields = array('*'), $returnType = OBJECT_K, $orderBy = array(), $useDefaultBackupFltr = true) {
+		// initialize.
 		$blocks = array();
+		$returnCodeFile = isset($filters['returnCodeFile']) && ($filters['returnCodeFile'] == true);
+		unset($filters['returnCodeFile']);
 		// Create Tables objects.
 		$blocksTable = new CJTBlocksTable($this->dbDriver);
 		$pinsTable = new CJTBlockPinsTable($this->dbDriver);
+		$blockFiles = new CJTBlockFilesTable($this->dbDriver);
 		// Read blocks.
 		$blocks = $blocksTable->get($ids, $fields, $filters, $returnType, $orderBy, $useDefaultBackupFltr);
 		// Get only pins for retrieved blocks.
@@ -178,9 +221,52 @@ class CJTBlocksModel {
 			// e.g blocks[ID]->pages[] = PAGE-ID.
 		  $blocks[$pin->blockId]->{$pin->pin}[] = $pin->value;
 		}
+		// Get active file code.
+		// There always should be active file unless that the
+		// requested block is never switched by current author before.
+		// However we'll do that only if filters['returnCodeFile'] set to TRUE.
+		if ($returnCodeFile) {
+			foreach ($ids as $id) {
+				if(!$activeFileId = $this->getCurrentAuthorBlockActiveFileId($id)) {
+					// If first time use masterFile ID as he default.
+					$activeFileId = $blocks[$id]->masterFile;
+				}
+				// Retreive code for block code file.
+				$codeFile = (array) $blockFiles->setData(array('blockId' => $id, 'id' => $activeFileId))
+								 						 					 ->load()
+								 						 					 ->getData();
+				unset($codeFile['description']);
+				$blocks[$id]->file = (object) $codeFile;
+				// Also return the active file id withing the set.
+				$blocks[$id]->activeFileId = $activeFileId;
+			}
+		}
 		return $blocks;
 	}
 	
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $blockId
+	* @param mixed $authorId
+	*/
+	public function getAuthorBlockActiveFileId($blockId, $authorId = null) {
+		// Get author active file for the requested block.
+		$activeFileId = (int) get_user_meta($authorId, "cjt_block_active_file_{$blockId}", true);
+		// Query block active file.
+		return $activeFileId;
+	}
+
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $blockId
+	* @param mixed $authorId
+	*/
+	public function getCurrentAuthorBlockActiveFileId($blockId) {
+		return $this->getAuthorBlockActiveFileId($blockId, get_current_user_id());
+	}
+
 	/**
 	* put your comment there...
 	* 
@@ -235,7 +321,8 @@ class CJTBlocksModel {
 	* @param mixed $block
 	*/
 	public function update($block, $updatePins) {
-		$block = (array) $block; // To be used by array_intersect_key.
+		// To be used by array_intersect_key.
+		$block = (array) $block;
 		// Create Tables objects.
 		$blocks = new CJTBlocksTable($this->dbDriver);
 		$pins = new CJTBlockPinsTable($this->dbDriver);
@@ -245,9 +332,17 @@ class CJTBlocksModel {
 			$pinsData = array_intersect_key($block, array_flip(array('pages', 'posts', 'categories')));
 			$pins->update($block['id'], $pinsData);		
 		}
+		// Update code file
+		if (isset($block['activeFileId'])) {
+			$codeFile = new CJTBlockFilesTable($this->dbDriver);
+			$codeFile->set('blockId', $block['id'])
+							 ->set('id', $block['activeFileId'])
+							 ->set('code', $block['code'])
+							 ->save();
+		}
 		// Isolate block fields.
-		$block = array_intersect_key($block, $blocks->getFields());
-		$blocks->update($block);
+		$blockData = array_intersect_key($block, $blocks->getFields());
+		$blocks->update($blockData);
 	}
 	
 } // End class.

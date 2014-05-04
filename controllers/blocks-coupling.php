@@ -48,13 +48,6 @@ class CJTBlocksCouplingController extends CJTController {
 	* 
 	* @var mixed
 	*/
-	protected $hasRun = false;
-	
-	/**
-	* put your comment there...
-	* 
-	* @var mixed
-	*/
 	protected static $instance = null;
 	
 	/**
@@ -126,6 +119,34 @@ class CJTBlocksCouplingController extends CJTController {
 	* @var mixed
 	*/
 	protected $ongetfilters = array('parameters' => array('filters'));
+			
+	/**
+	* put your comment there...
+	* 	
+	* @var mixed
+	*/
+	protected $onlinkedtemplates = array('parameters' => array('templates'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onlinkscripts = array('parameters' => array('templates'));
+
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onlinkstyles = array('parameters' => array('templates'));
+		
+	/**
+	* put your comment there...
+	* 	
+	* @var mixed
+	*/
+	protected $onlinktemplate = array('parameters' => array('template'));
 	
 	/**
 	* put your comment there...
@@ -167,7 +188,28 @@ class CJTBlocksCouplingController extends CJTController {
 	* 
 	* @var mixed
 	*/
+	protected $onqueuecss = array('parameters' => array('style'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $onqueuejavascript = array('parameters' => array('script'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	protected $onsetfilters = array('parameters' => array('filters'));
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $templates = array();
 	
 	/**
 	* Initialize controller object.
@@ -223,6 +265,11 @@ class CJTBlocksCouplingController extends CJTController {
 		$metaBoxesOrder = $this->onblocksorder($this->model->getOrder());
 		// Get ORDER-INDEX <TO> BLOCK-ID mapping.
 		preg_match_all('/cjtoolbox-(\d+)/', $metaBoxesOrder['normal'], $blocksOrder, PREG_SET_ORDER);
+		/**
+		* append more to orders produced by CJTBlocksCouplingController::setRequestFilter().
+		* More to orders may allow other blocks to bein the output (e.g metaboxe blocks).
+		*/
+		$blocksOrder = array_merge($blocksOrder, $this->getFilters()->moreToOrder);
 		// Prepare request URL to match against Links & Expressions.
 		$linksRequestURL = self::getRequestURL();
 		$expressionsRequestURL = "{$linksRequestURL}?{$_SERVER['QUERY_STRING']}";
@@ -281,6 +328,10 @@ class CJTBlocksCouplingController extends CJTController {
 						continue;
 					}
 				}
+				// Retrieve block code-files.
+				$block->code = $this->model->getBlockCode($block->id);
+				// Import Executable (PHP and HTML) templates.
+				$block->code = $block->code . $this->model->getExecTemplatesCode($block->id);
 				// For every location store blocks code into single string
 				$evaluatedCode = CJTPHPCodeEvaluator::getInstance($block)->exec()->getOutput();
 				/** @todo Include Debuging info only if we're in debuging mode! */
@@ -291,6 +342,13 @@ class CJTBlocksCouplingController extends CJTController {
 				// Store all used Ids in the CORRECT ORDER.
 				$this->addOnActionIds($blockId);
 			}
+		}
+		$templates = $this->onActionIds ? $this->model->getLinkedTemplates($this->onActionIds) : array();
+		// Classisfy as we process Scripts and Styles separatly (different hooks!).
+		foreach ($this->onlinkedtemplates($templates) as $id => $template) {
+			// Filer template!
+			extract($this->onlinktemplate(compact('template', 'id')));
+			$this->templates[$template->type][$id] = $template;
 		}
 		// Return true if there is at least 1 block return within the set.
 		return true;
@@ -355,21 +413,91 @@ class CJTBlocksCouplingController extends CJTController {
 		// The wrong call won't has $wp_query object set,
 		// but this is only valid at Front end.
 		if (!is_admin() && !$GLOBALS['wp_query']) {
-			return;
+		  return;
 		}
-		// Don't run twice!
-		if (!$this->hasRun) {
-			// Stop running it again!
-			$this->hasRun = true;
-			// Get cache or get blocks if not cached.
-			// If there is no cache or no blocks for output
-			// do nothing.
-			if ($this->getCached() || $this->getBlocks()) {
-				$actionsPrefix = is_admin() ? 'admin'	: 'wp';
-				// Output blocks on various locations!
-				add_action("{$actionsPrefix}_head", array(&$this, 'outputBlocks'), 30);
-			  add_action("{$actionsPrefix}_footer", array(&$this, 'outputBlocks'), 30);
+		// Get current application hook prefix.
+		$actionsPrefix = is_admin() ? 'admin'	: 'wp';
+		// Get cache or get blocks if not cached.
+		// If there is no cache or no blocks for output
+		// do nothing.
+		if ($this->getCached() || $this->getBlocks()) {
+			// Output blocks on various locations!
+			add_action("{$actionsPrefix}_head", array(&$this, 'outputBlocks'), 30);
+		  add_action("{$actionsPrefix}_footer", array(&$this, 'outputBlocks'), 30);
+		  // Links templates & styloes!
+		  add_action("{$actionsPrefix}_enqueue_scripts", array(&$this, 'linkTemplates'), 30);
+		  add_action("{$actionsPrefix}_print_styles", array(&$this, 'linkTemplates'), 30);
+		}
+		// Link style sheet in footer required custom implementation.
+		add_action("{$actionsPrefix}_print_footer_scripts", array(&$this, 'linkFooterStyleSheets'), 9);
+		// Make sure this is executed only once.
+		// Sometimes wp hook run on backend and sometimes its not.
+		// This method handle both front and backend requests.
+		// Simply remove all hooks to ensure its run only one time.
+		remove_action('wp', array(&$this, 'initCoupling'));
+		remove_action('admin_init', array(&$this, 'initCoupling'));
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function linkFooterStyleSheets() {
+		// Initialize.
+		$styles = array();
+		// Get queued style sheets!
+		global $wp_styles;
+		$queuedStyles =& $wp_styles->queue;
+		// Process only 'cjt' templates,
+		foreach ($queuedStyles as $index => $styleName) {
+			if (strpos($styleName, 'cjt-css-template-') === 0) {
+				// Get style name src file, prepend to Wordpress absolute path.
+				$style = $wp_styles->registered[$styleName];
+				$styles[] = home_url($style->src);
+				// Stop Wordpress from output <link> tag outside head tag
+				// as it has no effect.
+				unset($queuedStyles[$index]);
 			}
+		}
+		// Enqueue Style Sheet loader javascript if there is any
+		// styles need to be loaded.
+		if (!empty($styles)) {
+			// jQuery is dpendency object required by the loader.
+			wp_enqueue_script('jquery');
+			// Enqueue footer style sheet loader.
+			wp_enqueue_script('cjt-coupling-footer-css-loader', cssJSToolbox::getURI('controllers:coupling:js:footer-stylesheet-loader.js'));
+			// Output Javascript array to be filled with the styles!
+			$jsStyleSheetsList = json_encode($styles);
+			require cssJSToolbox::resolvePath('controllers:coupling:html:load-footer-style.html.php');
+		}
+	}
+
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function linkTemplates() {
+		$currentFilter = current_filter();
+		// Derived template Type from Wordpress filter.
+		$filterFor = explode('_', $currentFilter); $filterFor = array_pop($filterFor);
+		$type = CJTCouplingModel::$templateTypes[$filterFor];
+		// Following vars are referenced based on the current type.
+		$templates = isset($this->templates[$type]) ? $this->templates[$type] : array();
+		// Filering!
+		$templates = $this->{"onlink{$filterFor}"}($templates);
+		/**
+		* @var WP_Dependencies
+		*/
+		$queue = $this->model->getQueueObject($filterFor);
+		// Add templates to the queye.
+		foreach ($templates as $template) {
+		 // Registery only if not yet registered.
+		 $template = $this->{"onqueue{$type}"}($template);
+		 if (!isset($queue->registered[$template->queueName])) {
+			 $queue->add($template->queueName, "/{$template->file}", null, $template->version);
+		 }
+		 // Always make sure the template is queued.
+		 $queue->enqueue($template->queueName);
 		}
 	}
 	
@@ -400,6 +528,7 @@ class CJTBlocksCouplingController extends CJTController {
 		$filters = $this->ondefaultfilters((object) array(
 			'pinPoint' => 0x00000000,
 			'customPins' => array(),
+			'moreToOrder' => array(),
 		));
 		if (is_admin()) {
 			// Include all backend blocks.
@@ -421,6 +550,13 @@ class CJTBlocksCouplingController extends CJTController {
 				if (is_front_page()) {
 					$filters->pinPoint |= CJTBlockModel::PINS_PAGES_FRONT_PAGE;
 				}
+				/**
+				* In order for metabox block to get in the output we need
+				* to add metabox order for it.
+				* @see CJTBlocksCouplingController::getBlocks.
+				*/
+				$metabox = CJTModel::create('metabox', array($GLOBALS['post']->ID));
+				$filters->moreToOrder[][1] = $metabox->getMetaboxId();
 			} // End is_page()
 			else if (is_attachment()) {
 				$filters->pinPoint |= CJTBlockModel::PINS_ATTACHMENT;
@@ -451,6 +587,13 @@ class CJTBlocksCouplingController extends CJTController {
 						'flag' => CJTBlockModel::PINS_CATEGORIES_CUSTOM_CATEGORY,
 					);
 				}
+				/**
+				* In order for metabox block to get in the output we need
+				* to add metabox order for it.
+				* @see CJTBlocksCouplingController::getBlocks.
+				*/
+				$metabox = CJTModel::create('metabox', array($GLOBALS['post']->ID));
+				$filters->moreToOrder[][1] = $metabox->getMetaboxId();
 				/** 
 				* @TODO check for recent posts Based on user configuration.
 				* Recent posts should be detcted by comparing

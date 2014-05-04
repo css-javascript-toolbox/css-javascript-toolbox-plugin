@@ -34,8 +34,47 @@ class CJTBlockController extends CJTAjaxController {
 		// Actions!
 		$this->registryAction('getBlockBy');
 		$this->registryAction('getAPOP');
+		$this->registryAction('loadUrl');
+		$this->registryAction('getCode');
+		$this->registryAction('downloadCodeFile');
 	}
 	
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function downloadCodeFileAction() {
+		// BlockId, currentActiveFile.
+		$blockId = $_GET['blockId'];
+		$fileId = $_GET['fileId'];
+		$returnAs = $_GET['returnAs'];
+		// Get current File Code.
+		$tblCodeFile = new CJTBlockFilesTable(cssJSToolbox::getInstance()->getDBDriver());
+		$codeFile =	$tblCodeFile->set('id', $fileId)
+														->set('blockId', $blockId)
+														->load()
+														->getData();
+		// Return as downloadable-file or JSON.
+		if ($returnAs == 'file') {
+			// Get Download File info.
+			$extension = $codeFile->type ? cssJSToolbox::$config->templates->types[$codeFile->type]->extension : 'txt';
+			$file = "{$codeFile->name}.{$extension}";
+			// Response Header parameters.
+			header('Content-Description: File Transfer');
+			header("Content-Disposition: attachment; filename=\"{$file}\""); //<<< Note the " " surrounding the file name
+			header('Content-Transfer-Encoding: binary');
+			header('Connection: Keep-Alive');
+			header('Expires: 0');
+			header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+			header('Pragma: public');
+			header('Content-Length: ' . strlen($codeFile->code));
+			// AJAX Controller parameters.
+			$this->httpContentType = 'application/octet-stream';
+		}
+		// Output code.
+		$this->response = $codeFile->code;
+	}
+
 	/**
 	* Query single block based on the provided criteria!
 	* 
@@ -86,6 +125,28 @@ class CJTBlockController extends CJTAjaxController {
 		// the first time.
 		if ($initialize) {
 			$this->response['total'] = $typeObject->getTotalCount();	
+		}
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	* @deprecated this is just a redirect to the CJTBlockContoller::getAction().
+	*/
+	protected function loadUrlAction() {
+		// Read inputs.
+		$url = $_GET['url'];
+		// Read URL.
+		$response = wp_remote_get($url);
+		if ($error = $response instanceof WP_Error) {
+			// State an error!
+			$this->response['errorCode'] = $response->get_error_code();
+			$this->response['message'] = $response->get_error_message($response['code']);
+			break;
+		}
+		else {
+			// Read code content.
+			$this->response['content'] = wp_remote_retrieve_body($response);
 		}
 	}
 

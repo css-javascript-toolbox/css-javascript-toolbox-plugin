@@ -93,7 +93,8 @@
 	*/
 	var defaultOptions = {
 		showObjectsPanel : true,
-		calculatePinPoint : 1
+		calculatePinPoint : 1,
+		restoreRevision : {fields : ['code']}
 	};
 
 	/**
@@ -105,11 +106,226 @@
 	* @var object
 	*/	
 	var autoLoadElements = {
-		codeEditor : 'textarea.code-editor',
 		editBlockName : 'div.edit-block-name',
 		blockName : 'span.block-name',
 		insideMetabox : 'div.inside'
 	};
+  
+	/**
+	* put your comment there...
+	* 
+	* @type Object
+	*/
+  var Buttons = new function() {
+  	
+  	/**
+  	* put your comment there...
+  	* 
+  	* @type T_JS_FUNCTION
+  	*/
+  	this.EditorToolbox = new function() {
+  		
+  		/**
+  		* 
+  		*/
+  		this.EditorThemes = new function() {
+  			// Initialize.
+  			this.block = null;
+				// Create Unattached Themes list 
+				// to be used accross all the blocks.
+				var theme = null;
+   			var themesUIListContainer = $('<div class="popup-menu editor-themes-list"></div>').css({display: 'none'});
+   			var themesUIList = $('<ul></ul>').appendTo(themesUIListContainer);
+   			var themesAnchorsMap = {}, themes = [
+   				'ambiance',
+   				'chaos', 
+   				'chrome', 
+   				'clouds', 
+   				'clouds_midnight', 
+   				'cobalt', 
+   				'crimson_editor', 
+   				'dawn', 
+   				'dreamweaver', 
+   				'eclipse', 
+   				'github', 
+   				'idle_fingers',
+   				'katzenmilch',
+   				'kr',
+   				'kuroir',
+   				'merbivore',
+   				'merbivore_soft',
+   				'mono_industrial',
+   				'monokai',
+   				'pastel_on_dark',
+   				'solarized_dark',
+   				'solarized_light',
+   				'terminal',
+   				'textmate',
+   				'tomorrow',
+   				'tomorrow_night',
+   				'tomorrow_night_blue',
+   				'tomorrow_night_bright',
+   				'tomorrow_night_eighties',
+   				'twilight',
+   				'vibrant_ink',
+   				'xcode'
+   			];
+   			
+   			/**
+   			* put your comment there...
+   			* 
+   			* @param event
+   			*/
+   			var _onswitchtheme = function(event) {
+   				// Get theme name associated with the link.
+   				var editorTheme = $(event.target).data('ace-theme-key');
+   				var $this = Buttons.EditorToolbox.EditorThemes;
+   				// Save theme.
+   				$this.block.block.set('editorTheme', editorTheme);
+   				// Select menu theme.
+   				$this.selectMenuTheme();
+   				// Set editor theme.
+   				$this.setEditorTheme();
+   				// Link Inactive.
+   				return false;
+   			};
+   		
+   			/**
+   			* put your comment there...
+   			* 
+   			* @param button
+   			*/
+   			var _oncallback = function(targetList, button) {
+   				// Init.
+   				var cObject = Buttons.EditorToolbox.EditorThemes;
+   				// Associate list to current activate block.
+   				cObject.block = this;
+   				// Select default.
+   				cObject.selectMenuTheme();
+   				// ACE Themes list style.
+				cObject.applyTheme(this);
+   				// Add the list just after the button.
+   				button.jButton.after(targetList);
+   			}
+   			
+   			/**
+   			* 
+   			*/
+   			this.applyTheme = function(block) {
+				// Apply theme to Themes list.
+				themesUIList.css('background-color', block.theme.backgroundColor);
+				// Apply to block components
+				CJTBlockCodeFileView.applyTheme(block);
+				CJTBlockMenuView.applyTheme(block);
+   			};
+
+   			/**
+   			* 
+   			*/
+   			this.getEditorTheme = function() {
+				return this.block.block.get('editorTheme', 'chrome');
+   			};
+
+				/**
+				* 
+				*/
+				this.getType = function(block) {
+					// Associate block for initialize.
+					// block would be changed again everytime
+					// a block is initialized
+					// or menu is selected.
+					this.block = block;
+					// Bind to themeLoaded event.
+					var model = block.block;
+					var editor = model.aceEditor;
+					editor.renderer.addEventListener('themeLoaded', $.proxy(
+						function() {
+							var jEditor = $(editor.container);
+							// Set theme colors.
+							block.theme = {};
+							block.theme.backgroundColor = jEditor.css('background-color');
+							block.theme.color = jEditor.css('color'); 
+							// Apply Theme to block element.
+							model.box.css('background-color', block.theme.backgroundColor);
+							block.block.box.find('.hndle').css('color', block.theme.color);
+							// ACE Themes list theme.
+							this.applyTheme(block);
+						}, this)
+					);
+					// Set default theme.
+					this.setEditorTheme();
+					// Type object.
+					return {
+											
+						// Callback
+						callback : _oncallback,
+						
+						/**
+						* put your comment there...
+						* 
+						* @type String
+						*/
+						type : 'Popup',
+						
+						/**
+						* 
+						*/
+						params : {
+							// Parameters for PopupList type button.
+							_type : {
+								targetElement : themesUIListContainer,
+								targetElementObject : true
+							}
+						}
+					}
+				};
+
+				/**
+				* 
+				*/
+				this.selectMenuTheme = function() {
+					// Get editor theme.
+					var editorTheme = this.getEditorTheme();
+   				// Clear any previously selected item.
+   				themesUIList.find('a').removeClass('active');
+   				// Select default.
+   				themesAnchorsMap[editorTheme].addClass('active');
+				};
+			
+				/**
+				* 
+				*/
+				this.setEditorTheme = function() {
+					// INitialize.
+					var model = this.block.block;
+					var editor = model.aceEditor;
+   				// Set editor theme.                                 
+   				// TODO: Full theme name might be saved somewhere!
+   				var themePath = 'ace/theme/' + this.getEditorTheme();
+					// Change theme.
+					editor.setTheme(themePath);
+				};
+
+   			// Build list.
+   			$.each(themes, $.proxy(
+   				function(index, themeName) {
+   					// Add item to list.
+   					var listItem = $('<li></li>').appendTo(themesUIList);
+   					// Create link + replace name with the anchor.
+   					themesAnchorsMap[themeName] = $('<a href="#">' + CJTJqueryBlockI18N['ace_theme-' + themeName] + '</a>').appendTo(listItem)
+   					// Class.
+   					.addClass('cjt-link')
+   					// Store theme key.
+   					.data('ace-theme-key', themeName)
+   					// Handle item click.
+   					.click(_onswitchtheme);
+   				}, this)
+   			);
+
+  		};
+  		
+		}
+  };
 
 	/**
 	* Block jQuery Plugin.
@@ -133,13 +349,28 @@
 		*
 		*/
 		this.changes;
-
+		
+		/**
+		* 
+		*/
+		this.defaultDocks;
+		
+		/**
+		* 
+		*/
+		this.editorToolbox;
+		
 		/**
 		* Commonly accessed elements stored here.
 		*
 		* @var object
 		*/
 		this.elements;
+		
+		/**
+		* 
+		*/
+		this.extraDocks = [];
 		
 		/**
 		* Block features and options.
@@ -173,6 +404,21 @@
 			editName.css('display', 'none')
 			// Unbind events that binded when the edit block name form is displayed.
 			.find('input.block-name').unbind('keydown.editName');
+			// Hide CodeFile Name.
+			this.block.box.find('.file').css({visibility : 'visible'});
+		}
+		
+		/**
+		* 
+		*/
+		this._onclearblock  = function() {
+			var aceEditor = this.block.aceEditor;
+			//Directly clear using setValue('') won't save the history!
+			// Select all text.
+			aceEditor.selectAll();
+			// Replace content with empty string!
+			aceEditor.getSession().replace(aceEditor.getSelectionRange(), '');
+			aceEditor.focus();
 		}
 		
 		/**
@@ -230,8 +476,32 @@
 			// Confirm deletion!
 			if (confirm(confirmMessage)) {
 				// Delete block.
-			  CJTBlocksPage.deleteBlocks(this.block.box);
+			  	CJTBlocksPage.deleteBlocks(this.block.box);
 			}
+		}
+		
+		/**
+		*
+		*
+		*
+		*
+		*/
+		this._ondisplayrevisions = function() {
+			// Restore revision only when block is opened.
+			if (this.block.box.hasClass('closed')) {
+				return false;
+			}
+			// Initialize form request.
+			var revisionsFormParams = {
+				id : this.block.get('id'),
+				activeFileId : this.codeFile.file.activeFileId,
+				width : 300,
+				height : 250,
+				TB_iframe : true
+			};
+			var url = CJTBlocksPage.server.getRequestURL('block', 'get_revisions', revisionsFormParams);
+			tb_show(CJTJqueryBlockI18N.blockRevisionsDialogTitle, url);
+			return false;
 		}
 		
 		/**
@@ -264,7 +534,12 @@
 					}, this)
 				);
 				// Put it exactly above the block name - padding.
-				editName.css('left', ((this.elements.blockName.position().left - 2) + 'px')) ;
+				editName.css({
+					'left' : ((this.elements.blockName.position().left - 2) + 'px'),
+					'background-color' : this.theme.backgroundColor
+				});
+				// Hide CodeFile Name.
+				this.block.box.find('.file').css({visibility : 'hidden'});
 				// Set input styles
 				var styles = {
 					'font-size' : this.elements.blockName.css('font-size'),
@@ -287,6 +562,71 @@
 				inputText.focus();
 			}
 		}
+
+		/**
+		* 
+		*/
+		this._onfontsize = function(event, params) {
+			var editor = $(this.block.aceEditor.container);
+			// Reset font size to default.
+			if (params.reset) {
+				// Remove fontSize and Line-Height rules!
+				fontSize = '';
+			}
+			else {
+				var tick = 2;
+				// Get current font-size.
+				var fontSize = editor.css('font-size'); // Font size in pixels!
+				fontSize = (parseInt(fontSize) + (params.direction * tick)) + 'px';
+			}
+			// Reset Or Increase (+) Or decrease (-) font size based on the given parameter.
+			editor.css({'font-size' : fontSize, 'line-height' : fontSize});				
+		}
+		
+		/**
+		* 
+		*/
+		this._onfullscreen  = function(event) {
+			// Initialize vars!
+			var block = this.block;
+			var elementsToDock = $.merge($.merge([], this.extraDocks), this.defaultDocks);
+			var newMode = '';
+			// Document body.
+			$('body').toggleClass('fullscreen').hasClass('fullscreen');
+			// Enter/Exit Full Screen mode!
+			if (block.box.toggleClass('fullscreen').hasClass('fullscreen')) {
+				newMode = 'fullscreen';
+				// Defined resize handler.
+				var resizer = $.proxy(
+					function() {
+						$.each(elementsToDock, $.proxy(
+							function(index, item) {
+								// Dock all defined elements!
+								this.dock(item.element, item.pixels);
+							}, this)
+						);
+					}, this);
+					// Bind to handler.
+				$(window).bind('resize.cjtfullscreen', resizer);
+				// Call it.
+				resizer();
+			}
+			else {
+				// Reset to normal height.
+				$.each(elementsToDock, $.proxy(
+					function(index, item) {
+						$(item.element).css('height', '');
+					}, this)
+				);
+				$(window).unbind('resize.cjtfullscreen');
+			}
+			// Screen mode title.
+			$(event.target).attr('title', CJTJqueryBlockI18N['screenmode_' + newMode + 'Title']);
+			// Refresh/Redraw editor.
+			block.aceEditor.resize();
+			// Toggle Toolbox fullscreen button icon.
+			this.editorToolbox.buttons['fullscreen'].jButton.toggleClass('maximized');
+		}
 		
 		/**
 		*
@@ -308,12 +648,80 @@
 		}
 		
 		/**
+		* Quickely link external resource (CSS, JS, HTML or PHP)!
+		* 
+		* The method is to fetch external content and add it as CJT template.
+		*/
+		this._onlinkexternal = function() {
+			// Read URLs from user inputs.
+			var externals = prompt(CJTJqueryBlockI18N.linkExternalMessage);
+			var linkExternalButton =  this.toolbox.buttons['link-external'];
+			if (externals) {
+				// Show progress.
+				linkExternalButton.loading(true);
+				// Request server to link the external resources.
+				var request = {externals : externals, blockId : this.block.get('id')};
+				CJTBlocksPage.server.send('templatesManager', 'linkExternal', request)
+				.success($.proxy(
+					function(state) {
+						if (state.code) {
+							alert(CJTJqueryBlockI18N.couldNotLinkExternals + state.message);
+						}
+					}, this)
+				).complete($.proxy(
+					function() {
+						// Stop progress.
+						linkExternalButton.loading(false);
+					}, this)
+				);
+			}
+		}
+
+		/**
+		* 
+		*/
+		this._onlookuptemplates = function(targetElement, tbButton) {
+			// Initialize.
+			var frameHeight = parseInt(targetElement.css('height'));
+			var blockId = this.block.get('id');
+			if (!CJTToolBox.forms.templatesLookupForm[blockId]) {
+				CJTToolBox.forms.templatesLookupForm[blockId] = {};
+			}
+			var lookupForm = CJTToolBox.forms.templatesLookupForm[blockId];
+			// This method will fired only once when the 
+			// Templates popup button is hovered for the first time.
+			if (!targetElement.get(0).__cjt_loaded) {
+				var request = {blockId : blockId};
+				// Pass block object to the form when loaded.
+				lookupForm.inputs = {block : this.block, button : tbButton, height : frameHeight};
+				// Set frame Source to templates lookup view URL.
+				var templatesLookupViewURL = CJTBlocksPage.server.getRequestURL('templatesLookup', 'display', request);
+				targetElement.prop('src', templatesLookupViewURL);
+				// Mark loaded.
+				targetElement.get(0).__cjt_loaded = true;
+			}
+			else {
+				// Pass frame height when refreshed.
+				lookupForm.inputs.height = frameHeight;
+				lookupForm.form.refresh();
+			}
+			/** @TODO Tell Block toolbox to deatach/unbind popup callback */
+			return true; // Tell CJTToolBox to Show Popup menu as normal.
+		}
+		
+		/**
 		* Don't show popup menus if Block is minimized!
 		*/
 		this._onpopupmenu = function(targetElement, button) {
 			var show = true;
 			if (this.block.box.hasClass('closed')) {
 				show = false;
+			}
+			else {
+				// Some Popup forms need to be re-sized if fullscree is On!
+				if (button.params.fitToScreen == true) {
+					this.dock(targetElement, 25);
+				}
 			}
 			return show;
 		}
@@ -322,39 +730,15 @@
 		* 
 		*/
 		this._onpostboxopened = function() {
-			// Initialize.
-			var blockId = this.block.get('id');
-			// Update ACE Editor region.
-			this.block.aceEditor.resize();
-			// Load block code if not initially-loaded.
-			var aceEditor = this.block.aceEditor;
-			var jEditor = $(aceEditor.container);
-			if (!jEditor.hasClass('initially-loaded')) {
-				// Hold-on notification changes component.
-				this.internalChanging = true;
-				// Show loading state.
-				aceEditor.getSession().setValue('Loading...');
-				this.block.aceEditor.setReadOnly(true);
-				// Load code.
-				var request = {filter : {
-					field : 'id', 
-					value : blockId},
-					returns : ['code']
-				};
-				CJTBlocksPage.server.send('block', 'getBlockBy', request)
-				.success($.proxy(
-					function(response) {
-						// Load code.
-						aceEditor.getSession().setValue(response.code);
-						this.internalChanging = false;
-						// Notification save changes SYNC.
-						aceEditor.cjtSyncInputField();
-						// Remove loading state.
-						this.block.aceEditor.setReadOnly(false);
-						// Mark as loaded.
-						jEditor.addClass('initially-loaded');
-					}, this)
-				);
+			// If aceEditor is undefined then the 
+			// block is no loaded yet,
+			// loads it.
+			if (this.block.aceEditor == undefined) {
+				this._onload();
+			}
+			else {
+				// Update ACE Editor region.
+				this.block.aceEditor.resize();
 			}
 		}
 		
@@ -376,6 +760,9 @@
 			var data = {calculatePinPoint : this.features.calculatePinPoint, createRevision : 1};
 			// Push DiFields inside Ajax queue.
 			this.block.queueDIFields();
+			// Add code file flags to the queue.
+			var queue = this.block.getOperationQueue('saveDIFields');
+			queue.add({id : this.block.get('id'), property : 'activeFileId', value : this.codeFile.file.activeFileId});
 			// But save button into load state (Inactive and Showing loading icon).
 			saveButton.loading(true);
 			this.enable(false);
@@ -509,6 +896,19 @@
 		}
 		
 		/**
+		* 
+		*/
+		this.dock = function(elements, pixelsToRemove) {
+			// Initialize.
+			var alwaysRemove = 33;
+			pixelsToRemove = (pixelsToRemove != undefined) ? (pixelsToRemove + alwaysRemove) : alwaysRemove;
+			// There're always 33 pixels need to be removed from the Code area
+			var fixedHeight = this.block.box.height() - pixelsToRemove;
+			var heightInPixels = fixedHeight + 'px';
+			$(elements).css('height', heightInPixels);	
+		}
+		
+		/**
 		*
 		*
 		*
@@ -545,7 +945,7 @@
 		*/
 		this.initCJTPluginBase = function(node, args) {
 			// Initialize object properties!
-			this.block = new CJTBlock(this, node)
+			var model = this.block = new CJTBlock(this, node)
 			this.features = $.extend(defaultOptions, args);
 			// Initialize Events.
 			this.onBlockSaved = function() {};
@@ -556,25 +956,6 @@
 					this.elements[name] = this.block.box.find(selector);
 				}, this)
 			);
-			// Initialize User Interface.
-			this.initUI();
-			// Prepare input elements for notifying user changes.
-			this.notifySaveChanges = (new notifySaveChangesProto(this)).initDIFields();
-			// Set Plugin options.
-			this.setOptions();
-			// Load
-			this.load();
-		}
-		
-		/**
-		* @internal 
-		*
-		* Initialize User Interface for block.
-		*
-		* @return void
-		*/
-		this.initUI = function() {
-			var model = this.block;
 			// Move edit-block-name edit area and tasks-bar outside Wordpress metabox "inside div".
 			this.elements.insideMetabox.before(model.box.find('.edit-block-name, .block-toolbox'));
 			var events = { // In-Place edit block name events.
@@ -587,13 +968,22 @@
 					model.box.find(selector).click(handler);
 				}, this)
 			);
-			// Initialize ACE Editor.
-			model.aceEditor.setTheme('ace/theme/chrome');
-			model.aceEditor.setShowPrintMargin(false);
 			// Activate toolbox.
 			this.toolbox = model.box.find('.block-toolbox').CJTToolBox({
 				context : this,
 				handlers : {
+					'templates-lookup' : {
+						type : 'Popup',
+						callback : this._onlookuptemplates,
+						params : {
+								fitToScreen : true, /* Custom to be used inside this._onpopupmenu() method */
+							_type : {
+								onPopup : this._onpopupmenu,
+								targetElement : '.templates-lookup',
+								setTargetPosition : false
+							}
+						}
+					},
 					'switch-editor-language' : {
 						type : 'Popup',
 						params : {
@@ -605,33 +995,100 @@
 							}
 						}
 					},
+					'link-external' : {callback : this._onlinkexternal},
 					'editor-language-css' : {callback : this._onswitcheditorlang, params : {lang : 'css'}},
 					'editor-language-html' : {callback : this._onswitcheditorlang, params : {lang : 'html'}},
 					'editor-language-javascript' : {callback : this._onswitcheditorlang, params : {lang : 'javascript'}},
 					'editor-language-php' : {callback : this._onswitcheditorlang, params : {lang : 'php'}},
 					'state-switch' : {callback : this._onswitchflag, params : {flag : 'state'}},
 					'save' : {callback : this._onsavechanges, params : {enable : false}},
+					'revisions' : {callback : this._ondisplayrevisions},
 					'delete' : {callback : this._ondelete},
 					'location-switch' : {callback : this._onswitchflag, params : {flag : 'location'}},
+					'get-shortcode' : {callback : this._ongetshortcode},
 					'edit-name' : {callback : this._oneditname},
 					'info' : {callback : this._ongetinfo},
 				}
 			}).get(0).CJTToolBox;
-			// Select previously choosed editor language.
-			this._onswitcheditorlang(undefined, {lang : model.get('editorLang', 'css')});
-			// Register COMMAND-KEYS.
-			this.registerCommands();
+			// If the code editor element is presented then
+			// the block is already opened and no need to load later.
+			if (model.box.find('.code-editor').length) {
+				this.load();
+			}
 			// Display block. 
 			// !important: Blocks come from server response doesn't need this but the newly added blocks does.
 			// need sometime to be ready for display.
 			model.box.css({display : 'block'}).addClass('cjt-block');
 		}
-
+		
 		/**
 		* 
 		*/
-		this.load = function() {/* Compatibility with PRO Edition CORE for Extensions to run with a single Interface */};
+		this._onload = function() {
+			// Initialize.
+			var model = this.block;
+			// Show loading block progress.
+			var loadingPro = $('<div class="loading-block">' + CJTJqueryBlockI18N.loadingBlock + ' . . .</div>').prependTo(this.elements.insideMetabox.prepend());
+			// Retrieve Block HTML content.
+			CJTBlocksPage.server.send('blocksPage', 'loadBlock', {blockId : model.get('id'), isLoading : true})
+			.success($.proxy(
+				function(blockContent) {					
+					// Remove loading bloc progress.
+					loadingPro.remove();
+					// Add assignment panel at the most begning of the block.
+					this.elements.insideMetabox.prepend(blockContent.assignPanel);
+					// Add block content at the end.
+					this.elements.insideMetabox.append(blockContent.content);
+					// Load block.
+					this.load();
+				}, this)
+			);
+		};
 		
+		/**
+		* 
+		*/
+		this.load = function() {
+			// Initialize.
+			var model = this.block;
+			// LOAD MODEL.
+			model.load();
+			// Load ACE Editor Settings.
+			model.aceEditor.setOptions(model.get('aceEditorMenuSettings', {showPrintMargin : false}));
+			// Initialize editor toolbox.
+			this.editorToolbox = model.box.find('.editor-toolbox').CJTToolBox({
+				context : this,
+				handlers : {
+					'fullscreen' : {callback : this._onfullscreen},
+					'font-large' : {callback : this._onfontsize, params : {direction: 1}},
+					'font-small' : {callback : this._onfontsize, params : {direction: -1}},
+					'reset-font' : {callback : this._onfontsize, params : {reset : true}},
+					'clear-block' : {callback : this._onclearblock},
+					'editor-theme' : Buttons.EditorToolbox.EditorThemes.getType(this)
+				}
+			}).get(0).CJTToolBox;
+			// Default to DOCK!!
+			this.defaultDocks = [{element : this.block.aceEditor.container, pixels : 7}];
+			// Show hidden toolbox buttons.
+			this.toolbox.buttons['revisions'].jButton.removeClass('waitingToLoad');
+			this.toolbox.buttons['switch-editor-language'].jButton.removeClass('waitingToLoad');
+			this.toolbox.buttons['link-external'].jButton.removeClass('waitingToLoad');
+			this.toolbox.buttons['templates-lookup'].jButton.removeClass('waitingToLoad');
+			this.toolbox.buttons['save'].jButton.removeClass('waitingToLoad');
+			// Register COMMAND-KEYS.
+			this.registerCommands();
+			// Switch Block state if required, if state is empty nothing will happen.
+			// Until now only 'restore' state is supported to prevent saving restored block.
+			this.switchState(this.features.state);
+			// Prepare input elements for notifying user changes.
+			this.notifySaveChanges = (new notifySaveChangesProto(this)).initDIFields();
+			// LOAD EVENT.
+			this.onLoad();
+			// Block Code File.
+			this.menu = new CJTBlockMenu(this);
+			this.codeFile = new CJTBlockFile(this);
+		}
+
 		/**
 		* 
 		*/
@@ -650,14 +1107,36 @@
 			/** Add Our Ace Save, Full screen and Code-Auto-Completion commands */
 			editorCommands.addCommands(commands);
 		}
-	
+		
 		/**
-		* Change Block options.
+		* 
+		*/
+		this.restoreRevision = function(revisionId, data) {
+			// Create new revision control action.
+			this.revisionControl = new CJTBlockOptionalRevision(this, data, revisionId);
+			// Display the revision + enter revision mode.
+			this.revisionControl.display();
+		}
+		
+		/*
 		*
-		* NOT IMPLEMENTED YET.
+		*
 		*
 		*/
-		this.setOptions = function() {}
+		this.switchState = function(state) {
+			switch (state) {
+				case 'restore':
+					// Hide block toolbox.
+					this.toolbox.jToolbox.hide();
+					// Disable all fields.
+					this.enable(false);
+					// Change state
+					this.state = 'restore';
+				default:
+					 // Nothing for now
+				break;
+			}
+		}
 		
 	} // End class.
 	

@@ -1,0 +1,34 @@
+a.cjt-shortcodeparameter-type-field-imageslist  {
+	font: bold 11px Arial;
+	text-decoration: none;
+	background-color: #EEEEEE;
+	color: #333333;
+	padding: 1px 6px 1px 6px;
+	border-top: 1px solid #CCCCCC;
+	border-right: 1px solid #333333;
+	border-bottom: 1px solid #333333;
+	border-left: 1px solid #CCCCCC;
+	position: relative;
+	top: 1px;
+}
+.cjt-shortcode-parameters-form-helpText.renderer-Imageslist .helpText {
+	margin-right: 20px;
+	margin-top: 9px;
+}
+ul.cjt-shortcodeparameter-type-field-imageslist-list li {
+	padding: 10px;
+	padding-left: 64px;
+	margin-top: 10px;
+	text-align: center;
+	background-color: #EFEFEF;
+}
+.images-list {
+	min-height: 31px;
+	padding: 2px;
+	margin-left: -1px;
+	padding-bottom: 40px;
+}
+.imageslist-remove-image-button {
+	margin-left: 20px;
+	vertical-align: text-bottom;
+}

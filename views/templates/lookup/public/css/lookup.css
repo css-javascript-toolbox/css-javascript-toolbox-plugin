@@ -1,0 +1,52 @@
+/* Globals */
+body {margin: 0;padding: 0; font-size: 12px;font-family: Helvetica; overflow: hidden; color: #7c7c7c;}
+
+a,
+a:hover,
+a:visited {text-decoration: none;}
+
+a,
+a:visited {color: #a0a0a0 !important;}
+
+a:hover {color:  #c8671b !important;}
+
+a.active {color: #a5581b !important;}
+
+ul {width: 100%;}
+ul li {margin-bottom: 0;}
+
+form#templates-lookup {height: 100%;}
+#cjtoolbox_popup {height: 100%;}
+
+/* Templates List */
+#templates-list {border-bottom: 1px solid #cccccc;height: 100%;}
+.templates-list {overflow: auto;}
+.templates-list ul.templates {padding-left: 33px; display: none; width: 255px; margin-top: 3px;}
+.templates-list ul.templates li {padding-bottom: 1px;}
+.templates-list ul.templates li .title {font-weight: bold; margin-bottom: 3px;}
+.templates-list ul li .options {display: inline-block; margin-left: 33px; padding-top: 1px;}
+.templates-list ul li .options .unlink-template {font-style: italic;}
+.sweep .actions {float: right; text-decoration: underline; margin-top: 1px;}
+.sweep {margin-top: -8px;}
+
+/* Authors */
+.author-name a.name,
+.author-name a.name:hover
+.author-name a.name:visited {font-weight: bold;}
+.ui-accordion-header {
+	height: 26px;
+	font-weight: bold;
+	font-size: 18px;
+	padding: 4px 0 0 11px;
+	border-left: 1px solid #bbb;
+	border-right: 1px solid #bbb;
+	border-top: 1px solid #bbb;
+	margin: 0;
+}
+.ui-accordion-content {
+	border-left: 1px solid #bbb;
+	border-right: 1px solid #bbb;
+	border-top: 1px solid #bbb;
+	padding: 9px;
+}
+.ui-accordion-header.ui-accordion-header-active a {color: #a5581b !important;}

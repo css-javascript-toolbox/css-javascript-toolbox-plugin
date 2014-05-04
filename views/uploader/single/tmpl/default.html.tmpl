@@ -1,0 +1,49 @@
+<?php
+/**
+* 
+*/
+
+// Disallow direct access.
+defined('ABSPATH') or die("Access denied");
+
+// Allow view to enqueue scripts and styles.
+$this->enququeScripts();
+$this->enququeStyles();
+$this->suppressPrintScriptsHook();
+?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+<?php wp_print_head_scripts() ?>
+<?php wp_print_styles() ?>
+	</head>
+	<body>
+		<div id="wpwrap">
+			<div id="wpcontent">
+				<div id="wpbody">
+					<div id="wpbody-content">
+						<div class="wrap">
+							<form method="post" enctype="multipart/form-data">
+								<input type="hidden" name="pon" value="" />
+								<input type="file" id="fileToUpload" name="fileToUpload" />
+<?php					if ($this->pon) : ?>								
+									<script type="text/javascript">
+										// Initialize.
+										var cbo = parent.window['<?php echo $this->pon ?>']; // callback object.
+										// Complete callback.
+										cbo._oncomplete();
+										// Based on the state callback or fallback!
+										var state = <?php echo $this->state ? json_encode($this->state) : 'null' ?>;
+										var callbackName = '_on' +  (!state ? 'success' : 'fail');
+										// Callback/Fallback.
+										cbo[callbackName](state);
+									</script>
+<?php 				endif; ?>
+							</form>
+						</div>					
+					</div>
+				</div>			
+			</div>
+		</div>
+<?php wp_print_footer_scripts() ?>
+	</body>
+</html>

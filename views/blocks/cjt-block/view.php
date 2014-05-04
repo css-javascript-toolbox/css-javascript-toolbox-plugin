@@ -23,6 +23,20 @@ class CJTBlocksCjtBlockView extends CJTView {
 	* 
 	* @var mixed
 	*/
+	protected $isLoading;
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	public $structuredContent = array();
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	protected $templateName = 'default';
 	
 	/**
@@ -38,6 +52,8 @@ class CJTBlocksCjtBlockView extends CJTView {
 		// Register actions.
 		add_action('admin_print_scripts', array(__CLASS__, 'enqueueScripts'));
 		add_action('admin_print_styles', array(__CLASS__, 'enqueueStyles'));
+		// Read input params.
+		$this->isLoading = isset($_REQUEST['isLoading']) ? true : false;
 	}
 	
 	/**

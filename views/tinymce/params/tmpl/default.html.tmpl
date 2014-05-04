@@ -1,0 +1,54 @@
+<?php
+/**
+* 
+*/
+
+// Disallow direct access.
+defined('ABSPATH') or die("Access denied");
+
+// Allow view to enqueue scripts and styles.
+CJTTinymceParamsView::enqueueScripts();
+CJTTinymceParamsView::enqueueStyles();
+$this->suppressPrintScriptsHook();
+
+// Initialize.
+$blockId = $this->getParam('blockId');
+
+// Block Package info.
+$packageInfo = new CJT_Models_Package_Block($blockId);
+$packageInfo = $packageInfo->getPackageInfo();
+?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+<?php wp_print_head_scripts() ?>
+<?php wp_print_styles() ?>
+	</head>
+	<body>
+		<div id="cjtoolbox_popup">
+		  <form id="shortcode-params-form" class="cjt-form">
+		  	<?php echo $this->grouper ?>
+		  	<input type="button" id="btn-close" value="<?php echo cssJSToolbox::getText('Close') ?>">
+		  	<input type="button" id="btn-done" value="<?php echo cssJSToolbox::getText('Done') ?>">
+		  	<input type="hidden" name="blockId" value="<?php echo $blockId ?>">
+				<?php if ($packageInfo) : ?>
+					<span class="packag-info">
+						<?php echo cssJSToolbox::getText('By') ?>: <a target="_blank" href="<?php echo $packageInfo['webSite'] ?>"><?php echo $packageInfo['author'] ?></a>
+					</span>
+				<?php endif; ?>
+		  </form>
+<?php print_footer_scripts() ?>
+		</div>
+		<script type="text/javascript">
+			// Apply TABs Plugin!
+			jQuery(function($) {
+				// Force form size.
+				var size = {'width' : '670px', 'height' : '600px'};
+				parent.jQuery('#TB_window').css(size);
+				size.height -= 10;
+				parent.jQuery('#TB_iframeContent').css(size);
+				// Tab size.
+				$('#cjt-grouper-tab-navigator').tabs().css({height: '527px'});
+			});
+		</script>
+	</body>
+</html>

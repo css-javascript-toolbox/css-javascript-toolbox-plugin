@@ -50,12 +50,16 @@ class CJTBlocksController extends CJTController {
 	* @return void
 	*/
 	public function indexAction() {
-		// Blocks query.
+		// Prepare backupId in case backup is restored.
+		$backupId = filter_input(INPUT_GET, 'backupId', FILTER_SANITIZE_NUMBER_INT);
 		$blocks['filters']['type'] = 'block';
+		// If backupId is not provided it must be NULL in the filter,
+		$blocks['filters']['backupId'] = $backupId ? $backupId : null;
+		$blocks['filters']['returnCodeFile'] = true;
 		// Push data to the view.
 		$this->view->blocks = $this->model->getBlocks(null, $blocks['filters']);
 		$this->view->order = $this->model->getOrder();
-		$this->view->backupId = null;
+		$this->view->backupId = $blocks['filters']['backupId'];
 		$this->view->securityToken = $this->createSecurityToken();
 		// page hook is added later after this object is already created.
 		// Get page hook directrly from controllers.

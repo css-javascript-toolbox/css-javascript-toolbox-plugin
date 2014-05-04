@@ -1,0 +1,22 @@
+body {font-size: 11px;}
+ul {list-style-type: none;  padding: 0; margin: 0;}
+fieldset {border: 1px solid #EFEFEF !important; position: relative;}
+.cjt-form ul li {margin-bottom: 9px;}
+ 
+.cjt-shortcode-parameters-form-helpText {
+	font-size: 10px;
+	font-family: arial;
+	color: gray;
+	position: absolute;
+	height: 30px;
+	margin: 2px 8px 0px 10px;
+	display: inline-block;
+}
+.cjt-shortcode-parameters-form-helpText .helpText {
+	overflow: auto;
+	max-height: 26px;
+}
+
+#shortcode-params-form fieldset {margin-left: -10px;}
+#shortcode-params-form label {width: 200px; color: #505050 !important;}
+#shortcode-params-form input {margin-left: 0px;}

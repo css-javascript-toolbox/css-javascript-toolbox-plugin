@@ -36,6 +36,9 @@ else {
 			'type' => 'install',
 			'operations' => array(
 				'database' => array('text' => cssJSToolbox::getText('Create database tables.')),
+				'fileSystem' => array('text' => cssJSToolbox::getText('Creating file system directories (e.g wp-content/cjt-content/templates).')),
+				'builtinAuthors' => array('text' => cssJSToolbox::getText('Add CJT built-in authors used by templates system.')),
+				'wordpressTemplates' => array('text' => cssJSToolbox::getText('Add Wordpress built-in scripts and styles as CJT Templates so it can be used throught Templates Lookup form.')),
 				'finalize' => array('text' => cssJSToolbox::getText('Finalize Installation.')),
 			))
 		);

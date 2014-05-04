@@ -7,13 +7,18 @@
 defined('ABSPATH') or die("Access denied");
 ?>
 <div id="cjtoolbox-admin" class="wrap">
-	<h2 id="cjt-title"><?php echo cssJSToolbox::getText('CSS & Javascript Toolbox Free') ?></h2>&nbsp;&nbsp;&nbsp;
-	<a class="headerlink" target="_blank" href="http://<?php echo cssJSToolbox::CJT_WEB_SITE_DOMAIN ?>/"><?php echo cssJSToolbox::getText('Want Awesome Features? Click Here') ?></a>
-	<div id="cjt-banner-bar-right" class="cjt-banner-bar">
-		<a class="headerlink" target="_blank" href="http://<?php echo cssJSToolbox::CJT_WEB_SITE_DOMAIN ?>/"><?php echo cssJSToolbox::getText('Learn about CSS &amp; Javascript Toolbox') ?></a>
+<?php require CJTOOLBOX_VIEWS_PATH . '/blocks/block/tmpl/menu/menu.html.tmpl' ?>
+<?php require CJTOOLBOX_VIEWS_PATH . '/blocks/block/tmpl/codefile/codefile.html.tmpl' ?>
+	<h2><?php echo cssJSToolbox::getText('CSS & Javascript Toolbox Free') ?></h2>
+	<a id="docs-link" target="_blank" href="http://<?php echo cssJSToolbox::CJT_WEB_SITE_DOMAIN ?>/document/"><?php echo cssJSToolbox::getText('Online Documentation') ?></a>
+	<div id="cjt-banner-bar-right">
+		<span class="cjt-banner-link">
+			Like CSS & JS Toolbox Free?&nbsp;<a target="_blank" href="http://<?php echo cssJSToolbox::CJT_WEB_SITE_DOMAIN ?>/pricing/"><?php echo cssJSToolbox::getText('Upgrade CJT-Free') ?></a>
+		</span>
+		<br />
+		<span>Enter <span id="dicount-code">CJT-DICOUNT</span> and Save 50% Now!!!!</span>
 	</div>
-	
-	<form id="cjtoolbox-blocks-page-form" method="post">
+	<div id="cjtoolbox-blocks-page-form" method="post">
 		<?php wp_nonce_field('cjtoolbox'); ?>
 		<?php wp_nonce_field('closedpostboxes', 'closedpostboxesnonce', false); ?>
 		<?php wp_nonce_field('meta-box-order', 'meta-box-order-nonce', false); ?>
@@ -32,10 +37,6 @@ defined('ABSPATH') or die("Access denied");
 <?php 	echo $this->getTemplate('toolbox', array('location' => 'bottom'));	?>
 			</div>
 		</div>
-	</form>
-	<div id="cjtoolbox-tips">
-		<ul>
-			<li><span style="font-weight:bold"><?php echo cssJSToolbox::getText('Warning!') ?></span>  <?php echo cssJSToolbox::getText('Please make sure to validate added CSS &amp; JavaScript codes, the plugin doesn\'t do that for you!') ?></li>
-		</ul>
 	</div>
+	<div id="cjt-inline-popup"></div>
 </div>

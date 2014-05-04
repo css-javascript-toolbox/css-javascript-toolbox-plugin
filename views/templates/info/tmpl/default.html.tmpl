@@ -1,0 +1,22 @@
+<div class="template-info">
+	<ul>
+		<li><span class="section"><?php cssJSToolbox::getText('Info') ?></span>
+			<ul>
+				<li class="id"><span class="label"><?php echo cssJSToolbox::getText('ID') ?>:</span> #<?php echo $this->item->id ?></li>
+				<li><span class="label"><?php echo cssJSToolbox::getText('Name') ?>:</span> <?php echo $this->item->name ?></li>
+				<li><span class="label"><?php echo cssJSToolbox::getText('Type') ?>:</span> <?php echo cssJSToolbox::getText($this->item->type) ?></li>
+		    <li><span class="label"><?php echo cssJSToolbox::getText('Creation Date') ?>:</span> <?php echo $this->item->creationDate ?></li>
+		    <li><span class="label"><?php echo cssJSToolbox::getText('Last Modified') ?>:</span> <?php echo $this->item->lastModified ?></li>		    
+		    <li><span class="label"><?php echo cssJSToolbox::getText('Last Revision Comment') ?>:</span><p class="content large"><?php echo $this->item->changeLog ?></p></li>
+			</ul>
+		</li>
+		<li><span class="section"><?php cssJSToolbox::getText('About') ?></span>
+		  <ul>
+		    <li><span class="label"><?php echo cssJSToolbox::getText('Description') ?>:</span><p class="content large"> <?php echo $this->item->description ?></p></li>
+		    <li><span class="label"><?php echo cssJSToolbox::getText('Version') ?>:</span> <?php echo $this->item->version ?></li>
+		    <li><span class="label"><?php echo cssJSToolbox::getText('Author') ?>:</span> <?php echo $this->item->author ?></li>
+		    <li><span class="label"><?php echo cssJSToolbox::getText('Keywords') ?>:</span> <?php echo $this->item->keywords ?></li>
+		  </ul>
+		</li>
+	</ul>
+</div>

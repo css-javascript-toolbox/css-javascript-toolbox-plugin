@@ -19,18 +19,6 @@ var CJTBlockOptionalRevision = null;
 		* 
 		*/
 		this.assignPanel = null;
-		
-		/**
-		* put your comment there...
-		* 
-		*/
-		var activateTab = function(type) {
-			// Initialize.
-			var assignPanel = block.pagesPanel.jElement;
-			// Activate the AUX tab by default.
-			assignPanel.find('li.type-' + type + '>a').trigger('click');
-			assignPanel.tabs({collapsible : false});
-		};
 
 		/**
 		* put your comment there...
@@ -69,20 +57,27 @@ var CJTBlockOptionalRevision = null;
 		* 
 		*/
 		this._onswitchstate = function() {
-			// Whenever we're in revision mode enter the load-assigned-only-mode.
-			this.assignPanel.loadAssignedOnlyMode = (this.state == 'revision');
 			switch (this.state) {
 				case 'revision':
 					// If we're in revision mode set modeBlockId
 					this.assignPanel.modeBlockId = revision['id'];
+					// Force assignment panel revision mode.
+					this.assignPanel.loadAssignedOnlyMode = true;
+					this.assignPanel.checkboxDisabled = true;
+					// Hide AssignedOnly switcher.
+					this.assignPanel.assignedOnlySwitcher.jElement().css({visibility : 'hidden'});
 				break;
 				default : // Revert back to normal state.
 					// Reset alternate block Id.
 				  this.assignPanel.modeBlockId = null;
+				  // Switch 
+				  this.assignPanel.assignedOnlySwitcher.switchState();
+				  // Show assigned only switcher.
+				  this.assignPanel.assignedOnlySwitcher.jElement().css({visibility : 'visible'});
 				break;
 			}
 			// Reset assignpanel selected TAB.
-			activateTab('advanced');
+			this.assignPanel.activateTab('advanced');
 		}
 
 		// Construct parent.
