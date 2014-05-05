@@ -39,15 +39,15 @@ class CJTAutoUpgradeController extends CJTController {
 			);
 		}
 		// Import EDD updater Class!
-		if (!class_exists('EDD_SL_Plugin_Updater')) {
-			cssJSToolbox::import('framework:third-party:easy-digital-download:auto-upgrade.class.php');
-		}
+		cssJSToolbox::import('framework:third-party:easy-digital-download:auto-upgrade.class.php');
 		// Activate Automatic upgrade for all activated licenses/components!
 		foreach ($activeLicenses as $name => $state) {
 			// Initializingn vars for a single state/component!
-			$plugin =& $state['plugin'];
+			$pluginFile = ABSPATH . PLUGINDIR . '/' . $state['component']['pluginBase'];
+			// Stop using Cached Data as it causes issue, always 
+			// get fresh plugin data.
+			$plugin = get_plugin_data($pluginFile);
 			$license =& $state['license'];
-			$componentPluginPath = ABSPATH . PLUGINDIR . "/{$state['component']['pluginBase']}";
 			// Edd API parameter to be send along with he check!
 			$requestParams= array(
 				'version' => $plugin['Version'],
@@ -56,7 +56,7 @@ class CJTAutoUpgradeController extends CJTController {
 				'item_name' => $name,
 			);
 			// Set EDD Automatic Updater!
-			$updated = new EDD_SL_Plugin_Updater($cjtWebServer, $componentPluginPath, $requestParams);
+			$updated = new CJT_EDD_SL_Plugin_Updater($cjtWebServer, $pluginFile, $requestParams);
 		}
 	}
 } // End class.
