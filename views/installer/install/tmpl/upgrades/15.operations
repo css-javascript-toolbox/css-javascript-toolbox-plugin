@@ -1,0 +1,22 @@
+<?php
+/**
+* 
+*/
+
+// Disallow direct access.
+defined('ABSPATH') or die("Access denied");
+
+$operations = array();
+
+// Upgrade database tables only if the upgrade issue detected.
+// There was an issue in case-sensitive file servers.
+// If the masterFile field is not exists then upgrade the Database.
+// otherwise then do nothing
+$blockTbl = new CJTBlocksTable(cssJSToolbox::getInstance()->getDBDriver());
+$fields = $blockTbl->getFields();
+if (!isset($fields['masterFile'])) {
+	$operations['database'] = array('text' => cssJSToolbox::getText('Fixing database'));
+}
+
+// Return operatrions!
+return $operations;
