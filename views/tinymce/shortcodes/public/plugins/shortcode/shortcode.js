@@ -16,6 +16,12 @@ if (CJT === undefined) {
 	// Create Plugin.
 	tinyMCE.PluginManager.add('CJTShortcodes', function(editor, url) {
 	
+	// Load CSS!
+	tinymce.DOM.loadCSS(url + '/css/shortcode.css');
+	
+	// Cache Editor
+	CJT.codeEditor = editor;
+
 	/**
 	* put your comment there...
 	* 
@@ -45,10 +51,7 @@ if (CJT === undefined) {
 					}
 			}, this)
 		);
-	};	
-
-	// Load CSS!
-	tinymce.DOM.loadCSS(url + '/css/shortcode.css');
+	};
 	
 	// Create Shortcodes list button
 	editor.addButton('CJTBlockShortcode', {
