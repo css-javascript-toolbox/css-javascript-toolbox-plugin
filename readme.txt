@@ -208,18 +208,6 @@ Sometimes a bug decides to rear its ugly head and when this happens, this is whe
 26. Block Revisions Dialog
 27. Block Info Dialog
 
-2. Assign your code blocks anywhere
-3. Shuffle and prioritise code blocks
-4. Create code block metaboxes at the Page/Post level
-5. Add CJT shortcodes at the Page/Post level
-6. Select editor language – CSS, HTML, JavaScript, PHP
-7. Full-screen mode for tablet editing (e.g. iPad)
-8. Introducing the Template Manager
-9. Template Manager – editing templates
-10. Template Lookup – embed or link templates to code blocks
-11. Install scripts with the Package Installer
-12. Introducing the CAC (Code Auto Completion)
-
 == Changelog ==
 
 = 7.1 =
