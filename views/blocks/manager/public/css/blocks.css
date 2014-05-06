@@ -117,4 +117,6 @@ span.cjt-banner-link {
 span#dicount-code {
     font-weight: bold;
     font-size: 14px;
+    background-color: #DFDFDF;
+    padding: 1px 8px;
 }
