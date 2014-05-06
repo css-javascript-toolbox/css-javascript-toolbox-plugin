@@ -5,49 +5,106 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: Post, posts, admin, sidebar, page, pages, image, plug, plugin, customise, style, scripts, hack, Wordpress, HTML, CSS, JavaScript, HTML5, jQuery, PHP, code, script, scripts, manage, management, display, output, header, footer, apply, requests, match, hook, execute, run
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Requires at least: 3.6
-Tested up to: 3.8.1
-Stable tag: 6.1.5
+Requires at least: 3.9
+Tested up to: 3.9
+Stable tag: 7.1
 
 Easily add custom CSS, JavaScript, HTML and PHP code to unique CJT code blocks and assign them wherever you want.
 
 == Description ==
-CSS & JavaScript Toolbox is a code management plugin that gives you the tools to easily and safely modify or extend the functionality and appearance of your WordPress-powered website. You do this by adding custom code directly into unique code blocks and assign them to pages, posts, custom posts, categories, URLs, expressions, and loads more!
+CSS & JavaScript Toolbox is a powerful code management plugin that gives you the tools to easily and safely modify or extend the functionality and appearance of your WordPress-powered website. You do this by adding custom code directly into unique code blocks and assign them to pages, posts, custom posts, categories, URLs, expressions, and loads more!
 
-[youtube http://www.youtube.com/watch?v=Br4tVp6QFwA]
+= CJT Free – Now Full-Featured!!! =
+We want you to try out all the features of CJT Pro/Dev so we have now included them in the community edition of CJT Free on WordPress.org. It’s also a way of giving back to the community that have supported us from the very beginning.
 
-= Upgrade to CJT Pro =
-You will get more power and flexibility, better security, and a lot more features, tools and options in CJT Pro. Features in Pro include: a code auto completion system (for CSS, JavaScript, PHP, and HTML), code block metabox support for Pages/Posts, heaps of editor tools, external script support, a powerful code template manager, script package installer, and the list goes on. [Click here to see all the benefits of CJT Pro](http://css-javascript-toolbox.com/)
+When you get a chance, please click into the CJT website and learn about the [benefits of upgrading to CJT Pro/Dev](http://css-javascript-toolbox.com).
+
+[youtube http://www.youtube.com/watch?v=iyjq7IXBC5E]
+
+= So what exactly is CJT? =
+Just like plugins, scripts can modify or extend the functionality and appearance of your website. Unlike plugins, adding and configuring script code files can be frustrating. CJT makes this process pleasant and easy. In fact, adding scripts and styles with CJT can be done in as little as two steps: 
+1) Add your code 
+2) Assign where it goes
 
 = Who is this plugin for? =
-This plugin is primarily intended for WordPress website developers and designers. But that is not to say that others would not be able to get use out of it. CJT can be used for a lot of things from teachers, students learning to code, to mum and dad bloggers wanting to add Google Analytics or other scripts to their website.
+This plugin is primarily intended for WordPress website developers and designers. But that is not to say that others would not be able to get use out of it. CJT can be used for a lot of things from; teachers teaching and students learning to code, to mum and dad bloggers wanting to add Google Analytics or other scripts to their website. So whether it be adding free/premium scripts, creating and testing new scripts, streamlining development work, making front-end customisations, or even teaching and learning WordPress – CJT is extremely flexible and versatile.
 
 = Have you ever thought? =
-- Wouldn't it be great to have an easy way to plug your code into a Wordpress installation without having to know how to create a Wordpress plugin OR having to modify files through FTP, etc?
-- How nice it would be if you could simply add code that works with WordPress internal code without hacking away at core files?
-- How about a nice simple way to change the appearance of a page or post in your Wordpress website?
-- What about a means to organise your scripts and blocks of code in a simple web interface?
+- Wouldn't it be great to have an easy way to plug code into your Wordpress installation without having to know how to create a Wordpress plugin OR having to modify files through FTP, etc
+- How nice it would be if you could simply add code that works with WordPress internal code without hacking away at core files
+- How about a nice simple way to change the appearance of a page or post in your Wordpress website
+- What about a means to organise your scripts and blocks of code in an easy-to-use graphical web interface
 
-= How can CJT help you? =
-- The CJT plugin allows you to contribute to your Wordpress installation code via a simple web interface. You can modify and extend the functionality and appearance of your website by writing code directly into CJT code blocks.
-- Each code block represents a script (or block of code) that can apply/execute/output to a specific location (e.g. pages, posts, categories, etc) as defined in the Assignment Panel.
-- With CJT code blocks, you can add various types of code like CSS, JavaScript, HTML and PHP.  You can mix them into a single block or organise them into multiple separate blocks - the choice is yours.
-- The Auxiliary tab provides more 'assignment' options. Things like WordPress common requests such as: 404 Error, Tag, Archive, Entire website, Front-end, Dashboard Backend, and a number of others. 
-- You can create multiple code blocks, assign them to the same requests or different requests.
-- Manage all of your code blocks through a single webpage using Ajax requests.  No need to refresh your pages for any operation you need to make.
-- Changing the blocks order (via block dragging) allows you to specify what code block is used first. This way later blocks are overridden by higher-order code blocks.
-- By Deactivating code blocks, you can disable a code block from running. Using this feature is handy to test the behaviour you expected your block to make without changing a blocks properties (i.e. code, assigned requests).
-- All code blocks can have a unique name, which is ideal for organising and remembering the purpose of your block.
-- Output location is the location/point/hook for the block code to run. CJT now only supports two hook points - Header and Footer, which outputs code block in the page header - exactly before the closing HTML 'head' tag OR in the page footer - just before the end of the 'body' tag.
-- Integrating with [ACE Editor](http://ace.ajax.org/)! CJT proudly and perfectly integrates the ACE Editor and it is a dream to use while writing code for its smooth response, high performance and syntax highlighting.
-- We have included a number of tools for batch processing like: 'Delete All Empty Blocks', 'Delete All', 'Activate All', 'Deactivate All', 'Revert State'.
-- Individual code block Revisions can be saved.  Also, you can entirely save all of your code blocks with the Backups feature.
+= Features =
+Check out the HUGE list of features for CJT Free below.
 
-= Would like to know more? =
-If you would like to learn more, please click to [download the CJT User Manual](http://css-javascript-toolbox.com/cjt-free-user-manual-free-download/).
+= Global Code Blocks =
+Add as many CJT code blocks as you need
+Assign a code block to multiple Pages/Posts/Categories/etc
+Edit multiple code blocks at the same time without navigating browsers
+Reorder code blocks via drag and drop to allow block priority over others
 
-= Scripts, scripts, glorious scripts! =
-If you would like to learn how to use our plugin with some script examples, please visit our [Scripts page](http://css-javascript-toolbox.com/category/scripts).  If you are a script author and would like to get more exposure for your scripts, please submit your scripts to us.  Click [Submit a Script](http://css-javascript-toolbox.com/submit-a-script) to find out more. 
+Assign code blocks to:
+- Pages (including Child/Sub Pages)
+- Posts (including Custom Posts)
+- Categories (including Child/Sub Categories)
+- Auxiliary Assignments (including Entire Website, Website Backend, All Pages, All Posts, Recent Posts, Blog Index, All Categories, Search Pages, All Archives, Tag Archives, Author Archives, Attachment Pages, and 404 Error Pages)
+- URLs and Regular Expressions
+Select to output the code block to the Header/Footer of the assignment
+
+= Metabox Code Block & Shortcodes =
+Add CJT metabox code block at the Page/Post level
+Security setting in Options to enable/disable metabox code block
+Use CJT shortcodes to output the code block at the Page/Post level (for pinpoint output)
+TinyMCE button provides a popup, which lists all CJT shortcodes for easy insertion via a single click
+
+= Code Files =
+Each code block now supports code files:
+- Create as many code files as needed
+- Add a name, language type (i.e. HTML, PHP, CSS and JavaScript), and description for your code file. Editor language will automatically be switched for you
+- All code files will share the same assignments (e.g. the same Posts/Pages/Categories/etc)
+- You can turn your code block into a mini project. For example, you can assign a single block with multiple code files to a Page or Post, instead of creating multiple blocks to a single Page or Post
+- Switch between code files using AJAX
+- Multiple authors can work on the same block at the same time by editing different code files
+- When executed all block code files will be merged together and involved as a single file
+
+= Templates & Packages =
+External Link function seamlessly download a third-party script (e.g. from CDN), add it as a template and link it to the current code block
+
+Code Template Manager allows you to:
+- Create HTML, PHP, CSS and JavaScript code templates so you can link or embed them to your code blocks
+- Centralise your library/third-party codes by linking templates, which is using WordPress scripts/styles queue to avoid conflicts
+
+Template Lookup System allows you to:
+- Link/embed BOTH Templates and even WordPress built-in scripts/styles (such as jQuery, Thickbox, etc) that are bundled with WordPress
+
+Package System allows you to:
+- Install packages from the CJT website
+- Create your own packages (zip package made up of code blocks and templates)
+- Work in external editors, save all code blocks and templates into files, and then import them into CJT via a simple definition.xml file
+- Share packages with other CJT developers
+- Define block parameters, making it possible to utilise shortcode parameters form, which allows block to prompt for parameters when inserted as a shortcode
+
+= Cool Tools =
+Write HTML, PHP, CSS and JavaScript using the Advanced Code Editor
+Powerful editor coding tools like: Undo, Redo, Find, Replace, Go To Line, Fold, UnFold, Collapse and Expand, and much more!
+Code Auto Completion is a powerful helper tool to quickly auto-complete HTML, PHP, CSS and JavaScript code syntax and code snippets
+Syntax highlighting and error checking
+Around 30 editor and code block themes to choose from
+
+Many batch operations including:
+- Activate/Deactivate/Revert state for all code blocks (great for debugging)
+- Switch all code blocks to either the Header or Footer
+- Delete all or delete only the empty code blocks
+Create multiple backups for all your code blocks, allowing them all to be restored
+Create multiple code block revisions, allowing the single block to be restored
+Tools allow for font-size adjustment, full-width and full-screen editing
+Minimise or maximise all code blocks with a single click
+
+= Performance =
+Have you ever noticed how your website can start slowing down when you add more and more WordPress plugins into the mix. Unfortunately plugins can bloat your website and use unnecessary resources if they are used when not needed. CJT only reserves memory resources and usage processes when it needs to, otherwise it will not get involved. Additionally, by adding scripts that emulate an existing plugin, YOU get to decide exactly where the script will run.
+
+CJT has been fully tested using over 100 code blocks and 1000′s of assignments (e.g. Posts/Pages/Categories/etc). This was made possible using a combination of AJAX scrolling and pagination. In fact, 99% of CJT utilises AJAX technology, which means there is no need to refresh/reload the webpage
 
 = Follow the Developments =
 If you like to know more about the development state, issues and to track future versions code please follow us on [GitHub Plugin repository](https://github.com/css-javascript-toolbox/css-javascript-toolbox-plugin).
@@ -123,10 +180,78 @@ Sometimes a bug decides to rear its ugly head and when this happens, this is whe
 
 == Screenshots ==
 
-1. Main CJT Free code block screen
-2. CJT Shortcode button
+1. Code Block
+2. Create code blocks
+3. Blocks List
+4. Editor Syntax Highlights and Error Checker
+5. Code Auto Completion and Code Snippets Extension
+6. Editing Tools
+7. Save Load Code Tools
+8. Assigning Wordpress Pages
+9. Assigning Wordpress Posts
+10. Assigning Custom Posts
+11. Assigning Categories
+12. Auxiliary Assignments
+13. Advanced Assignment (URLs and Regular Expressions)
+14. Change State Batch Tools
+15. Change Location/Hook Batch Tools
+16. Delete and Backup Tools
+17. Block Code-Files Manager Form
+18. Hide/Show Assignment Panel window
+19. Single Window Full Screen Mode
+20. Change Editor Theme
+21. Templates Manager Form
+22. Templates Lookup Form
+23. Insert Block Shortcode via TinyMCE Button
+24. Create Metabox Block At Edit post Level
+25. Blocks Screenshor by creating Backup from all existing Code Blocks
+26. Block Revisions Dialog
+27. Block Info Dialog
+
+2. Assign your code blocks anywhere
+3. Shuffle and prioritise code blocks
+4. Create code block metaboxes at the Page/Post level
+5. Add CJT shortcodes at the Page/Post level
+6. Select editor language – CSS, HTML, JavaScript, PHP
+7. Full-screen mode for tablet editing (e.g. iPad)
+8. Introducing the Template Manager
+9. Template Manager – editing templates
+10. Template Lookup – embed or link templates to code blocks
+11. Install scripts with the Package Installer
+12. Introducing the CAC (Code Auto Completion)
 
 == Changelog ==
+
+= 7.1 =
+* Enhance: Processing and Memory optimization for better performance.
+* Enhance: Block Box Themes Support.
+* Enhance: 32 Themes is now supported to be applied for the whole block box.
+* Enhance: Applying theme per browser. Allow for assigning appropriate theme for different devices.
+* Enhance: Assigned/All mode switchers for assignment panel list. You can show all items even not selected ones or show only assigned to the block.
+* Enhance: Bullet-Proof Assignment Panel layout so it would always reserved even if another Plugin wrongly load jQuery TABS/ACCORDION Styles.
+* Enahnce: General UI enhancements.
+* Enahnce: Code editor updates.
+* Enhance: Turns CJT Block into a tiny Project that host Multiple "Managed" Code-Files instead of just one.
+* Enhance: No need to create a Block for each Language Type and assign them to the same Wordpress Page. One Block with Multiple Code Files solved that by creating only one Block for each assgined request.
+* Enhance: Code Files Support Language Type, Code, Description and TAG fields.
+* Enhance: Write Design-Time Organized Code by separating them into code-files (JS, CSS, PHP, HTML) and CJT will merge them all at run-time.
+* Enhance: There is no need to write <script>, <style> or <?php ?> tags when writing Javascript, CSS or PHP Codes. Code File assigned language would take care of that.
+* Enhance: Control/Modify auto-added <script>, <style> or <?php ?> TAGS by modifying Code File TAG field.
+* Enhance: Automatically Change Code Editor language to currently active Code File language.
+* Enhance: Manage Code Files without leaving the Block Page.
+* Enhance: Block revision is now created based on the Current Active Code File. Therefore each Code File has its owen revisions.
+* Enhance: Its now possible for multiple Authors to work on the same Block by creating Multiple Code-Files.
+* Enhance: Add Multiple Code Files to CJT Packages.
+* Enhance: Block File, Edit and View Menus.
+* Enhance: 'Load Local', 'Load Url' and 'Reload' to load Block Code from Local File, Url and Reload From Server respectively.
+* Enhance: Save/Download Block Current Active Code File.
+* Enhance: Undo, Redo, Find, Find Next, Find Previous, Replace, Goto Line, Goto Line Up, GoTo Line Down, GoTo Next Error, GoTo Previous Error, Fold, Fold All, UnFold, UnFold All, To Lower Case and To Upper Case Edit Menu functions added.
+* Enhance: 'Settings' Edit Menu item for Fully Customize Code Editor Fonts, Show/Hide Print Margine, Keybinding Methods, Show/Hide Scroll, Scroll Speed, Readonly, Show/Hide Gutter, TAB Size, New Line Mode and much more!
+* Enhance: Show/Hide StatusBar via View StatusBar Menu.
+* Enhance: CJT Website is now support Full documentation Tutorials that expose many internal features/possibilities that can be achived by CJT.
+* Enhance: Code Blocks disappeared after upgrading to Wordpress 3.9 and sever running PHP >= 5.5.
+* Enhance: Packages Management System (BETA)
+* Enhance: Define Shortcode Parameters by creating package and input their values from the CJT Shortcode Parameters form.
 
 = 6.1.5 =
 * Enhance: Editor enhancements and updates.
