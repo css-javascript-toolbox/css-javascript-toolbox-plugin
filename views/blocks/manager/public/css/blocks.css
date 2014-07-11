@@ -120,3 +120,6 @@ span#dicount-code {
     background-color: #DFDFDF;
     padding: 1px 8px;
 }
+
+#main-title-links {margin-left: 20px;}
+#main-title-links a {margin-right: 30px; font-size: 14px;font-weight: bold;}

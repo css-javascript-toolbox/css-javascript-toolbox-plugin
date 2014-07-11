@@ -51,6 +51,11 @@ class cssJSToolbox extends CJTHookableClass {
 	/**
 	* 
 	*/
+	const CJT_SCRTIPS_WEB_SITE_DOMAIN = 'cjt-scripts.com';
+	
+	/**
+	* 
+	*/
 	const CJT_WEB_SITE_DOMAIN = 'css-javascript-toolbox.com';
 	
 	/**
