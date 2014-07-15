@@ -1,0 +1,48 @@
+<?php
+  
+?>
+<table id="cjt-statcs-metabox">
+	<thead>
+		<tr>
+			<th colspan="2"><strong><?php echo cssJSToolbox::getText('Total') ?></strong></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><?php echo cssJSToolbox::getText('Active Code Blocks') ?></td>
+			<td><strong><?php echo $this->activeBlocks ?></strong></td>
+		</tr>
+		<tr>
+			<td><?php echo cssJSToolbox::getText('Active Metabox Code Blocks') ?></td>
+			<td><strong><?php echo $this->activeMetaboxBlocks ?></strong></td>
+		</tr>
+		<tr>
+			<td><?php echo cssJSToolbox::getText('Inactive Code Blocks') ?></td>
+			<td><strong><?php echo $this->inactiveBlocks ?></strong></td>
+		</tr>
+		<tr>
+			<td><?php echo cssJSToolbox::getText('Inactive Metabox Code Blocks') ?></td>
+			<td><strong><?php echo $this->inactiveMetaboxBlocks ?></strong></td>
+		</tr>
+		<tr>
+			<td><?php echo cssJSToolbox::getText('Code Templates') ?></td>
+			<td><strong><?php echo $this->templates ?></strong></td>
+		</tr>
+		<tr>
+			<td><?php echo cssJSToolbox::getText('Script Packages') ?></td>
+			<td><strong><?php echo $this->scriptsPackage ?></strong></td>
+		</tr>
+		<tr>
+			<td class="latest-scripts" colspan="2">
+<?php foreach ($this->latestSripts as $item) : ?>
+				<em><?php echo cssJSToolbox::getText('Latest') ?>:</em> <a target="blank" href="<?php echo $item['link'] ?>"><?php echo $item['title'] ?></a>
+<?php endforeach; ?>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<div id="cjt-statcs-metabox-info">
+	<a target="blank" href="http://<?php echo cssJSToolbox::CJT_WEB_SITE_DOMAIN ?>/pricing/"><?php echo cssJSToolbox::getText('Upgrade to CJT Pro or CJT Dev') ?></a>
+	<a target="blank" style="float: right;" href="http://<?php echo cssJSToolbox::CJT_SCRTIPS_WEB_SITE_DOMAIN ?>/"><?php echo cssJSToolbox::getText('Get Script Packages') ?></a>
+	<p><?php echo cssJSToolbox::getText('You\'re using') ?> <strong><?php echo cssJSToolbox::getText('CSS & Javascript Toolbox v') . CJTPlugin::VERSION ?></strong></p>
+</div>
