@@ -2,7 +2,7 @@
 Contributors: wipeoutmedia
 Author URL: http://css-javascript-toolbox.com
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=EWDWF75JHT9Q6
-Tags: Post, posts, admin, sidebar, page, pages, image, plug, plugin, customise, style, scripts, hack, Wordpress, HTML, CSS, JavaScript, HTML5, jQuery, PHP, code, script, scripts, manage, management, display, output, header, footer, apply, requests, match, hook, execute, run
+Tags: post, posts, admin, sidebar, page, pages, image, plug, plugin, customise, style, scripts, hack, Wordpress, HTML, CSS, JavaScript, HTML5, jQuery, PHP, code, script, scripts, manage, management, display, output, header, footer, apply, requests, match, hook, execute, run
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.9
@@ -14,10 +14,9 @@ Easily add custom CSS, JavaScript, HTML and PHP code to unique CJT code blocks a
 == Description ==
 CSS & JavaScript Toolbox is a powerful code management plugin that gives you the tools to easily and safely modify or extend the functionality and appearance of your WordPress-powered website. You do this by adding custom code directly into unique code blocks and assign them to pages, posts, custom posts, categories, URLs, expressions, and loads more!
 
-= CJT Free – Now Full-Featured!!! =
-We want you to try out all the features of CJT Pro/Dev so we have now included them in the community edition of CJT Free on WordPress.org. It’s also a way of giving back to the community that have supported us from the very beginning.
-
-When you get a chance, please click into the CJT website and learn about the [benefits of upgrading to CJT Pro/Dev](http://css-javascript-toolbox.com).
+= Like CJT Free – Upgrade to CJT Pro/Dev =
+If you like CJT Free, we hope you can support the continued development by upgrading to CJT Pro or CJT Dev. 
+Click to learn about the [benefits of upgrading to CJT Pro/Dev](http://css-javascript-toolbox.com/pricing).
 
 [youtube http://www.youtube.com/watch?v=iyjq7IXBC5E]
 
@@ -29,103 +28,22 @@ Just like plugins, scripts can modify or extend the functionality and appearance
 = Who is this plugin for? =
 This plugin is primarily intended for WordPress website developers and designers. But that is not to say that others would not be able to get use out of it. CJT can be used for a lot of things from; teachers teaching and students learning to code, to mum and dad bloggers wanting to add Google Analytics or other scripts to their website. So whether it be adding free/premium scripts, creating and testing new scripts, streamlining development work, making front-end customisations, or even teaching and learning WordPress – CJT is extremely flexible and versatile.
 
-= Have you ever thought? =
-- Wouldn't it be great to have an easy way to plug code into your Wordpress installation without having to know how to create a Wordpress plugin OR having to modify files through FTP, etc
-- How nice it would be if you could simply add code that works with WordPress internal code without hacking away at core files
-- How about a nice simple way to change the appearance of a page or post in your Wordpress website
-- What about a means to organise your scripts and blocks of code in an easy-to-use graphical web interface
-
 = Features =
-Check out the HUGE list of features for CJT Free below.
+There are way too many features to list on this CJT description page, so if you want to learn more, please click into the [CSS & JavaScript Toolbox website](http://css-javascript-toolbox.com).
 
-= Global Code Blocks =
-Add as many CJT code blocks as you need
-Assign a code block to multiple Pages/Posts/Categories/etc
-Edit multiple code blocks at the same time without navigating browsers
-Reorder code blocks via drag and drop to allow block priority over others
+= Thank You =
+We would first like to thank you for installing our WordPress plugin. If you like this plugin, find it useful, and appreciate the huge amount of work that has gone into creating it, you can certainly support our efforts by:
 
-Assign code blocks to:
-- Pages (including Child/Sub Pages)
-- Posts (including Custom Posts)
-- Categories (including Child/Sub Categories)
-- Auxiliary Assignments (including Entire Website, Website Backend, All Pages, All Posts, Recent Posts, Blog Index, All Categories, Search Pages, All Archives, Tag Archives, Author Archives, Attachment Pages, and 404 Error Pages)
-- URLs and Regular Expressions
-Select to output the code block to the Header/Footer of the assignment
-
-= Metabox Code Block & Shortcodes =
-Add CJT metabox code block at the Page/Post level
-Security setting in Options to enable/disable metabox code block
-Use CJT shortcodes to output the code block at the Page/Post level (for pinpoint output)
-TinyMCE button provides a popup, which lists all CJT shortcodes for easy insertion via a single click
-
-= Code Files =
-Each code block now supports code files:
-- Create as many code files as needed
-- Add a name, language type (i.e. HTML, PHP, CSS and JavaScript), and description for your code file. Editor language will automatically be switched for you
-- All code files will share the same assignments (e.g. the same Posts/Pages/Categories/etc)
-- You can turn your code block into a mini project. For example, you can assign a single block with multiple code files to a Page or Post, instead of creating multiple blocks to a single Page or Post
-- Switch between code files using AJAX
-- Multiple authors can work on the same block at the same time by editing different code files
-- When executed all block code files will be merged together and involved as a single file
-
-= Templates & Packages =
-External Link function seamlessly download a third-party script (e.g. from CDN), add it as a template and link it to the current code block
-
-Code Template Manager allows you to:
-- Create HTML, PHP, CSS and JavaScript code templates so you can link or embed them to your code blocks
-- Centralise your library/third-party codes by linking templates, which is using WordPress scripts/styles queue to avoid conflicts
-
-Template Lookup System allows you to:
-- Link/embed BOTH Templates and even WordPress built-in scripts/styles (such as jQuery, Thickbox, etc) that are bundled with WordPress
-
-Package System allows you to:
-- Install packages from the CJT website
-- Create your own packages (zip package made up of code blocks and templates)
-- Work in external editors, save all code blocks and templates into files, and then import them into CJT via a simple definition.xml file
-- Share packages with other CJT developers
-- Define block parameters, making it possible to utilise shortcode parameters form, which allows block to prompt for parameters when inserted as a shortcode
-
-= Cool Tools =
-Write HTML, PHP, CSS and JavaScript using the Advanced Code Editor
-Powerful editor coding tools like: Undo, Redo, Find, Replace, Go To Line, Fold, UnFold, Collapse and Expand, and much more!
-Code Auto Completion is a powerful helper tool to quickly auto-complete HTML, PHP, CSS and JavaScript code syntax and code snippets
-Syntax highlighting and error checking
-Around 30 editor and code block themes to choose from
-
-Many batch operations including:
-- Activate/Deactivate/Revert state for all code blocks (great for debugging)
-- Switch all code blocks to either the Header or Footer
-- Delete all or delete only the empty code blocks
-Create multiple backups for all your code blocks, allowing them all to be restored
-Create multiple code block revisions, allowing the single block to be restored
-Tools allow for font-size adjustment, full-width and full-screen editing
-Minimise or maximise all code blocks with a single click
-
-= Performance =
-Have you ever noticed how your website can start slowing down when you add more and more WordPress plugins into the mix. Unfortunately plugins can bloat your website and use unnecessary resources if they are used when not needed. CJT only reserves memory resources and usage processes when it needs to, otherwise it will not get involved. Additionally, by adding scripts that emulate an existing plugin, YOU get to decide exactly where the script will run.
-
-CJT has been fully tested using over 100 code blocks and 1000′s of assignments (e.g. Posts/Pages/Categories/etc). This was made possible using a combination of AJAX scrolling and pagination. In fact, 99% of CJT utilises AJAX technology, which means there is no need to refresh/reload the webpage
+- Clicking here to [purchase a copy of CJT Pro or CJT Dev](http://css-javascript-toolbox.com/pricing)
+- Provide a [feedback review and rating](http://wordpress.org/support/view/plugin-reviews/css-javascript-toolbox) on WordPress.org
+- Spreading the word and recommending the CJT plugin to others.
 
 = Follow the Developments =
 If you like to know more about the development state, issues and to track future versions code please follow us on [GitHub Plugin repository](https://github.com/css-javascript-toolbox/css-javascript-toolbox-plugin).
 
-= Thank You =
-We would like to take this opportunity to thank you for installing our WordPress plugin.  We will continue to develop it further, making it bigger and better with awesome updates in the near future. If you like this plugin and not only find it useful, but appreciate the huge amount of work that has gone into creating it, you can certainly support us in a number of ways, including:
-
-- Providing a [feedback review and rating](http://wordpress.org/support/view/plugin-reviews/css-javascript-toolbox) on WordPress.org
-- Visiting our [CJT website](http://css-javascript-toolbox.com) and letting us know your thoughts on using the plugin, notifying us of any bugs and issues, and providing us with feature requests.
-- Liking [CJToolbox on Facebook](https://www.facebook.com/CJToolbox)
-- Following [CJToolbox on Twitter](https://twitter.com/CJToolbox)
-- Subscribing to [CJToolbox on Youtube](http://www.youtube.com/user/cjtoolbox)
-
-Thank you very much for your support and we hope you enjoy using it as much as we enjoy developing it.
-
-Regards,
-Team CJT
-
 == Installation ==
 1. If you're upgrading from older versions its highly recommended to backup your database before upgrading.
-2. Upload the 'css-js-toolbox' folder to the '/wp-content/plugins/' directory
+2. Upload the 'css-javascript-toolbox' folder to the '/wp-content/plugins/' directory
 3. Activate the plugin through the 'Plugins' menu in WordPress
 4. Click 'CSS & JavaScript Toolbox' link in the main navigation (left side of your Dashboard).
 
@@ -140,10 +58,10 @@ The CJT code block is the basic unit for writing code and to associate it with s
 The Assignment Panel is a tabs window, which appears on the right side of the code block editor and is used to assign/apply the code block into specific requests.
 
 = Can you select more than one item from the Assignment Panel? = 
-Yes! You can select any number of items you need, there is no limitation regarding this.
+Yes. You can select any number of items you need, there is no limitation regarding this.
 
 = Can you assign multiple blocks to the same items from the Assignment Panel? =
-Yes! It's one of the most useful features that CJT supports as it allows you to manage/split your codes into several code blocks, allowing you to override code in a former (or lower ordered) code block.
+Yes. It's one of the most useful features that CJT supports as it allows you to manage/split your codes into several code blocks, allowing you to override code in a former (or lower ordered) code block.
 
 = What is Pages, Posts, Categories and Custom Posts tabs? =
 These lists with checkboxes represent all of your WordPress Pages, Posts, Categories and Custom Posts that your entire website contains.  It also supports subpages and sub-categories, which you will also find in there. 
@@ -151,7 +69,7 @@ These lists with checkboxes represent all of your WordPress Pages, Posts, Catego
 = What is the Auxiliary tab? =
 As there are a number of requests that are not available as normal Wordpress items (e.g. Pages, Posts, etc) but since it's commonly required and most likely be used, you will find them pre-defined in the Auxiliary tab. In the Auxiliary tab you can find pages like: Home, Blog Index, Author, 404 error, Tag, Archive, Entire website, Front-end, Admin backend and much more!
 
-= Is it better to use the URLs tab, or should I select items if found through other tabs?  =
+= Is it better to use the URLs tab, or select items if found through other tabs?  =
 Pages, Posts, Custom Posts and Categories tabs are created to simplify the assignment process for all types of users. Using URLs is great for fast performance as it requires less time to evaluate/identify the request! However, not all things can be done through the URLs tab.  For example, applying a single block to a Category index page and all its sub-categories.
 
 = What is the Advanced Expressions tab? =
@@ -160,14 +78,14 @@ The Advanced Expression tab allows you to fully control what requests to integra
 = Can I move the blocks around? =
 Yes by hovering your mouse cursor over the code block title bar until it turns into a four-sided arrow, this allow you to move the blocks.  Clicking the block title bar allows you to open and close the blocks.
 
-= Is block immediately saved after I clicked 'create' on 'Create New Code Block' form? =
-Yes! The block is created and saved in your database, to discard the block you've to delete it.
+= Is block saved after I click 'Create' in 'Create New Code Block' form? =
+Yes. The block is created and saved in your database. In order to discard the block, you have to delete it.
 
 = Is block orders immediately saved after drag-and-drop block box?  =
-No! In order to save blocks order you need to press 'Save All Changes' button.
+No. In order to save blocks order you need to press 'Save All Changes' button.
 
 = Is block immediately deleted after removed from the blocks list page? =
-No! After delete block you need to click 'Save All Changes' button.
+No. After delete block you need to click 'Save All Changes' button.
 
 = I'm using the URLs tab and my code is not working? =
 Make sure you have copied and pasted the Page, Post, or Category URL exactly as it appears in the address bar.  For example, you may have inadvertently included an extra forward slash at the end of your URL.
@@ -176,7 +94,7 @@ Make sure you have copied and pasted the Page, Post, or Category URL exactly as 
 Hook location feature gives you control over the location of outputting the CSS/JS code. This is useful in case overriding another plugins' CSS is required. Also sometimes its better to put your JS code in the footer to avoid slowing down your page load.
 
 = I received a weird error, what do I do now? =
-Sometimes a bug decides to rear its ugly head and when this happens, this is when we need your help.  If you receive an error, if it be a PHP error, or some functionality that isn't working for whatever reason, please visit our: [CSS & JavaScript Toolbox website and let us know](http://wordpress.org/support/plugin/css-javascript-toolbox)
+Due to the overwhelming amount of emails we get for users requesting support for our CJT plugins, we cannot provide support for the CJT Free plugin (hosted here on WordPress.org) at this stage unfortunately. If you wish to receive priority support, please visit our CJT website and [purchase a license for any of our plugins](http://css-javascript-toolbox.com/pricing).
 
 == Screenshots ==
 
@@ -385,22 +303,6 @@ Sometimes a bug decides to rear its ugly head and when this happens, this is whe
 
 = 0.3 =
 * This is the very first release.
-
-== Upgrade Notice ==
-
-= 0.8 =
-Its recommended to backup your database before upgrading.
-Templates feature/system is not available anymore! Please backup your templates data manually before upgrading.
-You can do this by copying and pasting CSS and JS template data into a text editor and saving your text file.
-If you have any other third-party plugin or software integrated with the CJT plugin database, please note that the database structure has been completely changed in CJT Free.
-Linked scripts are now obsolete! If you've linked scripts with any code blocks, then those blocks might stop working.
-
-= 0.3 =
-Its recommended to backup your database before upgrading.
-Templates feature/system is not available anymore! Please backup your templates data manually before upgrading.
-You can do this by copying and pasting CSS and JS template data into a text editor and saving your text file. If you have any other third-party plugin or software integrated with the CJT plugin database, please note that the database structure has been completely changed in CJT Free.
-Code block names will get changed as 'CSS & Javascript Block' phrase will be removed and replaced by 'Block' word.
-The double-slashes fix modules is now obsolete! If you have extra slashes (double slashes) in your code block you have to clean it manually yourself or upgrade to version 0.8 to fix them first!
 
 == Credits ==
 	
