@@ -13,7 +13,17 @@
 * @since version 6.0
 */
 class CJTDefaultController extends CJTController {
-	
+
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function dashboardMetaboxAction() {
+		// Create View.
+		$view = CJTView::getInstance('dashboard/metabox/statistics');
+		$view->display('default');
+	}
+
 	/**
 	* put your comment there...
 	* 
