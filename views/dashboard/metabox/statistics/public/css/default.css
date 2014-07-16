@@ -5,3 +5,12 @@ table#cjt-statcs-metabox strong {color: black;}
 div#cjt-statcs-metabox-info {padding-top: 14px;}
 .latest-scripts {padding-left: 22px;}
 .latest-scripts a {font-size: 13px;}
+#cjt-statistics .handlediv {display: none;}
+
+#cjt-statistics .no-click-layer {
+	width: 100%;
+	height: 36px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
