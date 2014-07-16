@@ -30,6 +30,7 @@ class CJTDashboardMetaboxStatisticsView extends CJTView {
 		parent::__construct($info);
 		// Enqueue scripts.
 		self::enqueueStyles();
+		self::enqueueScripts();
 	}
 	
 	/**
@@ -51,7 +52,16 @@ class CJTDashboardMetaboxStatisticsView extends CJTView {
 		// Display.
 		echo $this->getTemplate($tmpl);
 	}
-	
+
+	/**
+	* put your comment there...
+	* 
+	*/
+	public static function enqueueScripts() {
+		// Use related scripts.
+		self::useScripts(__CLASS__, 'views:dashboard:metabox:statistics:public:js:{CJTDashboardMetaboxStatisticsView-}default');
+	}
+
 	/**
 	* put your comment there...
 	* 
