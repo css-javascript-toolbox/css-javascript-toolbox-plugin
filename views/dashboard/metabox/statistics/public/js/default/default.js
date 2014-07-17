@@ -11,7 +11,7 @@
 	* 
 	*/
 	$(function() {
-		// Make Dashboard metabox unclickable
-		$('<div class="no-click-layer"><div>').insertBefore('#cjt-statistics .hndle');
+		// Make Dashboard metabox unclickable		
+		$('#cjt-statistics h3,#cjt-statistics .handlediv').unbind('click.postboxes');
 	});
 })(jQuery);
