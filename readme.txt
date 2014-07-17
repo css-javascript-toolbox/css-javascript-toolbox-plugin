@@ -6,8 +6,8 @@ Tags: post, posts, admin, sidebar, page, pages, image, plug, plugin, customise, 
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.9
-Tested up to: 3.9
-Stable tag: 7.1
+Tested up to: 3.9.1
+Stable tag: 7.1.1
 
 Easily add custom CSS, JavaScript, HTML and PHP code to unique CJT code blocks and assign them wherever you want.
 
@@ -127,6 +127,8 @@ Due to the overwhelming amount of emails we get for users requesting support for
 27. Block Info Dialog
 
 == Changelog ==
+= 7.1.1 =
+* Enhance: Add Statistics Dashboard Widget that shows few useful fields.
 
 = 7.1 =
 * Enhance: Processing and Memory optimization for better performance.
