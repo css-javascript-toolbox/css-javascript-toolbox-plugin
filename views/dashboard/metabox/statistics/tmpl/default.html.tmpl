@@ -1,6 +1,11 @@
 <?php
   
+  $latestNew = $this->feed['news'][0];
 ?>
+<div id="cjt-statcs-metabox-news">
+	<span class="cjt_dw_latestnewstitle"><?php echo cssJSToolbox::getText('Latest News:') ?> <a target="_blank" href="<?php echo $latestNew['link'] ?>"><?php echo $latestNew['title'] ?></a></span>
+	<p class="cjt_dw_description"><?php echo $latestNew['description'] ?></p>
+</div>
 <table id="cjt-statcs-metabox">
 	<thead>
 		<tr>
@@ -34,8 +39,8 @@
 		</tr>
 		<tr>
 			<td class="latest-scripts" colspan="2">
-<?php foreach ($this->latestSripts as $item) : ?>
-				<em><?php echo cssJSToolbox::getText('Latest') ?>:</em> <a target="blank" href="<?php echo $item['link'] ?>"><?php echo $item['title'] ?></a>
+<?php foreach ($this->feed['scripts'] as $item) : ?>
+				<em><?php echo cssJSToolbox::getText('Latest') ?>:</em> <a target="_blank" href="<?php echo $item['link'] ?>"><?php echo $item['title'] ?></a>
 <?php endforeach; ?>
 			</td>
 		</tr>

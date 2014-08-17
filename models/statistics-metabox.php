@@ -55,36 +55,38 @@ class CJTStatisticsMetaboxModel {
 	* put your comment there...
 	* 
 	*/
-	public function getLatestScripts($count) {
+	public function getFeed() {
 		// Initialize.
-		$scriptsSiteDomain = cssJSToolbox::CJT_SCRTIPS_WEB_SITE_DOMAIN;
-		$scriptsFeedUrl = "http://{$scriptsSiteDomain}/forums/script-packages/user-scripts/feed/";
-		$latestScriptTransit = get_option(self::CJT_LASTEST_SCRIPT_OPTION_NAME, array(
-			'scripts' => array(),
+		$widgetTransitFeed = get_option(self::CJT_LASTEST_SCRIPT_OPTION_NAME, array(
+			'scripts' => array(array('title' => 'cjt-script.com', 'link' => 'http://' . cssJSToolbox::CJT_SCRTIPS_WEB_SITE_DOMAIN)),
+			'news' => array(array('title' => 'css-javascript-toolbox.com', 'link' => 'http://' . cssJSToolbox::CJT_WEB_SITE_DOMAIN)),
 			'time' => 0
 		));
 		// Only if cache is expires read feed from server.
-		if ((time() - $latestScriptTransit['time']) > self::LATEST_SCRIPT_EXPIRES) {
-			// Read feed.
-			// Request server => get raw XML feed
-			$feed = wp_remote_get($scriptsFeedUrl);
-			if (gettype($feed) !== 'WP_Error') {
-				$feedContent = wp_remote_retrieve_body($feed);
-				$feedDoc = new SimpleXMLElement($feedContent);
-				// Read only items count specifed by $count param.
-				$items = array();
-				for ($currentIndex = 0; $currentIndex < $count; $currentIndex++) {
-					// Copy only title and link.
-					$xmlItem = $feedDoc->channel->item[$currentIndex];
-					$items[] = array('title' => (string) $xmlItem->title, 'link' => (string) $xmlItem->link);
-				}
-				$latestScriptTransit['scripts'] =& $items;
-				// Hold cache time.
-				$latestScriptTransit['time'] = time();
-				update_option(self::CJT_LASTEST_SCRIPT_OPTION_NAME, $latestScriptTransit);
+		if ((time() - $widgetTransitFeed['time']) > self::LATEST_SCRIPT_EXPIRES) {
+			# Get Latest Scripts/Packages from feed.
+			$scriptsFeed = new CJT_Framework_Wordpress_Feed(
+				cssJSToolbox::CJT_SCRTIPS_WEB_SITE_DOMAIN, 
+				'forums/script-packages/user-scripts/feed/',
+				array('title', 'link')
+			);
+			if (!$scriptsFeed->isError()) {
+				$widgetTransitFeed['scripts'] = $scriptsFeed->getLatestItems(1);
 			}
+			# Get latest news from news feed.
+			$newsFeed = new CJT_Framework_Wordpress_Feed(
+				cssJSToolbox::CJT_WEB_SITE_DOMAIN, 
+				'category/news/feed/',
+				array('title', 'link', 'description')
+			);
+			if (!$newsFeed->isError()) {
+				$widgetTransitFeed['news'] = $newsFeed->getLatestItems(1);
+			}
+			# Store cache time.
+			$widgetTransitFeed['time'] = time();
+			update_option(self::CJT_LASTEST_SCRIPT_OPTION_NAME, $widgetTransitFeed);
 		}
-		return $latestScriptTransit['scripts'];
+		return $widgetTransitFeed;
 	}
 
 	/**
