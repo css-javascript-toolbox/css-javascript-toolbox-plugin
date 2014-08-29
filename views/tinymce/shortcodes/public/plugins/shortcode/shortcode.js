@@ -58,7 +58,7 @@ if (CJT === undefined) {
 		type : 'menubutton',
 		title : CJTBlockShortcode.title,
 		icon : 'cjt-blocks-list-tinymce-button',
-		menu : {style : 'overflow:true;max-height:356px'},
+		menu : {style : 'overflow:true;max-height:356px;width:280px'},
 		onCreateMenu : function() {
 			// Get Menu Object created by tinyMCE behind the sense.
 			var menu = editor.controlManager.buttons.CJTBlockShortcode.menu;
