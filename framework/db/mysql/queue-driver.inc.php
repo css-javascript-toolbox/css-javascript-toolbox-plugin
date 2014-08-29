@@ -128,6 +128,11 @@ class CJTMYSQLQueueDriver extends CJTHookableClass {
 	* @return string
 	*/
 	public function escapeValue($data, $field) {
+		# MYSQLI doesn't has numeric field.
+		if ($this->wpdb->use_mysqli) {
+			$field->numeric = $field->flags & MYSQLI_NUM_FLAG;
+		}
+		# Check if numeric
 		switch ($field->numeric) {
 		  case 0:
 			  $data = esc_sql($data);
@@ -165,7 +170,7 @@ class CJTMYSQLQueueDriver extends CJTHookableClass {
 	*/
 	public function getColumns($table) {
 		$columns = array();
-		$this->select("SELECT * FROM {$table} WHERE 1!=1;");
+		$this->select("SELECT * FROM {$table} WHERE 1!=1 LIMIT 0,1;");
 		// Use field name as element key.
 		foreach ($this->wpdb->col_info as $index => $column) {
 			$columns[$column->name] = $column;
