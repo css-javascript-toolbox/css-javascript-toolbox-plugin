@@ -133,7 +133,7 @@
 		// File name and files list.
 		this.currentFileName = $('<a>').addClass('file').text(this.file.name)
 		.insertAfter(block.elements.blockName)
-		.before($('<span class="name-file-separator">/</span>'))
+		.before($('<span class="name-file-separator">|</span>'))
 		.click($.proxy(_onclickfilename, this));
 	};
 	
