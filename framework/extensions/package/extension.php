@@ -64,7 +64,9 @@ abstract class CJT_Framework_Extensions_Package_Extension extends CJTHookableCla
 	*/
 	public function getInvolved() {
 		# Check installation state 
-		add_action('admin_menu', array($this, '_checkInstallationState'), 100);
+		if (CJTPlugin::getInstance()->isInstalled()) {
+			add_action('init', array($this, '_checkInstallationState'), 100);	
+		}
 	}	
 	
 } # End class
