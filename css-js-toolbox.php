@@ -183,6 +183,13 @@ class CJTPlugin extends CJTHookableClass {
 	/**
 	* put your comment there...
 	* 
+	* @var mixed
+	*/
+	protected $onload = array('parameters' => array('instance'));
+
+	/**
+	* put your comment there...
+	* 
 	*/
 	protected function __construct() {
 		// Hookable!
@@ -296,6 +303,8 @@ class CJTPlugin extends CJTHookableClass {
 	* @return $this
 	*/
 	protected function main() {
+		// Fire laod event
+		$this->onload($this);
 		// Access point base class is a dependency!
 		require_once 'framework/access-points/access-point.class.php';
 		// Run Main Acces Point!

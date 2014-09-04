@@ -211,6 +211,7 @@ class CJTExtensions extends CJTHookableClass {
 						// Read Basic XML Definition!
 						$definitionXML = $this->onloaddefinition(new SimpleXMLElement($extension['definition']['raw']));
 						$attrs = $definitionXML->attributes();
+						$extension['defDoc'] =& $definitionXML;
 						$extension['definition']['primary']['loadMethod'] = (string) $attrs->loadMethod;
 						$extension['definition']['primary']['requiredLicense'] = (string) $definitionXML->license;
 						$className = ((string) $attrs->class);
@@ -218,7 +219,6 @@ class CJTExtensions extends CJTHookableClass {
 						$extensions[$className] = $extension;
 						// Map Plugin FILE-2-CLASS name!
 						$this->file2Classmap["{$extension['dir']}/{$extension['file']}"] = $className;
-						$definitionXML = null;
 					}
 				}
 			}
@@ -250,7 +250,7 @@ class CJTExtensions extends CJTHookableClass {
 			// If auto load is speicifd then import class file and bind events.
 			if ($extension['definition']['primary']['loadMethod'] == 'auto') {
 				// Load definition.
-				$definitionXML = new SimpleXMLElement($extension['definition']['raw']);
+				$definitionXML =& $extension['defDoc'];
 				// If frameworkVersion is not provided assume its 0 (Older version)
 				// before frameworkversion chech even supported.
 				// otherwise compare it with current frameworkversion
