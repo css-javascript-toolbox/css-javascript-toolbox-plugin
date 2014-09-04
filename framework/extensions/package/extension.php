@@ -55,7 +55,6 @@ abstract class CJT_Framework_Extensions_Package_Extension extends CJTHookableCla
 			$extensionPackagesState->upgrade();
 			# Upgrade extension state
 			$extensionState->upgrade();
-			die();
 		}
 	}
 
@@ -65,7 +64,7 @@ abstract class CJT_Framework_Extensions_Package_Extension extends CJTHookableCla
 	*/
 	public function getInvolved() {
 		# Check installation state 
-		add_action('init', array($this, '_checkInstallationState'));
+		add_action('admin_menu', array($this, '_checkInstallationState'), 100);
 	}	
 	
 } # End class
