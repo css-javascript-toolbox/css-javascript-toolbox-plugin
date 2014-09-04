@@ -211,7 +211,7 @@ class CJTExtensions extends CJTHookableClass {
 						// Read Basic XML Definition!
 						$definitionXML = $this->onloaddefinition(new SimpleXMLElement($extension['definition']['raw']));
 						$attrs = $definitionXML->attributes();
-						$extension['defDoc'] =& $definitionXML;
+						$extension['defDoc'] = $definitionXML;
 						$extension['definition']['primary']['loadMethod'] = (string) $attrs->loadMethod;
 						$extension['definition']['primary']['requiredLicense'] = (string) $definitionXML->license;
 						$className = ((string) $attrs->class);
