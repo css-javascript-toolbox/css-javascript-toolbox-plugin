@@ -6,17 +6,17 @@
 /**
 * 
 */
-class CJT_Framework_Extensions_Package_Extension {
+class CJT_Framework_Extensions_Package_State_Extension {
 
 	/**
 	* 
 	*/
-	const INSTALLED = 1;
+	const INSTALLED = 3;
 	
 	/**
 	* 
 	*/
-	const NOT_INSTALLED = 0;
+	const NOT_INSTALLED = 1;
 	
 	/**
 	* 
@@ -56,6 +56,13 @@ class CJT_Framework_Extensions_Package_Extension {
 	* 
 	* @var mixed
 	*/
+	protected $newVersion;
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	protected $state;
 	
 	/**
@@ -67,9 +74,10 @@ class CJT_Framework_Extensions_Package_Extension {
 	public function __construct(SimpleXMLElement & $extDeDoc) {
 		# Initialize
 		$this->extDefDoc =& $extDeDoc;
-		$this->name = (string) $extDeDoc>attributes()->class;
+		$this->name = (string) $extDeDoc->attributes()->class;
+		$this->newVersion = (string) $extDeDoc->packages->attributes()->version;
 		# Getting DB Option name
-		$this->dbOptionName = "{$name}.state";
+		$this->dbOptionName = "{$this->name}.state";
 		# Read from database
 		$this->data = get_option($this->dbOptionName);
 		# Cache state
@@ -109,7 +117,7 @@ class CJT_Framework_Extensions_Package_Extension {
 		# Initialize
 		$deDoc =& $this->getExtensionDeDoc();
 		$installedVersion = $this->getInstalledVersion();
-		$newVersion = (string) $deDoc->packages->attributes()->version;
+		$newVersion = $this->newVersion;
 		# Check extension installation state
 		if (!$installedVersion) {
 			$this->state = self::NOT_INSTALLED;
@@ -124,4 +132,15 @@ class CJT_Framework_Extensions_Package_Extension {
 		return $this->state;
 	}
 	
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function upgrade() {
+		# Set version
+		$this->data['version'] = $this->newVersion;
+		# Save
+		return update_option($this->dbOptionName, $this->data);
+	}
+
 } # End class

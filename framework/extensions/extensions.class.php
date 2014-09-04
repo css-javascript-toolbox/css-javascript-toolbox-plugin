@@ -241,16 +241,30 @@ class CJTExtensions extends CJTHookableClass {
 		spl_autoload_register($this->ontregisterautoload(array($this, '__autoload')));
 		// Load all CJT extensions!
 		foreach ($this->getExtensions() as $class => $extension) {
+			// Filters!
 			extract($this->onload($extension, compact('class', 'extension')));
-			// Initialize common vars!
-			$callback = $this->onloadcallback(array($class, $this->loadMethod));
+			// Build Extension plugin path
 			$pluginPath = ABSPATH . PLUGINDIR . "/{$extension['name']}";
 			// Set runtime variables.
 			$this->extensions[$class]['runtime']['classFile'] = "{$pluginPath}/{$extension['name']}.class.php";
+			// Load definition.
+			$definitionXML =& $extension['defDoc'];
+			// Extensions below version 1.0 use static classes
+			// while version 1.0 and up use objects
+			if (((string) $definitionXML->attributes()->version) == '1.0') {
+				// Instantiate extension object
+				$extensionObject = new $class();
+				// Obejct callback
+				$callback = array($extensionObject, $this->loadMethod);
+			}
+			else {
+				# Static callback
+				$callback = array($class, $this->loadMethod);
+			}
+			// Callback filter
+			$callback = $this->onloadcallback($callback);
 			// If auto load is speicifd then import class file and bind events.
 			if ($extension['definition']['primary']['loadMethod'] == 'auto') {
-				// Load definition.
-				$definitionXML =& $extension['defDoc'];
 				// If frameworkVersion is not provided assume its 0 (Older version)
 				// before frameworkversion chech even supported.
 				// otherwise compare it with current frameworkversion

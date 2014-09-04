@@ -211,7 +211,7 @@ class CJTPlugin extends CJTHookableClass {
 	* put your comment there...
 	* 
 	*/
-	public function extensions() {
+	public function & extensions() {
 		return $this->extensions;	
 	}
 	
