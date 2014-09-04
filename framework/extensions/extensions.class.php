@@ -248,7 +248,7 @@ class CJTExtensions extends CJTHookableClass {
 			// Set runtime variables.
 			$this->extensions[$class]['runtime']['classFile'] = "{$pluginPath}/{$extension['name']}.class.php";
 			// Load definition.
-			$definitionXML =& $extension['defDoc'];
+			$definitionXML = $extension['defDoc'];
 			// Extensions below version 1.0 use static classes
 			// while version 1.0 and up use objects
 			if (((string) $definitionXML->attributes()->version) == '1.0') {
