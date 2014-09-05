@@ -70,7 +70,7 @@ class CJT_Framework_Extensions_Package_State_Packages extends ArrayIterator {
 		$this->dbOptionName = "{$extensionName}.state.packages";
 		$this->extDeDoc =& $extDeDoc;
 		# Reading Database packages
-		$this->installedPackages = get_option($this->dbOptionName);
+		$this->installedPackages = get_option($this->dbOptionName, array());
 		# Caching DeDoc packages
 		foreach ($extDeDoc->packages->package as $package) {
 			# Package data
@@ -89,8 +89,24 @@ class CJT_Framework_Extensions_Package_State_Packages extends ArrayIterator {
 	* put your comment there...
 	* 
 	*/
+	public function clearInstallInfo() {
+		return delete_option($this->dbOptionName);
+	}
+
+	/**
+	* put your comment there...
+	* 
+	*/
 	public function & getDeletedPackages() {
 		return $this->oldPackagesQueue;
+	}
+
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function getInstalledPackages() {
+		return $this->installedPackages;
 	}
 
 	/**
@@ -121,6 +137,20 @@ class CJT_Framework_Extensions_Package_State_Packages extends ArrayIterator {
 		}
 	}
 	
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $id
+	*/
+	public function packageInstalled($id) {
+		# Get current package
+		$package =& $this->deDocPackages[$this->key()];
+		# Hold package id for installed package
+		$package['id'] = $id;
+		# Chain
+		return $this;
+	}
+
 	/**
 	* put your comment there...
 	* 

@@ -77,11 +77,36 @@ class CJT_Framework_Extensions_Package_State_Extension {
 		$this->name = (string) $extDeDoc->attributes()->class;
 		$this->newVersion = (string) $extDeDoc->packages->attributes()->version;
 		# Getting DB Option name
-		$this->dbOptionName = "{$this->name}.state";
+		$this->dbOptionName = self::getDbOptionName($this->name);
 		# Read from database
-		$this->data = get_option($this->dbOptionName);
+		$this->data = get_option($this->dbOptionName, array());
 		# Cache state
 		$this->getState();
+	}
+
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $extensionClass
+	*/
+	public static function create($extensionClass) {
+		# Option name
+		$dbOptionName = self::getDbOptionName($extensionClass);
+		# Reading cached state
+		$state = get_option($dbOptionName);
+		# Getting extension defFile
+		$defFile = ABSPATH . PLUGINDIR . DIRECTORY_SEPARATOR . $state['defFile'];
+		$deDoc = new SimpleXMLElement(file_get_contents($defFile));
+		# Returns new instance
+		return new CJT_Framework_Extensions_Package_State_Extension($deDoc);
+	}
+
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function clearInstallInfo() {
+		return delete_option($this->dbOptionName);
 	}
 
 	/**
@@ -91,6 +116,15 @@ class CJT_Framework_Extensions_Package_State_Extension {
 	*/
 	protected function getDBVar($name) {
 		return isset($this->data[$name]) ? $this->data[$name] : null;
+	}
+
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $extensionClass
+	*/
+	protected static function getDbOptionName($extensionClass) {
+		return "{$extensionClass}.state";
 	}
 
 	/**
@@ -131,14 +165,26 @@ class CJT_Framework_Extensions_Package_State_Extension {
 		# Retrun state
 		return $this->state;
 	}
-	
+
+	public static function isInstalled($extensionClass) {
+		# Getting DB Option name
+		$dbOptionName = self::getDbOptionName($extensionClass);
+		# Get data
+		$state = get_option($dbOptionName, array());
+		# Returns
+		return !empty($state);
+	}
 	/**
 	* put your comment there...
 	* 
+	* @param mixed $pluginFile
+	* @return bool
 	*/
-	public function upgrade() {
+	public function upgrade($defFile) {
 		# Set version
 		$this->data['version'] = $this->newVersion;
+		# Hold path to XML file to be used when uninstalling extension data
+		$this->data['defFile'] = $defFile;
 		# Save
 		return update_option($this->dbOptionName, $this->data);
 	}

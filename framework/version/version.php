@@ -31,7 +31,7 @@ class CJT_Framework_Version_Version {
 	* 
 	*/
 	public function getMajor() {
-		return $this->version[0];
+		return (int) $this->version[0];
 	}
 
 } // End class.
