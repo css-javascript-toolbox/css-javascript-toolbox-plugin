@@ -100,7 +100,7 @@ class CJTPlugin extends CJTHookableClass {
 	/**
 	* 
 	*/
-	const FW_Version = '2.0';
+	const FW_Version = '3.0';
 	
 	/**
 	* 
