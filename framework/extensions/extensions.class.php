@@ -286,6 +286,8 @@ class CJTExtensions extends CJTHookableClass {
 					if ($frameworkVersion->getMajor() > $extensionVer->getMajor()) {
 						$extension['incompatibleMessage']['msg'] = cssJSToolbox::getText('Extension is required old CJT Framework Version than the installed. This extension might need to get update. Please check if this extension is currently behaving correctly!!!');
 						$extension['incompatibleMessage']['flag'] = cssJSToolbox::getText('Ignored');
+						// Add to incomaptibility list.
+						$this->incompatibilies[$pluginPath] = $extension;
 					}
 					// Bind events for compatible extensions.
 					foreach ($definitionXML->getInvolved->event as $event) {
