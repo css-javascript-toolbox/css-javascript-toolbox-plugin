@@ -16,7 +16,7 @@ CJT_Framework_Developer_Interface_Block_Parameters_Types_Base_Scalar {
 	* put your comment there...
 	* 
 	*/
-	public function getValue() {
+	public function getValue($useRealNames = null) {
 		// Initialize.
 		$value = array();
 		// Get final value!

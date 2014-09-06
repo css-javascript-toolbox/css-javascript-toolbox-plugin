@@ -65,7 +65,7 @@ CJT_Framework_Developer_Interface_Block_Shortcode_Parameters_Interface_Type {
 	* put your comment there...
 	* 
 	*/
-	protected function getFactory() {
+	public function getFactory() {
 		return $this->getTypeObject()->getFactory();
 	}
 

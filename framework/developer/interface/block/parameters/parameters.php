@@ -60,7 +60,7 @@ abstract class CJT_Framework_Developer_Interface_Block_Parameters_Parameters {
 	* put your comment there...
 	* 
 	*/
-	public function getParams() {
+	public function & getParams() {
 		return $this->params;
 	}
 	
