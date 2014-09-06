@@ -6,8 +6,8 @@ Tags: post, posts, admin, sidebar, page, pages, image, plug, plugin, customise, 
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.9
-Tested up to: 3.9.1
-Stable tag: 7.1.2
+Tested up to: 3.9.2
+Stable tag: 7.2
 
 Easily add custom CSS, JavaScript, HTML and PHP code to unique CJT code blocks and assign them wherever you want.
 
@@ -127,6 +127,11 @@ Due to the overwhelming amount of emails we get for users requesting support for
 27. Block Info Dialog
 
 == Changelog ==
+= 7.2 =
+* Fix: Block Code file name moving away when open/close Block metabox
+* Fix: Shortcode list is too small for Shortcode names
+* Enhance: CJT Framework for packages and extensions updates
+
 = 7.1.2 =
 * Enhance: Show Latest News on Dashboard Widget
 
