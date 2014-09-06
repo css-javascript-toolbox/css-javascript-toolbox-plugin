@@ -130,6 +130,7 @@ class CJTPackageModel extends CJTHookableClass {
 																						 ->save();
 			}
 		}
+		return $tablePackage->get('id');
 	}
 	
 	/**
