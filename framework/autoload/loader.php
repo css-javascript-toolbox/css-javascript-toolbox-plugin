@@ -138,7 +138,7 @@ class CJT_Framework_Autoload_Loader {
 			$classFile = $this->getClassAbsolutePath($this->getClassComponent($class));
 		}
 		// Whatever a class file is set, import it!
-		if ($classFile) {
+		if ($classFile && file_exists($classFile)) {
 			require $classFile;	
 		}
 	}
