@@ -14,6 +14,9 @@ Easily add custom CSS, JavaScript, HTML and PHP code to unique CJT code blocks a
 == Description ==
 CSS & JavaScript Toolbox is a powerful code management plugin that gives you the tools to easily and safely modify or extend the functionality and appearance of your WordPress-powered website. You do this by adding custom code directly into unique code blocks and assign them to pages, posts, custom posts, categories, URLs, expressions, and loads more!
 
+= CJT Comes with Unlimited number of Extensions =
+CJT is providing a cool extensions that can be used through CJT Shortcode Form. Both [FREE CJT Extensions](https://wordpress.org/plugins/search.php?q=cjte) and [Premium CJT Extensions](http://css-javascript-toolbox.com/script-extensions/) are available for downloads.
+
 = Like CJT Free – Upgrade to CJT Pro/Dev =
 If you like CJT Free, we hope you can support the continued development by upgrading to CJT Pro or CJT Dev. 
 Click to learn about the [benefits of upgrading to CJT Pro/Dev](http://css-javascript-toolbox.com/pricing).
