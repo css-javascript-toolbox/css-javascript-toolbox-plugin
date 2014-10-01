@@ -52,6 +52,25 @@
 		init : function() {
 			// Initialize vars.
 			this.fileUploader = $('#fileUploader')[0];
+			// Set uploader form action when ready
+			this.fileUploader.addEventListener('load', $.proxy(
+				function() {
+					// Repoint to module if required
+					if (CJTPackageInstallationFormParams.uploaderModuleName) {
+						// Get form
+						var uploadForm = this.fileUploader.contentDocument.getElementsByTagName('form')[0];
+						// Query string
+						var queryString = {};
+						queryString[CJTPackageInstallationFormParams.cjtModuleParamName] = CJTPackageInstallationFormParams.uploaderModuleName;
+						// Repoint uploader frame to embeddeder action
+						uploadForm.action = parent.CJTServer.getRequestURL(
+							CJTPackageInstallationFormParams.uploaderControllerName,
+							CJTPackageInstallationFormParams.uploaderActionName,
+							queryString
+						);
+					}
+				}, this)
+			);
 			// Set file uploaded src, load uploaded view!
 			this.fileUploader.src = parent.CJTServer.getRequestURL('packageFile', 'install', {view : 'uploader/single'});
 			// Install package!

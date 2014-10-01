@@ -35,8 +35,12 @@ abstract class CJTModel {
 	* 
 	* @deprecated Use CJTModel::getInstance.
 	*/
-	public static function create($model, $params = array(), $file = null) {
-		return self::getInstance($model, $params, $file);
+	public static function create($model, 
+																$params = array(), 
+																$file = null,
+																$overrideModelsPath = null,
+																$overrideModelsPrefix = null) {
+		return self::getInstance($model, $params, $file, $overrideModelsPath, $overrideModelsPrefix);
 	}
 	
 	/**
@@ -46,8 +50,12 @@ abstract class CJTModel {
 	* @param mixed $params
 	* @param mixed $file
 	*/
-	public static function getInstance($model, $params = array(), $file = null) {
-		return CJTController::getModel($model, $params, $file);
+	public static function getInstance($model, 
+																		 $params = array(), 
+																		 $file = null,
+																		 $overrideModelsPath = null,
+																		 $overrideModelsPrefix = null) {
+		return CJTController::getModel($model, $params, $file, $overrideModelsPath, $overrideModelsPrefix);
 	}
 	
 	/**

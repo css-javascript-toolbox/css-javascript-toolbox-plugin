@@ -14,9 +14,43 @@ class CJTPackagesInstallView extends CJTView {
 	/**
 	* put your comment there...
 	* 
+	* @var mixed
+	*/
+	protected $moduleParamName;
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $uploaderModuleName;
+
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $uploaderActionName;
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $uploaderControllerName;
+	
+	/**
+	* put your comment there...
+	* 
 	* @param mixed $tpl
 	*/
 	public function display($tpl = null) {
+		// Get uploader parameters.
+		$this->uploaderControllerName = $this->getRequestParameter('uploaderControllerName');
+		$this->uploaderActionName = $this->getRequestParameter('uploaderActionName');
+		$this->uploaderModuleName = $this->getRequestParameter('uploaderModuleName');
+		$this->moduleParamName = 'cjtajaxmodule';
+		// Display form.
 		echo $this->getTemplate($tpl);
 	}
 	

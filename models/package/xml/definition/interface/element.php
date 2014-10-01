@@ -34,4 +34,9 @@ interface CJT_Models_Package_Xml_Definition_Interface_Element {
 	*/
 	public function transit();
 	
+	/**
+	* Return virual path to current doc object
+	*/
+	public function virtualPath();
+	
 } // End class.

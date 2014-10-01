@@ -108,29 +108,12 @@ class CJTPackageModel extends CJTHookableClass {
 	* put your comment there...
 	* 
 	* @param mixed $package
-	* @param mixed $objects
-	* @return CJTxTable
 	*/
-	public function save($package, $types) {
+	public function save($package) {
 		// Add package.
-		$tablePackage = CJTxTable::getInstance('package')
+		return CJTxTable::getInstance('package')
 										->setData($package)
-										->save();
-		// Add package objects map.
-		$tablePackageObjects = CJTxTable::getInstance('package-objects');
-		// Fetch objects under each type (block ,template).
-		foreach ($types as $type => $objects) {
-			// For each types get all object IDs!
-			foreach ($objects as $object) {
-				$tablePackageObjects->setItem() // Reset is needed as the object used accross multiple records
-																																// and might cause interfering between records!
-																						 ->setData($object)
-																						 ->set('packageId', $tablePackage->get('id'))
-																						 ->set('objectType', $type)
-																						 ->save();
-			}
-		}
-		return $tablePackage->get('id');
+										->save()->get('id');
 	}
 	
 	/**

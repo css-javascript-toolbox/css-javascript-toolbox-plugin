@@ -46,11 +46,10 @@ class CJTBlocksModel {
 	/**
 	* put your comment there...
 	* 
-	* @param mixed $data
-	* @param mixed $pins
-	* @param mixed $customPins
+	* @param mixed $block
+	* @param mixed $forceAddCodeBlock
 	*/
-	public function add($block) {
+	public function add($block, $forceAddCodeBlock = false) {
 		// Make sure it array and not stdClass as it has been used from various areas!
 		$block = (array) $block;
 		// Create Tables objects.
@@ -60,16 +59,21 @@ class CJTBlocksModel {
 		if (!isset($block['id']) || !$block['id']) {
 			$block['id'] = $blocks->getNextId();
 		}
-		// Cache code for MASTER file.
-		$codeFile->set('code', (isset($block['code']) ? $block['code'] : null));
-		unset($block['code']); // If it passed it mist be removed from blocks data(avoid field not found)
+		// Backward compatibility for old block style
+		// that has code field inside blocks table.
+		/// if passed create master code file for the code field.
+		if ($forceAddCodeBlock || isset($block['code'])) {
+			// Cache code for MASTER file.
+			$codeFile->set('code', $block['code']);
+			unset($block['code']); // If it passed it mist be removed from blocks data(avoid field not found)
+			// Add code files.
+			$codeFile->set('blockId', $block['id'])
+							 ->set('id', 1)
+							 ->set('name', 'Master')
+							 ->save(true, true);
+		}
 		// Add new block.
 		$blocks->insert($block);
-		// Add code files.
-		$codeFile->set('blockId', $block['id'])
-						 ->set('id', 1)
-						 ->set('name', 'Master')
-						 ->save(true, true);
 		// Return Newly added block id.
 		return $block['id'];
 	}

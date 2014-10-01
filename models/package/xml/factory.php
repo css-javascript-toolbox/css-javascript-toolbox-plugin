@@ -41,19 +41,18 @@ class CJT_Models_Package_Xml_Factory {
 	* @param mixed $node
 	*/
 	public function create($current, $path, $node) {
-		// Get loader.
-		$loader = CJT_Framework_Autoload_Loader::autoLoad('CJT');
 		// Get object element class name
 		$classPath = "{$this->basePath}/{$path}";
 		$className = 'CJT_' . str_replace(' ', '_', ucwords(str_replace('/', ' ', $classPath)));
 		// Instantiate class.
 		$object = new $className($node, $current, $this);
+		$objectPath = $object->virtualPath();
 		// Cache all instantiated objects so it can be accessed 
 		// anywhere inside!
-		if (!isset($this->yields[$path])) {
-			$this->yields[$path] = array();
+		if (!isset($this->yields[$objectPath])) {
+			$this->yields[$objectPath] = array();
 		}
-		$this->yields[$path][] = $object;
+		$this->yields[$objectPath][] = $object;
 		// Return new object.
 		return $object;
 	}
@@ -69,9 +68,23 @@ class CJT_Models_Package_Xml_Factory {
 	/**
 	* put your comment there...
 	* 
+	* @param mixed $class
+	*/
+	public function getClassRelativePath($class) {
+		// Get class path.
+		$classPath = strtolower(str_replace('_', '/', $class));
+		// Remove base path from the class path.
+		$classRelativePath = str_replace("cjt/{$this->basePath}/", '', $classPath);
+		// returns
+		return $classRelativePath;
+	}
+
+	/**
+	* put your comment there...
+	* 
 	* @param mixed $path
 	*/
-	public function getCreatedObjects($path) {
+	public function & getCreatedObjects($path) {
 		// Initialize.
 		$objects = array();
 		/// E_ALL complans
@@ -81,6 +94,7 @@ class CJT_Models_Package_Xml_Factory {
 		// Return objects.
 		return $objects;
 	}
+
 	/**
 	* put your comment there...
 	* 
@@ -88,10 +102,8 @@ class CJT_Models_Package_Xml_Factory {
 	* @param mixed $path
 	*/
 	public function obtainRelativePath($class, $innerPath) {
-		// Get class path.
-		$classPath = strtolower(str_replace('_', '/', $class));
-		// Remove base path from the class path.
-		$classRelativePath = str_replace("cjt/{$this->basePath}/", '', $classPath);
+		// Get class path relative to the package doc.
+		$classRelativePath = $this->getClassRelativePath($class);
 		// Build child relatoive path.
 		$path = "{$classRelativePath}/{$innerPath}";
 		return $path;

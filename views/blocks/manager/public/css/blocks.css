@@ -2,7 +2,7 @@
 /* Wordpress Page */
 .wrap { position: relative; }
 .cjt-banner-bar .cjt-banner-link a, .cjt-banner-bar a:hover, .cjt-banner-bar a:visited{color: #A5581B;}
-#cjt-banner-bar-right {right: 0px;position: absolute;top: 2px;text-align: right;}
+#cjt-banner-bar-right {right: 0px;position: absolute;top: 2px;}
 #cjt-banner-bar-right .cjt-banner-link {float: right; margin-bottom: 6px;}
 
 #get-packages-icon {display: inline-block; width: 13px; height: 15px; background-image: url('../images/get-packages.png'); margin-left: 3px;margin-bottom: -4px; margin-right: 5px;}
@@ -101,25 +101,3 @@
 /* No Blocks Intro Help text */
 cjt-noblocks-intro h2 {font-weight: bold; margin: 4px 0px;}
 cjt-noblocks-intro h4 {font-weight: bold; font-size: 15px;}
-
-h2 {}
-#cjtoolbox-admin h2 {
-    display: inline-block;
-}
-div#cjtoolbox-admin {}
-a#docs-link {
-    position: relative;
-    top: -2px;
-    font-size: 16px;
-}
-span.cjt-banner-link {
-}
-span#dicount-code {
-    font-weight: bold;
-    font-size: 14px;
-    background-color: #DFDFDF;
-    padding: 1px 8px;
-}
-
-#main-title-links {margin-left: 20px;}
-#main-title-links a {margin-right: 30px; font-size: 14px;font-weight: bold;}

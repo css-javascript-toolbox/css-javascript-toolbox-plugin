@@ -99,6 +99,8 @@
 		installPackage : function (templateId) {
 			var query = {
 				view : 'packages/install',
+				uploaderControllerName : 'packageFile',
+				uploaderActionName : 'install',
 				width : 470,
 				height: 115,
 				TB_iframe : true

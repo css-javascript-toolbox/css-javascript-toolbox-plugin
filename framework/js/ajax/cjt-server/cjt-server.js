@@ -55,6 +55,7 @@ var CJTServer;
 			packages : 'packages',
 			packageFile : 'package-file',
 			'package' : 'package',
+			tools : 'tools'
 		},
 		
 		/*

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cjt>
+	<license updateSrc="WPR">
+		<name text="PRO" description="" link="">CJT Pro</name>
+		<name text="PRO 12" description="" link="">CJT Pro12</name>
+		<name text="DEV" description="" link="">CJT Dev</name>
+	</license>
+</cjt>

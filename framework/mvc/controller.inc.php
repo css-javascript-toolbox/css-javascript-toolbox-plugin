@@ -98,9 +98,14 @@ abstract class CJTController extends CJTHookableClass {
 	* 
 	* @param mixed $hasView
 	* @param mixed $request
+	* @param mixed $overrideControllerPath
+	* @param mixed $overrideContollerPrefix
 	* @return CJTController
 	*/
-	public function __construct($hasView = null, $request = null) {
+	public function __construct($hasView = null, 
+															$request = null, 
+															$overrideControllerPath = null, 
+															$overrideContollerPrefix = null) {
 		// Initialize hookable!
 		parent::__construct();
 		// Read request parameters.
@@ -111,7 +116,11 @@ abstract class CJTController extends CJTHookableClass {
 			if (!isset($this->controllerInfo['model_file'])) {
 				$this->controllerInfo['model_file'] = null;
 			}
-			$this->model = CJTModel::create($this->controllerInfo['model'], $this->request, $this->controllerInfo['model_file']);
+			$this->model = CJTModel::create($this->controllerInfo['model'], 
+																			$this->request, 
+																			$this->controllerInfo['model_file'],
+																			dirname($overrideControllerPath),
+																			$overrideContollerPrefix);
 		}
 		// Create default view.
 		if ($hasView === null) { // Default value for $hasView = true
@@ -120,7 +129,10 @@ abstract class CJTController extends CJTHookableClass {
 																												(isset($this->controllerInfo['view']) ? $this->controllerInfo['view'] : null)
 			);
 			if ($view) {
-				$this->view  = self::getView($view)
+				$this->view  = self::getView($view, 
+																		 null, 
+																		 dirname($overrideControllerPath),
+																		 $overrideContollerPrefix)
 				// Push data into view.
 				->setModel($this->model)
 				->setRequest($this->request);
@@ -151,20 +163,25 @@ abstract class CJTController extends CJTHookableClass {
 	/**
 	* put your comment there...
 	* 
-	* @deprecated Use CJTController::getInstance() instead!
-	* 
 	* @param mixed $name
+	* @param mixed $hasView
 	* @param mixed $request
+	* @param mixed $overrideControllersPath
+	* @param mixed $overrideControllersPrefix
 	*/
-	public static function create($name, $hasView = null, $request = null) {
+	public static function create($name, 
+																$hasView = null, 
+																$request = null, 
+																$overrideControllersPath = null,
+																$overrideControllersPrefix = null) {
 		// Import controller file.
-		$pathToControllers = CJTOOLBOX_CONTROLLERS_PATH;
+		$pathToControllers = $overrideControllersPath ? $overrideControllersPath : CJTOOLBOX_CONTROLLERS_PATH;
 		$controllerFile = "{$pathToControllers}/{$name}.php";
 		require_once self::trigger('CJTController.loadcontroller', $controllerFile, $name);
 		// Get controller class name.
-		$class = self::getClassName($name, 'Controller');
+		$class = self::getClassName($name, 'Controller', $overrideControllersPrefix);
 		// Instantiate controller class.
-		return new $class($hasView, $request);
+		return new $class($hasView, $request, $overrideControllersPath, $overrideControllersPrefix);
 	}
 	
 	/**
@@ -188,16 +205,21 @@ abstract class CJTController extends CJTHookableClass {
 		$content = ob_get_clean();
 		return $content;
 	}
-	
+
 	/**
 	* put your comment there...
 	* 
 	* @param mixed $name
 	* @param mixed $hasView
 	* @param mixed $request
+	* @param mixed $overrideControllersPath
 	*/
-	public static function getInstance($name, $hasView = null, $request = null) {
-		return self::create($name, $hasView, $request);
+	public static function getInstance($name,
+																		 $hasView = null, 
+																		 $request = null, 
+																		 $overrideControllersPath = null,
+																		 $overrideControllersPrefix = null) {
+		return self::create($name, $hasView, $request, $overrideControllersPath, $overrideControllersPrefix);
 	}
 	
 	/**
@@ -205,9 +227,13 @@ abstract class CJTController extends CJTHookableClass {
 	* 
 	* @deprecated No longer used.
 	*/
-	public static function getModel($name, $params = array(), $file = null) {
+	public static function getModel($name, 
+																	$params = array(), 
+																	$file = null,
+																	$overrideModelsPath = null,
+																	$overrideModelsPrefix = null) {
 		$model = null;
-		$pathToModels = CJTOOLBOX_MODELS_PATH;
+		$pathToModels = $overrideModelsPath ? ($overrideModelsPath . DIRECTORY_SEPARATOR . 'models') : CJTOOLBOX_MODELS_PATH;
 		if (!$file) {
 			$file = $name;
 		}
@@ -215,7 +241,7 @@ abstract class CJTController extends CJTHookableClass {
 		$modelFile = "{$pathToModels}/{$file}.php";
 		require_once $modelFile;
 		// Create model object.
-		$modelClass = self::getClassName($name, 'Model');
+		$modelClass = self::getClassName($name, 'Model', $overrideModelsPrefix);
 		if (!class_exists($modelClass)) {
 			throw new Exception("Model class {$modelClass} doesn't exists!!!");
 		}
@@ -226,14 +252,19 @@ abstract class CJTController extends CJTHookableClass {
 	/**
 	* @deprecated No longer used.
 	*/
-	public static function getClassName($name, $type) {
+	public static function getClassName($name, $type, $prefix = null) {
+		// Init vars
 		$className = '';
+		// Getting default prefix
+		if (!$prefix) {
+			$prefix = 'CJT';
+		}
 		// Every word start with uppercase character.
 		$sanitizedName = ucfirst(str_replace(array('-', '_'), ' ', "{$name} {$type}"));
 		// Remove spaces.
 		$sanitizedName = str_replace(' ', '', $sanitizedName);
 		// Filter.
-		$className = self::trigger('CJTController.getclassname', "CJT{$sanitizedName}", $name, $type);
+		$className = self::trigger('CJTController.getclassname', "{$prefix}{$sanitizedName}", $name, $type);
 		return $className;
 	}
 	
@@ -252,14 +283,17 @@ abstract class CJTController extends CJTHookableClass {
 	* 
 	* @deprecated
 	*/
-	public static function getView($path, $params = null) {
+	public static function getView($path, 
+																 $params = null, 
+																 $overrideViewsPath = null, 
+																 $overrideViewsPrefix = null) {
 		$view = null;
 		// Import view file.
-		$viewInfo = self::getViewInfo($path);
+		$viewInfo = self::getViewInfo($path, $overrideViewsPath, $overrideViewsPrefix);
 		require_once $viewInfo['viewFile'];
 		// Create view object.
 		$name = str_replace(' ', '', ucwords(str_replace('/', ' ',$path)));
-		$viewClass = self::getClassName($name, 'view');
+		$viewClass = self::getClassName($name, 'view', $overrideViewsPrefix);
 		$view = new $viewClass($viewInfo, $params);
 		return $view;
 	}
@@ -268,16 +302,22 @@ abstract class CJTController extends CJTHookableClass {
 	* put your comment there...
 	* 
 	*/
-	public static function getViewInfo($path) {
+	public static function getViewInfo($path, $overrideViewsPath = null, $overrideViewsPrefix = null) {
+		// Plugin views Url
+		$viewsUrl = $overrideViewsPath ? 
+								WP_PLUGIN_URL . '/' . basename(dirname($overrideViewsPath)) :
+								CJTOOLBOX_VIEWS_URL;
 		// Path to views dir.
-		$pathToViews = CJTOOLBOX_VIEWS_PATH;
+		$pathToViews = $overrideViewsPath ? ($overrideViewsPath . DIRECTORY_SEPARATOR . 'views') : CJTOOLBOX_VIEWS_PATH;
 		// Get view name.
 		$name = basename($path);
 		// View info struct.
 		$viewInfo = array(
 			'name' => $path,
-			'url' => (CJTOOLBOX_VIEWS_URL . "/{$path}"),
+			'url' => "{$viewsUrl}/{$path}",
 			'path' =>  "{$pathToViews}/{$path}",
+			'viewsPath' => $pathToViews,
+			'viewsUrl' => $viewsUrl,
 			'viewFile' => "{$pathToViews}/{$path}/view.php",
 		);
 		return $viewInfo;

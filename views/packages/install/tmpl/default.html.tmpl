@@ -13,6 +13,14 @@ $this->suppressPrintScriptsHook();
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
+		<script type="text/javascript">
+			window.CJTPackageInstallationFormParams = {
+				uploaderControllerName : "<?php echo $this->uploaderControllerName; ?>",
+				uploaderActionName : "<?php echo $this->uploaderActionName; ?>",
+				uploaderModuleName : "<?php echo $this->uploaderModuleName; ?>",
+				cjtModuleParamName : "<?php echo $this->moduleParamName; ?>"
+			};
+		</script>
 <?php wp_print_head_scripts() ?>
 <?php wp_print_styles() ?>
 	</head>
@@ -26,7 +34,7 @@ $this->suppressPrintScriptsHook();
 								<fieldset>
 									<ul>
 										<li>
-											<label for="fileUploader"><?php echo cssJSToolbox::getText('Package File') ?>:</label>
+											<label for="fileUploader"><?php echo cssJSToolbox::getText('File') ?>:</label>
 											<iframe id="fileUploader" frameborder="0"></iframe>
 										</li>
 										<li class="buttons">

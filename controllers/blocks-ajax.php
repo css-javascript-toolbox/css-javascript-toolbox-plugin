@@ -96,7 +96,7 @@ class CJTBlocksAjaxController extends CJTAjaxController {
 		$block = new CJTBlockModel($blockData);
 		// Add block.
 		$blocksModel =& $this->model;
-		$blockId = $blocksModel->add($block->getValues());
+		$blockId = $blocksModel->add($block->getValues(), true);
 		$blocksModel->save();
 		// Read newly added block from database.
 		$newBlockData = $blocksModel->getBlock($blockId, array('returnCodeFile' => true));

@@ -9,12 +9,14 @@ defined('ABSPATH') or die("Access denied");
 <div id="cjtoolbox-admin" class="wrap">
 <?php require CJTOOLBOX_VIEWS_PATH . '/blocks/block/tmpl/menu/menu.html.tmpl' ?>
 <?php require CJTOOLBOX_VIEWS_PATH . '/blocks/block/tmpl/codefile/codefile.html.tmpl' ?>
-	<h2><?php echo cssJSToolbox::getText('CSS & Javascript Toolbox Free') ?></h2>
-	<span id="main-title-links">
-		<a id="docs-link" target="_blank" href="http://<?php echo cssJSToolbox::CJT_WEB_SITE_DOMAIN ?>/pricing/"><?php echo cssJSToolbox::getText('Upgrade to CJT Pro or CJT Dev') ?></a>
-		<a id="docs-link" target="_blank" href="http://<?php echo cssJSToolbox::CJT_SCRTIPS_WEB_SITE_DOMAIN ?>/"><?php echo cssJSToolbox::getText('Get Free Script Packages') ?></a>
-		<a id="docs-link" target="_blank" href="http://<?php echo cssJSToolbox::CJT_WEB_SITE_DOMAIN ?>/documentation/"><?php echo cssJSToolbox::getText('Get Help') ?></a>
-	</span>
+	<div id="custom-icon" class="icon32 blocks-icon32"></div>
+	<h2><?php echo cssJSToolbox::getText('CSS & Javascript Toolbox Pro') ?></h2>
+	<div id="cjt-banner-bar-right">
+		<span class="cjt-banner-link">
+			<a target="_blank" href="http://<?php echo cssJSToolbox::CJT_WEB_SITE_DOMAIN ?>/support/"><?php echo cssJSToolbox::getText('Support Forum') ?></a>&nbsp;&nbsp;|&nbsp;&nbsp;
+			<a target="_blank" href="http://<?php echo cssJSToolbox::CJT_WEB_SITE_DOMAIN ?>/documentation/"><?php echo cssJSToolbox::getText('Online Documentation') ?></a>
+		</span>
+	</div>
 	<div id="cjtoolbox-blocks-page-form" method="post">
 		<?php wp_nonce_field('cjtoolbox'); ?>
 		<?php wp_nonce_field('closedpostboxes', 'closedpostboxesnonce', false); ?>

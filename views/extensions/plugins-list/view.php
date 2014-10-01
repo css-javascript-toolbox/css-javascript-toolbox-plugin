@@ -78,9 +78,13 @@ class CJTExtensionsPluginsListView extends CJTView {
 			// We only work with extensions that required license key!
 			if ($extension['definition']['primary']['requiredLicense']) {
 				// Load license
-				 $definition = new SimpleXMLElement($extension['definition']['raw']);
-				 $component['name'] = (string) $definition->license->name;
-				 $component['pluginBase'] = $file;
+				$definition = new SimpleXMLElement($extension['definition']['raw']);
+				$component['pluginBase'] = $file;
+				// Get extension title
+				// Use first license type name for old extensions that doesnt
+				// provide title attribute
+				$defTitle = (string) $definition->license->attributes()->title;
+				$component['title'] = $defTitle ? $defTitle : ((string) $definition->license->name[0]);
 				// Get action Markup!
 				$links['license-key'] = $this->getTemplate('default_setup_action', array('component' => $component));
 			}

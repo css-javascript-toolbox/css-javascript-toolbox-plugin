@@ -48,7 +48,10 @@ class CJTsetupController extends CJTAjaxController {
 	* 
 	*/
 	protected function getStateAction() {
-		$this->response = $this->model->getStateStruct($_REQUEST['component']);
+		# Get component product types
+		$licenseTypes = $this->model->getExtensionProductTypes($_REQUEST['component']);
+		# Return license state back
+		$this->response = $this->model->getStateStruct($licenseTypes);
 	}
 	
 	/**

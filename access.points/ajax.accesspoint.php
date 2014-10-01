@@ -44,6 +44,15 @@ class CJTAjaxAccessPoint extends CJTAccessPoint {
 		if (CJTPlugin::getInstance()->isInstalled() || in_array($this->controllerName, $notInstalledAllowedControllers)) {
 			// Connected!
 			$this->connected();
+			// IF Module-Prefix passed THEN Point to correct Controller path 
+			if (isset($_REQUEST['cjtajaxmodule'])) {
+				# try to get module associated to passed module
+				$accessPointClassLoader = CJT_Framework_Autoload_Loader::autoLoad($_REQUEST['cjtajaxmodule']);
+				if ($accessPointClassLoader) {
+					$this->overrideControllersPath = $accessPointClassLoader->getPath() . DIRECTORY_SEPARATOR . 'controllers';	
+					$this->overrideControllersPrefix = $accessPointClassLoader->getPrefix();
+				}
+			}
 			// Instantiate controller.
 			$controller = parent::route($loadView, $request);
 			// Dispatch the call as its originally requested from ajax action!

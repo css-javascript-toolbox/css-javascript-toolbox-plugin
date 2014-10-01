@@ -181,7 +181,7 @@
 		*/
 		readState : function() {
 			// Gathering request parameters!
-			var request = {'component[name]' : this.activationForm.prop('component[name]').value};
+			var request = {'component[pluginBase]' : this.activationForm.prop('component[pluginBase]').value};
 			// Read current license state!
 			var promise = this.server.send('setup', 'getState', request)
 			.success($.proxy(
@@ -205,7 +205,7 @@
 					this.buttonsState(state.action);
 				}
 				// Reflect the request state (valid license, invalid license and request error) by text message.
-				var  currentActionName = this.todo ? this.todo : state.action;
+				var currentActionName = this.todo ? this.todo : state.action;
 				var requestStateMessage = CJTSetupActivationFormViewDefaultI18N[currentActionName + state.response.license + 'RequestMessage'];
 				$('#request-state').text(requestStateMessage)
 				.css({visibility : 'visible'});
@@ -223,6 +223,7 @@
 				this.activationForm.find('input:text[name="license[key]"]').attr('title', requestStateMessage);
 			}
 			else {
+				// Reset
 				this.buttonsState('reset');
 			}
 		}

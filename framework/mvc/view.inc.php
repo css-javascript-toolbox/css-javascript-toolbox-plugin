@@ -203,7 +203,7 @@ abstract class CJTView extends CJTHookableClass {
 	* @param mixed $destination
 	*/
 	public function getPath($destination) {
-		return self::getViewPath($this->viewInfo['name'], $destination);
+		return self::getViewPath($this->viewInfo['name'], $destination, $this->viewInfo['viewsPath']);
 	}
 	
 	/**
@@ -236,12 +236,12 @@ abstract class CJTView extends CJTHookableClass {
 		}
 		// filter parameters.
 		$params = $this->ontemplateparameters($params, $name, $dir, $extension);
-		// Get template content into variable.
-		ob_start();
 		// Push params into the local scope.
 		extract($params);
 		// Templates collected under the view/tmpl directory.
 		$templateFile = $this->getPath("{$dir}/{$name}{$extension}");
+		// Get template content into variable.
+		ob_start();
 		require $this->onimporttemplate($templateFile);
 		$template = $this->onloadtemplate(ob_get_clean(), $name);
 		return $template;
@@ -252,7 +252,7 @@ abstract class CJTView extends CJTHookableClass {
 	* 
 	*/
 	public function getURI($destination) {
-		return self::getViewURI($this->viewInfo['name'], $destination);
+		return self::getViewURI($this->viewInfo['name'], $destination, $this->viewInfo['viewsUrl']);
 	}	
 	
 	/**
@@ -261,8 +261,12 @@ abstract class CJTView extends CJTHookableClass {
 	* @param mixed $view
 	* @param mixed $destination
 	*/
-	public static function getViewPath($view, $destination) {
-		$viewPath = CJTOOLBOX_VIEWS_PATH . "/{$view}";
+	public static function getViewPath($view, $destination, $overrideViewPath = null) {
+		# Use passed view path or use CJT constants if not passed
+		if (!$overrideViewPath) {
+			$overrideViewPath = CJTOOLBOX_VIEWS_PATH;
+		}
+		$viewPath = $overrideViewPath . DIRECTORY_SEPARATOR . $view;
 		$destination = $destination ? "/{$destination}" : '';
 		return "{$viewPath}{$destination}";
 	}
@@ -270,10 +274,15 @@ abstract class CJTView extends CJTHookableClass {
 	/**
 	* put your comment there...
 	* 
-	* @param mixed $file
+	* @param mixed $view
+	* @param mixed $destination
+	* @param mixed $overrideViewUrl
 	*/
-	public static function getViewURI($view, $destination) {
-		$viewURI = CJTOOLBOX_VIEWS_URL . "/{$view}/public";
+	public static function getViewURI($view, $destination, $overrideViewUrl = null) {
+		if (!$overrideViewUrl) {
+			$overrideViewUrl = CJTOOLBOX_VIEWS_URL;
+		}
+		$viewURI = "{$overrideViewUrl}/{$view}/public";
 		return "{$viewURI}/{$destination}";
 	}
 	
@@ -398,7 +407,6 @@ abstract class CJTView extends CJTHookableClass {
 					// Plugin parts/components can use it to know how script file work.
 					$stack[$name]->cjt = (object) $stack[$name]->cjt;
 				}
-				
 				// If localization file exists localize JS.
 				if (file_exists($localizationFile)) {
 					// Get localization text array.

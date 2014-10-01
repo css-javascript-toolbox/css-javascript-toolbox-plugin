@@ -21,3 +21,5 @@ $map->offsetSet('CJTBlocksTable', 'tables/blocks.php');
 $map->offsetSet('CJTBlockFilesTable', 'tables/block-files.php');
 $map->offsetSet('CJTBlockModel', 'models/block.php');
 $map->offsetSet('CJTBlocksModel', 'models/blocks.php');
+$map->offsetSet('CJTAccessPoint', 'framework/access-points/access-point.class.php');
+$map->offsetSet('CJTPageAccessPoint', 'framework/access-points/page.class.php');

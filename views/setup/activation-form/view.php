@@ -37,6 +37,13 @@ class CJTSetupActivationFormView extends CJTView {
 	* 
 	* @var mixed
 	*/
+	protected $licenseTypes;
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	protected $securityToken;
 	
 	/**
@@ -51,7 +58,8 @@ class CJTSetupActivationFormView extends CJTView {
 		$this->securityToken = cssJSToolbox::getSecurityToken();
 		$this->component = $this->getRequestParameter('component');
 		$this->cjtWebSite = cssJSToolbox::getCJTWebSiteURL();
-		$this->license = $model->getStateStruct($this->component, 'license');
+		$this->licenseTypes = $model->getExtensionProductTypes($this->component);
+		$this->license = $model->getStateStruct($this->licenseTypes, 'license');
 		// Display view.
 		echo $this->getTemplate($tpl);
 	}

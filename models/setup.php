@@ -14,11 +14,6 @@ class CJTSetupModel {
 	/**
 	* 
 	*/
-	const EDD_PRODUCT_NAME = 'CJT Free';
-	
-	/**
-	* 
-	*/
 	const LICENSES_CACHE = 'cache.CJTSetupModel.licenses';
 
 	/**
@@ -78,7 +73,7 @@ class CJTSetupModel {
 		$request['item_name'] = urlencode($component['name']);
 		$request['license'] = $license['key'];
 		/* CJT Extra Fields For EDD */
-		$request['CJTEFFEDD_licenseName'] = $license['name'];
+		//$request['CJTEFFEDD_licenseName'] = $license['name'];
 		// Request the server!
 		$response = wp_remote_get(add_query_arg($request, cssJSToolbox::getCJTWebSiteURL()));
 		// We need only the JSON object returned by EDD APIs.
@@ -97,11 +92,45 @@ class CJTSetupModel {
 	public function getCJTComponentData() {
 		$component = array();
 		// Set info!
-		$component['name'] = self::EDD_PRODUCT_NAME;
 		$component['pluginBase'] = CJTOOLBOX_PLUGIN_BASE;
+		$component['title'] = 'CSS & Javascript Toolbox';
 		return $component;
 	}
 	
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $component
+	*/
+	public function getExtensionProductTypes($component) {
+		# Initialize 
+		$types = array();
+		# Extension plugin file
+		$pluginDirName = dirname($component['pluginBase']);
+		$pluginXMLFile = WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . 
+									$pluginDirName . DIRECTORY_SEPARATOR . 
+									$pluginDirName . '.xml';
+		# Use XML
+		$exDef = new SimpleXMLElement(file_get_contents($pluginXMLFile));
+		# Register XPath namespace
+		$license = $exDef->license;
+		$license->registerXPathNamespace('ext', 'http://css-javascript-toolbox.com/extensions/xmldeffile');
+		# Get types
+		$typesSrc = $exDef->license->xpath('name');
+		foreach ($typesSrc as $type) {
+			# Product name
+			$name = (string) $type;
+			# Old Definiton document doesnt support text attributes.
+			# If not there use name node value as TEXT
+			if (!$text = ((string) $type->attributes()->text)) {
+				$text = $name;
+			}
+			# Add to list
+			$types[$name] = array('name' => $name, 'text' => $text);
+		}
+		return $types;
+	}
+
 	/**
 	* put your comment there...
 	* 
@@ -133,16 +162,33 @@ class CJTSetupModel {
 	/**
 	* put your comment there...
 	* 
+	* @param mixed $licenseTypes
 	* @param mixed $compoment
-	* @param mixed $field
+	* @param mixed $struct
 	*/
-	public function getStateStruct($compoment, $struct = null) {
+	public function getStateStruct($licenseTypes, $struct = null) {
+		// INit 
+		$state = null;
 		// Read all licenses from db!
 		$licensesCache =& $this->getLicenses();
-		// If not set return clean empty array!
-		$componentName = $compoment['name'];
-		$state = isset($licensesCache[$componentName]) ? $licensesCache[$componentName] : false;
-		return ($struct ? ($state[$struct] ? $state[$struct] : false)  : $state);
+		// Find license 
+		foreach ($licenseTypes as $type) {
+			# Get product name to search
+			$productName = $type['name'];
+			if (isset($licensesCache[$productName])) {
+				# Get product state
+				$state = $licensesCache[$productName];
+				# Filter to section
+				if ($struct) {
+					$state = $state[$struct];
+				}
+				# ALways push product name
+				$state['productName'] = $productName;
+				# Exit for
+				break;
+			}
+		}
+		return $state;
 	}
 	
 	/**

@@ -95,4 +95,12 @@ class CJTBlocksController extends CJTController {
 		}
 	}
 	
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function setupAction() {
+		echo parent::displayAction();
+	}
+	
 } // End class.

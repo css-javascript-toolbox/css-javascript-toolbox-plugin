@@ -35,6 +35,13 @@ implements CJT_Models_Package_Xml_Definition_Interface_Element {
 	* 
 	* @var mixed
 	*/
+	protected $forceProcess = array();
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	protected $map = array();
 	
 	/**
@@ -144,11 +151,11 @@ implements CJT_Models_Package_Xml_Definition_Interface_Element {
 		$childs = $this->getNode()->children();
 		// For every child node that has childs create an object!
 		foreach ($childs as $childNode) {
-			// Process only childs with childs nexted!
-			// Don't process scalars!
-			if (count($childNode->children())) {
-				// Get node name.
-				$nodeName = $childNode->getName();
+			// Get node name.
+			$nodeName = $childNode->getName();
+			// Process only childs with childs neested or what added to the force-process-map.
+			// Don't process scalars until they're on the force-process-map!
+			if (in_array($nodeName, $this->forceProcess) || count($childNode->children())) {
 				// Initialize object factory details.
 				$objectInfo = array();
 				// Get rule.
@@ -177,7 +184,7 @@ implements CJT_Models_Package_Xml_Definition_Interface_Element {
 	* put your comment there...
 	* 
 	*/
-	public function register() {
+	public function & register() {
 		return $this->register;
 	}
 
@@ -187,6 +194,18 @@ implements CJT_Models_Package_Xml_Definition_Interface_Element {
 	*/
 	public function transit() {
 		return $this;
+	}
+
+	/**
+	* Default implementation to return physical path
+	* relative to the current package document.
+	* 
+	*/
+	public function virtualPath() {
+		// Initialize.
+		$factory =& $this->factory;
+		// Return physical path relative to package document.
+		return $factory->getClassRelativePath(get_class($this));
 	}
 
 } // End class.

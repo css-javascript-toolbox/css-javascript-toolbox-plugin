@@ -7,4 +7,4 @@
 defined('ABSPATH') or die("Access denied");
 ?>
 
-<a href="#<?php echo htmlentities("name={$component['name']}&pluginBase={$component['pluginBase']}") ?>"><?php echo cssJSToolbox::getText('Setup') ?></a>
+<a href="#<?php echo htmlentities("pluginBase={$component['pluginBase']}&title={$component['title']}") ?>"><?php echo cssJSToolbox::getText('Setup') ?></a>

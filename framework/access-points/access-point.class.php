@@ -85,6 +85,20 @@ abstract class CJTAccessPoint extends CJTHookableClass implements CJTIAccessPoin
 	* 
 	* @var mixed
 	*/
+	protected $overrideControllersPath = null;
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
+	protected $overrideControllersPrefix = null;
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	protected $pageId = CJTPlugin::PLUGIN_REQUEST_ID;
 	
 	/**
@@ -94,6 +108,12 @@ abstract class CJTAccessPoint extends CJTHookableClass implements CJTIAccessPoin
 	public function __construct($defaultController = 'blocks') {
 		// Initialize Hookable.
 		parent::__construct();
+		// Overrides controllers path using current Access Point model class path
+		$accessPointClassLoader =& CJT_Framework_Autoload_Loader::findClassLoader(get_class($this));
+		if ($accessPointClassLoader) {
+			$this->overrideControllersPath = $accessPointClassLoader->getPath() . DIRECTORY_SEPARATOR . 'controllers';	
+			$this->overrideControllersPrefix = $accessPointClassLoader->getPrefix();
+		}
 		// Initialize!
 		$this->controllerName = $this->ongetdefaultcontrollername(isset($_REQUEST['controller']) ? $_REQUEST['controller'] : $defaultController);
 	}
@@ -183,7 +203,14 @@ abstract class CJTAccessPoint extends CJTHookableClass implements CJTIAccessPoin
 			// Import view class.
 			require_once CJTOOLBOX_MVC_FRAMEWOK . '/view.inc.php';
 			// Instantiate controller!
-			$this->controller = $this->onsetcontroller(CJTController::getInstance($this->controllerName, $loadView, $request));
+			$this->controller = $this->onsetcontroller(
+				CJTController::getInstance(
+					$this->controllerName, 
+					$loadView, 
+					$request,
+					$this->overrideControllersPath,
+					$this->overrideControllersPrefix
+					));
 		}
 		return $this->controller;
 	}

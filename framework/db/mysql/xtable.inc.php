@@ -330,6 +330,15 @@ abstract class CJTxTable extends CJTHookableClass {
 	/**
 	* put your comment there...
 	* 
+	* @param mixed $values
+	*/
+	public function loadAsKey($values) {
+		return $this->setData($values)->load(array_keys($values));
+	}
+
+	/**
+	* put your comment there...
+	* 
 	* @todo Delete method and use CJTMYSQLQuery instead.
 	* 
 	* @param mixed $parameters

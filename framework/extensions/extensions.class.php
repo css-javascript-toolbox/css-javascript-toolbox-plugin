@@ -31,6 +31,13 @@ class CJTExtensions extends CJTHookableClass {
 	* 
 	* @var mixed
 	*/
+	protected $defDocs;
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	protected $extensions;
 	
 	/**
@@ -184,7 +191,6 @@ class CJTExtensions extends CJTHookableClass {
 			//Resting!
 			$this->file2Classmap = array();
 			$extensions = array();
-			$edition = CJTPlugin::Edition;
 			// filter all installed Plugins to fetch all out Extensions!
 			$activePlugins = $this->ongetactiveplugins(wp_get_active_and_valid_plugins());
 			foreach ($activePlugins as $file) {
@@ -195,15 +201,15 @@ class CJTExtensions extends CJTHookableClass {
 					// CJT Extsnsion must has the definition XML file!
 					// First try for Edition-Specific file
 					// if not exists try the generic one.
-					$xmlFile = "{$pluginDir}/{$pluginName}-{$edition}.xml";
-					if (file_exists($xmlFile) || file_exists($xmlFile = "{$pluginDir}/{$pluginName}.xml")) {
+					$xmlFile = "{$pluginDir}/{$pluginName}.xml";
+					if (file_exists($xmlFile)) {
 						// Get Plugin primary data!
 						$extension = array();
 						$extension['pluginFile'] = $file;
 						$extension['file'] = basename($file);
 						$extension['defFile'] = basename($pluginDir) . DIRECTORY_SEPARATOR . basename($xmlFile);
 						// Its useful to use ABS path only at runtime as it might changed as host might get moved.
-						$extension['dir'] = str_replace((ABSPATH . PLUGINDIR . '/'), '', $pluginDir) ;
+						$extension['dir'] = basename($pluginDir);
 						$extension['name'] = $pluginName;
 						// Cache XML file.
 						$extension['definition']['raw'] = file_get_contents($xmlFile);
@@ -220,11 +226,14 @@ class CJTExtensions extends CJTHookableClass {
 						$extensions[$className] = $extension;
 						// Map Plugin FILE-2-CLASS name!
 						$this->file2Classmap["{$extension['dir']}/{$extension['file']}"] = $className;
+						// Hold Def doc reference
+						$this->defDocs[$extension['dir']] = $definitionXML;
 					}
 				}
 			}
-			// Update the cache Cache!
-			// ----update_option(self::CACHE_OPTION_NAME, $extensions);
+			// Add CJT Def doc to def docs list
+			$cjtXMLFilePath = CJTOOLBOX_PATH . DIRECTORY_SEPARATOR . CJTOOLBOX_NAME . '.xml';
+			$this->defDocs[CJTOOLBOX_NAME] = new SimpleXMLElement(file_get_contents($cjtXMLFilePath));
 		}
 		$this->extensions = $this->onload($extensions);
 		// Chaining
@@ -310,6 +319,15 @@ class CJTExtensions extends CJTHookableClass {
 		}
 	}
 	
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $pluginName
+	*/
+	public function & getDefDoc($pluginName) {
+		return $this->defDocs[$pluginName];
+	}
+
 	/**
 	* put your comment there...
 	* 

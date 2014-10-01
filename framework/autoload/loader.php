@@ -15,6 +15,13 @@ defined('ABSPATH') or die("Access denied");
 class CJT_Framework_Autoload_Loader {
 	
 	/**
+	* 
+	* 
+	* @var mixed
+	*/
+	protected static $instances = array();
+	
+	/**
 	* put your comment there...
 	* 
 	* @var mixed
@@ -59,15 +66,29 @@ class CJT_Framework_Autoload_Loader {
 	* @param mixed $path
 	*/
 	public static function autoLoad($prefix = null, $path = null) {
-		// Hold all auto load instances.
-		static $instances = array();
 		// Identify instances by prefixes!
-		if (!isset($instances[$prefix])) {
-			$instances[$prefix] = new CJT_Framework_Autoload_Loader($prefix, $path);
+		if (!isset(self::$instances[$prefix])) {
+			self::$instances[$prefix] = new CJT_Framework_Autoload_Loader($prefix, $path);
 		}
-		return $instances[$prefix];
+		return isset(self::$instances[$prefix]) ? self::$instances[$prefix] : null;
 	}
 	
+	/**
+	* Find ClassAutoloader instance used for loading specific class.
+	* 
+	* The method is using Prefix algorithm for finding class autoloader
+	* 
+	* @param mixed $className
+	*/
+	public static function & findClassLoader($className) {
+		# Getting class prefix
+		$classComponents = explode('_', $className);
+		$prefix = $classComponents[0];
+		# Find autoloader
+		$instance = isset(self::$instances[$prefix]) ? self::$instances[$prefix] : null;
+		return $instance;
+	}
+
 	/**
 	* put your comment there...
 	* 
@@ -118,6 +139,22 @@ class CJT_Framework_Autoload_Loader {
 		// Get class absolute path.
 		$path = $this->path . DIRECTORY_SEPARATOR . $component->path;
 		return $path . DIRECTORY_SEPARATOR . $file;
+	}
+
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function getPath() {
+		return $this->path;
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function getPrefix() {
+		return $this->prefix;
 	}
 
 	/**

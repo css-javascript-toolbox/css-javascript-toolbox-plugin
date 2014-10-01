@@ -55,5 +55,5 @@ return array(
 	/* Validation */
 	'invalidName' => cssJSToolbox::getText('Invalid License name!'),
 	'invalidKey' => cssJSToolbox::getText('Invalid License key!'),
-	'componentNameIsAbsolute' => cssJSToolbox::getText('Component name is absolute!!! Invalid Request Specified!!!'),
+	'componentNameIsAbsolute' => cssJSToolbox::getText('Component name is absolute!'),
 );

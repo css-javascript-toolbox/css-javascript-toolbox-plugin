@@ -1,27 +1,16 @@
 <?php
 /*
 Plugin Name: CSS & JavaScript Toolbox
-Plugin URI: http://css-javascript-toolbox.com/css-javascript-toolbox-free
+Plugin URI: http://css-javascript-toolbox.com/css-javascript-toolbox-v6/
 Description: CJT Plugin for WordPress to easily add custom CSS and JavaScript to individual pages
-Version: 7.2
+Version: 8.0
 Author: Wipeout Media 
 Author URI: http://css-javascript-toolbox.com
 License:
 
-Copyright (c) 2011, Wipeout Media.
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
+The Software is package as a WordPress¨ plugin.  The PHP code associated with the Software is licensed under the GPL version 2.0 license (as found at http://www.gnu.org/licenses/gpl-2.0.txt GNU/GPLv2 or "GPLv2"). You may redistribute, repackage, and modify the PHP code as you see fit and as consistent with GPLv2.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+The remaining portions of the Software ("Proprietary Portion"), which includes all images, cascading style sheets, and JavaScript are NOT licensed under GPLv2 and are considered proprietary to Licensor and are solely licensed under the remaining terms of this Agreement.  The Proprietary Portion may not be redistributed, repackaged, or otherwise modified. 
 */
 
 // Disallow direct access.
@@ -95,17 +84,12 @@ class CJTPlugin extends CJTHookableClass {
 	/**
 	* 
 	*/
-	const Edition = 'free';
+	const FW_Version = '4.0';
 	
 	/**
 	* 
 	*/
-	const FW_Version = '3.0';
-	
-	/**
-	* 
-	*/
-	const VERSION = '7.2-CE'	;
+	const VERSION = '8.0'	;
 	
 	/**
 	* 

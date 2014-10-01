@@ -51,11 +51,6 @@ class cssJSToolbox extends CJTHookableClass {
 	/**
 	* 
 	*/
-	const CJT_SCRTIPS_WEB_SITE_DOMAIN = 'cjt-scripts.com';
-	
-	/**
-	* 
-	*/
 	const CJT_WEB_SITE_DOMAIN = 'css-javascript-toolbox.com';
 	
 	/**
@@ -236,8 +231,15 @@ class cssJSToolbox extends CJTHookableClass {
 	* @param mixed $base
 	*/
 	public static function resolvePath($vPath, $base = CJTOOLBOX_PATH) {
+		// Resolve CJT extensions path
+		if (strpos($vPath, 'extension://') === 0) {
+			// Remove extension wrapper
+			$vPath = str_replace('extension://', '', $vPath);
+			// Point to plugin directory
+			$base = WP_PLUGIN_DIR;
+		}
 		// Replace all :'s with /'s.
-		$path = str_replace(':', '/', $vPath);
+		$path = preg_replace('/(\w)\:(\w)/', '$1/$2', $vPath);
 		$path = "{$base}/{$path}";
 		return self::trigger('cssJSToolbox.resolvepath', $path, $vPath);
 	}
