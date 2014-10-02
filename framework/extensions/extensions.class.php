@@ -226,14 +226,9 @@ class CJTExtensions extends CJTHookableClass {
 						$extensions[$className] = $extension;
 						// Map Plugin FILE-2-CLASS name!
 						$this->file2Classmap["{$extension['dir']}/{$extension['file']}"] = $className;
-						// Hold Def doc reference
-						$this->defDocs[$extension['dir']] = $definitionXML;
 					}
 				}
 			}
-			// Add CJT Def doc to def docs list
-			$cjtXMLFilePath = CJTOOLBOX_PATH . DIRECTORY_SEPARATOR . CJTOOLBOX_NAME . '.xml';
-			$this->defDocs[CJTOOLBOX_NAME] = new SimpleXMLElement(file_get_contents($cjtXMLFilePath));
 		}
 		$this->extensions = $this->onload($extensions);
 		// Chaining
@@ -325,6 +320,12 @@ class CJTExtensions extends CJTHookableClass {
 	* @param mixed $pluginName
 	*/
 	public function & getDefDoc($pluginName) {
+		# Find if cached or create it
+		if (!isset($this->defDocs[$pluginName])) {
+			// Add CJT Def doc to def docs list
+			$pluginXMLFile = WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . $pluginName . DIRECTORY_SEPARATOR . "{$pluginName}.xml";
+			$this->defDocs[$pluginName] = new SimpleXMLElement(file_get_contents($pluginXMLFile));
+		}
 		return $this->defDocs[$pluginName];
 	}
 
