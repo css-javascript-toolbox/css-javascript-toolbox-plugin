@@ -26,7 +26,7 @@ class CJTAutoUpgradeController extends CJTController {
 		// Initializing!
 		$model = $this->model;
 		$cjtWebServer = cssJSToolbox::getCJTWebSiteURL();
-		$extensions =& CJTPlugin::getInstance()->extensions()->getExtensions();
+		$extensions =& CJTPlugin::getInstance()->extensions();
 		// Get all CJT-Plugins (Include CJT Plugin itself + all its extensions) that has activate
 		// license key!
 		$activeLicenses = $model->getStatedLicenses();
@@ -35,9 +35,9 @@ class CJTAutoUpgradeController extends CJTController {
 		// Activate Automatic upgrade for all activated licenses/components!
 		foreach ($activeLicenses as $name => $state) {
 			// Get extension def doc.
-			$extDef = $extensions[dirname($state['component']['pluginBase'])];
+			$extDef = $extensions->getDefDoc(dirname($state['component']['pluginBase']));
 			// Check CJT Server only if updateSrc points to Wordpress Repository
-			$updateSrcServer = (string) $extDef->license->updateSrc;
+			$updateSrcServer = (string) $extDef->license->attributes()->updateSrc;
 			if (!$updateSrcServer || ($updateSrcServer == 'CJT')) {
 				// Initializingn vars for a single state/component!
 				$pluginFile = ABSPATH . PLUGINDIR . '/' . $state['component']['pluginBase'];
