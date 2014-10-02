@@ -193,19 +193,6 @@
 		}
 		
 		/**
-		* 
-		*/
-		this._onclearblock  = function() {
-			var aceEditor = this.block.aceEditor;
-			//Directly clear using setValue('') won't save the history!
-			// Select all text.
-			aceEditor.selectAll();
-			// Replace content with empty string!
-			aceEditor.getSession().replace(aceEditor.getSelectionRange(), '');
-			aceEditor.focus();
-		}
-		
-		/**
 		*
 		*
 		*/
@@ -345,71 +332,6 @@
 				// Set focus.
 				inputText.focus();
 			}
-		}
-
-		/**
-		* 
-		*/
-		this._onfontsize = function(event, params) {
-			var editor = $(this.block.aceEditor.container);
-			// Reset font size to default.
-			if (params.reset) {
-				// Remove fontSize and Line-Height rules!
-				fontSize = '';
-			}
-			else {
-				var tick = 2;
-				// Get current font-size.
-				var fontSize = editor.css('font-size'); // Font size in pixels!
-				fontSize = (parseInt(fontSize) + (params.direction * tick)) + 'px';
-			}
-			// Reset Or Increase (+) Or decrease (-) font size based on the given parameter.
-			editor.css({'font-size' : fontSize, 'line-height' : fontSize});				
-		}
-		
-		/**
-		* 
-		*/
-		this._onfullscreen  = function(event) {
-			// Initialize vars!
-			var block = this.block;
-			var elementsToDock = $.merge($.merge([], this.extraDocks), this.defaultDocks);
-			var newMode = '';
-			// Document body.
-			$('body').toggleClass('fullscreen').hasClass('fullscreen');
-			// Enter/Exit Full Screen mode!
-			if (block.box.toggleClass('fullscreen').hasClass('fullscreen')) {
-				newMode = 'fullscreen';
-				// Defined resize handler.
-				var resizer = $.proxy(
-					function() {
-						$.each(elementsToDock, $.proxy(
-							function(index, item) {
-								// Dock all defined elements!
-								this.dock(item.element, item.pixels);
-							}, this)
-						);
-					}, this);
-					// Bind to handler.
-				$(window).bind('resize.cjtfullscreen', resizer);
-				// Call it.
-				resizer();
-			}
-			else {
-				// Reset to normal height.
-				$.each(elementsToDock, $.proxy(
-					function(index, item) {
-						$(item.element).css('height', '');
-					}, this)
-				);
-				$(window).unbind('resize.cjtfullscreen');
-			}
-			// Screen mode title.
-			$(event.target).attr('title', CJTJqueryBlockI18N['screenmode_' + newMode + 'Title']);
-			// Refresh/Redraw editor.
-			block.aceEditor.resize();
-			// Toggle Toolbox fullscreen button icon.
-			this.editorToolbox.buttons['fullscreen'].jButton.toggleClass('maximized');
 		}
 		
 		/**
@@ -842,13 +764,7 @@
 			// Initialize editor toolbox.
 			this.editorToolbox = model.box.find('.editor-toolbox').CJTToolBox({
 				context : this,
-				handlers : {
-					'fullscreen' : {callback : this._onfullscreen},
-					'font-large' : {callback : this._onfontsize, params : {direction: 1}},
-					'font-small' : {callback : this._onfontsize, params : {direction: -1}},
-					'reset-font' : {callback : this._onfontsize, params : {reset : true}},
-					'clear-block' : {callback : this._onclearblock}
-				}
+				handlers : {}
 			}).get(0).CJTToolBox;
 			// Default to DOCK!!
 			this.defaultDocks = [{element : this.block.aceEditor.container, pixels : 7}];
