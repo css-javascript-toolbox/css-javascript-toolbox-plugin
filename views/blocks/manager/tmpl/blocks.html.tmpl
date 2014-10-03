@@ -7,7 +7,7 @@
 defined('ABSPATH') or die("Access denied");
 ?>
 <div id="cjtoolbox-admin" class="wrap">
-<?php require CJTOOLBOX_VIEWS_PATH . '/blocks/block/tmpl/menu/menu.html.tmpl' ?>
+<?php echo CJTBlocksManagerView::trigger('CJTBlocksManagerView.loadglobalcomponents', $content) ?>
 <?php require CJTOOLBOX_VIEWS_PATH . '/blocks/block/tmpl/codefile/codefile.html.tmpl' ?>
 	<div id="custom-icon" class="icon32 blocks-icon32"></div>
 	<h2><?php echo cssJSToolbox::getText('CSS & Javascript Toolbox') ?></h2>

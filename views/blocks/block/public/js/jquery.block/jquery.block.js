@@ -759,8 +759,8 @@
 			var model = this.block;
 			// LOAD MODEL.
 			model.load();
-			// Load ACE Editor Settings.
-			model.aceEditor.setOptions(model.get('aceEditorMenuSettings', {showPrintMargin : false}));
+			// Editor default options.
+			this.block.aceEditor.setOptions({showPrintMargin : false});
 			// Initialize editor toolbox.
 			this.editorToolbox = model.box.find('.editor-toolbox').CJTToolBox({
 				context : this,
@@ -788,7 +788,6 @@
 			// LOAD EVENT.
 			this.onLoad();
 			// Block Code File.
-			this.menu = new CJTBlockMenu(this);
 			this.codeFile = new CJTBlockFile(this);
 		}
 

@@ -186,7 +186,6 @@ var CJTBlocksPage;
 			this.blocks = new CJTBlocks();
 			this.server = CJTServer;
 			// Initilize Global-Blocks Conponents.
-			CJTBlockMenuView.initialize();
 			CJTBlockCodeFileView.initialize();
 			// Put CJT code block into actions!
 			var blocks = this.blocks.getBlocks().CJTBlock({calculatePinPoint : 0});

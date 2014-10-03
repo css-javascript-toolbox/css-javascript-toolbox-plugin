@@ -96,8 +96,6 @@ class CJTBlocksBlockView extends CJTView {
 			'views:blocks:block:public:js:{CJT-}ajax',
 			'views:blocks:block:public:js:{CJT-}blockproperty',
 			'views:blocks:block:public:js:optional:{CJT-}revision',
-			'views:blocks:block:public:js:{CJT-}menu',
-			'views:blocks:block:public:js:menu:{CJT-}_block',
 			'views:blocks:block:public:js:{CJT-}codefile-manager',
 			'views:blocks:block:public:js:{CJT-}codefile',
 			'views:blocks:block:public:js:{CJT-}block',
@@ -114,7 +112,6 @@ class CJTBlocksBlockView extends CJTView {
 		$styles = array(
 			'thickbox',
 			'views:blocks:block:public:css:{CJT-}block',
-			'views:blocks:block:public:css:{CJT-}menu',
 			'views:blocks:block:public:css:{CJT-}codefile'
 		);
 	  // IF WP < 3.8 add compatibility CSS file.
