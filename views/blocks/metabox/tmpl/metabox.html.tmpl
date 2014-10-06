@@ -6,8 +6,10 @@
 // Disallow direct access.
 defined('ABSPATH') or die("Access denied");
 
+// Global Comonents eent
+echo CJTBlocksMetaBoxView::trigger('CJTBlocksMetaBoxView.loadglobalcomponents', $content);
+
 // Block Templates.
-require CJTOOLBOX_VIEWS_PATH . '/blocks/block/tmpl/menu/menu.html.tmpl';
 require CJTOOLBOX_VIEWS_PATH . '/blocks/block/tmpl/codefile/codefile.html.tmpl';
 		
 // Display as metabox without using Wordpress Metabox APIs.

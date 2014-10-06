@@ -40,6 +40,16 @@ class CJTBlocksManagerView extends CJTView {
 	* 
 	* @var mixed
 	*/
+	protected static $onloadglobalcomponents = array(
+		'hookType' => CJTWordpressEvents::HOOK_FILTER,
+		'parameters' => array('content')
+	);
+
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	public $order;
 	
 	/**

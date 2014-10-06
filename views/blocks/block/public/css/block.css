@@ -174,15 +174,8 @@
 	height: 350px;
 	top: 5px;	
 	margin-left: 10px;
+	display: none;
 }
-.cjt-toolbox.editor-toolbox .icons-group a.cjt-tb-link {margin: 6px 0 0 6px;}
-.cjt-toolbox.editor-toolbox a.cjttbl-fullscreen {background-image: url(../images/editor-toolbox/maximise-editor.png);}
-.cjt-toolbox.editor-toolbox a.cjttbl-fullscreen.maximized {background-image: url(../images/editor-toolbox/minimise-editor.png);}
-.cjt-toolbox.editor-toolbox a.cjttbl-font-large {background-image: url(../images/editor-toolbox/font-large.png);}
-.cjt-toolbox.editor-toolbox a.cjttbl-font-small {background-image: url(../images/editor-toolbox/font-small.png);}
-.cjt-toolbox.editor-toolbox a.cjttbl-reset-font {background-image: url(../images/editor-toolbox/font-reset.png);}
-.cjt-toolbox.editor-toolbox a.cjttbl-clear-block {background-image: url(../images/editor-toolbox/clear-block.png);}
-.cjt-toolbox.editor-toolbox a.cjttbl-editor-theme {background-image: url(../images/editor-toolbox/theme.png);}
 
 .loading-block{
 	font-weight: bold;

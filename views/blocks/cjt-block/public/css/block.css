@@ -1,9 +1,7 @@
 .postbox .inside { margin-right: 6px !important; }
 /** reserve Objects Panel space */
 .cjcodeblock {margin-right:310px;}
-/** Editor toolbox **/
-.editor-toolbox a.cjttbl-toggle-objects-panel {background-image: url(../images/editor-toolbox/close-panel.png);}
-.editor-toolbox a.cjttbl-toggle-objects-panel.closed {background-image: url(../images/editor-toolbox/open-panel.png);}
+
 /*  Pages Panel */
 .cjpageblock {width: 315px; height: 100%; position: absolute; right: 3px;}
 

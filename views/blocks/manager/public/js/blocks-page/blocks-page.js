@@ -601,7 +601,6 @@ var CJTBlocksPage;
 			CJTBlocksPage.server = CJTServer;
 			CJTBlocksPage.server.multiOperation = new CJTBlocksAjaxMultiOperations('blocksPage', 'save_blocks');
 			// Initilize Global-Blocks Conponents.
-			CJTBlockMenuView.initialize();
 			CJTBlockCodeFileView.initialize();
 			// Make sure CJTBlocks is ready.
 			CJTBlocksPage.blocks = new CJTBlocks();

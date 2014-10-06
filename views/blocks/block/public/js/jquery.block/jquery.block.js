@@ -110,222 +110,6 @@
 		blockName : 'span.block-name',
 		insideMetabox : 'div.inside'
 	};
-  
-	/**
-	* put your comment there...
-	* 
-	* @type Object
-	*/
-  var Buttons = new function() {
-  	
-  	/**
-  	* put your comment there...
-  	* 
-  	* @type T_JS_FUNCTION
-  	*/
-  	this.EditorToolbox = new function() {
-  		
-  		/**
-  		* 
-  		*/
-  		this.EditorThemes = new function() {
-  			// Initialize.
-  			this.block = null;
-				// Create Unattached Themes list 
-				// to be used accross all the blocks.
-				var theme = null;
-   			var themesUIListContainer = $('<div class="popup-menu editor-themes-list"></div>').css({display: 'none'});
-   			var themesUIList = $('<ul></ul>').appendTo(themesUIListContainer);
-   			var themesAnchorsMap = {}, themes = [
-   				'ambiance',
-   				'chaos', 
-   				'chrome', 
-   				'clouds', 
-   				'clouds_midnight', 
-   				'cobalt', 
-   				'crimson_editor', 
-   				'dawn', 
-   				'dreamweaver', 
-   				'eclipse', 
-   				'github', 
-   				'idle_fingers',
-   				'katzenmilch',
-   				'kr',
-   				'kuroir',
-   				'merbivore',
-   				'merbivore_soft',
-   				'mono_industrial',
-   				'monokai',
-   				'pastel_on_dark',
-   				'solarized_dark',
-   				'solarized_light',
-   				'terminal',
-   				'textmate',
-   				'tomorrow',
-   				'tomorrow_night',
-   				'tomorrow_night_blue',
-   				'tomorrow_night_bright',
-   				'tomorrow_night_eighties',
-   				'twilight',
-   				'vibrant_ink',
-   				'xcode'
-   			];
-   			
-   			/**
-   			* put your comment there...
-   			* 
-   			* @param event
-   			*/
-   			var _onswitchtheme = function(event) {
-   				// Get theme name associated with the link.
-   				var editorTheme = $(event.target).data('ace-theme-key');
-   				var $this = Buttons.EditorToolbox.EditorThemes;
-   				// Save theme.
-   				$this.block.block.set('editorTheme', editorTheme);
-   				// Select menu theme.
-   				$this.selectMenuTheme();
-   				// Set editor theme.
-   				$this.setEditorTheme();
-   				// Link Inactive.
-   				return false;
-   			};
-   		
-   			/**
-   			* put your comment there...
-   			* 
-   			* @param button
-   			*/
-   			var _oncallback = function(targetList, button) {
-   				// Init.
-   				var cObject = Buttons.EditorToolbox.EditorThemes;
-   				// Associate list to current activate block.
-   				cObject.block = this;
-   				// Select default.
-   				cObject.selectMenuTheme();
-   				// ACE Themes list style.
-				cObject.applyTheme(this);
-   				// Add the list just after the button.
-   				button.jButton.after(targetList);
-   			}
-   			
-   			/**
-   			* 
-   			*/
-   			this.applyTheme = function(block) {
-				// Apply theme to Themes list.
-				themesUIList.css('background-color', block.theme.backgroundColor);
-				// Apply to block components
-				CJTBlockCodeFileView.applyTheme(block);
-				CJTBlockMenuView.applyTheme(block);
-   			};
-
-   			/**
-   			* 
-   			*/
-   			this.getEditorTheme = function() {
-				return this.block.block.get('editorTheme', 'chrome');
-   			};
-
-				/**
-				* 
-				*/
-				this.getType = function(block) {
-					// Associate block for initialize.
-					// block would be changed again everytime
-					// a block is initialized
-					// or menu is selected.
-					this.block = block;
-					// Bind to themeLoaded event.
-					var model = block.block;
-					var editor = model.aceEditor;
-					editor.renderer.addEventListener('themeLoaded', $.proxy(
-						function() {
-							var jEditor = $(editor.container);
-							// Set theme colors.
-							block.theme = {};
-							block.theme.backgroundColor = jEditor.css('background-color');
-							block.theme.color = jEditor.css('color'); 
-							// Apply Theme to block element.
-							model.box.css('background-color', block.theme.backgroundColor);
-							block.block.box.find('.hndle').css('color', block.theme.color);
-							// ACE Themes list theme.
-							this.applyTheme(block);
-						}, this)
-					);
-					// Set default theme.
-					this.setEditorTheme();
-					// Type object.
-					return {
-											
-						// Callback
-						callback : _oncallback,
-						
-						/**
-						* put your comment there...
-						* 
-						* @type String
-						*/
-						type : 'Popup',
-						
-						/**
-						* 
-						*/
-						params : {
-							// Parameters for PopupList type button.
-							_type : {
-								targetElement : themesUIListContainer,
-								targetElementObject : true
-							}
-						}
-					}
-				};
-
-				/**
-				* 
-				*/
-				this.selectMenuTheme = function() {
-					// Get editor theme.
-					var editorTheme = this.getEditorTheme();
-   				// Clear any previously selected item.
-   				themesUIList.find('a').removeClass('active');
-   				// Select default.
-   				themesAnchorsMap[editorTheme].addClass('active');
-				};
-			
-				/**
-				* 
-				*/
-				this.setEditorTheme = function() {
-					// INitialize.
-					var model = this.block.block;
-					var editor = model.aceEditor;
-   				// Set editor theme.                                 
-   				// TODO: Full theme name might be saved somewhere!
-   				var themePath = 'ace/theme/' + this.getEditorTheme();
-					// Change theme.
-					editor.setTheme(themePath);
-				};
-
-   			// Build list.
-   			$.each(themes, $.proxy(
-   				function(index, themeName) {
-   					// Add item to list.
-   					var listItem = $('<li></li>').appendTo(themesUIList);
-   					// Create link + replace name with the anchor.
-   					themesAnchorsMap[themeName] = $('<a href="#">' + CJTJqueryBlockI18N['ace_theme-' + themeName] + '</a>').appendTo(listItem)
-   					// Class.
-   					.addClass('cjt-link')
-   					// Store theme key.
-   					.data('ace-theme-key', themeName)
-   					// Handle item click.
-   					.click(_onswitchtheme);
-   				}, this)
-   			);
-
-  		};
-  		
-		}
-  };
 
 	/**
 	* Block jQuery Plugin.
@@ -406,19 +190,6 @@
 			.find('input.block-name').unbind('keydown.editName');
 			// Hide CodeFile Name.
 			this.block.box.find('.file').css({visibility : 'visible'});
-		}
-		
-		/**
-		* 
-		*/
-		this._onclearblock  = function() {
-			var aceEditor = this.block.aceEditor;
-			//Directly clear using setValue('') won't save the history!
-			// Select all text.
-			aceEditor.selectAll();
-			// Replace content with empty string!
-			aceEditor.getSession().replace(aceEditor.getSelectionRange(), '');
-			aceEditor.focus();
 		}
 		
 		/**
@@ -561,71 +332,6 @@
 				// Set focus.
 				inputText.focus();
 			}
-		}
-
-		/**
-		* 
-		*/
-		this._onfontsize = function(event, params) {
-			var editor = $(this.block.aceEditor.container);
-			// Reset font size to default.
-			if (params.reset) {
-				// Remove fontSize and Line-Height rules!
-				fontSize = '';
-			}
-			else {
-				var tick = 2;
-				// Get current font-size.
-				var fontSize = editor.css('font-size'); // Font size in pixels!
-				fontSize = (parseInt(fontSize) + (params.direction * tick)) + 'px';
-			}
-			// Reset Or Increase (+) Or decrease (-) font size based on the given parameter.
-			editor.css({'font-size' : fontSize, 'line-height' : fontSize});				
-		}
-		
-		/**
-		* 
-		*/
-		this._onfullscreen  = function(event) {
-			// Initialize vars!
-			var block = this.block;
-			var elementsToDock = $.merge($.merge([], this.extraDocks), this.defaultDocks);
-			var newMode = '';
-			// Document body.
-			$('body').toggleClass('fullscreen').hasClass('fullscreen');
-			// Enter/Exit Full Screen mode!
-			if (block.box.toggleClass('fullscreen').hasClass('fullscreen')) {
-				newMode = 'fullscreen';
-				// Defined resize handler.
-				var resizer = $.proxy(
-					function() {
-						$.each(elementsToDock, $.proxy(
-							function(index, item) {
-								// Dock all defined elements!
-								this.dock(item.element, item.pixels);
-							}, this)
-						);
-					}, this);
-					// Bind to handler.
-				$(window).bind('resize.cjtfullscreen', resizer);
-				// Call it.
-				resizer();
-			}
-			else {
-				// Reset to normal height.
-				$.each(elementsToDock, $.proxy(
-					function(index, item) {
-						$(item.element).css('height', '');
-					}, this)
-				);
-				$(window).unbind('resize.cjtfullscreen');
-			}
-			// Screen mode title.
-			$(event.target).attr('title', CJTJqueryBlockI18N['screenmode_' + newMode + 'Title']);
-			// Refresh/Redraw editor.
-			block.aceEditor.resize();
-			// Toggle Toolbox fullscreen button icon.
-			this.editorToolbox.buttons['fullscreen'].jButton.toggleClass('maximized');
 		}
 		
 		/**
@@ -1053,19 +759,12 @@
 			var model = this.block;
 			// LOAD MODEL.
 			model.load();
-			// Load ACE Editor Settings.
-			model.aceEditor.setOptions(model.get('aceEditorMenuSettings', {showPrintMargin : false}));
+			// Editor default options.
+			this.block.aceEditor.setOptions({showPrintMargin : false});
 			// Initialize editor toolbox.
 			this.editorToolbox = model.box.find('.editor-toolbox').CJTToolBox({
 				context : this,
-				handlers : {
-					'fullscreen' : {callback : this._onfullscreen},
-					'font-large' : {callback : this._onfontsize, params : {direction: 1}},
-					'font-small' : {callback : this._onfontsize, params : {direction: -1}},
-					'reset-font' : {callback : this._onfontsize, params : {reset : true}},
-					'clear-block' : {callback : this._onclearblock},
-					'editor-theme' : Buttons.EditorToolbox.EditorThemes.getType(this)
-				}
+				handlers : {}
 			}).get(0).CJTToolBox;
 			// Default to DOCK!!
 			this.defaultDocks = [{element : this.block.aceEditor.container, pixels : 7}];
@@ -1082,10 +781,13 @@
 			this.switchState(this.features.state);
 			// Prepare input elements for notifying user changes.
 			this.notifySaveChanges = (new notifySaveChangesProto(this)).initDIFields();
+			// Set theme object.
+			this.theme = {};
+			this.theme.backgroundColor = 'white';
+			this.theme.color = 'black';
 			// LOAD EVENT.
 			this.onLoad();
 			// Block Code File.
-			this.menu = new CJTBlockMenu(this);
 			this.codeFile = new CJTBlockFile(this);
 		}
 
