@@ -70,7 +70,14 @@ class CJTBlocksCouplingController extends CJTController {
 	* @var mixed
 	*/
 	protected $onappendcode = array('parameters' => array('code'));
-		
+	
+	/**
+	* put your comment there...
+	* 	
+	* @var mixed
+	*/
+	protected $onblockmatched = array('parameters' => array('block'));
+	
 	/**
 	* put your comment there...
 	* 
@@ -328,19 +335,22 @@ class CJTBlocksCouplingController extends CJTController {
 						continue;
 					}
 				}
-				// Retrieve block code-files.
-				$block->code = $this->model->getBlockCode($block->id);
-				// Import Executable (PHP and HTML) templates.
-				$block->code = $block->code . $this->model->getExecTemplatesCode($block->id);
-				// For every location store blocks code into single string
-				$evaluatedCode = CJTPHPCodeEvaluator::getInstance($block)->exec()->getOutput();
-				/** @todo Include Debuging info only if we're in debuging mode! */
-				if (1) {
-					$evaluatedCode = "\n<!-- Block ({$blockId}) START-->\n{$evaluatedCode}\n<!-- Block ({$blockId}) END -->\n";
+				// Allow extensions to control to prevent block from being in the output
+				if ($block = $this->onblockmatched($block)) {
+					// Retrieve block code-files.
+					$block->code = $this->model->getBlockCode($block->id);
+					// Import Executable (PHP and HTML) templates.
+					$block->code = $block->code . $this->model->getExecTemplatesCode($block->id);
+					// For every location store blocks code into single string
+					$evaluatedCode = CJTPHPCodeEvaluator::getInstance($block)->exec()->getOutput();
+					/** @todo Include Debuging info only if we're in debuging mode! */
+					if (1) {
+						$evaluatedCode = "\n<!-- Block ({$blockId}) START-->\n{$evaluatedCode}\n<!-- Block ({$blockId}) END -->\n";
+					}
+					$this->blocks['code'][$block->location] .= $this->onappendcode($evaluatedCode);
+					// Store all used Ids in the CORRECT ORDER.
+					$this->addOnActionIds($blockId);
 				}
-				$this->blocks['code'][$block->location] .= $this->onappendcode($evaluatedCode);
-				// Store all used Ids in the CORRECT ORDER.
-				$this->addOnActionIds($blockId);
 			}
 		}
 		$templates = $this->onActionIds ? $this->model->getLinkedTemplates($this->onActionIds) : array();
