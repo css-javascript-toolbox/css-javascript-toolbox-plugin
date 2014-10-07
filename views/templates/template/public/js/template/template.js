@@ -89,7 +89,6 @@
 			this.form.find('#form-tabs').tabs();
 			// ACE Editor.
 			this.aceEditor = ace.edit('code');
-			this.aceEditor.setTheme('ace/theme/chrome');
 			this.aceEditor.setShowPrintMargin(false);
 			// Update button.
 			$('#save').click($.proxy(this.save, this));
