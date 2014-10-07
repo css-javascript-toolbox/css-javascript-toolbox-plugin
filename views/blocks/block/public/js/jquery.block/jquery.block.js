@@ -786,7 +786,9 @@
 			this.theme.backgroundColor = 'white';
 			this.theme.color = 'black';
 			// LOAD EVENT.
-			this.onLoad();
+			if (this.onLoad !== undefined) {
+				this.onLoad();	
+			}
 			// Block Code File.
 			this.codeFile = new CJTBlockFile(this);
 		}
