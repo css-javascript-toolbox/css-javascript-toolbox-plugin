@@ -35,25 +35,28 @@ class CJTAutoUpgradeController extends CJTController {
 		// Activate Automatic upgrade for all activated licenses/components!
 		foreach ($activeLicenses as $name => $state) {
 			// Get extension def doc.
-			$extDef = $extensions->getDefDoc(dirname($state['component']['pluginBase']));
-			// Check CJT Server only if updateSrc points to Wordpress Repository
-			$updateSrcServer = (string) $extDef->license->attributes()->updateSrc;
-			if (!$updateSrcServer || ($updateSrcServer == 'CJT')) {
-				// Initializingn vars for a single state/component!
-				$pluginFile = ABSPATH . PLUGINDIR . '/' . $state['component']['pluginBase'];
-				// Stop using Cached Data as it causes issue, always 
-				// get fresh plugin data.
-				$plugin = get_plugin_data($pluginFile);
-				$license =& $state['license'];
-				// Edd API parameter to be send along with he check!
-				$requestParams= array(
-					'version' => $plugin['Version'],
-					'author' => $plugin['AuthorName'],
-					'license' => $license['key'],
-					'item_name' => $name,
-				);
-				// Set EDD Automatic Updater!
-				$updated = new CJT_EDD_SL_Plugin_Updater($cjtWebServer, $pluginFile, $requestParams);
+			// Act only if extension has XMl DOC! This might happened i fthe extension
+			// removed while its key still in the database
+			if ($extDef = $extensions->getDefDoc(dirname($state['component']['pluginBase']))) {
+				// Check CJT Server only if updateSrc points to Wordpress Repository
+				$updateSrcServer = (string) $extDef->license->attributes()->updateSrc;
+				if (!$updateSrcServer || ($updateSrcServer == 'CJT')) {
+					// Initializingn vars for a single state/component!
+					$pluginFile = ABSPATH . PLUGINDIR . '/' . $state['component']['pluginBase'];
+					// Stop using Cached Data as it causes issue, always 
+					// get fresh plugin data.
+					$plugin = get_plugin_data($pluginFile);
+					$license =& $state['license'];
+					// Edd API parameter to be send along with he check!
+					$requestParams= array(
+						'version' => $plugin['Version'],
+						'author' => $plugin['AuthorName'],
+						'license' => $license['key'],
+						'item_name' => $name,
+					);
+					// Set EDD Automatic Updater!
+					$updated = new CJT_EDD_SL_Plugin_Updater($cjtWebServer, $pluginFile, $requestParams);
+				}
 			}
 		}
 	}

@@ -324,7 +324,15 @@ class CJTExtensions extends CJTHookableClass {
 		if (!isset($this->defDocs[$pluginName])) {
 			// Add CJT Def doc to def docs list
 			$pluginXMLFile = WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . $pluginName . DIRECTORY_SEPARATOR . "{$pluginName}.xml";
-			$this->defDocs[$pluginName] = new SimpleXMLElement(file_get_contents($pluginXMLFile));
+			// Extension might removed while its license key still in the database
+			// Make sure the extension still exists
+			if (file_exists($pluginXMLFile)) {
+				$this->defDocs[$pluginName] = new SimpleXMLElement(file_get_contents($pluginXMLFile));	
+			}
+			else {
+				# Return null when extension is absent!
+				$this->defDocs[$pluginName] = null;
+			}
 		}
 		return $this->defDocs[$pluginName];
 	}
