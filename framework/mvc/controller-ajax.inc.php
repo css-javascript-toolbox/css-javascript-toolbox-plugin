@@ -92,6 +92,15 @@ abstract class CJTAjaxController extends CJTController {
 			$this->httpCode = "403 Not Authorized";
 		}
 		else {
+			// Clear Wordpress scripts object when using AJAX
+			// This is to solve conflict caused by other Plugins
+			// That uses admin_init hook to enqueue their scripts
+			// Ajax request here is only for CJT no other Plugin
+			// should involve any scripts with CJT
+			// Remove all scritps enqueued before CJT Ajax Controller (this) received
+			// the controller!
+			global $wp_scripts;
+			$wp_scripts = new WP_Scripts();
 			// Dispatch action.
 			$action = current_filter();
 			// Get method name from frrom Wordpress action name!
