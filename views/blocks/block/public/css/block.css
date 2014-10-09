@@ -136,24 +136,6 @@
 	top: -2px;
 	background-position: center center;
 }
-.popup-menu.editor-themes-list {
-	left: 10px !important;
-	background-color: transparent !important;
-	border: none !important;
-	display: block;
-	width: 196px;
-	height: 220px;
-	overflow: auto;
-	padding: 20px !important;
-	margin-left: -202px;
-	margin-top: -25px !important;
-}
-.popup-menu.editor-themes-list ul {margin: 0px; overflow: auto; height: 182px; border: 1px solid #bbb; padding: 13px;}
-.popup-menu.editor-themes-list a {
-	padding-top: 0px !important;
-	margin: 0px !important;
-}
-.popup-menu.editor-themes-list a.selected {color: #0074a2 !important;}
 
 .block-toolbox a.cjttbl-save.cjttbs-disabled {background: url(../images/toolbox/save-inactive.png); }
 .block-toolbox a.cjttbl-revisions { background-image: url(../images/toolbox/revisions.png); }
