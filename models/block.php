@@ -49,6 +49,8 @@ class CJTBlockModel extends CJTModel {
 	*/
 	const PINS_CATEGORIES_ALL_CATEGORIES = 0x1000;
 	const PINS_CATEGORIES_CUSTOM_CATEGORY = 0x2000;
+	const PINS_CATEGORIES_CUSTOM_TAXONOMY = 0x4000;
+	const PINS_CATEGORIES_CUSTOM_TAG = 0x8000;
 		
 	/**
 	* Other general pages pins.
@@ -88,6 +90,8 @@ class CJTBlockModel extends CJTModel {
 			'pages' => null,
 			'posts' => null,
 			'categories' => null,
+			'taxonomies' => null,
+			'tags' => null,
 			'links' => null,
 			'expressions' => null,
 			'id' => null,
@@ -107,6 +111,8 @@ class CJTBlockModel extends CJTModel {
 			case 'pages':
 			case 'posts':
 			case 'categories':
+			case 'taxonomies':
+			case 'tags':
 				$value = ($this->properties[$property] !== null) ? $this->properties[$property] : array();
 			break;
 			
@@ -145,7 +151,7 @@ class CJTBlockModel extends CJTModel {
 	*/
 	public static function arrangePins(& $blockData) {
 		// Initialize
-		$pinsGroupNames = array_flip(array('pages', 'posts', 'categories', 'pinPoint'));
+		$pinsGroupNames = array_flip(array('pages', 'posts', 'categories', 'taxonomies', 'tags', 'pinPoint'));
 		$dbDriver = cssJSToolbox::getInstance()->getDBDriver();
 		$mdlBlock = new CJTBlocksModel();
 		$block = $mdlBlock->getBlock($blockData->id, array(), array('id', 'pinPoint'));
@@ -222,6 +228,8 @@ class CJTBlockModel extends CJTModel {
 			self::PINS_PAGES_CUSTOM_PAGE => 'pages',
 			self::PINS_POSTS_CUSTOM_POST => 'posts',
 			self::PINS_CATEGORIES_CUSTOM_CATEGORY => 'categories',
+			self::PINS_CATEGORIES_CUSTOM_TAXONOMY => 'taxonomies',
+			self::PINS_CATEGORIES_CUSTOM_TAG => 'tags',
 			self::PINS_LINKS => 'links',
 			self::PINS_EXPRESSIONS => 'expressions',
 		);

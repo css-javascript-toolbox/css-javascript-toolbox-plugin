@@ -333,7 +333,7 @@ class CJTBlocksModel {
 		// Update block pins if requested.
 		if ($updatePins) {
 			// Isolate block pins freom native block data.
-			$pinsData = array_intersect_key($block, array_flip(array('pages', 'posts', 'categories')));
+			$pinsData = array_intersect_key($block, array_flip(array('pages', 'posts', 'categories', 'taxonomies', 'tags')));
 			$pins->update($block['id'], $pinsData);		
 		}
 		// Update code file

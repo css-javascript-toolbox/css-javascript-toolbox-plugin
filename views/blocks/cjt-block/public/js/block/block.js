@@ -31,6 +31,8 @@ var CJTBlock;
 			properties.pages = {om : new CJTBlockPropertyAPItemsList(), flags: 'rws',  selector : 'input:checkbox[name="cjtoolbox[{blockId}][pages][]"]'};
 			properties.posts = {om : new CJTBlockPropertyAPItemsList(), flags: 'rws', selector : 'input:checkbox[name="cjtoolbox[{blockId}][posts][]"]'};
 			properties.categories = {om : new CJTBlockPropertyAPItemsList(), flags: 'rws', selector : 'input:checkbox[name="cjtoolbox[{blockId}][categories][]"]'};
+			properties.taxonomies = {om : new CJTBlockPropertyAPItemsList(), flags: 'rws', selector : 'input:checkbox[name="cjtoolbox[{blockId}][taxonomies][]"]'};
+			properties.tags = {om : new CJTBlockPropertyAPItemsList(), flags: 'rws', selector : 'input:checkbox[name="cjtoolbox[{blockId}][tags][]"]'};
 			properties.pagesPanelToggleState = {flags: 'rwc'};
 			properties.assignOnlyModeSwitcher = {flags: 'rwc'};
 			// Load Base Model.
