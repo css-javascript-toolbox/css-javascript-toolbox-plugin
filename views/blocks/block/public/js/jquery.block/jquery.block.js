@@ -175,6 +175,9 @@
 		*/	
 		this.toolbox = null;
 		
+		// Block Plugins
+		CJTBlockObjectPluginDockModule.plug(this);
+		
 		/**
 		* Event handler for cancel edit block name.
 		*
@@ -599,19 +602,6 @@
 					flagButton.loading(false);
 				}, this)
 			);
-		}
-		
-		/**
-		* 
-		*/
-		this.dock = function(elements, pixelsToRemove) {
-			// Initialize.
-			var alwaysRemove = 33;
-			pixelsToRemove = (pixelsToRemove != undefined) ? (pixelsToRemove + alwaysRemove) : alwaysRemove;
-			// There're always 33 pixels need to be removed from the Code area
-			var fixedHeight = this.block.box.height() - pixelsToRemove;
-			var heightInPixels = fixedHeight + 'px';
-			$(elements).css('height', heightInPixels);	
 		}
 		
 		/**

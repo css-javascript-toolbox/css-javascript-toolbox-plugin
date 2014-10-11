@@ -142,12 +142,12 @@ var CJTServer;
 		getRequestObject : function(controller, action, data) {
 			var requestObject = {};
 			var requestTime = new Date();
+			// Stop controller name mapping!!!
+			controller = (CJTServer.controllers[controller] !== undefined) ? CJTServer.controllers[controller] : controller;
 			// CJT Wordpress Ajax Access Point!
 			var accessPoint = this.pageId + '_api';
 			// Action & Controller parameter always in the URL -- not posted.
-			var queryString = 'action=' + accessPoint + 
-																						'&controller=' + CJTServer.controllers[controller] +
-																						'&CJTAjaxAction=' + action;
+			var queryString = 'action=' + accessPoint + '&controller=' + controller + '&CJTAjaxAction=' + action;
 			var url = CJTServer.ajaxURL + '?' + queryString;
 			// Prepare request object.
 			var requestToken = {

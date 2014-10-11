@@ -81,7 +81,6 @@ class CJTBlocksBlockView extends CJTView {
 		// Use related scripts.
 		self::useScripts(__CLASS__,
 			'jquery',
-			'jquery-ui-menu',
 			'common', 
 			'wp-lists', 
 			'postbox', 
@@ -99,6 +98,7 @@ class CJTBlocksBlockView extends CJTView {
 			'views:blocks:block:public:js:{CJT-}codefile-manager',
 			'views:blocks:block:public:js:{CJT-}codefile',
 			'views:blocks:block:public:js:{CJT-}block',
+			'views:blocks:block:public:js:plugins:{CJT-}_dockmodule',
 			'views:blocks:block:public:js:{CJT-}jquery.block'		
 		);
 	}
