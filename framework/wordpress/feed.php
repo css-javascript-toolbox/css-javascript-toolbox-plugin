@@ -54,6 +54,27 @@ class CJT_Framework_Wordpress_Feed {
 			$this->feed = new SimpleXMLElement(wp_remote_retrieve_body($feed));
 		}
 	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
+	public function getAllItems() {
+		// Initialize.
+		$items = array();
+		// Read only items count specifed by $count param.
+		foreach ($this->feed->channel->item as $xmlItem) {
+			# Read fields.
+			$item = array();
+			foreach ($this->fields as $field) {
+				$item[$field] = (string) $xmlItem->$field;
+			}
+			# Add to list
+			$items[] = $item;
+		}
+		# Return items.
+		return $items;	
+	}
 
 	/**
 	* put your comment there...

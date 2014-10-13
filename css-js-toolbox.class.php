@@ -47,7 +47,7 @@ define('CJTOOLBOX_HTML_CONPONENTS_URL', CJTOOLBOX_URL . '/framework/html/compone
 * @version 0.3
 */
 class cssJSToolbox extends CJTHookableClass {
-	
+
 	/**
 	* 
 	*/
@@ -146,7 +146,7 @@ class cssJSToolbox extends CJTHookableClass {
 	* put your comment there...
 	* 
 	*/
-	public function getDBDriver() {
+	public function & getDBDriver() {
 		return $this->dbDriver;	
 	}
 	
@@ -155,7 +155,7 @@ class cssJSToolbox extends CJTHookableClass {
 	* 
 	* @return cssJSToolbox
 	*/
-	public static function getInstance() {
+	public static function & getInstance() {
 		if (!self::$instance) {
 			self::$instance = self::trigger('cssJSToolbox.instantiate', (new cssJSToolbox()));
 		}

@@ -16,3 +16,7 @@ div#cjt-statcs-metabox-info {padding-top: 14px;}
 #cjt-statcs-metabox-news {margin-left: 20px;}
 .cjt_dw_latestnewstitle {color: #999999; font-size: 14px;}
 .cjt_dw_description {color: black; margin-left: 31px;}
+
+#cjt-statcs-metabox ul, #cjt-statcs-metabox ul li {margin: 0;}
+#cjt-statcs-metabox ul {margin-left: 25px;}
+#cjt-statcs-metabox ul li {margin-top: 10px;}

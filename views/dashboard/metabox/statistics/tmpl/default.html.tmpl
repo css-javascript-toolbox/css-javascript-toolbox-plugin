@@ -39,15 +39,19 @@
 		</tr>
 		<tr>
 			<td class="latest-scripts" colspan="2">
+				<br>
+				<em><?php echo cssJSToolbox::getText('CJT Extensions') ?>:</em>
+				<ul>
 <?php foreach ($this->feed['scripts'] as $item) : ?>
-				<em><?php echo cssJSToolbox::getText('Latest') ?>:</em> <a target="_blank" href="<?php echo $item['link'] ?>"><?php echo $item['title'] ?></a>
+					<li><a target="_blank" href="<?php echo $item['link'] ?>" title="<?php echo $item['description'] ?>"><?php echo $item['title'] ?></a></li>
 <?php endforeach; ?>
+				</ul>
 			</td>
 		</tr>
 	</tbody>
 </table>
 <div id="cjt-statcs-metabox-info">
-	<a target="blank" href="http://<?php echo cssJSToolbox::CJT_WEB_SITE_DOMAIN ?>/pricing/"><?php echo cssJSToolbox::getText('Upgrade to CJT Pro or CJT Dev') ?></a>
-	<a target="blank" style="float: right;" href="http://<?php echo cssJSToolbox::CJT_SCRTIPS_WEB_SITE_DOMAIN ?>/"><?php echo cssJSToolbox::getText('Get Script Packages') ?></a>
+	<a target="blank" href="http://<?php echo cssJSToolbox::CJT_WEB_SITE_DOMAIN ?>/pricing/"><?php echo cssJSToolbox::getText('GO PRO!') ?></a>
+	<a target="blank" style="float: right;" href="http://<?php echo cssJSToolbox::CJT_WEB_SITE_DOMAIN ?>/category/extensions"><?php echo cssJSToolbox::getText('Get CJT Extensions') ?></a>
 	<p><?php echo cssJSToolbox::getText('You\'re using') ?> <strong><?php echo cssJSToolbox::getText('CSS & Javascript Toolbox v') . CJTPlugin::VERSION ?></strong></p>
 </div>
