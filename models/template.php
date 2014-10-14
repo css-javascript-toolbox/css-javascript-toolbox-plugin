@@ -136,10 +136,12 @@ class CJTTemplateModel extends CJTHookableClass {
 		$dbDriver = cssJSToolbox::getInstance()->getDBDriver();
 		$saveId = isset($this->inputs['item']['template']['id']) ? $this->inputs['item']['template']['id'] : null;
 		// Load template data is exists (load), change values (setData).
-		$template = CJTxTable::getInstance('template')->set('id', $saveId)
-																																							->load()
-																																							->setData($this->inputs['item']['template'])
-																																							->setQueueName();
+		$template = CJTxTable::getInstance('template');
+		if ($saveId) {
+			$template->set('id', $saveId)->load();																																
+		}
+		$template->setData($this->inputs['item']['template'])
+						 ->setQueueName();
 		$templateDirName = $template->get('queueName');
 		$templateDir = "wp-content/{$fSConfig->contentDir}/{$fSConfig->templatesDir}/{$templateDirName}";
 		if (!$template->get('id')) { // Add new Template
