@@ -6,8 +6,8 @@ Tags: post, posts, admin, sidebar, page, pages, image, plug, plugin, customise, 
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.9
-Tested up to: 3.9.2
-Stable tag: 7.2
+Tested up to: 4.0
+Stable tag: 8.0
 
 Easily add custom CSS, JavaScript, HTML and PHP code to unique CJT code blocks and assign them wherever you want.
 
