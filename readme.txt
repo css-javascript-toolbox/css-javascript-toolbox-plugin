@@ -130,6 +130,14 @@ Due to the overwhelming amount of emails we get for users requesting support for
 27. Block Info Dialog
 
 == Changelog ==
+= 8.0 =
+* Show premium extensins list in Dashboard Widget instead of Scripts Packages
+* Framework update that makes CJT functionality more extendable
+* Remove: Editor Toolbox Buttons and Block File, Edit and View menu as it now presented in separated extension
+* Remove: Editor Themes Switcher list as it now presented in separated extension
+* Remove: Import and Export Tools as it not presented in separated extension
+* Fix: Conflict with other Themes like X Theme
+
 = 7.2 =
 * Fix: Block Code file name moving away when open/close Block metabox
 * Fix: Shortcode list is too small for Shortcode names
