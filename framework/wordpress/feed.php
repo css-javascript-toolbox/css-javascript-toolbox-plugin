@@ -50,9 +50,20 @@ class CJT_Framework_Wordpress_Feed {
 		$this->fields = $fields;
 		# Request server => get raw XML feed
 		$feed = wp_remote_get("http://{$this->site}/{$this->path}");
-		if (gettype($feed) !== 'WP_Error') {
-			$this->feed = new SimpleXMLElement(wp_remote_retrieve_body($feed));
-		}
+		# Getting XML content
+		$xmlContent = ((gettype($feed) !== 'WP_Error') && ($feed['response']['code'] == 200)) ?
+									wp_remote_retrieve_body($feed) :
+									'<cjterrorrequest>
+										<channel cjt_error="true">
+											<item>
+												<title>ERROR</title>
+												<description>ERROR</description>
+												<link>http://css-javascript-toolbox.com/</link>
+											</item>
+										</channel>
+									</cjterrorrequest>';
+		# Creating feed
+		$this->feed = new SimpleXMLElement($xmlContent);
 	}
 	
 	/**
@@ -62,8 +73,9 @@ class CJT_Framework_Wordpress_Feed {
 	public function getAllItems() {
 		// Initialize.
 		$items = array();
+		$xmlItems = is_array($this->feed->channel->item) ? $this->feed->channel->item : array($this->feed->channel->item);
 		// Read only items count specifed by $count param.
-		foreach ($this->feed->channel->item as $xmlItem) {
+		foreach ($xmlItems as $xmlItem) {
 			# Read fields.
 			$item = array();
 			foreach ($this->fields as $field) {
@@ -84,10 +96,11 @@ class CJT_Framework_Wordpress_Feed {
 	public function getLatestItems($count) {
 		// Initialize.
 		$items = array();
+		$xmlItems = is_array($this->feed->channel->item) ? $this->feed->channel->item : array($this->feed->channel->item);
 		// Read only items count specifed by $count param.
 		for ($currentIndex = 0; $currentIndex < $count; $currentIndex++) {
 			# Copy only title and link.
-			$xmlItem = $this->feed->channel->item[$currentIndex];
+			$xmlItem = $xmlItems[$currentIndex];
 			# Read fields.
 			$item = array();
 			foreach ($this->fields as $field) {
@@ -121,7 +134,7 @@ class CJT_Framework_Wordpress_Feed {
 	* 
 	*/
 	public function isError() {
-		return !$this->feed;
+		return !$this->feed || $this->feed->channel->attributes()->cjt_error;
 	}
 
 } // End class.

@@ -57,11 +57,7 @@ class CJTStatisticsMetaboxModel {
 	*/
 	public function getFeed() {
 		// Initialize.
-		$widgetTransitFeed = get_option(self::CJT_LASTEST_SCRIPT_OPTION_NAME, array(
-			'scripts' => array(array('title' => 'Extensions', 'link' => 'http://' . cssJSToolbox::CJT_WEB_SITE_DOMAIN . '/category/extensions')),
-			'news' => array(array('title' => 'CJT News', 'link' => 'http://' . cssJSToolbox::CJT_WEB_SITE_DOMAIN . 'category/news/')),
-			'time' => 0
-		));
+		$widgetTransitFeed = get_option(self::CJT_LASTEST_SCRIPT_OPTION_NAME, array('time' => 0));
 		// Only if cache is expires read feed from server.
 		if ((time() - $widgetTransitFeed['time']) > self::LATEST_SCRIPT_EXPIRES) {
 			# Get Latest Scripts/Packages from feed.
@@ -70,21 +66,20 @@ class CJTStatisticsMetaboxModel {
 				'category/extensions/feed/',
 				array('title', 'link', 'description')
 			);
-			if (!$scriptsFeed->isError()) {
-				$widgetTransitFeed['scripts'] = $scriptsFeed->getAllItems();
-			}
+			$widgetTransitFeed['scripts'] = $scriptsFeed->getAllItems();
 			# Get latest news from news feed.
 			$newsFeed = new CJT_Framework_Wordpress_Feed(
 				cssJSToolbox::CJT_WEB_SITE_DOMAIN, 
 				'category/news/feed/',
 				array('title', 'link', 'description')
 			);
-			if (!$newsFeed->isError()) {
-				$widgetTransitFeed['news'] = $newsFeed->getLatestItems(1);
+			$widgetTransitFeed['news'] = $newsFeed->getLatestItems(1);
+			# Cache only if there is no errors.
+			if (!$newsFeed->isError() && !$scriptsFeed->isError()) {
+				# Store cache time.
+				$widgetTransitFeed['time'] = time();
+				update_option(self::CJT_LASTEST_SCRIPT_OPTION_NAME, $widgetTransitFeed);				
 			}
-			# Store cache time.
-			$widgetTransitFeed['time'] = time();
-			update_option(self::CJT_LASTEST_SCRIPT_OPTION_NAME, $widgetTransitFeed);
 		}
 		return $widgetTransitFeed;
 	}
