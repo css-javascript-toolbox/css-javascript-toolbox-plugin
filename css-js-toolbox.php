@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: CSS & JavaScript Toolbox
-Plugin URI: http://css-javascript-toolbox.com/css-javascript-toolbox-v6/
+Plugin URI: http://css-javascript-toolbox.com/
 Description: CJT Plugin for WordPress to easily add custom CSS and JavaScript to individual pages
 Version: 8.0
 Author: Wipeout Media 
