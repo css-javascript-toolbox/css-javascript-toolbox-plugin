@@ -14,4 +14,4 @@ div#cjt-statcs-metabox-info {padding-top: 14px;}
 #cjt-statcs-metabox ul li {margin-top: 5px;}
 
 .components-list-container {display: inline-block;}
-.scripts-extensions-container {float: right;}
+.scripts-extensions-container {vertical-align: top; margin-left: 34px !important;}

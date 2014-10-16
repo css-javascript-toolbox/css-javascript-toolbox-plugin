@@ -78,6 +78,13 @@ class CJTStatisticsMetaboxModel {
 				update_option(self::CJT_LASTEST_SCRIPT_OPTION_NAME, $widgetTransitFeed);				
 			}
 		}
+		# For versions 8.0 it will produce PHP notice because extensions item is not being exists in the cache
+		# The error will be always visible until next caching cycle!
+		# temporary solution
+		else if (!isset($widgetTransitFeed['extensions'])) {
+			$widgetTransitFeed['extensions'] = array();
+		}
+		# Returns
 		return $widgetTransitFeed;
 	}
 
