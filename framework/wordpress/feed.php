@@ -73,7 +73,7 @@ class CJT_Framework_Wordpress_Feed {
 	public function getAllItems() {
 		// Initialize.
 		$items = array();
-		$xmlItems = is_array($this->feed->channel->item) ? $this->feed->channel->item : array($this->feed->channel->item);
+		$xmlItems = $this->feed->channel->xpath('item');
 		// Read only items count specifed by $count param.
 		foreach ($xmlItems as $xmlItem) {
 			# Read fields.
@@ -94,10 +94,14 @@ class CJT_Framework_Wordpress_Feed {
 	* @param mixed $count
 	*/
 	public function getLatestItems($count) {
-		// Initialize.
+		# Initialize.
 		$items = array();
-		$xmlItems = is_array($this->feed->channel->item) ? $this->feed->channel->item : array($this->feed->channel->item);
-		// Read only items count specifed by $count param.
+		$xmlItems = $this->feed->channel->xpath('item');
+		# Get all available items if the total items count is less that what is originally requested
+		if (count($xmlItems) < $count) {
+			$count = count($xmlItems);
+		}
+		# Read only items count specifed by $count param.
 		for ($currentIndex = 0; $currentIndex < $count; $currentIndex++) {
 			# Copy only title and link.
 			$xmlItem = $xmlItems[$currentIndex];

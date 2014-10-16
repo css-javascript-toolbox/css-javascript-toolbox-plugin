@@ -6,52 +6,60 @@
 	<span class="cjt_dw_latestnewstitle"><?php echo cssJSToolbox::getText('Latest News:') ?> <a target="_blank" href="<?php echo $latestNew['link'] ?>"><?php echo $latestNew['title'] ?></a></span>
 	<p class="cjt_dw_description"><?php echo $latestNew['description'] ?></p>
 </div>
-<table id="cjt-statcs-metabox">
-	<thead>
-		<tr>
-			<th colspan="2"><strong><?php echo cssJSToolbox::getText('Total') ?></strong></th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td><?php echo cssJSToolbox::getText('Active Code Blocks') ?></td>
-			<td><strong><?php echo $this->activeBlocks ?></strong></td>
-		</tr>
-		<tr>
-			<td><?php echo cssJSToolbox::getText('Active Metabox Code Blocks') ?></td>
-			<td><strong><?php echo $this->activeMetaboxBlocks ?></strong></td>
-		</tr>
-		<tr>
-			<td><?php echo cssJSToolbox::getText('Inactive Code Blocks') ?></td>
-			<td><strong><?php echo $this->inactiveBlocks ?></strong></td>
-		</tr>
-		<tr>
-			<td><?php echo cssJSToolbox::getText('Inactive Metabox Code Blocks') ?></td>
-			<td><strong><?php echo $this->inactiveMetaboxBlocks ?></strong></td>
-		</tr>
-		<tr>
-			<td><?php echo cssJSToolbox::getText('Code Templates') ?></td>
-			<td><strong><?php echo $this->templates ?></strong></td>
-		</tr>
-		<tr>
-			<td><?php echo cssJSToolbox::getText('Script Packages') ?></td>
-			<td><strong><?php echo $this->scriptsPackage ?></strong></td>
-		</tr>
-		<tr>
-			<td class="latest-scripts" colspan="2">
-				<br>
-				<em><?php echo cssJSToolbox::getText('CJT Extensions') ?>:</em>
-				<ul>
-<?php foreach ($this->feed['scripts'] as $item) : ?>
-					<li><a target="_blank" href="<?php echo $item['link'] ?>" title="<?php echo $item['description'] ?>"><?php echo $item['title'] ?></a></li>
+<hr />
+<div>
+	<table id="cjt-statcs-metabox">
+		<thead>
+			<tr>
+				<th colspan="2"><strong><?php echo cssJSToolbox::getText('Total') ?></strong></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><?php echo cssJSToolbox::getText('Active Code Blocks') ?></td>
+				<td><strong><?php echo $this->activeBlocks ?></strong></td>
+			</tr>
+			<tr>
+				<td><?php echo cssJSToolbox::getText('Active Metabox Code Blocks') ?></td>
+				<td><strong><?php echo $this->activeMetaboxBlocks ?></strong></td>
+			</tr>
+			<tr>
+				<td><?php echo cssJSToolbox::getText('Inactive Code Blocks') ?></td>
+				<td><strong><?php echo $this->inactiveBlocks ?></strong></td>
+			</tr>
+			<tr>
+				<td><?php echo cssJSToolbox::getText('Inactive Metabox Code Blocks') ?></td>
+				<td><strong><?php echo $this->inactiveMetaboxBlocks ?></strong></td>
+			</tr>
+			<tr>
+				<td><?php echo cssJSToolbox::getText('Code Templates') ?></td>
+				<td><strong><?php echo $this->templates ?></strong></td>
+			</tr>
+			<tr>
+				<td><?php echo cssJSToolbox::getText('Script Packages') ?></td>
+				<td><strong><?php echo $this->scriptsPackage ?></strong></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<hr />
+<div id="cjt-statcs-metabox-latest-extensions" class="components-list-container utility-extensions-container">
+	<em><?php echo cssJSToolbox::getText('CJT Extensions Plugins') ?>:</em>
+	<ul class="components-list">
+<?php foreach ($this->feed['extensions'] as $item) : ?>
+		<li><a target="_blank" href="<?php echo $item['link'] ?>" title="<?php echo strip_tags($item['description']) ?>"><?php echo $item['title'] ?></a></li>
 <?php endforeach; ?>
-				</ul>
-			</td>
-		</tr>
-	</tbody>
-</table>
+	</ul>
+</div>
+<div id="cjt-statcs-metabox-latest-scripts" class="components-list-container scripts-extensions-container">
+	<em><?php echo cssJSToolbox::getText('CJT Script Plugins') ?>:</em>
+	<ul class="components-list">
+<?php foreach ($this->feed['scripts'] as $item) : ?>
+		<li><a target="_blank" href="<?php echo $item['link'] ?>" title="<?php echo strip_tags($item['description']) ?>"><?php echo $item['title'] ?></a></li>
+<?php endforeach; ?>
+	</ul>
+</div>
+<hr />
 <div id="cjt-statcs-metabox-info">
-	<a target="blank" href="http://<?php echo cssJSToolbox::CJT_WEB_SITE_DOMAIN ?>/pricing/"><?php echo cssJSToolbox::getText('GO PRO!') ?></a>
-	<a target="blank" style="float: right;" href="http://<?php echo cssJSToolbox::CJT_WEB_SITE_DOMAIN ?>/category/extensions"><?php echo cssJSToolbox::getText('Get Extensions') ?></a>
-	<p><?php echo cssJSToolbox::getText('You\'re using') ?> <strong><?php echo cssJSToolbox::getText('CSS & Javascript Toolbox v') . CJTPlugin::VERSION ?></strong></p>
+	<a target="blank" href="http://<?php echo cssJSToolbox::CJT_WEB_SITE_DOMAIN ?>/pricing/"><?php echo cssJSToolbox::getText('Save on CJT Extension Bundles') ?></a>
 </div>
