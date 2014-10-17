@@ -2,7 +2,7 @@
 Contributors: wipeoutmedia
 Author URL: http://css-javascript-toolbox.com
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=EWDWF75JHT9Q6
-Tags: post, posts, admin, sidebar, page, pages, image, plug, plugin, customise, style, scripts, hack, Wordpress, HTML, CSS, JavaScript, HTML5, jQuery, PHP, code, script, scripts, manage, management, display, output, header, footer, apply, requests, match, hook, execute, run
+Tags: post, posts, admin, sidebar, page, pages, widget, image, shortcode, plugin, google, customise, style, scripts, hack, Wordpress, HTML, CSS, JavaScript, HTML5, jQuery, PHP, code, script, scripts, manage, management, display, output, header, footer, apply, requests, match, hook, execute, run
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.9
@@ -12,34 +12,42 @@ Stable tag: 8.0
 Easily add custom CSS, JavaScript, HTML and PHP code to unique CJT code blocks and assign them wherever you want.
 
 == Description ==
-CSS & JavaScript Toolbox is a powerful code management plugin that gives you the tools to easily and safely modify or extend the functionality and appearance of your WordPress-powered website. You do this by adding custom code directly into unique code blocks and assign them to pages, posts, custom posts, categories, URLs, expressions, and loads more!
+CSS & JavaScript Toolbox (or CJT) is a powerful code management plugin that gives you the tools to easily and safely modify or extend the functionality and appearance of your WordPress-powered website.
 
-= CJT Comes with Unlimited number of Extensions =
-CJT is providing a cool extensions that can be used through CJT Shortcode Form. Both [FREE CJT Extensions](https://wordpress.org/plugins/search.php?q=cjte) and [Premium CJT Extensions](http://css-javascript-toolbox.com/script-extensions/) are available for downloads.
+= Perfect for WordPress website development =
+Whether it be adding free/premium scripts, creating and testing new scripts, streamlining development work, making front-end customisations, or even teaching and learning WordPress – CJT is extremely flexible and versatile.
 
-= Like CJT Free – Upgrade to CJT Pro/Dev =
-If you like CJT Free, we hope you can support the continued development by upgrading to CJT Pro or CJT Dev. 
-Click to learn about the [benefits of upgrading to CJT Pro/Dev](http://css-javascript-toolbox.com/pricing).
+= How does it work? =
+Since CJT was designed to be easy, adding scripts and styles can be done in as little as two steps.
 
-[youtube http://www.youtube.com/watch?v=iyjq7IXBC5E]
+- adding your code directly into unique CJT code blocks
+- assigning where these code blocks go
 
-= So what exactly is CJT? =
-Just like plugins, scripts can modify or extend the functionality and appearance of your website. Unlike plugins, adding and configuring script code files can be frustrating. CJT makes this process pleasant and easy. In fact, adding scripts and styles with CJT can be done in as little as two steps: 
-1) Add your code 
-2) Assign where it goes
+CJT code blocks can be assigned to pages, posts, custom posts, categories, URLs, expressions, and practically anywhere you want on your website. Code block shortcodes can also provide you with further placement accuracy.
 
-= Who is this plugin for? =
-This plugin is primarily intended for WordPress website developers and designers. But that is not to say that others would not be able to get use out of it. CJT can be used for a lot of things from; teachers teaching and students learning to code, to mum and dad bloggers wanting to add Google Analytics or other scripts to their website. So whether it be adding free/premium scripts, creating and testing new scripts, streamlining development work, making front-end customisations, or even teaching and learning WordPress – CJT is extremely flexible and versatile.
+= Want more features? =
+Get CJT extension plugins that provide more features such as:
 
-= Features =
-There are way too many features to list on this CJT description page, so if you want to learn more, please click into the [CSS & JavaScript Toolbox website](http://css-javascript-toolbox.com).
+- [Editor Toolbox](http://css-javascript-toolbox.com/extensions/editor-toolbox)
+- [Editor Themes](http://css-javascript-toolbox.com/extensions/editor-themes)
+- [Block Widget Linker](http://css-javascript-toolbox.com/extensions/block-widget-linker)
+- [Import Export Tool](http://css-javascript-toolbox.com/extensions/import-export-tool)
+- [Code Auto Completion](http://css-javascript-toolbox.com/extensions/code-auto-completion)
+- [Advanced Theme Editor](http://css-javascript-toolbox.com/extensions/advanced-theme-editor)
+- [Advanced Plugins Editor](http://css-javascript-toolbox.com/extensions/advanced-plugins-editor)
 
-= Thank You =
-We would first like to thank you for installing our WordPress plugin. If you like this plugin, find it useful, and appreciate the huge amount of work that has gone into creating it, you can certainly support our efforts by:
+= Want to add great scripts? =
+Get script plugins that can be installed on your website running CJT:
 
-- Clicking here to [purchase a copy of CJT Pro or CJT Dev](http://css-javascript-toolbox.com/pricing)
-- Provide a [feedback review and rating](http://wordpress.org/support/view/plugin-reviews/css-javascript-toolbox) on WordPress.org
-- Spreading the word and recommending the CJT plugin to others.
+- [Image Zoomer](https://wordpress.org/plugins/cjte-image-zoomer/)
+- [Black & White Image Effect](https://wordpress.org/plugins/cjte-black-white-image-effect/)
+
+= Support Us =
+Thank you for your interest in CSS & JavaScript Toolbox. 
+Please support us by:
+
+- Providing a [feedback review and rating](http://wordpress.org/support/view/plugin-reviews/css-javascript-toolbox) on WordPress.org
+- Spreading the word and recommending CJT to others.
 
 = Follow the Developments =
 If you like to know more about the development state, issues and to track future versions code please follow us on [GitHub Plugin repository](https://github.com/css-javascript-toolbox/css-javascript-toolbox-plugin).
@@ -97,46 +105,40 @@ Make sure you have copied and pasted the Page, Post, or Category URL exactly as 
 Hook location feature gives you control over the location of outputting the CSS/JS code. This is useful in case overriding another plugins' CSS is required. Also sometimes its better to put your JS code in the footer to avoid slowing down your page load.
 
 = I received a weird error, what do I do now? =
-Due to the overwhelming amount of emails we get for users requesting support for our CJT plugins, we cannot provide support for the CJT Free plugin (hosted here on WordPress.org) at this stage unfortunately. If you wish to receive priority support, please visit our CJT website and [purchase a license for any of our plugins](http://css-javascript-toolbox.com/pricing).
+Due to the overwhelming amount of emails we get for users requesting support for our CJT plugins, we cannot provide support for the CJT Free plugin (hosted here on WordPress.org) at this stage unfortunately. If you wish to receive priority support, please visit our CJT website and [purchase a license for any of our products](http://css-javascript-toolbox.com/pricing).
 
 == Screenshots ==
 
-1. Code Block
-2. Create code blocks
-3. Blocks List
-4. Editor Syntax Highlights and Error Checker
-5. Code Auto Completion and Code Snippets Extension
-6. Editing Tools
-7. Save Load Code Tools
-8. Assigning Wordpress Pages
-9. Assigning Wordpress Posts
-10. Assigning Custom Posts
-11. Assigning Categories
-12. Auxiliary Assignments
-13. Advanced Assignment (URLs and Regular Expressions)
-14. Change State Batch Tools
-15. Change Location/Hook Batch Tools
-16. Delete and Backup Tools
-17. Block Code-Files Manager Form
-18. Hide/Show Assignment Panel window
-19. Single Window Full Screen Mode
-20. Change Editor Theme
-21. Templates Manager Form
-22. Templates Lookup Form
-23. Insert Block Shortcode via TinyMCE Button
-24. Create Metabox Block At Edit post Level
-25. Blocks Screenshor by creating Backup from all existing Code Blocks
-26. Block Revisions Dialog
-27. Block Info Dialog
+1. Add your code, then assign where it goes
+2. Create New Code Block dialog box
+3. Master Admin Toolbar at top, and minimised Code Blocks below
+4. Change editor language for syntax highlighting and error checking
+5. Assigning WordPress Pages and sub-pages
+6. Assigning WordPress Posts
+7. Assigning Custom Posts
+8. Assigning Categories and sub-categories
+9. Auxiliary Assignments
+10. Advanced Assignments (URLs and Regular Expressions)
+11. Change State batch tools
+12. Change Location/Hook batch tools
+13. Delete and Backup Tools
+14. Code-Files management form (within each Code Block)
+15. Templates Manager form to store all of your Code Templates
+16. Templates Lookup form to embed or link Code Templates to Code Blocks
+17. Insert Code Block shortcodes via TinyMCE button
+18. Metabox Code Block at the Edit Page/Post level
+19. Create backups of all your existing Code Blocks
+20. Create/Restore Code Block revisions
+21. See Code Block information at a glance
 
 == Changelog ==
 = 8.0 =
-* Show premium extensins list in Dashboard Widget instead of Scripts Packages
+* Show premium extensions list in Dashboard Widget instead of Scripts Packages
 * Framework update that makes CJT functionality more extendable
 * Remove: Editor Toolbox Buttons and Block File, Edit and View menu as it now presented in separated extension
 * Remove: Editor Themes Switcher list as it now presented in separated extension
 * Remove: Import and Export Tools as it not presented in separated extension
-* Fix: Conflict with other Themes like X Theme
+* Fix: Conflict with other themes like X Theme
 
 = 7.2 =
 * Fix: Block Code file name moving away when open/close Block metabox
