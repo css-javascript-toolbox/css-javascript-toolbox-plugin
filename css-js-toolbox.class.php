@@ -239,7 +239,7 @@ class cssJSToolbox extends CJTHookableClass {
 			$base = WP_PLUGIN_DIR;
 		}
 		// Replace all :'s with /'s.
-		$path = preg_replace('/(\w)\:(\w)/', '$1/$2', $vPath);
+		$path = str_replace(':', '/', $vPath);
 		$path = "{$base}/{$path}";
 		return self::trigger('cssJSToolbox.resolvepath', $path, $vPath);
 	}
