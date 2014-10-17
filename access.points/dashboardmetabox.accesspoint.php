@@ -27,7 +27,9 @@ class CJTDashboardMetaboxAccessPoint extends CJTAccessPoint {
 	* 
 	*/
 	public function createMetabox() {
-		wp_add_dashboard_widget('cjt-statistics', cssJSToolbox::getText('CSS & Javascript Toolbox'), array($this, 'route'));
+		if (CJTPlugin::getInstance()->isInstalled()) {
+			wp_add_dashboard_widget('cjt-statistics', cssJSToolbox::getText('CSS & Javascript Toolbox'), array($this, 'route'));	
+		}
 	}
 
 	/**
