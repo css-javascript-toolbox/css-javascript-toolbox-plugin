@@ -14,7 +14,7 @@ class CJTExtensionsAccessPoint extends CJTAccessPoint {
 	/**
 	* 
 	*/
-	const MENU_POSITION_INDEX = 3;
+	const MENU_POSITION_INDEX = 2;
 	
 	/**
 	* 
