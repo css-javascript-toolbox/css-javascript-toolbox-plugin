@@ -7,7 +7,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.9
 Tested up to: 4.0
-Stable tag: 8.0.1
+Stable tag: 8.0.2
 
 Easily add custom CSS, JavaScript, HTML and PHP code to unique CJT code blocks and assign them wherever you want.
 
@@ -132,6 +132,10 @@ Due to the overwhelming amount of emails we get for users requesting support for
 21. See Code Block information at a glance
 
 == Changelog ==
+= 8.0.2 =
+* Remove: CJT License Setup form as CJT is now 100% FREE.
+* Fix: Multi site CJT Network Extensions is not loaded.
+
 = 8.0.1 =
 * Fix: Fresh installer stopped when 'Adding Wordpress built-in scripts and styles as CJT Templates'
 * Fix: Dashboard metabox notices when CJT is not yet installed
