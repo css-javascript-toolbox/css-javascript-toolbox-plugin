@@ -191,8 +191,14 @@ class CJTExtensions extends CJTHookableClass {
 			//Resting!
 			$this->file2Classmap = array();
 			$extensions = array();
+			# Get all active plugins
+			$activePlugins = wp_get_active_and_valid_plugins();
+			# Get Network plugins
+			if (is_multisite()) {
+				$activePlugins = array_merge(wp_get_active_network_plugins(), $activePlugins);
+			}
 			// filter all installed Plugins to fetch all out Extensions!
-			$activePlugins = $this->ongetactiveplugins(wp_get_active_and_valid_plugins());
+			$activePlugins = $this->ongetactiveplugins($activePlugins);
 			foreach ($activePlugins as $file) {
 				$pluginDir = dirname($file);
 				$pluginName = basename($pluginDir);
