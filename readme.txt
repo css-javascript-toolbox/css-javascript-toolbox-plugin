@@ -6,12 +6,20 @@ Tags: post, posts, admin, sidebar, page, pages, widget, image, shortcode, plugin
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.9
-Tested up to: 4.0
-Stable tag: 8.0.2
+Tested up to: 4.1
+Stable tag: 8.0.3
 
 Easily add custom CSS, JavaScript, HTML and PHP code to unique CJT code blocks and assign them wherever you want.
 
 == Description ==
+= We need your support =
+Your purchase of CJTe Developer will assist us in the continued development of all CJT plugins on WordPress.org.
+
+This project is 100% developed and maintained by only two people since the very start in August 2011. We have plenty of [feature ideas that we want to include](http://css-javascript-toolbox.com/development/request), and this can only be possible with funding.
+
+If you would like to learn more about the additional benefits, please click: [CJTe Developer](http://css-javascript-toolbox.com/cjte-developer).
+
+= About =
 CSS & JavaScript Toolbox (or CJT) is a powerful code management plugin that gives you the tools to easily and safely modify or extend the functionality and appearance of your WordPress-powered website.
 
 = Perfect for WordPress website development =
@@ -25,18 +33,14 @@ Since CJT was designed to be easy, adding scripts and styles can be done in as l
 
 CJT code blocks can be assigned to pages, posts, custom posts, categories, URLs, expressions, and practically anywhere you want on your website. Code block shortcodes can also provide you with further placement accuracy.
 
-= Want more features? =
+= Want more features for free? =
 Get CJT extension plugins that provide more features such as:
 
-- [Editor Toolbox](http://css-javascript-toolbox.com/extensions/editor-toolbox)
-- [Editor Themes](http://css-javascript-toolbox.com/extensions/editor-themes)
-- [Block Widget Linker](http://css-javascript-toolbox.com/extensions/block-widget-linker)
-- [Import Export Tool](http://css-javascript-toolbox.com/extensions/import-export-tool)
-- [Code Auto Completion](http://css-javascript-toolbox.com/extensions/code-auto-completion)
-- [Advanced Theme Editor](http://css-javascript-toolbox.com/extensions/advanced-theme-editor)
-- [Advanced Plugins Editor](http://css-javascript-toolbox.com/extensions/advanced-plugins-editor)
+- [Advanced Theme Editor](https://wordpress.org/plugins/cjte-advanced-theme-editor)
+- [Advanced Plugins Editor](https://wordpress.org/plugins/cjte-advanced-plugins-editor)
+- [WP Core Editor](https://wordpress.org/plugins/cjte-wp-core-editor)
 
-= Want to add great scripts? =
+= Want to add script plugins? =
 Get script plugins that can be installed on your website running CJT:
 
 - [Image Zoomer](https://wordpress.org/plugins/cjte-image-zoomer/)
@@ -46,6 +50,7 @@ Get script plugins that can be installed on your website running CJT:
 Thank you for your interest in CSS & JavaScript Toolbox. 
 Please support us by:
 
+- Joining in with the voting and discussion on [new CJT feature ideas](http://css-javascript-toolbox.com/development/request).
 - Providing a [feedback review and rating](http://wordpress.org/support/view/plugin-reviews/css-javascript-toolbox) on WordPress.org
 - Spreading the word and recommending CJT to others.
 
@@ -132,6 +137,10 @@ Due to the overwhelming amount of emails we get for users requesting support for
 21. See Code Block information at a glance
 
 == Changelog ==
+= 8.0.3 =
+* Add support us link to Dashboard metabpx
+* Add support us link to CJT header
+
 = 8.0.2 =
 * Remove: CJT License Setup form as CJT is now 100% FREE.
 * Fix: Multi site CJT Network Extensions is not loaded.
