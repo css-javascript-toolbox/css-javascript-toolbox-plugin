@@ -4,6 +4,7 @@
 .cjt-banner-bar .cjt-banner-link a, .cjt-banner-bar a:hover, .cjt-banner-bar a:visited{color: #A5581B;}
 #cjt-banner-bar-right {right: 0px;position: absolute;top: 2px;}
 #cjt-banner-bar-right .cjt-banner-link {float: right; margin-bottom: 6px;}
+span#support-us {position: absolute;top: 15px;left: 370px;font-size: 16px;color: #aaa;font-weight: bold;}
 
 #get-packages-icon {display: inline-block; width: 13px; height: 15px; background-image: url('../images/get-packages.png'); margin-left: 3px;margin-bottom: -4px; margin-right: 5px;}
 
