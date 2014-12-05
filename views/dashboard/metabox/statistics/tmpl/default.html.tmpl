@@ -43,23 +43,6 @@
 	</table>
 </div>
 <hr />
-<div id="cjt-statcs-metabox-latest-extensions" class="components-list-container utility-extensions-container">
-	<em><?php echo cssJSToolbox::getText('CJT Extensions Plugins') ?>:</em>
-	<ul class="components-list">
-<?php foreach ($this->feed['extensions'] as $item) : ?>
-		<li><a target="_blank" href="<?php echo $item['link'] ?>" title="<?php echo strip_tags($item['description']) ?>"><?php echo $item['title'] ?></a></li>
-<?php endforeach; ?>
-	</ul>
-</div>
-<div id="cjt-statcs-metabox-latest-scripts" class="components-list-container scripts-extensions-container">
-	<em><?php echo cssJSToolbox::getText('CJT Script Plugins') ?>:</em>
-	<ul class="components-list">
-<?php foreach ($this->feed['scripts'] as $item) : ?>
-		<li><a target="_blank" href="<?php echo $item['link'] ?>" title="<?php echo strip_tags($item['description']) ?>"><?php echo $item['title'] ?></a></li>
-<?php endforeach; ?>
-	</ul>
-</div>
-<hr />
 <div id="cjt-statcs-metabox-info">
-	<a target="blank" href="http://<?php echo cssJSToolbox::CJT_WEB_SITE_DOMAIN ?>/pricing/"><?php echo cssJSToolbox::getText('Save on CJT Extension Bundles') ?></a>
+	<span id="support-us"><?php echo cssJSToolbox::getText('Support us by purchasing') ?>: <a target="_blank" href="http://css-javascript-toolbox.com/cjte-developer/">CJTe Developer</a></span>
 </div>

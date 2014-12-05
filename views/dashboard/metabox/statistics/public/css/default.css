@@ -4,7 +4,7 @@ table#cjt-statcs-metabox {width: 100%;padding: 0 14px 8px 0;color: #999999;font-
 table#cjt-statcs-metabox strong {color: black;}
 #cjt-statcs-metabox th {text-align: right;}
 #cjt-statcs-metabox th {padding-bottom: 10px;}
-div#cjt-statcs-metabox-info {padding-top: 14px;}
+div#cjt-statcs-metabox-info {padding-top: 14px;text-align: center;}
 
 .cjt_dw_latestnewstitle {color: #999999; font-size: 14px;}
 .cjt_dw_description {color: black; margin-left: 21px;}
@@ -13,5 +13,4 @@ div#cjt-statcs-metabox-info {padding-top: 14px;}
 #cjt-statistics ul.components-list {margin-left: 4px;}
 #cjt-statcs-metabox ul li {margin-top: 5px;}
 
-.components-list-container {display: inline-block;}
-.scripts-extensions-container {vertical-align: top; margin-left: 34px !important;}
+span#support-us {font-size: 13px;color: #aaa;font-weight: bold;}
