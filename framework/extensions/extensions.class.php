@@ -24,7 +24,7 @@ class CJTExtensions extends CJTHookableClass {
 	/**
 	* 
 	*/
-	const PREFIX = 'cjte-';
+	const PREFIXS = 'cjte-,css-javascript-toolbox-';
 	
 	/**
 	* put your comment there...
@@ -162,11 +162,11 @@ class CJTExtensions extends CJTHookableClass {
 	* @param mixed $loadMethod
 	* @return CJTExtensions
 	*/
-	public function __construct($prefix = self::PREFIX, $loadMethod = self::LOAD_METHOD) {
+	public function __construct($prefix = self::PREFIXS, $loadMethod = self::LOAD_METHOD) {
 		// Hookable!
 		parent::__construct();
 		// Initializing!
-		$this->prefix = $prefix;
+		$this->prefix = explode( ',', $prefix );
 		$this->loadMethod = $loadMethod;
 	}
 	
@@ -203,7 +203,8 @@ class CJTExtensions extends CJTHookableClass {
 				$pluginDir = dirname($file);
 				$pluginName = basename($pluginDir);
 				// Any plugin with our prefix is a CJT extension!
-				if (strpos($pluginName, $this->prefix) === 0) {
+				if ( ( strpos( $pluginName, $this->prefix[0] ) === 0 ) || 
+					 	 ( strpos( $pluginName, $this->prefix[1] ) === 0 ) ) {
 					// CJT Extsnsion must has the definition XML file!
 					// First try for Edition-Specific file
 					// if not exists try the generic one.
