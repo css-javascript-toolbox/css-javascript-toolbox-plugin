@@ -19,7 +19,7 @@ class CJTExtensionsAccessPoint extends CJTAccessPoint {
 	/**
 	* 
 	*/
-	const PLUGINS_PAGE_SEARCH_TERM = 'CJT-Extension';
+	const PLUGINS_PAGE_SEARCH_TERM = 'css-javascript-toolbox';
 	
 	/**
 	* put your comment there...

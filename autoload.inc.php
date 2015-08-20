@@ -23,3 +23,7 @@ $map->offsetSet('CJTBlockModel', 'models/block.php');
 $map->offsetSet('CJTBlocksModel', 'models/blocks.php');
 $map->offsetSet('CJTAccessPoint', 'framework/access-points/access-point.class.php');
 $map->offsetSet('CJTPageAccessPoint', 'framework/access-points/page.class.php');
+
+
+# Composer Autoloads (All the above autoloads is deprecated and will be revmoed later)
+require 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
