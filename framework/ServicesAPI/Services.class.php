@@ -43,7 +43,7 @@ class CJTServicesClient {
 	public function __construct() {
 		# Initialize
 		####cssJSToolbox::getCJTWebSiteURL()
-		$this->url = 'http://free.cjt/' . "cjtservices-api";
+		$this->url = 'http://testwp.com/' . "cjtservices-api";
 	}
 
 	/**
@@ -91,6 +91,16 @@ class CJTServicesClient {
 	* @param mixed $params
 	*/
 	public function makeCall($module, $method, $params = null, $postData = null) {
+		# Prepare method name by replacing all UPPER Letters to Lower 
+		# precedence by _
+		while ( preg_match( '/[A-Z]/', $method, $upperLetter, PREG_OFFSET_CAPTURE ) ) {
+			$method = substr_replace( $method, 
+																( '_' . strtolower( $upperLetter[ 0 ][ 0 ] ) ), 
+																$upperLetter[ 0 ][ 1 ], 1 
+																);
+		};
+		# Lowercase module name
+		$module = strtolower( $module );
 		# Construct method call uri
 		$methodUri = "{$this->url}/{$module}/{$method}";
 		# Defaults and E_ALL Complains

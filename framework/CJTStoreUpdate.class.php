@@ -52,7 +52,7 @@ class CJTStoreUpdate {
 						'last_updated' => $pluginInfo[ 'lastUpdated' ],
 						'author'  => 			$pluginData[ 'Author' ], 
 						'requires' => 		$pluginInfo[ 'requires' ], 
-						'tested' => '4.3', 
+						'tested' => 			$pluginInfo[ 'tested' ], 
 						'homepage' => 		$pluginInfo[ 'url' ], 
 						'downloaded' => 	$pluginInfo[ 'downloadsCount' ], 
 						'slug' => 				$store->getSlug(),
