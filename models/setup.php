@@ -67,19 +67,28 @@ class CJTSetupModel {
 	* @param mixed $component
 	* @param mixed $license
 	*/
-	public function dispatchEddCall($action, $component, $license) {
-		// Activating License key thorugh EDD APIs!		
-		$request['edd_action'] = "{$action}_license";
-		$request['item_name'] = urlencode($component['name']);
-		$request['license'] = $license['key'];
-		/* CJT Extra Fields For EDD */
-		//$request['CJTEFFEDD_licenseName'] = $license['name'];
-		// Request the server!
-		$response = wp_remote_get(add_query_arg($request, cssJSToolbox::getCJTWebSiteURL()));
-		// We need only the JSON object returned by EDD APIs.
-		$response = @json_decode(wp_remote_retrieve_body($response), true);
-		// If request error compaitble the response object to be used!
-		if (!$response) {
+	public function dispatchLicenseAction($action, $component, $license) {
+		# Get Plugin File from component base name
+		$pluginFile = WP_PLUGIN_DIR . $component[ 'pluginBase' ];
+		# Get CJT Store object
+		$store = new CJTStore( $component [ 'name' ], $license[ 'key' ], $pluginFile );
+		# Build method name from the given action
+		$methodName = "{$action}License";
+		try {
+			# Call requested method
+			$result = $store->$methodName( $license[ 'name' ] );
+			# Build response object locally
+			# The structure is taken from EDD license extension as it was used here
+			# when the plugin is orignally developed
+			if ( $result ) { // Success operation
+				$response['license'] = 'valid';
+			}
+			else { // Operation faild
+				$response['license'] = 'invalid';
+			}
+		}
+		catch ( CJTServicesAPICallException $exception ) {
+			// If request error compaitble the response object to be used!	
 			$response = array('license' => 'error', 'component' => $component['name']);
 		}
 		return $response;

@@ -65,6 +65,36 @@ class CJTStore extends CJTServicesClientModule {
 	/**
 	* put your comment there...
 	* 
+	* @param mixed $ownerName
+	* @return mixed
+	*/
+	public function activateLicense($ownerName) {
+		return (bool) $this->makeCall( __FUNCTION__, compact( 'ownerName' ) )->getResponseData();
+	}
+
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $ownerName
+	* @return mixed
+	*/
+	public function checkLicense($ownerName) {
+		return (bool) $this->makeCall( __FUNCTION__, compact( 'ownerName' ) )->getResponseData();
+	}
+
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $ownerName
+	* @return mixed
+	*/
+	public function deactivateLicense($ownerName) {
+		return (bool) $this->makeCall( __FUNCTION__, compact( 'ownerName' ) )->getResponseData();
+	}
+
+	/**
+	* put your comment there...
+	* 
 	*/
 	public function getBaseName() {
 		return $this->baseName;

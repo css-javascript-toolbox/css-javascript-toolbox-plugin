@@ -96,7 +96,7 @@
 			// Disable form fields!
 			progress.inputs = this.activationForm.find('input').prop('disabled', 'disabled').addClass('disabled');
 			// Pass licene action along out with the form data!
-			var request = $.extend(formData, {eddAction : this.todo});
+			var request = $.extend(formData, {licenseAction : this.todo});
 			// Requesing server!
 			var action = this.action ? this.action : 'license';
 			this.server.send('setup', action, request)

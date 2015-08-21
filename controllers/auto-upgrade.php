@@ -43,11 +43,14 @@ class CJTAutoUpgradeController extends CJTController {
 					$pluginFile = ABSPATH . PLUGINDIR . '/' . $state['component']['pluginBase'];
 					$license =& $state['license'];
 					// Set EDD Automatic Updater!
-					CJTStoreUpdate::autoUpgrade( $name, $license, $pluginFile );
-					####$updated = new CJT_EDD_SL_Plugin_Updater($cjtWebServer, $pluginFile, $requestParams);
+					try {
+						CJTStoreUpdate::autoUpgrade( $name, $license[ 'key' ], $pluginFile );	
+					}
+					catch ( CJTServicesAPICallException $exception ) {
+						die( 'CJT AUTO-UPGRADE EXCAPTION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' );
+					}
 				}
 			}
 		}
-		CJTStoreUpdate::autoUpgrade( 'CSS & JavaScript Toolbox Plus', '445270200e20f2e7812e5378b07e405a', CJTPLUS_PLUGIN_FILE );
 	}
 } // End class.

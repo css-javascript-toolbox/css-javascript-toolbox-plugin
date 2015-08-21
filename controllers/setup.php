@@ -60,28 +60,15 @@ class CJTsetupController extends CJTAjaxController {
 	*/
 	protected function licenseAction() {
 		// Read request parameters!
-		$action = $_REQUEST['eddAction'];
+		$action = $_REQUEST['licenseAction'];
 		$state['component'] = $_REQUEST['component'];
 		$state['license'] = $_REQUEST['license'];
 		// Initializing!
 		$model =& $this->model;
 		// Request EDD through EDD SL APIs!
-		$state['response'] = $model->dispatchEddCall($action, $state['component'], $state['license']);
-		// Standarize response object! As check and activate responde by 'valid' and 'invalid' and deactivate responde
-		// by deactivated and faild we then need to make them all likce check and activate!
-		if (($action == 'deactivate') && ($state['response']['license'] != 'error')) {
-			$map = array('deactivated' => 'valid', 'failed' => 'invalid');
-			$deactivateResponseState = $state['response']['license'];
-			$state['response']['license'] = $map[$deactivateResponseState];
-		}
+		$state['response'] = $model->dispatchLicenseAction($action, $state['component'], $state['license']);
 		// Cahe only if the request is 'activate' or 'deactivate' and the returned state is valid or 'deactivated! respectively.
 		if (($action != 'check') && ($state['response']['license'] == 'valid')) {
-			// We need to standarize the response object so the access will be always the same
-			// EDD return 'deactivated' and 'valid' with the success request using 'deactivate' and 'activate' repectively!
-			// Use valid instead of deactivate!
-			if ($action == 'deactivate') {
-				$state['response']['license'] = 'valid';
-			}
 			$state['action'] = $model->cacheState($state['component'], $action, $state);
 		}
 		// Return state object includes (component, license, edd response [and action only if valid])
