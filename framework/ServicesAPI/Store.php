@@ -180,7 +180,7 @@ class CJTStore extends CJTServicesClientModule {
 	public function makeCall($method, $params = null, $postData = null) {
 		# Always include the following parameters
 		$params = array_merge( array( 
-			'name' => $this->getItemName(), 
+			'itemName' => $this->getItemName(), 
 			'license' => $this->getLicense() ), 
 			$params ? $params : array()
 			);
