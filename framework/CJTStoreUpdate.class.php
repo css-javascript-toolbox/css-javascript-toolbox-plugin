@@ -31,6 +31,22 @@ class CJTStoreUpdate {
 	/**
 	* put your comment there...
 	* 
+	*/
+	public function _connectErrorAdminNotice() {
+		# Create DOm Document
+		$message = new DOMDocument();
+		$message->loadXML('<span><div><p></p></div></span>');
+		# Create notice element
+		$rootElement = $message->documentElement;
+		$notice = $rootElement->childNodes->item( 0 );
+		$notice->setAttribute( 'class', 'error' );
+		$notice->childNodes->item( 0 )->nodeValue = 'Unable to fetch update! CJT Store unavailable!';
+		echo $message->saveHTML();
+	}
+
+	/**
+	* put your comment there...
+	* 
 	* @param mixed $data
 	* @param mixed $action
 	* @param mixed $args
@@ -41,32 +57,39 @@ class CJTStoreUpdate {
 			case 'plugin_information' :
 				# INitialize
 				$store =& $this->getStore();
-				$pluginInfo = $store->getPluginInformation();
-				$pluginData = get_plugin_data( $store->getPluginFile() );
-				# Make sure the requested Plugin is the one
-				# associated with this object
-				if ( $args && $args->slug && ( $this->getStore()->getSlug() == $args->slug ) ) {
-					# Fill Plugin information data and return it back
-					$data = (object) array(
-						'version' => 			$pluginInfo[ 'currentVersion' ],
-						'last_updated' => $pluginInfo[ 'lastUpdated' ],
-						'author'  => 			$pluginData[ 'Author' ], 
-						'requires' => 		$pluginInfo[ 'requires' ], 
-						'tested' => 			$pluginInfo[ 'tested' ], 
-						'homepage' => 		$pluginInfo[ 'url' ], 
-						'downloaded' => 	$pluginInfo[ 'downloadsCount' ], 
-						'slug' => 				$store->getSlug(),
-						'name' => 				$pluginData[ 'Name' ],
-						'sections' => array(
-							'description'  => $pluginInfo[ 'description' ],
-							'installation' => $pluginInfo[ 'installation' ],
-							'faq'          => $pluginInfo[ 'faq' ],
-							'screenshots'  => $pluginInfo[ 'screenshots' ],
-							'changelog'    => $pluginInfo[ 'changeLog' ],
-							'reviews'      => $pluginInfo[ 'reviews' ],
-							'other_notes'  => $pluginInfo[ 'otherNotes' ]
-						)
-					);
+				# Try to Get Plugin information
+				try {
+					$pluginInfo = $store->getPluginInformation();
+					$pluginData = get_plugin_data( $store->getPluginFile() );
+					# Make sure the requested Plugin is the one
+					# associated with this object
+					if ( $args && $args->slug && ( $this->getStore()->getSlug() == $args->slug ) ) {
+						# Fill Plugin information data and return it back
+						$data = (object) array(
+							'version' => 			$pluginInfo[ 'currentVersion' ],
+							'last_updated' => $pluginInfo[ 'lastUpdated' ],
+							'author'  => 			$pluginData[ 'Author' ], 
+							'requires' => 		$pluginInfo[ 'requires' ], 
+							'tested' => 			$pluginInfo[ 'tested' ], 
+							'homepage' => 		$pluginInfo[ 'url' ], 
+							'downloaded' => 	$pluginInfo[ 'downloadsCount' ], 
+							'slug' => 				$store->getSlug(),
+							'name' => 				$pluginData[ 'Name' ],
+							'sections' => array(
+								'description'  => $pluginInfo[ 'description' ],
+								'installation' => $pluginInfo[ 'installation' ],
+								'faq'          => $pluginInfo[ 'faq' ],
+								'screenshots'  => $pluginInfo[ 'screenshots' ],
+								'changelog'    => $pluginInfo[ 'changeLog' ],
+								'reviews'      => $pluginInfo[ 'reviews' ],
+								'other_notes'  => $pluginInfo[ 'otherNotes' ]
+							)
+						);
+					}
+				}
+				catch ( CJTServicesAPICallException $exception ) {
+					# We will do nothing if CJT Store Server if not availabel
+					# Just wait for subsequence requestes to get response!!!
 				}
 			break;
 		}
@@ -83,18 +106,28 @@ class CJTStoreUpdate {
 	public function _transientPluginUpdate($transient) {
 		# INitialize
 		$store =& $this->getStore();
-		# Check For update
-		$pluginBaseName = plugin_basename( $store->getPluginFile() );
-		if ( $pluginUpdate = $store->hasUpdate() ) {
-			# Add to update list
-			$transient->response[ $pluginBaseName ] = (object) array(
-				'id' => 					null,
-				'plugin' => 			$pluginBaseName,
-				'slug' => 				basename( $pluginBaseName, '.php' ),
-				'new_version' => 	$pluginUpdate[ 'currentVersion' ],
-				'url' => 					$pluginUpdate[ 'url' ],
-				'package' => 			$pluginUpdate[ 'package' ],
-			);
+		try {
+			# Try to get Plugin update
+			$pluginUpdate = $store->hasUpdate();
+			# Transient Plugin updaate if thereis new version
+			if ( $pluginUpdate ) {
+				# Get Plugin base name
+				$pluginBaseName = plugin_basename( $store->getPluginFile() );
+				# Add to update list
+				$transient->response[ $pluginBaseName ] = (object) array(
+					'id' => 					null,
+					'plugin' => 			$pluginBaseName,
+					'slug' => 				basename( $pluginBaseName, '.php' ),
+					'new_version' => 	$pluginUpdate[ 'currentVersion' ],
+					'url' => 					$pluginUpdate[ 'url' ],
+					'package' => 			$pluginUpdate[ 'package' ],
+				);
+			}
+		}
+		catch ( CJTServicesAPICallException $exception ) {
+			# We will do nothing if CJT Store Server if not availabel
+			# Just wait for subsequence requestes to get response!!!
+			add_action( 'admin_notices', array( $this, '_connectErrorAdminNotice' ) );
 		}
 		# Return transient array
 		return $transient;
