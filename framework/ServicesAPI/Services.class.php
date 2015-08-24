@@ -42,8 +42,7 @@ class CJTServicesClient {
 	*/
 	public function __construct() {
 		# Initialize
-		####cssJSToolbox::getCJTWebSiteURL()
-		$this->url = 'http://testwp.com/' . "cjtservices-api";
+		$this->url = cssJSToolbox::getCJTWebSiteURL() . "cjtservices-api";
 	}
 
 	/**
