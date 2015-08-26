@@ -119,11 +119,17 @@ class CJTServicesClient {
 			'body' => json_encode( $postData ),
 		);
 		# POST Server
-		$post = wp_remote_post( $methodUri,  $requestParams );
-		if ( !$post || ( $post instanceof WP_Error ) ) {
-			throw new CJTServicesAPICallException( 'Unable to call CJT Services API' );
+		$postRequest = wp_remote_post( $methodUri,  $requestParams );
+		if ( ! $postRequest || ( $postRequest instanceof WP_Error ) ) {
+			throw new CJTServicesAPICallException( 'CJTStore: Unable to call CJT Services API' );
 		}
-		return $post;
+		# Make sure its CJT Services Response (E.g CJT Services is not activated or the returned
+		# content is not belong to CJT Services response)
+		if ( ! wp_remote_retrieve_header( $postRequest, 'cjt-store' ) ) {
+			throw new CJTServicesAPICallException( 'CJTStore: Invalid response!!!' );
+		}
+		# Return response Wordpress Handle
+		return $postRequest;
 	}
 	
 	/**
