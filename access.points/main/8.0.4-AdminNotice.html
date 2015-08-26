@@ -1,0 +1,54 @@
+<style type="text/css">
+	.cjt-notice strong {
+		font-size: 18px;
+		color: green;
+		display: inline-block;
+		padding: 12px 0;
+	} 
+	.cjt-notice {
+		background-color: black;
+		padding-bottom: 14px;
+		color: red;
+    -webkit-box-shadow: 0px 0px 13px 2px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 13px 2px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 13px 2px rgba(0,62,0,0.75);
+    width: 97%;
+		margin-top: 35px;
+		padding: 0 10px 10px;
+		position: relative;
+	}
+	.cjt-notice p {
+		margin: 0 0 0 0 !important;
+	  padding: 0 !important;
+	}
+	.cjt-notice #cjtgp-dismiss {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    background-color: red;
+    position: absolute;
+    right: 4px;
+    top: 5px;	
+	}
+</style>
+<div class='cjt-notice'>
+	<strong>CSS & JavaScript Toolbox Plugin Wanring!</strong>
+	<a id="cjtgp-dismiss" href="javascript:void(cjtDismiss803Notice())"></a>
+	<p>For the next update (not this one), we will be removing features from CSS & JavaScript Toolbox Free including:</p>
+	<p>Custom Posts, Categories, Auxiliary assignments (e.g. entire website, website backend, etc), Advanced assignments (i.e. URLs and Expressions), Code Files, Code Templates, Template Lookup System and Script Packages</p>
+	<p>We won't provide temporary solutions to help you getting things back to work, you need to either get CSS & JavaScript Toolbox PLUS or revert back to previous version (8.0.3 or less) of CJT </p>
+	<br />
+	<p>IF you want to retain these features and a lot more, consider purchasing <a target='_blank' href='http://css-javascript-toolbox.com/css-javascript-toolbox-plus/'>CSS & JavaScript Toolbox PLUS</a></p>
+</div>
+<script type="text/javascript">
+	function cjtDismiss803Notice() {
+		// Refresh the page with new parameter added
+		var url = window.location.href;
+		// Use ? if no query string in current url or use & instead
+		url += ( url.indexOf( '?' ) != -1 ) ? '&' : '?';
+		// Add query string parameter
+		url += 'cjtgp-dismiss-803-notice=true';
+		// Refresh 
+		window.location.href = url;		
+	}
+</script>
