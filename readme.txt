@@ -6,20 +6,54 @@ Tags: post, posts, admin, sidebar, page, pages, widget, image, shortcode, plugin
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.9
-Tested up to: 4.1
-Stable tag: 8.0.3
+Tested up to: 4.3
+Stable tag: 8.0.4
 
 Easily add custom CSS, JavaScript, HTML and PHP code to unique CJT code blocks and assign them wherever you want.
 
 == Description ==
-= We need your support =
-Your purchase of CJTe Developer will assist us in the continued development of all CJT plugins on WordPress.org.
+= Update Notice =
+After a long hiatus in development, we have decided to focus our entire efforts on our new premium extension plugin called [CSS & JavaScript Toolbox PLUS](http://css-javascript-toolbox.com/css-javascript-toolbox-plus/), which is designed to work with and UPGRADE the free version. Unfortunately we will be moving many features from the free version into the premium. 
 
-This project is 100% developed and maintained by only two people since the very start in August 2011. We have plenty of [feature ideas that we want to include](http://css-javascript-toolbox.com/development/request), and this can only be possible with funding.
+= What does this mean? =
+For the next update (not this one), we will be removing features from CSS & JavaScript Toolbox Free including: 
+- Custom Posts
+- Categories
+- Auxiliary assignments (e.g. entire website, website backend, etc)
+- Advanced assignments (i.e. URLs and Expressions)
+- Code Files 
+- Code Templates
+- Template Lookup System
+- Packages 
 
-If you would like to learn more about the additional benefits, please click: [CJTe Developer](http://css-javascript-toolbox.com/cjte-developer).
+If you rely on the features above, then you can do one of two things:
 
-= About =
+1) Stay on [CSS & JavaScript Toolbox Free v8.0.3](https://downloads.wordpress.org/plugin/css-javascript-toolbox.8.0.3.zip), and when the next update arrives, DO NOT UPDATE!!!
+
+OR
+
+2) Purchase our premium extension plugin: [CSS & JavaScript Toolbox PLUS](http://css-javascript-toolbox.com/css-javascript-toolbox-plus/)
+
+Of course if you have already updated, you can use FTP to rollback to the earlier version by manually overwriting the css-javascript-toolbox folder with: [CSS & JavaScript Toolbox Free v8.0.3](https://downloads.wordpress.org/plugin/css-javascript-toolbox.8.0.3.zip)
+
+= Why purchase PLUS? =
+[CSS & JavaScript Toolbox PLUS](http://css-javascript-toolbox.com/css-javascript-toolbox-plus/) is our new premium plugin, which will now take up all our time and efforts. It will also contain all of the above features - PLUS these features below:
+- Editor Themes
+- Editor Toolbox
+- Editor Menu Tools
+- Code Auto Completion (CAC)
+- Import Export Tool
+- Block Widget Linker
+- PLUS more
+
+We intend to give PLUS a complete makeover, including: 
+- code optimisation and bug fixes
+- 100% compatibility with the the latest WordPress
+- a faster and more powerful core
+- full codebase documentation
+- and eventually a brand new flat responsive user interface
+
+= About the CSS & JavaScript Toolbox Plugin =
 CSS & JavaScript Toolbox (or CJT) is a powerful code management plugin that gives you the tools to easily and safely modify or extend the functionality and appearance of your WordPress-powered website.
 
 = Perfect for WordPress website development =
@@ -33,26 +67,10 @@ Since CJT was designed to be easy, adding scripts and styles can be done in as l
 
 CJT code blocks can be assigned to pages, posts, custom posts, categories, URLs, expressions, and practically anywhere you want on your website. Code block shortcodes can also provide you with further placement accuracy.
 
-= Want more features for free? =
-Get CJT extension plugins that provide more features such as:
-
-- [Advanced Theme Editor](https://wordpress.org/plugins/cjte-advanced-theme-editor)
-- [Advanced Plugins Editor](https://wordpress.org/plugins/cjte-advanced-plugins-editor)
-- [WP Core Editor](https://wordpress.org/plugins/cjte-wp-core-editor)
-
-= Want to add script plugins? =
-Get script plugins that can be installed on your website running CJT:
-
-- [Image Zoomer](https://wordpress.org/plugins/cjte-image-zoomer/)
-- [Black & White Image Effect](https://wordpress.org/plugins/cjte-black-white-image-effect/)
-
 = Support Us =
-Thank you for your interest in CSS & JavaScript Toolbox. 
-Please support us by:
+The CSS & JavaScript Toolbox project is 100% developed and maintained by only two people since the very beginnings in August 2011. We have plenty of feature ideas that we want to introduce and this can only be possible with funding.
 
-- Joining in with the voting and discussion on [new CJT feature ideas](http://css-javascript-toolbox.com/development/request).
-- Providing a [feedback review and rating](http://wordpress.org/support/view/plugin-reviews/css-javascript-toolbox) on WordPress.org
-- Spreading the word and recommending CJT to others.
+You can also support us by providing a [feedback review and rating](http://wordpress.org/support/view/plugin-reviews/css-javascript-toolbox) on WordPress.org, and spreading the word and recommending CJT to others.
 
 = Follow the Developments =
 If you like to know more about the development state, issues and to track future versions code please follow us on [GitHub Plugin repository](https://github.com/css-javascript-toolbox/css-javascript-toolbox-plugin).
@@ -346,7 +364,7 @@ Due to the overwhelming amount of emails we get for users requesting support for
 
 == Credits ==
 	
-Copyright © 2013, Wipeout Media.
+Copyright © 2015, Wipeout Media.
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
