@@ -69,7 +69,7 @@ class CJTStore extends CJTServicesClientModule {
 	* @return mixed
 	*/
 	public function activateLicense($ownerName) {
-		return (bool) $this->makeCall( __FUNCTION__, compact( 'ownerName' ) )->getResponseData();
+		return (int) $this->makeCall( __FUNCTION__, compact( 'ownerName' ) )->getResponseData();
 	}
 
 	/**
@@ -79,7 +79,7 @@ class CJTStore extends CJTServicesClientModule {
 	* @return mixed
 	*/
 	public function checkLicense($ownerName) {
-		return (bool) $this->makeCall( __FUNCTION__, compact( 'ownerName' ) )->getResponseData();
+		return (int) $this->makeCall( __FUNCTION__, compact( 'ownerName' ) )->getResponseData();
 	}
 
 	/**
@@ -89,7 +89,7 @@ class CJTStore extends CJTServicesClientModule {
 	* @return mixed
 	*/
 	public function deactivateLicense($ownerName) {
-		return (bool) $this->makeCall( __FUNCTION__, compact( 'ownerName' ) )->getResponseData();
+		return (int) $this->makeCall( __FUNCTION__, compact( 'ownerName' ) )->getResponseData();
 	}
 
 	/**
