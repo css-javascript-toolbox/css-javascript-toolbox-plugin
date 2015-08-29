@@ -6,12 +6,10 @@
 		padding: 12px 0;
 	} 
 	.cjt-notice {
-		background-color: black;
 		padding-bottom: 14px;
-		color: red;
-    -webkit-box-shadow: 0px 0px 13px 2px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 0px 13px 2px rgba(0,0,0,0.75);
-    box-shadow: 0px 0px 13px 2px rgba(0,62,0,0.75);
+    -webkit-box-shadow: 0px 0px 2px 3px #a5581b;
+    -moz-box-shadow: 0px 0px 2px 3px #a5581b;
+    box-shadow: 0px 0px 2px 3px #a5581b;
     width: 97%;
 		margin-top: 35px;
 		padding: 0 10px 10px;
@@ -25,18 +23,33 @@
     width: 16px;
     height: 16px;
     display: inline-block;
-    background-color: red;
     position: absolute;
     right: 4px;
-    top: 5px;	
+    top: 5px;
+    color: #8B2F09;
+    text-decoration: none;
+    font-size: 14px;
+    font-family: cursive;
+    font-weight: bold;
+	}
+	
+	.cjt-notice #cjtgp-dismiss:hover {
+		color: black;	
+	}
+	
+	.cjt-notice a {
+		color:#a5581b; 
 	}
 </style>
 <div class='cjt-notice'>
 	<strong>CSS & JavaScript Toolbox Plugin Wanring!</strong>
-	<a id="cjtgp-dismiss" href="javascript:void(cjtDismiss803Notice())"></a>
-	<p>For the next update (not this one), we will be removing features from CSS & JavaScript Toolbox Free including:</p>
-	<p>Custom Posts, Categories, Auxiliary assignments (e.g. entire website, website backend, etc), Advanced assignments (i.e. URLs and Expressions), Code Files, Code Templates, Template Lookup System and Script Packages</p>
-	<p>We won't provide temporary solutions to help you getting things back to work, you need to either get CSS & JavaScript Toolbox PLUS or revert back to previous version (8.0.3 or less) of CJT </p>
+	<a id="cjtgp-dismiss" href="javascript:void(cjtDismiss803Notice())">X</a>
+	<p>
+		For the next update (not this one), we will be removing features from CSS & JavaScript Toolbox Free including: Custom Posts, Categories, Auxiliary assignments (e.g. entire website,
+		website backend, etc), Advanced assignments (i.e. URLs and Expressions), Code Files, Code Templates, Template Lookup System, and Script Packages.
+		Unfortunately we will not be providing any support or solutions to help you get things to work. You will either need to get <a target='_blank' href='http://css-javascript-toolbox.com/css-javascript-toolbox-plus/'>CSS & JavaScript Toolbox PLUS</a> or revert back to the previous
+		version of CJT Free (v8.0.3 or less). 
+	</p>
 	<br />
 	<p>IF you want to retain these features and a lot more, consider purchasing <a target='_blank' href='http://css-javascript-toolbox.com/css-javascript-toolbox-plus/'>CSS & JavaScript Toolbox PLUS</a></p>
 </div>
