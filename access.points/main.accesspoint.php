@@ -38,6 +38,12 @@ class CJTMainAccessPoint extends CJTAccessPoint {
 	public function _adminNotice() {
 		# Initialize
 		static $displayed = 0;
+		
+		# Display only for admins
+		if ( ! current_user_can( 'administrator' ) ) {
+			return;
+		}
+		
 		# Dismiss if dimisssed
 		if( isset( $_GET[ 'cjtgp-dismiss-803-notice' ] ) ) {
 			update_user_meta( get_current_user_id(), 'cjtgp-dismiss-803-notice', true );
