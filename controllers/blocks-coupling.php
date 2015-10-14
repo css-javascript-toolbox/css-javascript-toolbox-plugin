@@ -111,6 +111,13 @@ class CJTBlocksCouplingController extends CJTController {
 	* 
 	* @var mixed
 	*/
+	protected $onevalcodeblock = array( 'parameters' => array( 'keep', 'block' ) );
+	
+	/**
+	* put your comment there...
+	* 
+	* @var mixed
+	*/
 	protected $ongetblocks = array('parameters' => array('blocks'));
 
 	/**
@@ -342,7 +349,12 @@ class CJTBlocksCouplingController extends CJTController {
 					// Import Executable (PHP and HTML) templates.
 					$block->code = $block->code . $this->model->getExecTemplatesCode($block->id);
 					// For every location store blocks code into single string
-					$evaluatedCode = CJTPHPCodeEvaluator::getInstance($block)->exec()->getOutput();
+					
+					if ( ! $evaluatedCode = $this->onevalcodeblock( false, $block ) )
+					{
+						$evaluatedCode = CJTPHPCodeEvaluator::getInstance( $block )->exec()->getOutput();	
+					}
+					
 					/** @todo Include Debuging info only if we're in debuging mode! */
 					if (1) {
 						$evaluatedCode = "\n<!-- Block ({$blockId}) START-->\n{$evaluatedCode}\n<!-- Block ({$blockId}) END -->\n";

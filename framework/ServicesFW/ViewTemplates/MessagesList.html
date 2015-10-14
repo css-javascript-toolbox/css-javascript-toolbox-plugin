@@ -1,0 +1,15 @@
+<div id="<?php $this->getResName( 'messages-list' ) ?>">
+<?php
+			# Gettting model
+			$model =& $this->controller->getModel();
+			# Get all messages and displat them based on the type
+			$messages = $model->pullMessages();
+			foreach( $messages as $type => $typeMsgs ) :
+?>
+				<div class="<?php echo $type ?>">
+<?php		foreach( $typeMsgs as $message ) : ?>
+					<p><?php echo $message; ?></p>
+<?php 	endforeach; ?>
+				</div>
+<?php endforeach; ?>
+</div>

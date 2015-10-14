@@ -30,6 +30,7 @@ class CJTPinsBlockSQLView extends CJTSQLView {
 		// Set default columns.
 		$this->query->columns = array(
 			'blocks.id',
+			'blocks.owner',
 			'blocks.name',
 			'blocks.pinPoint',
 			'blocks.location',
