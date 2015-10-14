@@ -155,6 +155,10 @@ Due to the overwhelming amount of emails we get for users requesting support for
 21. See Code Block information at a glance
 
 == Changelog ==
+= 8.0.4 =
+* Check Wordpress 4.3 compatibility
+* List future deprecated features
+
 = 8.0.3 =
 * Add support us link to Dashboard metabpx
 * Add support us link to CJT header
