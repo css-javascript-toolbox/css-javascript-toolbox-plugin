@@ -36,6 +36,7 @@ return array(
     'CJTPHPCodeEvaluator' => $baseDir . '/framework/php/evaluator/evaluator.inc.php',
     'CJTPackageFile' => $baseDir . '/framework/packages/package.class.php',
     'CJTPageAccessPoint' => $baseDir . '/framework/access-points/page.class.php',
+    'CJTPluggableHelper' => $baseDir . '/framework/PluggableHelper.abstract.php',
     'CJTPropertyNotFoundException' => $baseDir . '/framework/exceptions.inc.php',
     'CJTSQLView' => $baseDir . '/framework/db/mysql/sql-view.inc.php',
     'CJTServicesAPICallException' => $baseDir . '/framework/ServicesAPI/Exceptions.class.php',

@@ -638,8 +638,14 @@ var CJTBlocksPage;
 					'open-all' : {callback : CJTBlocksPage._ontoggle, params : {state : true}}
 				} 
 			});
+			
+			var jBlocks = CJTBlocksPage.blocks.getBlocks();
+			
+			$( document ).trigger( 'cjtmanagerpreloadblocks', [ CJTBlocksPage.blocksForm, jBlocks ] );
+			
 			// Activate blocks.
-			CJTBlocksPage.blocks.getBlocks().CJTBlock({state : CJTBlocksPage.getStateName()});
+			jBlocks.CJTBlock({state : CJTBlocksPage.getStateName()});
+			
 			// Hide loading image. #cjt-blocks-loader will be used for other loading later.
 			CJTBlocksPage.loadingImage = CJTBlocksPage.blocksForm.find('#cjt-blocks-loader');
 			CJTBlocksPage.loadingImage.find('.loading-text').remove();

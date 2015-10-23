@@ -656,7 +656,8 @@ class CJTBlocksCouplingController extends CJTController {
 				$filters->pinPoint |= CJTBlockModel::PINS_404_ERROR;
 			}
 		}
-		$this->filters = $this->onsetfilters($filters);
+		
+		$this->filters = $this->onsetfilters( $filters );
 	}
 	
 	/**

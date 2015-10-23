@@ -641,7 +641,7 @@
 		*/
 		this.initCJTPluginBase = function(node, args) {
 			// Initialize object properties!
-			var model = this.block = new CJTBlock(this, node)
+			var model = this.block = new CJTBlock(this, node);
 			this.features = $.extend(defaultOptions, args);
 			// Initialize Events.
 			this.onBlockSaved = function() {};
@@ -744,11 +744,17 @@
 		/**
 		* 
 		*/
-		this.load = function() {
-			// Initialize.
+		this.load = function() 
+		{
+			
 			var model = this.block;
+			
+			// Broadcast block event
+			this.block.box.trigger( 'cjtBlockLoaded', [ this ] );
+			
 			// LOAD MODEL.
 			model.load();
+			
 			// Editor default options.
 			this.block.aceEditor.setOptions({showPrintMargin : false});
 			// Initialize editor toolbox.
@@ -775,10 +781,12 @@
 			this.theme = {};
 			this.theme.backgroundColor = 'white';
 			this.theme.color = 'black';
+			
 			// LOAD EVENT.
 			if (this.onLoad !== undefined) {
 				this.onLoad();	
 			}
+			
 			// Block Code File.
 			this.codeFile = new CJTBlockFile(this);
 		}

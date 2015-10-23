@@ -41,6 +41,9 @@ $tabs = array(
 		),
 	)
 );
+
+$tabs[ 'tabs' ] = apply_filters( CJTPluggableHelper::FILTER_BLOCK_ASSIGN_PANEL_TABS, $tabs[ 'tabs' ] );
+
 ?>
 			<div class="cjpageblock">
 <?php

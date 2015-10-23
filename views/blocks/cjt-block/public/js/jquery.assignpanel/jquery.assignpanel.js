@@ -174,6 +174,22 @@
 				assigmentPanelElement.CJTBlockAssignmentPanel = new function() {
 					
 					/**
+					* Assigment panel jQuery pLugin reference
+					* 
+					*/
+					var apjp = this;
+					
+					/**
+					* put your comment there...
+					* 
+					* @type Array
+					*/
+					this.objectsList = [ 'pages', 'posts', 'categories', 'pinPoint' ];
+					
+					// Allow Pluggable buttons
+					$( assigmentPanelElement ).trigger( 'cjtblockassigninitobjectslist', [ this ] );
+					
+					/**
 					* put your comment there...
 					* 
 					* @type CJTBLockPlugin
@@ -183,7 +199,21 @@
 					/**
 					* 
 					*/
-					this.buttons = {pages : [], posts : [], categories : [], pinPoint : []};
+					this.buttons = ( function() {
+						
+						var buttons = {};
+
+						$.each( apjp.objectsList, 
+						
+								function( index, name ) 
+								{
+									buttons[ name ] = [];
+								}
+							);
+						
+						return buttons;
+						
+					} )();
 					
 					/**
 					* 
@@ -213,7 +243,21 @@
 					* 
 					* @type Object
 					*/
-					var map = {pages : {}, posts : {}, categories : {}, pinPoint : {}};
+					var map = ( function() {
+						
+						var map = {};
+
+						$.each( apjp.objectsList, 
+						
+								function( index, name ) 
+								{
+									map[ name ] = { };
+								}
+							);
+
+						return map;
+						
+					} )();;
 					
 					/**
 					* put your comment there...
@@ -688,14 +732,19 @@
 					this.assignedOnlySwitcher = new Buttons.AssignOnlySwitcher(this);
 		
 					// Initialize Assigment Panel tab.
-					this.jElement.tabs({
-						activate : function(event, ui) {
+					this.jElement.tabs(
+					{
+						activate : function(event, ui)
+						{
 							// Set ui.item to TAB reference.
 							ui.item = ui.newTab;
 							// Trigger real event handler.
 							_onobjectlistactivate(event, ui);
 						}
-					});
+						
+					} );
+					
+					this.jElement.tabs( 'option', 'active', this.jElement.find( '>.ui-tabs-panel' ).length - 1 );
 					
 					// Create custom posts toggle widget.
 					var cpContainer = this.jElement.find('#custom-posts-container-' + blockId);
@@ -726,8 +775,7 @@
 							header: '.acc-header'
 						}
 					);
-					// Activate the AUX tab by default.
-					this.jElement.find('li.type-advanced>a').trigger('click');
+					
 					// Syncronize assign panel map when block saved.
 					options.block.onBlockSaved = onBlockSaved;
 				}

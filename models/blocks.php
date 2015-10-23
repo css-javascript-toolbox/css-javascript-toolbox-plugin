@@ -324,29 +324,39 @@ class CJTBlocksModel {
 	* 
 	* @param mixed $block
 	*/
-	public function update($block, $updatePins) {
-		// To be used by array_intersect_key.
-		$block = (array) $block;
-		// Create Tables objects.
-		$blocks = new CJTBlocksTable($this->dbDriver);
-		$pins = new CJTBlockPinsTable($this->dbDriver);
+	public function update( $block, $updatePins ) 
+	{
+		
+		$block = ( array ) $block;
+		
+		$blocks = new CJTBlocksTable( $this->dbDriver );
+		$pins = new CJTBlockPinsTable( $this->dbDriver );
+		
 		// Update block pins if requested.
-		if ($updatePins) {
+		if ( $updatePins ) 
+		{
 			// Isolate block pins freom native block data.
-			$pinsData = array_intersect_key($block, array_flip(array('pages', 'posts', 'categories')));
-			$pins->update($block['id'], $pinsData);		
+			$pinsData = array_intersect_key( $block, array_flip( array_keys( CJTBlockModel::getCustomPins() ) ) );
+			$pins->update( $block[ 'id' ], $pinsData );
 		}
+		
 		// Update code file
-		if (isset($block['activeFileId'])) {
-			$codeFile = new CJTBlockFilesTable($this->dbDriver);
-			$codeFile->set('blockId', $block['id'])
-							 ->set('id', $block['activeFileId'])
-							 ->set('code', $block['code'])
+		if ( isset( $block[ 'activeFileId' ] ) ) 
+		{
+			
+			$codeFile = new CJTBlockFilesTable( $this->dbDriver );
+			
+			$codeFile->set( 'blockId', $block[ 'id' ] )
+							 ->set( 'id', $block[ 'activeFileId'] )
+							 ->set( 'code', $block[ 'code'] )
 							 ->save();
 		}
+		
 		// Isolate block fields.
 		$blockData = array_intersect_key($block, $blocks->getFields());
+		
 		$blocks->update($blockData);
+		
 	}
 	
 } // End class.
