@@ -271,48 +271,81 @@ class CJTBlocksCouplingController extends CJTController {
 	* put your comment there...
 	* 
 	*/
-	public function getBlocks() {
+	public function getBlocks() 
+	{
 		// Set request view filters used for querying database.
 		$this->setRequestFilters();
+		
 		// Get blocks order. NOTE: This is all blocks order not only the queried/target blocks.
 		$blocksOrder = array();
-		$metaBoxesOrder = $this->onblocksorder($this->model->getOrder());
+		$metaBoxesOrder = $this->onblocksorder( $this->model->getOrder() );
+		
 		// Get ORDER-INDEX <TO> BLOCK-ID mapping.
-		preg_match_all('/cjtoolbox-(\d+)/', $metaBoxesOrder['normal'], $blocksOrder, PREG_SET_ORDER);
+		preg_match_all( '/cjtoolbox-(\d+)/', $metaBoxesOrder[ 'normal' ], $blocksOrder, PREG_SET_ORDER );
+		
 		/**
 		* append more to orders produced by CJTBlocksCouplingController::setRequestFilter().
 		* More to orders may allow other blocks to bein the output (e.g metaboxe blocks).
 		*/
-		$blocksOrder = array_merge($blocksOrder, $this->getFilters()->moreToOrder);
+		$blocksOrder = array_merge( $blocksOrder, $this->getFilters()->moreToOrder );
+		
 		// Prepare request URL to match against Links & Expressions.
 		$linksRequestURL = self::getRequestURL();
 		$expressionsRequestURL = "{$linksRequestURL}?{$_SERVER['QUERY_STRING']}";
-		extract($this->onmatchingurls(compact('linksRequestURL', 'expressionsRequestURL')));
+		
+		extract( $this->onmatchingurls( compact( 'linksRequestURL', 'expressionsRequestURL' ) ) );
+		
 		// Get all blocks including (Links & Expressions Blocks).
-		$blocks = $this->ongetblocks($this->model->getPinsBlocks(CJTBlockModel::PINS_LINK_EXPRESSION, 
-																					$this->getFilters()->pinPoint, 
-																					$this->getFilters()->customPins));
-		if (empty($blocks)) {
+		$blocks = $this->ongetblocks(
+		
+			$this->model->getPinsBlocks(
+			
+				CJTBlockModel::PINS_LINK_EXPRESSION, 
+			
+				$this->getFilters()->pinPoint, 
+			
+				$this->getFilters()->customPins,
+				
+				$this->getFilters()
+				
+				) 
+			
+			);
+		
+			
+		if ( empty( $blocks ) ) 
+		{
 			$this->onnoblocks();
+			
 		  return false;
+		  
 		}
+		
 		// Import related libraries.
-		cssJSToolbox::import('framework:php:evaluator:evaluator.inc.php');
+		cssJSToolbox::import( 'framework:php:evaluator:evaluator.inc.php' );
+		
 		/**
 		* Iterator over all blocks by using they order.
 		* For each block get code and scripts.
 		*/
 		$this->onprocess();
-		foreach ($blocksOrder as $blockOrder) {
+		
+		foreach ( $blocksOrder as $blockOrder )
+		{
 			$blockId = (int) $blockOrder[1];
+			
 			// As mentioned above. Orders is for all blocks not just those queried from db.
-			if (isset($blocks[$blockId])) {
-				$block = $this->onprocessblock($blocks[$blockId]);
+			if ( isset($blocks[ $blockId ] ) ) 
+			{
+				
+				$block = $this->onprocessblock( $blocks[ $blockId ] );
+				
 				/**
 				* Process Links & Expressions blocks.
 				* For better performace check only those with links and expressions flags.
 				*/
-				if ($block->blocksGroup & CJTBlockModel::PINS_LINK_EXPRESSION) {
+				if ( $block->blocksGroup & CJTBlockModel::PINS_LINK_EXPRESSION ) 
+				{
 					/**
 					* Initiliaze $matchedLink and $matchedExpression inside IF statment.
 					* Those variables need to refresh state at each block.
@@ -320,34 +353,48 @@ class CJTBlocksCouplingController extends CJTController {
 					* Otherwise they'll get the correct value inside each statement.
 					*/
 					/// Check if there is a matched link.
-					if ($matchedLink = ($block->blocksGroup & CJTBlockModel::PINS_LINKS)) {
-						$links = explode("\n", trim($block->links));
-						$matchedLink = in_array($linksRequestURL, $links);
+					if ( $matchedLink = ( $block->blocksGroup & CJTBlockModel::PINS_LINKS ) ) 
+					{
+						$links = explode( "\n", trim( $block->links ) );
+						$matchedLink = in_array( $linksRequestURL, $links );
 					}
+					
 					/// Check if there is a matched expression.
-					if ($matchedExpression = ($block->blocksGroup & CJTBlockModel::PINS_EXPRESSIONS)) {
+					if ( $matchedExpression = ( $block->blocksGroup & CJTBlockModel::PINS_EXPRESSIONS ) ) 
+					{
 						$expressions = explode("\n", $block->expressions);
-						foreach ($expressions as $expression) {
+						
+						foreach ( $expressions as $expression ) 
+						{
 							/// @TODO: Matches may be used later to evaulate variables inside code block.
-							if($matchedExpression = @preg_match("/{$expression}/", $expressionsRequestURL)) {
+							if( $matchedExpression = @ preg_match( "/{$expression}/", $expressionsRequestURL ) ) 
+							{
 							  break;
 							}
+							
 						}
+						
 					}
+					
 					/**
 					* Exclude Links & Expressions Blocks that doesn't has a match.
 					* If there is no matched link or expression then exclude block.
 					*/
-					if ($this->oncancelmatching(!($matchedExpression || $matchedLink))) {
+					if ( $this->oncancelmatching( ! ( $matchedExpression || $matchedLink ) ) ) 
+					{
 						continue;
 					}
+					
 				}
 				// Allow extensions to control to prevent block from being in the output
-				if ($block = $this->onblockmatched($block)) {
+				if ( $block = $this->onblockmatched( $block ) ) 
+				{
 					// Retrieve block code-files.
-					$block->code = $this->model->getBlockCode($block->id);
+					$block->code = $this->model->getBlockCode( $block->id );
+					
 					// Import Executable (PHP and HTML) templates.
-					$block->code = $block->code . $this->model->getExecTemplatesCode($block->id);
+					$block->code = $block->code . $this->model->getExecTemplatesCode( $block->id );
+					
 					// For every location store blocks code into single string
 					
 					if ( ! $evaluatedCode = $this->onevalcodeblock( false, $block ) )
@@ -356,23 +403,34 @@ class CJTBlocksCouplingController extends CJTController {
 					}
 					
 					/** @todo Include Debuging info only if we're in debuging mode! */
-					if (1) {
+					if ( 1 ) {
 						$evaluatedCode = "\n<!-- Block ({$blockId}) START-->\n{$evaluatedCode}\n<!-- Block ({$blockId}) END -->\n";
 					}
-					$this->blocks['code'][$block->location] .= $this->onappendcode($evaluatedCode);
+					
+					$this->blocks[ 'code' ][ $block->location ] .= $this->onappendcode( $evaluatedCode );
+					
 					// Store all used Ids in the CORRECT ORDER.
-					$this->addOnActionIds($blockId);
+					$this->addOnActionIds( $blockId );
 				}
+				
 			}
+			
 		}
-		$templates = $this->onActionIds ? $this->model->getLinkedTemplates($this->onActionIds) : array();
+		
+		$templates = 	$this->onActionIds ? 
+									$this->model->getLinkedTemplates( $this->onActionIds ) : 
+									array();
+		
 		// Classisfy as we process Scripts and Styles separatly (different hooks!).
-		foreach ($this->onlinkedtemplates($templates) as $id => $template) {
+		foreach ( $this->onlinkedtemplates( $templates ) as $id => $template ) 
+		{
 			// Filer template!
-			extract($this->onlinktemplate(compact('template', 'id')));
-			$this->templates[$template->type][$id] = $template;
+			extract( $this->onlinktemplate( compact( 'template', 'id' ) ) );
+			
+			$this->templates[ $template->type ][ $id ] = $template;
 		}
-		// Return true if there is at least 1 block return within the set.
+		
+		
 		return true;
 	}
 	
@@ -545,56 +603,101 @@ class CJTBlocksCouplingController extends CJTController {
 	* put your comment there...
 	* 
 	*/
-	protected function setRequestFilters() {
+	protected function setRequestFilters() 
+	{
 		// Get request blocks.
-		$filters = $this->ondefaultfilters((object) array(
+		$filters = $this->ondefaultfilters( ( object ) array
+		(
+		
 			'pinPoint' => 0x00000000,
+			
 			'customPins' => array(),
+			
 			'moreToOrder' => array(),
-		));
-		if (is_admin()) {
+			
+			'currentObject' => null,
+			
+			'currentCustomPin' => 0,
+			
+			'params' => array(),
+			
+		) );
+			
+		if ( is_admin() ) 
+		{
 			// Include all backend blocks.
 		  $filters->pinPoint |= CJTBlockModel::PINS_BACKEND;
 		}
-		else {
+		else 
+		{
 			$filters->pinPoint |= CJTBlockModel::PINS_FRONTEND;
+			
 			// Pages.
-			if (is_page()) {
+			if ( is_page() ) 
+			{
 				// Blocks with ALL PAGES selected.
 				$filters->pinPoint |= CJTBlockModel::PINS_PAGES_ALL_PAGES;
+				
+				$filters->currentObject = $GLOBALS[ 'post' ];
+				$filters->currentCustomPin = CJTBlockModel::PINS_PAGES_CUSTOM_PAGE; 
+				
 				// Blocks with PAGE-ID selected.
-				$filters->customPins[] = array(
+				$filters->customPins[ ] = array
+				(
 					'pin' => 'pages',
-					'pins' => array($GLOBALS['post']->ID),
+					
+					'pins' => array( $filters->currentObject->ID ),
+					
 					'flag' => CJTBlockModel::PINS_PAGES_CUSTOM_PAGE,
+					
 				);
+				
 				// Blocks with FRONT-PAGE selected.
-				if (is_front_page()) {
+				if ( is_front_page() ) 
+				{
 					$filters->pinPoint |= CJTBlockModel::PINS_PAGES_FRONT_PAGE;
 				}
+				
 				/**
 				* In order for metabox block to get in the output we need
 				* to add metabox order for it.
 				* @see CJTBlocksCouplingController::getBlocks.
 				*/
-				$metabox = CJTModel::create('metabox', array($GLOBALS['post']->ID));
-				$filters->moreToOrder[][1] = $metabox->getMetaboxId();
+				$metabox = CJTModel::create( 'metabox', array( $filters->currentObject->ID ) );
+				
+				$filters->moreToOrder[ ][ 1 ] = $metabox->getMetaboxId();
+				
 			} // End is_page()
-			else if (is_attachment()) {
+			
+			else if ( is_attachment() ) 
+			{
 				$filters->pinPoint |= CJTBlockModel::PINS_ATTACHMENT;
 			}
 			// Posts.
-			else if (is_single()) {
+			else if ( is_single() ) 
+			{
 				// Blocks with ALL POSTS & ALL CATEGORIES selected.
 				$filters->pinPoint |= CJTBlockModel::PINS_POSTS_ALL_POSTS | CJTBlockModel::PINS_CATEGORIES_ALL_CATEGORIES;
+				
+				$filters->currentObject = $GLOBALS[ 'post' ];
+				$filters->currentCustomPin = CJTBlockModel::PINS_POSTS_CUSTOM_POST;
+				
 				// Blocks with POST-ID selected.
-				$filters->customPins[] = array(
+				
+				$filters->customPins[ ] = array
+				(
+				
 					'pin' => 'posts',
-					'pins' => array($GLOBALS['post']->ID),
+					
+					'pins' => array( $filters->currentObject->ID ),
+					
 					'flag' => CJTBlockModel::PINS_POSTS_CUSTOM_POST,
+					
 				);
+				
 				// Include POST PARENT CATRGORIES blocks.				
-				$parentCategoriesIds = wp_get_post_categories($GLOBALS['post']->ID, array('fields' => 'ids'));
+				$parentCategoriesIds = wp_get_post_categories( $filters->currentObject->ID, array( 'fields' => 'ids' ) );
+				
 				/**
 				* Custom-Posts just added "ON THE RUN/FLY"
 				* Need simple fix by confirming that the post is belong to
@@ -602,62 +705,96 @@ class CJTBlocksCouplingController extends CJTController {
 				* Custom posts NOW unlike Posts, it doesn't inherit parent
 				* taxonomis Code Blocks!!
 				*/
-				if (!empty($parentCategoriesIds)) {
-					$filters->customPins[] = array(
+				if ( ! empty( $parentCategoriesIds ) ) 
+				{
+					
+					$filters->params[ 'hasCategories' ] = true;
+					$filters->params[ 'parentCategories' ] = $parentCategoriesIds;
+					
+					$filters->customPins[ ] = array
+					(
+					
 						'pin' => 'categories',
+						
 						'pins' => $parentCategoriesIds,
+						
 						'flag' => CJTBlockModel::PINS_CATEGORIES_CUSTOM_CATEGORY,
+						
 					);
+					
 				}
+				
 				/**
 				* In order for metabox block to get in the output we need
 				* to add metabox order for it.
 				* @see CJTBlocksCouplingController::getBlocks.
 				*/
-				$metabox = CJTModel::create('metabox', array($GLOBALS['post']->ID));
-				$filters->moreToOrder[][1] = $metabox->getMetaboxId();
+				$metabox = CJTModel::create( 'metabox', array( $filters->currentObject->ID ) );
+				
+				$filters->moreToOrder[][ 1 ] = $metabox->getMetaboxId();
+				
 				/** 
 				* @TODO check for recent posts Based on user configuration.
 				* Recent posts should be detcted by comparing
 				* user condifguration with post date.
 				*/
-				if (0) {
+				if ( 0 ) {
 				
 				}
 			} // End is_single()
+			
 			// Categories.
-			else if(is_category()) {
+			else if( is_category() ) 
+			{
 				// Blocks with ALL CATEGORIES selected.
 				$filters->pinPoint |= CJTBlockModel::PINS_CATEGORIES_ALL_CATEGORIES;
+				
+				$filters->currentObject = get_queried_object();
+				$filters->currentCustomPin = CJTBlockModel::PINS_CATEGORIES_CUSTOM_CATEGORY;
+				
 				// Blocks with CATEGORY-ID selected.
-				$filters->customPins[] = array(
+				$filters->customPins[] = array
+				(
 					'pin' => 'categories',
-					'pins' => array(get_queried_object()->term_id),
+					
+					'pins' => array( $filters->currentObject->term_id ),
+					
 					'flag' => CJTBlockModel::PINS_CATEGORIES_CUSTOM_CATEGORY,
-				);				
+					
+				);
+				
 			} // End is_category()
+			
 			// Blocks with BLOG-INDEX selected.
-			else if (is_home()) {
+			else if ( is_home() )
+			{
 				$filters->pinPoint |= CJTBlockModel::PINS_POSTS_BLOG_INDEX;
 			}
-			else if (is_search()) {
+			else if ( is_search() ) 
+			{
 				$filters->pinPoint |= CJTBlockModel::PINS_SEARCH;
 			}
-			else if (is_tag()) {
+			else if ( is_tag() )
+			{
 				$filters->pinPoint |= CJTBlockModel::PINS_TAG;
 			}
-			else if (is_author()) {
+			else if ( is_author() ) 
+			{
 				$filters->pinPoint |= CJTBlockModel::PINS_AUTHOR;
 			}
-			else if (is_archive()) {
+			else if ( is_archive() ) 
+			{
 				$filters->pinPoint |= CJTBlockModel::PINS_ARCHIVE;
 			}
-			else if (is_404()) {
+			else if ( is_404() ) 
+			{
 				$filters->pinPoint |= CJTBlockModel::PINS_404_ERROR;
 			}
+			
 		}
 		
 		$this->filters = $this->onsetfilters( $filters );
+		
 	}
 	
 	/**

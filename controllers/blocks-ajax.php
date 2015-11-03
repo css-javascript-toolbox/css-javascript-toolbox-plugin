@@ -185,40 +185,58 @@ class CJTBlocksAjaxController extends CJTAjaxController {
 	* put your comment there...
 	* 
 	*/
-	public function saveBlocksAction() {
+	public function saveBlocksAction() 
+	{
 		$response = array();
+		
 		// Blocks are sent ins single array list.
-		$blocksToSave = filter_input(INPUT_POST, 'blocks', FILTER_UNSAFE_RAW, FILTER_REQUIRE_ARRAY);
-		$calculatePinPoint = (bool) filter_input(INPUT_POST, 'calculatePinPoint', FILTER_SANITIZE_NUMBER_INT);
-		$createRevision = (bool) filter_input(INPUT_POST, 'createRevision', FILTER_SANITIZE_NUMBER_INT);
+		$blocksToSave = filter_input( INPUT_POST, 'blocks', FILTER_UNSAFE_RAW, FILTER_REQUIRE_ARRAY );
+		$calculatePinPoint = ( bool ) filter_input( INPUT_POST, 'calculatePinPoint', FILTER_SANITIZE_NUMBER_INT );
+		$createRevision = ( bool ) filter_input( INPUT_POST, 'createRevision', FILTER_SANITIZE_NUMBER_INT );
+		
 		// For any reason that cause Client/Javascript to send empty blocks,
 		// make sure we're save.
-		if (is_array($blocksToSave) && !empty($blocksToSave)) {
-			foreach ($blocksToSave as $id => $postedblockPartialData) {
+		if ( is_array( $blocksToSave ) && ! empty( $blocksToSave ) ) 
+		{
+			
+			foreach ( $blocksToSave as $id => $postedblockPartialData ) 
+			{
 				// Push block id into block data.
-				$blockData = (object) $postedblockPartialData;
+				$blockData = ( object ) $postedblockPartialData;
 				$blockData->id = $id;
+				
 				// Recalculate pinPoint field value.
-				!$calculatePinPoint or (CJTBlockModel::arrangePins($blockData) && CJTBlockModel::calculateBlockPinPoint($blockData));
+				! $calculatePinPoint or ( CJTBlockModel::arrangePins( $blockData ) && CJTBlockModel::calculateBlockPinPoint( $blockData ) );
+				
 				// Create block revision.
-				!$createRevision or $this->model->addRevision($id, $blockData->activeFileId);
+				! $createRevision or $this->model->addRevision( $id, $blockData->activeFileId );
+				
 				// Set lastModified field to current time.
-				$blockData->lastModified = current_time('mysql');
+				$blockData->lastModified = current_time( 'mysql' );
+				
 				// Update database.
-				$this->model->update($blockData, $calculatePinPoint);
+				$this->model->update( $blockData, $calculatePinPoint );
 				$this->model->save();
+				
 				// Send the changes properties back to client.
-				foreach ($postedblockPartialData as $property => $value) {
-					$response[$id][$property]['value'] = $value;
+				foreach ( $postedblockPartialData as $property => $value ) 
+				{
+					$response[ $id ][ $property ][ 'value' ] = $value;
 				}
+				
 			}
+			
 		}
+		
 		// Delete other blocks.
-		empty($_POST['deletedBlocks']) or $this->model->delete($_POST['deletedBlocks']);
+		empty( $_POST[ 'deletedBlocks' ] ) or $this->model->delete( $_POST[ 'deletedBlocks' ] );
+		
 		// Save changes.
 		$this->model->save();
+		
 		// Set response.
 		$this->response = $response;
+		
 	}
 	
 	/**

@@ -274,6 +274,59 @@ class CJTBlocksModel {
 	/**
 	* put your comment there...
 	* 
+	*/
+	public static function getCustomPostTypes()
+	{
+		
+		static $postTypes = null;
+		
+		if ( $postTypes !== null )
+		{
+			return $postTypes;
+		}
+		
+		
+		$postTypes = array();
+		
+		// Create tabs for every custom post under the custom posts tab.
+		// Get all registered custom posts.
+		$customPosts = get_post_types( array( 'public' => 1, 'show_ui' => true, '_builtin' => false ), 'objects' );
+
+		// Add tab for every custom post
+		// Exclude 'Empty' Custom Post Types.
+		foreach ( $customPosts as $typeName => $customPost ) 
+		{
+			// Check if has posts.	
+			$hasPosts = count( get_posts( array( 'post_type' => $typeName, 'offset' => 0, 'numberposts' => 1 ) ) );
+			
+			// Add only types with at least one post exists.
+			if ( $hasPosts ) 
+			{
+				$postTypes[ $typeName ] = array
+				(
+					'title' => $customPost->labels->name,
+					'renderer' => 'objects-list',
+					'type' => array
+					( 
+						'type' => $typeName,
+						'group' => 'posts',
+						'targetType' => 'post'
+					)
+					
+				);
+				
+			}
+			
+		}
+
+		do_action( CJTPluggableHelper::ACTION_BLOCK_CUSTOM_POST_TYPES, $postTypes );
+		
+		return $postTypes;
+	}
+	
+	/**
+	* put your comment there...
+	* 
 	* @param mixed $id
 	*/
 	public function getInfo($id) {
@@ -337,7 +390,11 @@ class CJTBlocksModel {
 		{
 			// Isolate block pins freom native block data.
 			$pinsData = array_intersect_key( $block, array_flip( array_keys( CJTBlockModel::getCustomPins() ) ) );
+			
+			do_action( CJTPluggableHelper::FILTER_BLOCK_MODEL_PRE_UPDATE_BLOCK_PINS, $block, $pinsData );
+			
 			$pins->update( $block[ 'id' ], $pinsData );
+
 		}
 		
 		// Update code file
@@ -355,7 +412,9 @@ class CJTBlocksModel {
 		// Isolate block fields.
 		$blockData = array_intersect_key($block, $blocks->getFields());
 		
-		$blocks->update($blockData);
+		do_action( CJTPluggableHelper::FILTER_BLOCK_MODEL_PRE_UPDATE_BLOCK, $updatePins, $blockData );
+		                                                                                        
+		$blocks->update( $blockData );
 		
 	}
 	

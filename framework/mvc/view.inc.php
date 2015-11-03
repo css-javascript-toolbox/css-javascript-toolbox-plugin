@@ -71,8 +71,14 @@ abstract class CJTView extends CJTHookableClass {
 	* 
 	* @var mixed
 	*/
-	protected $onloadtemplate = array(
-		'parameters' => array('content', 'file'),
+	protected $onloadtemplate = array
+	(
+		'parameters' => array
+		( 
+			'content',
+			'file',
+			'dir',
+		),
 	);
 
 	/**
@@ -243,7 +249,7 @@ abstract class CJTView extends CJTHookableClass {
 		// Get template content into variable.
 		ob_start();
 		require $this->onimporttemplate($templateFile);
-		$template = $this->onloadtemplate(ob_get_clean(), $name);
+		$template = $this->onloadtemplate( ob_get_clean(), $name, "{$dir}/{$name}" );
 		return $template;
 	}
 	

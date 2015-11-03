@@ -61,27 +61,46 @@ abstract class CJTSQLView {
 	* @param mixed $from
 	* @param mixed $filter
 	*/
-	protected function buildQuery($from, $filter) {
+	protected function buildQuery($from, $filter) 
+	{
+		
 		$query = $this->query;
-		$sql = array('columns' => null, 'from' => null,'filter' => null,'orderBy' => null,'limits' => null);
-		// Columns.
-		$sql['columns'] = implode(',', $query->columns);
+		
+		$sql = array
+		( 
+			'columns' => null, 
+			'from' => null, 
+			'filter' => null, 
+			'orderBy' => null, 
+			'limits' => null 
+		);
+		
+		$sql[ 'columns' ] = implode( ', ', $query->columns );
+		
 		// From.
-		$sql['from'] = " FROM {$from}";
+		$sql[ 'from' ] = " FROM {$from}";
+		
 		// Where clause.
-		if (!empty($filter)) {
-			$sql['filter'] = " WHERE {$filter}";
+		if ( ! empty( $filter ) ) 
+		{
+			$sql[ 'filter' ] = " WHERE {$filter}";
 		}
+		
 		// Order By.
-		if (!empty($query->orderBy)) {
-			$sql['orderBy'] = ' ORDER BY ' . implode(',', $order);
+		if ( ! empty( $query->orderBy ) ) 
+		{
+			$sql[ 'orderBy' ] = ' ORDER BY ' . implode( ',', $order );
 		}
+		
 		// Limits.
-		if (!empty($query->limits)) {
-			$sql['limits'] = " LIMIT {$limits[0]}" . (isset($limits[1]) ? ",{$limits}" : '');
+		if ( ! empty( $query->limits ) ) 
+		{
+			$sql[ 'limits' ] = " LIMIT {$limits[0]}" . ( isset( $limits[ 1 ] ) ? ",{$limits}" : '' );
 		}
-		// Combine all into one statment.
-		$sql = "SELECT {$sql['columns']}{$sql['from']}{$sql['filter']}{$sql['orderBy']}{$sql['limits']};";
+		
+		// Buile query
+		$sql = "SELECT {$sql['columns']}\n\n{$sql['from']}\n\n{$sql['filter']}{$sql['orderBy']}{$sql['limits']};";
+		
 		return $sql;
 	}
 	

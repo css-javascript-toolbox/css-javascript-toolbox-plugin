@@ -113,31 +113,54 @@ class CJTCouplingModel extends CJTHookableClass {
 	public function getOrder() {
 		return $this->ongetorder(get_option('meta-box-order_cjtoolbox'));
 	}
-	
+
 	/**
 	* put your comment there...
 	* 
 	* @param mixed $linksExpressionFlag
 	* @param mixed $pinPoint
 	* @param mixed $customPins
+	* @param mixed $hookParams
 	*/
-	public function getPinsBlocks($linksExpressionFlag, $pinPoint, $customPins) {
+	public function getPinsBlocks( $linksExpressionFlag, $pinPoint, $customPins, $hookParams ) 
+	{
 		// Extendable!
-		extract($this->onpinsblockfilters(compact('linksExpressionFlag', 'pinPoint', 'customPins')));
+		extract( $this->onpinsblockfilters( compact( 'linksExpressionFlag', 'pinPoint', 'customPins' ) ) );
+		
 		// Import required libraries for CJTPinsBlockSQLView.
 		require_once CJTOOLBOX_TABLES_PATH . '/pins-blocks-view.php';
+		
 		// Initialize new CJTPinsBlockSQLView view object.
-		$dbDriver = new CJTMYSQLQueueDriver($GLOBALS['wpdb']);
-		$view = new CJTPinsBlockSQLView($dbDriver);
+		$dbDriver = new CJTMYSQLQueueDriver( $GLOBALS[ 'wpdb' ] );
+		$view = new CJTPinsBlockSQLView( $dbDriver );
+		
 		// Apply filter to view.
-		$view->filters($pinPoint, $customPins);
+		$view->filters( $pinPoint, $customPins );
+		
+		# Allow Plugins/Extensions to change block core query
+		do_action( 
+		
+			CJTPluggableHelper::ACTION_BLOCK_QUERY_BLOCKS,
+			
+			$view,
+			
+			$hookParams
+			
+			);
+			
 		// retreiving blocks data associated with current request.
-		$blocks = $this->onrequestblocks($view->exec());
+		$blocks = $this->onrequestblocks( $view->exec() );
+		
+		# Filter queue blocks
+		$blocks = apply_filters( CJTPluggableHelper::FILTER_BLOCKS_COUPLING_MODEL_BLOCKS_QUEUE, $blocks, $hookParams );
+		
 		// Get links & expressions Blocks.
 		// NOTE: We need only blocks not presented in $blocks var -- exclude their id.
-		$view->filters($linksExpressionFlag, array(), 'active', array_keys($blocks));
+		$view->filters( $linksExpressionFlag, array(), 'active', array_keys( $blocks ) );
+		
 		// We'll process all blocks inside single loop.
-		$blocks = $blocks + $this->onexpressionsandlinkedblocks($view->exec());
+		$blocks = $blocks + $this->onexpressionsandlinkedblocks( $view->exec() );
+
 		return $blocks;
 	}
 	
