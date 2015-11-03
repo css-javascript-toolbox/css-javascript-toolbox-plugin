@@ -48,6 +48,7 @@ return array(
     'CJTServicesForm' => $baseDir . '/framework/ServicesFW/Form.class.php',
     'CJTServicesHTTPRequestRouter' => $baseDir . '/framework/ServicesFW/HTTPRequestRouter.class.php',
     'CJTServicesIPluginBase' => $baseDir . '/framework/ServicesFW/PluginBase.interface.php',
+    'CJTServicesInstaller' => $baseDir . '/framework/ServicesFW/Installer.abstract.php',
     'CJTServicesMVCController' => $baseDir . '/framework/ServicesFW/Controller.class.php',
     'CJTServicesMVCView' => $baseDir . '/framework/ServicesFW/View.class.php',
     'CJTServicesMVCViewJson' => $baseDir . '/framework/ServicesFW/ViewJson.class.php',
