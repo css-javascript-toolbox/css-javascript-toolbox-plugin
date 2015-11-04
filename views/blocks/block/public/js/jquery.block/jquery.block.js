@@ -698,7 +698,6 @@
 					'editor-language-php' : {callback : this._onswitcheditorlang, params : {lang : 'php'}},
 					'state-switch' : {callback : this._onswitchflag, params : {flag : 'state'}},
 					'save' : {callback : this._onsavechanges, params : {enable : false}},
-					'revisions' : {callback : this._ondisplayrevisions},
 					'delete' : {callback : this._ondelete},
 					'location-switch' : {callback : this._onswitchflag, params : {flag : 'location'}},
 					'get-shortcode' : {callback : this._ongetshortcode},
@@ -765,7 +764,6 @@
 			// Default to DOCK!!
 			this.defaultDocks = [{element : this.block.aceEditor.container, pixels : 7}];
 			// Show hidden toolbox buttons.
-			this.toolbox.buttons['revisions'].jButton.removeClass('waitingToLoad');
 			this.toolbox.buttons['switch-editor-language'].jButton.removeClass('waitingToLoad');
 			this.toolbox.buttons['link-external'].jButton.removeClass('waitingToLoad');
 			this.toolbox.buttons['templates-lookup'].jButton.removeClass('waitingToLoad');
