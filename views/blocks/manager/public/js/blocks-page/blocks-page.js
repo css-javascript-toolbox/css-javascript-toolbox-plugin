@@ -241,63 +241,6 @@ var CJTBlocksPage;
 		},
 		
 		/**
-		*
-		*
-		*
-		*
-		*/
-		_ondeleteall : function() {
-			// Confimation message!
-			var blocksCount = CJTBlocksPage.blocks.getBlocks().length;
-			var confirmMessage = CJTBlocksPageI18N.commonDeleteMessage.replace('%d', blocksCount)
-																									+ "\n\n"
-																									+ CJTBlocksPage.blocks.toArray('name').join("\n")
-																									+ "\n\n"
-																									+ CJTBlocksPageI18N.confirmDeleteAll;
-			// Confirm deletion.
-			if (confirm(confirmMessage)) {
-				CJTBlocksPage.deleteBlocks(CJTBlocksPage.blocks.getBlocks());
-			}
-		},
-		
-		/**
-		*
-		*
-		*
-		*
-		*/
-		_ondeleteempty : function() {
-			// initialize blocks.
-		  var blocks = CJTBlocksPage.blocks.getBlocks();
-		  var emptyBlocks = [];
-		  // For every block check if there is code content.
-		  blocks.each(
-		  	function(index, block) {
-		  		var code = block.CJTBlock.block.get('code');
-		  		if (code == '') {
-		  			emptyBlocks.push(this);
-		  		}
-		  	}
-		  );
-		  // If there is at least one empty block to delete just confirm
-		  // otherwise show error!
-		  if (emptyBlocks.length) {
-				// Confimation message!
-				var confirmMessage = CJTBlocksPageI18N.commonDeleteMessage.replace('%d', emptyBlocks.length)
-																									+ "\n\n"
-																									+ CJTBlocksPage.blocks.toArray('name', emptyBlocks).join("\n")
-																									+ "\n\n"
-																									+ CJTBlocksPageI18N.confirmDeleteEmpty;
-			  if (confirm(confirmMessage)) {
-					CJTBlocksPage.deleteBlocks(emptyBlocks);				
-			  }
-		  }
-		  else {
-				alert(CJTBlocksPageI18N.noBlocksToDelete)
-		  }
-		},
-		
-		/**
 		* put your comment there...
 		* 
 		*/
@@ -412,46 +355,6 @@ var CJTBlocksPage;
 					postboxes.save_state(CJTBlocksPage.pageId);
 				}
 			)
-		},
-		
-		/**
-		*
-		*
-		*
-		*
-		*/
-		_onswitchflag : function(event, params) {
-			var multiOperationServer = CJTBlocksPage.server.multiOperation;
-			var eventName = 'switch' + params.flag.ucFirst();
-			// First queue blocks flag.
-			multiOperationServer.trigger(eventName, params)
-			// Second send all queued stack to sgerver.
-			.send('post');
-		},
-		
-		/**
-		*
-		*
-		*
-		*
-		*/
-		_ontoggle : function(event, params) {
-			// Show or Hide blocks.
-			var blocks = CJTBlocksPage.blocks.getBlocks();
-			switch (params.state) {
-				case false:
-					// Close postboxes.
-					blocks.addClass('closed');
-				break;
-				case true:
-					// Open postboxes.
-					blocks.removeClass('closed');
-					// Notify postbox opened.
-					blocks.each(function() {this.CJTBlock._onpostboxopened();});					
-				break;
-			}
-			// Save (batch) state.
-			postboxes.save_state('cjtoolbox');
 		},
 		
 		/**
@@ -623,21 +526,14 @@ var CJTBlocksPage;
 					'add-block' : {callback : CJTBlocksPage._onaddnew},
 					'restore' : {callback : CJTBlocksPage._onrestore},
 					'cancel-restore' : {callback : CJTBlocksPage._oncancelrestore},
-					'delete-all' : {callback : CJTBlocksPage._ondeleteall},
-					'delete-empty' : {callback : CJTBlocksPage._ondeleteempty},
 					'reset-order' : {callback : CJTBlocksPage._onresetorder},
 					'manage-backups' : {callback : CJTBlocksPage._onmanagebackups},
-					'footer-all' : {callback : CJTBlocksPage._onswitchflag, params : {flag : 'location', newValue : 'footer'}},
-					'header-all' : {callback : CJTBlocksPage._onswitchflag, params : {flag : 'location', newValue : 'header'}},
-					'activate-all' : {callback : CJTBlocksPage._onswitchflag, params : {flag : 'state', newValue : 'active'}},
-					'deactivate-all' : {callback : CJTBlocksPage._onswitchflag, params : {flag : 'state', newValue : 'inactive'}},
-					'revert-state' : {callback : CJTBlocksPage._onswitchflag, params : {flag : 'state'}},
 					'templates-manager' : {callback : CJTBlocksPage._onmanagetemplates},
 					'global-settings' : {callback : CJTBlocksPage._onmanagesettings},
-					'close-all' : {callback : CJTBlocksPage._ontoggle, params : {state: false}},
-					'open-all' : {callback : CJTBlocksPage._ontoggle, params : {state : true}}
 				} 
 			});
+			
+			$( document ).trigger( 'cjtmanagertoolboxloaded', [ CJTBlocksPage ] );
 			
 			var jBlocks = CJTBlocksPage.blocks.getBlocks();
 			

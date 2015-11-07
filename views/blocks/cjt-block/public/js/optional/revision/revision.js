@@ -64,18 +64,17 @@ var CJTBlockOptionalRevision = null;
 					// Force assignment panel revision mode.
 					this.assignPanel.loadAssignedOnlyMode = true;
 					this.assignPanel.checkboxDisabled = true;
-					// Hide AssignedOnly switcher.
-					this.assignPanel.assignedOnlySwitcher.jElement().css({visibility : 'hidden'});
 				break;
 				default : // Revert back to normal state.
 					// Reset alternate block Id.
 				  this.assignPanel.modeBlockId = null;
-				  // Switch 
-				  this.assignPanel.assignedOnlySwitcher.switchState();
-				  // Show assigned only switcher.
-				  this.assignPanel.assignedOnlySwitcher.jElement().css({visibility : 'visible'});
 				break;
 			}
+			
+			block = this.assignPanel.block;
+			
+			block.block.box.trigger( 'cjtblockrevisionswitchstate', [ block, this.state ] );
+			
 			// Reset assignpanel selected TAB.
 			this.assignPanel.activateTab('advanced');
 		}

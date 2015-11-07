@@ -16,22 +16,23 @@
 	margin-top: 8px;
 }
 /* Wrap long text */
-.select-childs {
+input[type="checkbox"].select-childs {
 	position: relative;
 	left: -1px;
 	top: -1px;
 	margin-left: -12px !important;
 	margin-right: 1px !important;
 	margin-top: 0px !important;
+	display: none;
 }
 .select-childs-checkbox-overlay {
 	background-color: #bb5300;
 	position: relative;
 	width: 16px;
 	height: 16px;
+	display: none;
 	opacity: 0.3;
 	filter: alpha(opacity = 30);
-	display: inline-block;
 	top: 4px;
 	z-index: 1;
 	left: 3px;

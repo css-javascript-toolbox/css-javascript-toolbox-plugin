@@ -60,8 +60,6 @@ span#support-us {position: absolute;top: 15px;left: 370px;font-size: 13px;color:
 	position: relative;
 }
 /* Links */
-.cjt-toolbox-blocks a.cjttbl-state-tools {width: 28px !important; background: url(../images/toolbox/activate-all.png) no-repeat;}
-.cjt-toolbox-blocks a.cjttbl-location-tools { background: url(../images/toolbox/header-all.png) no-repeat; }
 .cjt-toolbox-blocks a.cjttbl-admin-tools { background: url(../images/toolbox/admin-tools.png) no-repeat; }
 .cjt-toolbox-blocks a.cjttbl-templates-manager { background: url(../images/toolbox/templates-manager.png) no-repeat; }
 .cjt-toolbox-blocks a.cjttbl-global-settings { background: url(../images/toolbox/settings.png) no-repeat;  }
@@ -81,16 +79,9 @@ span#support-us {position: absolute;top: 15px;left: 370px;font-size: 13px;color:
 	margin-left: 40px;
 	top: 2px;
 }
-.cjt-toolbox-blocks a.cjttbl-delete-all { background: url(../images/toolbox/delete-all.png) no-repeat; }
-.cjt-toolbox-blocks a.cjttbl-delete-empty { background: url(../images/toolbox/delete-empty.png)  no-repeat; }
 .cjt-toolbox-blocks a.cjttbl-manage-backups { background: url(../images/toolbox/backup.png)  no-repeat; }
-.cjt-toolbox-blocks a.cjttbl-footer-all { background: url(../images/toolbox/footer-all.png) no-repeat; }
-.cjt-toolbox-blocks a.cjttbl-header-all { background: url(../images/toolbox/header-all.png) no-repeat; }
-.cjt-toolbox-blocks a.cjttbl-activate-all { background: url(../images/toolbox/activate-all.png)  no-repeat; }
-.cjt-toolbox-blocks a.cjttbl-deactivate-all { background: url(../images/toolbox/deactivate-all.png)  no-repeat; }
-.cjt-toolbox-blocks a.cjttbl-revert-state { background: url(../images/toolbox/revert-state.png)  no-repeat; }
-.cjt-toolbox-blocks a.cjttbl-close-all { background: url(../images/toolbox/close-all.png)  no-repeat; }
-.cjt-toolbox-blocks a.cjttbl-open-all { background: url(../images/toolbox/open-all.png)  no-repeat; }
+
+
 
 #templates-lookup-form {height: 330px;}
 

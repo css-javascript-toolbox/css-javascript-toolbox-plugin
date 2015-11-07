@@ -22,4 +22,12 @@ abstract class CJTPluggableHelper
 	
 	const ACTION_BLOCK_CUSTOM_POST_TYPES = 'cjt-block-custom-post-types';
 	
+	const ACTION_BLOCKS_MANAGER_TOOLBOX_LEFT_BUTTONS = 'cjt-blocks-manager-toolbox-left-buttons';
+	const ACTION_BLOCKS_MANAGER_TOOLBOX_ADMIN_TOOLS_TOP = 'cjt-blocks-manager-toolbox-tools-top';
+	const ACTION_BLOCKS_MANAGER_TOOLBOX_RIGHT_BUTTONS = 'cjt-blocks-manager-toolbox-right-buttons';
+	
+	const ACTION_BLOCK_SCREEN_INFO_TOP = 'cjt-block-screen-info-top';
+	
+	const ACTION_BLOCK_ASSIGN_PANEL_TAB_BOTTOM = 'cjt-block-assign-panel-tab-bottom';
+	
 }

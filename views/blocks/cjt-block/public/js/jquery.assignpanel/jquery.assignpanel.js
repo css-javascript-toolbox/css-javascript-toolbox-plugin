@@ -6,148 +6,6 @@
 * 
 */
 (function($) {
-
-	/**
-	* put your comment there...
-	* 
-	* @type T_JS_FUNCTION
-	*/
-	var Buttons = new function() {
-		
-		/**
-		* 
-		*/
-		this.AssignOnlySwitcher = function(assignPanel) {
-			// initialize.
-			var isRunning = false;
-			var anchors = {};
-			var switchers = [{name : 'assignOnly', state : true, 'otherSwitcher' : 'all'}, {name : 'all', state : false, 'otherSwitcher' : 'assignOnly'}];
-			var model = assignPanel.block.block;
-			var jElement = $(model.box.find('.listing-options'));
-			
-			/**
-			* put your comment there...
-			* 
-			* @param event
-			*/
-			var _onswitch = function(event) {
-				// Don't run while in process.
-				if (isRunning) {
-					return false;
-				}
-				// Get switcher associated to the anchor.
-				var switcher = $(event.target).data('switcher');
-				// Check for changes.
-				// If would be treated as changed when
-				// there is a changed detected and the
-				// the change is really made to the assign panel fields.
-				// Get changes copy and remove CODE field.
-				var changes = $.extend({}, assignPanel.block.changes);
-				var codeFieldID = model.aceEditor.cjtBlockFieldId;
-				delete changes[codeFieldID];
-				// CHeck if there is any changes regardless the CODE field.
-				if (CJTBlocksPage.blocks.hasChanges(changes)) {
-					var confirmed = confirm(CJT_CJT_BLOCKJqueryBlockI18N.changesDetectedConfirmMessage);
-					// If not confirmed returns.
-					if (!confirmed) {
-						return false;
-					}
-					else {
-						// Reset all changes except code.
-						assignPanel.block.changes = {codeFieldID : assignPanel.block.changes[assignPanel.block.changes]};
-						// HasChanges!
-						var hasChanges = CJTBlocksPage.blocks.hasChanges(assignPanel.block.changes);
-						// Based on the hasChanges value reflect user interface
-						// components for CJTPages and the Block unit.
-						CJTBlocksPage.blockContentChanged(model.get('id'), hasChanges);
-						assignPanel.block.toolbox.buttons['save'].enable(hasChanges);
-					}
-				}
-				// Enter running mode.
-				isRunning = true;
-				// Reset assignment panel
-				// Process all LISTING properties.
-				var properties = $.merge([], assignPanel.block.features.restoreRevision.fields);
-				delete properties[properties.indexOf('code')];
-				delete properties[properties.indexOf('links')];
-				delete properties[properties.indexOf('expressions')];
-				$.each(properties, $.proxy(
-					function(index, propertyName) {
-						if (propertyName) {
-							// Get property om
-							pom = model.property(propertyName).om;
-							// Reset values.
-							pom.setValue(null);
-							pom.reset();
-						}
-					}, this)
-				);
-				// Save property.
-				model.set('assignOnlyModeSwitcher', switcher.name);
-				// Switch state.
-				this.switchState();
-				// Activate ADVANCED TAB.
-				// Activate previously activated tab.
-				var currentActiveTAB = assignPanel.jElement.tabs('option', 'active');
-				assignPanel.activateTab('advanced');
-				assignPanel.jElement.tabs('option', 'active', currentActiveTAB);
-				// Exsit running mode.
-				isRunning = false;
-				// Inactive
-				return false;
-			};
-			
-			/**
-			* put your comment there...
-			* 
-			*/
-			var getBlockSwitcherName = function() {
-				return model.get('assignOnlyModeSwitcher', 'all');
-			};
-
-			/**
-			* put your comment there...
-			* 
-			*/
-			this.jElement = function() {
-				return jElement;
-			};
-			
-			/**
-			* put your comment there...
-			* 
-			*/
-			this.switchState = function() {
-				// Get block switcher.
-				var anchor = anchors[getBlockSwitcherName()];
-				var switcher = anchor.data('switcher');
-				// Change anchor state.
-				anchor.addClass('active');
-				// Reset the other anchor state.
-				anchors[switcher.otherSwitcher].removeClass('active');				
-				// Change state.
-				assignPanel.loadAssignedOnlyMode = switcher.state;
-				assignPanel.checkboxDisabled = false;
-			};
-
-			// Initialize null p
-			// Find links, bind events.
-			$.each(switchers, $.proxy(
-				function(index, switcher) {
-					// Find Anchor
-					anchors[switcher.name] = model.box.find('.listing-options-' + switcher.name)
-					// Handle click
-					.click($.proxy(_onswitch, this))
-					// Store switcher name.
-					.data('switcher', switcher);
-				}, this)
-			);
-			
-			// Switch to default state.
-			this.switchState();
-		};
-		
-	};
 	
 	/**
 	* Hold the items per page to load
@@ -728,9 +586,9 @@
 						}, this)
 					);
 					
-					// Buttons.
-					this.assignedOnlySwitcher = new Buttons.AssignOnlySwitcher(this);
-		
+					// Initialize assign panel attachec components
+					$( assigmentPanelElement ).trigger( 'cjtassignpanelattachedcomponents', [ assignPanel ] );
+					
 					// Initialize Assigment Panel tab.
 					this.jElement.tabs(
 					{
