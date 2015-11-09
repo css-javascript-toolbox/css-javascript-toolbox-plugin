@@ -179,22 +179,32 @@ var CJTBlocksPage;
 		* put your comment there...
 		* 
 		*/
-		init : function() {
+		init : function() 
+		{
 			// Initialize vars.
 			this.blocksForm = $('form[name="post"]');
+			
 			// Use plural getBlocks() and dont worry, we've only one block metabox.
 			this.blocks = new CJTBlocks();
 			this.server = CJTServer;
+			
 			// Initilize Global-Blocks Conponents.
 			CJTBlockCodeFileView.initialize();
+			
+			$( document ).trigger( 'cjtmanagerpreloadblocks', [ this.blocksForm, this.blocks.getBlocks() ] );
+			
 			// Put CJT code block into actions!
 			var blocks = this.blocks.getBlocks().CJTBlock({calculatePinPoint : 0});
+			
 			// Fix thickbox issue caused by media-upload.js script.
 			this.metaboxBlockToolbox = blocks.get(0).CJTBlock.toolbox;
+			
 			this.metaboxBlockToolbox.buttons['info'].callback = $.proxy(this._onshowthickbox, {event : '_ongetinfo'});
-			this.metaboxBlockToolbox.buttons['revisions'].callback = $.proxy(this._onshowthickbox, {event : '_ondisplayrevisions'});
+			
 			// Notify saving changes.
 			this.wpAutoSave.timer = window.setInterval($.proxy(this.detectWordpressAutoSaveAlertEvent, this), 100);
+			
+			this.blocksForm.trigger( 'cjtblocksinitmetaboxpage', [ this, blocks.get(0).CJTBlock ] );
 		}
 		
 	};
