@@ -40,6 +40,8 @@
 				{element : assigmentPanelElement.find('.advanced-accordion .ui-accordion-content'), pixels : 172},
 				{element : assigmentPanelElement.find('.advanced-accordion .ui-accordion-content textarea'), pixels : 182}
 			];
+			
+			this.block.box.trigger( 'cjtassignableblockloaded', [ this ] );
 		};
 		
 		// Load block only when loaded by parent model.
@@ -48,6 +50,7 @@
 		/// Initialize parent class.
 		// Add assigment panel fields to the restoreRevision args.
 		args.restoreRevision = {fields : ['code', 'pages', 'posts', 'categories', 'pinPoint', 'links', 'expressions']};
+		
 		this.initCJTPluginBase(node, args);
 		
 	} // End class.

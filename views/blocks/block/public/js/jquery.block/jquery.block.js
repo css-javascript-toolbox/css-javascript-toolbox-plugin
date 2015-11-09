@@ -818,6 +818,14 @@
 			this.revisionControl.display();
 		}
 		
+		/**
+		* 
+		*/
+		this.setFeatures = function( features )
+		{
+			this.features = features;
+		};
+		
 		/*
 		*
 		*

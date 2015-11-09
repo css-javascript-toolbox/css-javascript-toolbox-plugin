@@ -109,9 +109,13 @@ class CJTBlockAjaxController extends CJTAjaxController {
 																	->load()
 																	->getData()->code;
 		// Discard Pins.
-		$revision->pages = false;
-		$revision->posts = false;
-		$revision->categories = false;
+		$customPins = array_keys( CJTBlockModel::getCustomPins() );
+		
+		foreach ( $customPins as $customPinName )
+		{
+			$revision->{$customPinName} = false;
+		}
+		
 		// Return revision.
 		$this->response = $revision;
 	}
