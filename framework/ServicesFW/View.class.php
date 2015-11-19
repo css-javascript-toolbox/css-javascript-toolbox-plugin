@@ -87,15 +87,26 @@ class CJTServicesMVCView {
 	* put your comment there...
 	* 
 	*/
-	public function _enqueueScripts() {
-		foreach ( $this->scripts as $script ) {
+	public function _enqueueScripts() 
+	{
+		
+		foreach ( $this->scripts as $script ) 
+		{
+			// Enqueue script
 			wp_enqueue_script( 	$script[ 'handle' ], 
 													$script[ 'src' ], 
 													$script[ 'dep' ], 
 													$script[ 'version' ], 
 													$script[ 'footer' ] 
 													);
+													
+			// Pluggable script queue
+			foreach ( $script[ 'plugs' ] as $scriptPlug )
+			{
+				call_user_func( $scriptPlug, $script );
+			}
 		}
+		
 	}
 
 	/**
@@ -113,6 +124,20 @@ class CJTServicesMVCView {
 		}
 	}
 
+	/**
+	* put your comment there...
+	* 
+	* @param mixed $script
+	*/
+	public function _localizeJS( $script )
+	{
+		
+		$l10n =& $script[ 'l10n' ];
+		
+		wp_localize_script( $script[ 'handle' ], $l10n[ 'jsName' ], $l10n[ 'strings' ] );
+		
+	}
+	
 	/***
 	* put your comment there...
 	* 
@@ -121,10 +146,13 @@ class CJTServicesMVCView {
 	* @param mixed $version
 	* @param mixed $footer
 	*/
-	public function enqueueScript($handle, $src = null, $dep = null, $version = null, $footer = null) {
-		# Add style
-		$this->scripts[] = compact( 'handle', 'src', 'dep', 'version', 'footer' );
-		# Chain
+	public function enqueueScript( $handle, $src = null, $dep = null, $version = null, $footer = null ) 
+	{
+		
+		$plugs = array();
+		
+		$this->scripts[ $handle ] = compact( 'handle', 'src', 'dep', 'version', 'footer', 'plugs' );
+		
 		return $this;
 	}
 
@@ -167,8 +195,16 @@ class CJTServicesMVCView {
 	* 
 	* @param mixed $name
 	*/
-	public function getResName($name) {
-		return strtolower( get_class( $this ) ) . '-' . strtolower( $name );
+	public function getResName($name) 
+	{
+		
+		$name = strtolower( $name );
+		
+		$name = str_replace( array( '.' ), '-', $name );
+		
+		$resName = strtolower( get_class( $this ) ) . "-{$name}";
+		
+		return $resName;
 	}
 	
 	/**
@@ -222,10 +258,32 @@ class CJTServicesMVCView {
 	/**
 	* put your comment there...
 	* 
+	* @param mixed $handle
+	* @param mixed $jsName
+	* @param mixed $strings
 	*/
-	protected function messagesList() {
+	public function localizeJS( $handle, $jsName, $strings )
+	{
+		
+		$script =& $this->scripts[ $handle ];
+		
+		$script[ 'l10n' ] = compact( 'jsName', 'strings' );
+		
+		$script[ 'plugs' ][ ] = array( $this, '_localizeJS' );
+		
+		return $this;
+	}
+
+	/**
+	* put your comment there...
+	* 
+	*/
+	protected function messagesList() 
+	{
 		ob_start();
+		
 		require __DIR__ . DIRECTORY_SEPARATOR . 'ViewTemplates' . DIRECTORY_SEPARATOR . 'MessagesList.html';
+		
 		return ob_get_clean();
 	}
 

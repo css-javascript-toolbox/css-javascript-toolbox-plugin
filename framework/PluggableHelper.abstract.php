@@ -9,6 +9,8 @@
 abstract class CJTPluggableHelper
 {
 	
+	const ACTION_CJT_TEXT_DOMAIN_LOADED = 'cjt-text-domain-loaded';
+	
 	const ACTION_BLOCK_QUERY_BLOCKS = 'cjt-block-query-blocks';
 	
 	const FILTER_BLOCK_ASSIGN_PANEL_TABS = 'cjt-block-assign-panel-tabs';

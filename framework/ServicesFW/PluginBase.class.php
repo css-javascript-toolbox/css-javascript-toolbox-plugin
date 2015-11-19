@@ -129,6 +129,15 @@ abstract class CJTServicesPluginBase implements CJTServicesIPluginBase
 	* put your comment there...
 	* 
 	*/
+	public function getName()
+	{
+		return basename( $this->dir );
+	}
+	
+	/**
+	* put your comment there...
+	* 
+	*/
 	public function getUrl()
 	{
 		return $this->url;

@@ -303,11 +303,16 @@ class CJTPlugin extends CJTHookableClass {
 	* 
 	* @return boolean TRUE.
 	*/
-	public function onconnected($observer, $state) {
+	public function onconnected($observer, $state) 
+	{
 		// In all cases that we'll process the request load the localization file.
 		load_plugin_textdomain(CJTOOLBOX_TEXT_DOMAIN, false, CJTOOLBOX_LANGUAGES);
+		
+		do_action( CJTPluggableHelper::ACTION_CJT_TEXT_DOMAIN_LOADED );
+		
 		// Always connet  the access point!
 		return $state;
+		
 	}
 	
 }// End Class
