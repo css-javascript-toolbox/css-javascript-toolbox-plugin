@@ -9,7 +9,7 @@ defined('ABSPATH') or die('Access denied');
 /**
 * 
 */
-class CJTTinymceBlocksModel {
+class CJTTinymceBlocksModel_DEPRECATED {
 	
 	/**
 	* put your comment there...

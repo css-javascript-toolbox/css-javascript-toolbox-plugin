@@ -145,7 +145,6 @@
 .block-toolbox a.cjttbl-edit-name { background-image: url(../images/toolbox/edit-name.png); }
 .block-toolbox a.cjttbl-info { background-image: url(../images/toolbox/info.png); }
 .block-toolbox a.cjttbl-templates-lookup { background-image: url(../images/toolbox/templates-lookup.png); }
-.block-toolbox a.cjttbl-link-external { background-image: url(../images/toolbox/link-external.png); }
 
 /** Editor Toolbox */
 .cjt-toolbox.editor-toolbox {

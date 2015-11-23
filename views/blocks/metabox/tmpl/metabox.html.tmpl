@@ -8,7 +8,7 @@ defined('ABSPATH') or die("Access denied");
 
 // Global Comonents eent
 $content = '';
-echo CJTBlocksMetaBoxView::trigger('CJTBlocksMetaBoxView.loadglobalcomponents', $content);
+echo CJTBlocksMetaBoxView::trigger( 'CJTBlocksMetaBoxView.loadglobalcomponents', $content );
 
 // Block Templates.
 require CJTOOLBOX_VIEWS_PATH . '/blocks/block/tmpl/codefile/codefile.html.tmpl';

@@ -354,38 +354,8 @@
 			};
 			var url = CJTBlocksPage.server.getRequestURL('block', 'get_info_view', requestData);
 			tb_show(CJTJqueryBlockI18N.blockInfoTitle, url);
-		}
-		
-		/**
-		* Quickely link external resource (CSS, JS, HTML or PHP)!
-		* 
-		* The method is to fetch external content and add it as CJT template.
-		*/
-		this._onlinkexternal = function() {
-			// Read URLs from user inputs.
-			var externals = prompt(CJTJqueryBlockI18N.linkExternalMessage);
-			var linkExternalButton =  this.toolbox.buttons['link-external'];
-			if (externals) {
-				// Show progress.
-				linkExternalButton.loading(true);
-				// Request server to link the external resources.
-				var request = {externals : externals, blockId : this.block.get('id')};
-				CJTBlocksPage.server.send('templatesManager', 'linkExternal', request)
-				.success($.proxy(
-					function(state) {
-						if (state.code) {
-							alert(CJTJqueryBlockI18N.couldNotLinkExternals + state.message);
-						}
-					}, this)
-				).complete($.proxy(
-					function() {
-						// Stop progress.
-						linkExternalButton.loading(false);
-					}, this)
-				);
-			}
-		}
-
+		};
+	
 		/**
 		* 
 		*/

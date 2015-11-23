@@ -18,7 +18,5 @@ return array(
 	'location_headerTitle' => cssJSToolbox::getText('Set output location hook to footer'),
 	'location_footerTitle' => cssJSToolbox::getText('Set output location hook to header'),
 	'invalidBlockName' => cssJSToolbox::getText('Invalid block name'),
-	'linkExternalMessage' => cssJSToolbox::getText('Please enter a list of the external URLs you want to link separated by comma!'),
-	'couldNotLinkExternals' => cssJSToolbox::getText('Couldn\'t link the externals URI you requested!! Reason:'),
 	'loadingBlock' => cssJSToolbox::getText('Loading'),
 );

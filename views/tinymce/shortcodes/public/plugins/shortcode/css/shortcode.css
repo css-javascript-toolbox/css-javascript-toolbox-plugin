@@ -1,8 +1,0 @@
-.mce-i-cjt-blocks-list-tinymce-button {
-    background-image: url('../images/blocks.png') !important;
-    opacity: 0.6; filter:alpha(opacity = 60%)
-}
-.mce-i-cjt-blocks-list-tinymce-button.cjt-loading {
-    background-image: url('../../../../../../../framework/css/images/loading.gif') !important;
-}
-.mce-i-cjt-blocks-list-tinymce-button:hover {opacity: 1; filter:alpha(opacity = 100%)}
