@@ -32,4 +32,5 @@ abstract class CJTPluggableHelper
 	
 	const ACTION_BLOCK_ASSIGN_PANEL_TAB_BOTTOM = 'cjt-block-assign-panel-tab-bottom';
 	
+	const ACTION_BLOCK_CODE_FILE_TEMPLATE_CREATE_NEW_FILE = 'cjt-block-code-file-template-create-bew-file';
 }

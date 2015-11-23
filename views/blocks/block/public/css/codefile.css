@@ -90,6 +90,6 @@ input.show-selection {
     display: none;
 }
 
-li.code-file-item.create-file-row {padding-bottom: 3px;}
+li.code-file-item.create-file-row {padding-bottom: 16px !important;}
 #code-files-manager > li.codeFile {padding-top: 0px;margin-bottom: 1px;}
 li.code-file-item.create-file-row > a {font-size: 16px !important;}

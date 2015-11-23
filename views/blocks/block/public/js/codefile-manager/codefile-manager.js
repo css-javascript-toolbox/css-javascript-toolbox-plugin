@@ -21,7 +21,7 @@
 		/**
 		* 
 		*/
-   		this.filesManager;
+   	this.filesManager;
 		
 		/**
 		* 
@@ -142,23 +142,7 @@
 					return false;
 				}, this )
 			);
-			// Create File.
-			this.filesManager.find('.create-file').click($.proxy(
-				function(event) {
-					// New Code file default data.
-					var newCodeFile = {name : '', type : '', tag : '', description : '', id : 0};
-					// Display form.
-					this.editCodeFileDialog.display($(event.target).parent(), newCodeFile).done($.proxy(
-						function(rCodeFile) {
-							// Add newly added code file.
-							this.listCodeFile(rCodeFile);;
-							// Close the form.
-							this.editCodeFileDialog.close();
-						}, this)
-					);
-					return false;
-				}, this )
-			);
+
 		};
 		
 		/**
