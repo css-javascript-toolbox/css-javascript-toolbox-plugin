@@ -6,54 +6,12 @@ Tags: post, posts, admin, sidebar, page, pages, widget, image, shortcode, plugin
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.9
-Tested up to: 4.3
-Stable tag: 8.0.4
+Tested up to: 4.3.1
+Stable tag: 8.0.5
 
 Easily add custom CSS, JavaScript, HTML and PHP code to unique CJT code blocks and assign them wherever you want.
 
 == Description ==
-= Update Notice =
-After a long hiatus in development, we have decided to focus our entire efforts on our new premium extension plugin called [CSS & JavaScript Toolbox PLUS](http://css-javascript-toolbox.com/css-javascript-toolbox-plus/), which is designed to work with and UPGRADE the free version. Unfortunately we will be moving many features from the free version into the premium. 
-
-= What does this mean? =
-For the next update (not this one), we will be removing features from CSS & JavaScript Toolbox Free including: 
-- Custom Posts
-- Categories
-- Auxiliary assignments (e.g. entire website, website backend, etc)
-- Advanced assignments (i.e. URLs and Expressions)
-- Code Files 
-- Code Templates
-- Template Lookup System
-- Packages 
-
-If you rely on the features above, then you can do one of two things:
-
-1) Stay on [CSS & JavaScript Toolbox Free v8.0.3](https://downloads.wordpress.org/plugin/css-javascript-toolbox.8.0.3.zip), and when the next update arrives, DO NOT UPDATE!!!
-
-OR
-
-2) Purchase our premium extension plugin: [CSS & JavaScript Toolbox PLUS](http://css-javascript-toolbox.com/css-javascript-toolbox-plus/)
-
-Of course if you have already updated, you can use FTP to rollback to the earlier version by manually overwriting the css-javascript-toolbox folder with: [CSS & JavaScript Toolbox Free v8.0.3](https://downloads.wordpress.org/plugin/css-javascript-toolbox.8.0.3.zip)
-
-= Why purchase PLUS? =
-[CSS & JavaScript Toolbox PLUS](http://css-javascript-toolbox.com/css-javascript-toolbox-plus/) is our new premium plugin, which will now take up all our time and efforts. It will also contain all of the above features - PLUS these features below:
-- Editor Themes
-- Editor Toolbox
-- Editor Menu Tools
-- Code Auto Completion (CAC)
-- Import Export Tool
-- Block Widget Linker
-- PLUS more
-
-We intend to give PLUS a complete makeover, including: 
-- code optimisation and bug fixes
-- 100% compatibility with the the latest WordPress
-- a faster and more powerful core
-- full codebase documentation
-- and eventually a brand new flat responsive user interface
-
-= About the CSS & JavaScript Toolbox Plugin =
 CSS & JavaScript Toolbox (or CJT) is a powerful code management plugin that gives you the tools to easily and safely modify or extend the functionality and appearance of your WordPress-powered website.
 
 = Perfect for WordPress website development =
@@ -66,6 +24,20 @@ Since CJT was designed to be easy, adding scripts and styles can be done in as l
 - assigning where these code blocks go
 
 CJT code blocks can be assigned to pages, posts, custom posts, categories, URLs, expressions, and practically anywhere you want on your website. Code block shortcodes can also provide you with further placement accuracy.
+
+= Why purchase CSS & JavaScript Toolbox PLUS? =
+[CSS & JavaScript Toolbox PLUS](http://css-javascript-toolbox.com/css-javascript-toolbox-plus/) is our new premium plugin, featuring a faster and more powerful core, PLUS these features below:
+- Inverted Assignments (NEW FEATURE)
+- Support for Post Tags (NEW FEATURE)
+- Editor Themes
+- Editor Toolbox
+- Editor Menu Tools
+- Code Auto Completion (CAC)
+- Import Export Tool
+- Block Widget Linker
+- code optimisation and bug fixes
+- 100% compatibility with the the latest WordPress
+- PLUS more!!!
 
 = Support Us =
 The CSS & JavaScript Toolbox project is 100% developed and maintained by only two people since the very beginnings in August 2011. We have plenty of feature ideas that we want to introduce and this can only be possible with funding.
@@ -131,7 +103,6 @@ Hook location feature gives you control over the location of outputting the CSS/
 Due to the overwhelming amount of emails we get for users requesting support for our CJT plugins, we cannot provide support for the CJT Free plugin (hosted here on WordPress.org) at this stage unfortunately. If you wish to receive priority support, please visit our CJT website and [purchase a license for any of our products](http://css-javascript-toolbox.com/pricing).
 
 == Screenshots ==
-
 1. Add your code, then assign where it goes
 2. Create New Code Block dialog box
 3. Master Admin Toolbar at top, and minimised Code Blocks below
@@ -142,19 +113,24 @@ Due to the overwhelming amount of emails we get for users requesting support for
 8. Assigning Categories and sub-categories
 9. Auxiliary Assignments
 10. Advanced Assignments (URLs and Regular Expressions)
-11. Change State batch tools
-12. Change Location/Hook batch tools
+11. Change State batch tools (CJT PLUS ONLY)
+12. Change Location/Hook batch tools (CJT PLUS ONLY)
 13. Delete and Backup Tools
-14. Code-Files management form (within each Code Block)
-15. Templates Manager form to store all of your Code Templates
+14. Code-Files management within each Code Block (CJT PLUS ONLY)
+15. Templates Manager form to store all of your Code Templates 
 16. Templates Lookup form to embed or link Code Templates to Code Blocks
-17. Insert Code Block shortcodes via TinyMCE button
+17. Insert Code Block shortcodes via TinyMCE button (CJT PLUS ONLY)
 18. Metabox Code Block at the Edit Page/Post level
 19. Create backups of all your existing Code Blocks
-20. Create/Restore Code Block revisions
-21. See Code Block information at a glance
+20. Create/Restore Code Block revisions (CJT PLUS ONLY)
+21. See Code Block information at a glance (CJT PLUS ONLY)
 
 == Changelog ==
+= 8.1 =
+* Compaibility with Wordpress 4.3.1
+* Core Upgrades/Enhancments
+*
+
 = 8.0.4 =
 * Check Wordpress 4.3 compatibility
 * List future deprecated features

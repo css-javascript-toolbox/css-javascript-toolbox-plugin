@@ -35,36 +35,6 @@ class CJTMainAccessPoint extends CJTAccessPoint {
 	* put your comment there...
 	* 
 	*/
-	public function _adminNotice() {
-		# Initialize
-		static $displayed = 0;
-		
-		# Display only for admins
-		if ( ! current_user_can( 'administrator' ) ) {
-			return;
-		}
-		
-		# Dismiss if dimisssed
-		if( isset( $_GET[ 'cjtgp-dismiss-803-notice' ] ) ) {
-			update_user_meta( get_current_user_id(), 'cjtgp-dismiss-803-notice', true );
-		}
-		# Exit if dismissed
-		if ( get_user_meta( get_current_user_id(), 'cjtgp-dismiss-803-notice' ) ) {
-			return;
-		}
-		# Admin notices might run twice!!
-		if( ! $displayed ) {
-			# Don't display again
-			$displayed = true;
-			# Display notice
-			require __DIR__ . DIRECTORY_SEPARATOR . 'main' . DIRECTORY_SEPARATOR . '8.0.4-AdminNotice.html';
-		}
-	}
-
-	/**
-	* put your comment there...
-	* 
-	*/
 	protected function doListen() {
 		// Register uninstall hook!
 		if (CJTPlugin::getInstance()->isInstalled()) {
@@ -74,8 +44,6 @@ class CJTMainAccessPoint extends CJTAccessPoint {
 		// If not in uninstall state then plugins_loaded hook
 		// used to run the plugin!
 		add_action('plugins_loaded', array(&$this, 'main'));
-		# Admin NOTICE
-		add_action( 'admin_notices', array( $this, '_adminNotice' ) );
 	}
 	
 	/**
